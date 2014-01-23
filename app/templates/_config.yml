@@ -1,0 +1,48 @@
+# Jekyll configuration precedence:
+# 1. Gruntfile task
+# 2. config.build.yml
+# 3. config.yml
+
+name: <%= appname %>
+description: <%= jekDescript %>
+author:
+  name: <%= author %>
+  email: <%= email %>
+
+# Grunt handles images and assets.
+exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
+          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+
+include: ['.htaccess']
+
+# _config.build.yml sets future and show_drafts to false on `grunt build`
+future: true
+show_drafts: true<% if (jekPage) { %>
+
+permalink: <%= jekPost %>
+paginate: <%= jekPage %>
+paginate_path: 'page:num'<% } %>
+
+# Markdown library
+markdown: <%= jekMkd %><% if (jekMkd === 'maruku') { %>
+#   use_tex:    false
+#   use_divs:   false
+#   png_engine: blahtex
+#   png_dir:    images/latex
+#   png_url:    /images/latex<% } %><% if (jekMkd === 'rdiscount') {%>
+#   extensions: []<% } %><% if (jekMkd === 'kramdown') {%>
+#   auto_ids: true
+#   footnote_nr: 1
+#   entity_output: as_char
+#   toc_levels: 1..6
+#   use_coderay: false
+#   coderay:
+#     coderay_wrap: div
+#     coderay_line_numbers: inline
+#     coderay_line_numbers_start: 1
+#     coderay_tab_width: 4
+#     coderay_bold_every: 10
+#     coderay_css: style<% } %><% if (jekMkd === 'redcarpet') {%>
+#   extensions: ['fenced_code_blocks', 'smart']<% } %>
+
+pygments: <%= jekPyg %>
