@@ -14,7 +14,7 @@ var PlaybookGenerator = module.exports = function PlaybookGenerator(args, option
   });
 
   if (!dependenciesInstalled) {
-    console.log('Looks like you are missing some dependencies.' +
+    console.log('Seems like you are missing some dependencies.' +
       '\nDouble check that ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed and try again.');
     shelljs.exit(1);
   }
