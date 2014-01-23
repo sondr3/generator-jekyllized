@@ -1,21 +1,21 @@
 'use strict';
 var util = require('util');
 var path = require('path');
-var spawn = require('child_process').spawn;
 var chalk = require('chalk');
 var yeoman = require('yeoman-generator');
 var globule = require('globule');
 var shelljs = require('shelljs');
-var bundle = false;
 
-var Generator = module.exports = function Generator(args, options) {
+var PlaybookGenerator = module.exports = function PlaybookGenerator(args, options, config) {
+  yeoman.generators.Base.apply(this, arguments);
+
   var dependenciesInstalled = ['bundle', 'ruby'].every(function (depend) {
     return shelljs.which(depend);
   });
 
   if (!dependenciesInstalled) {
-    console.log('Looks like you\'re missing some dependencies.' +
-      '\nMake sure ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed, then run again.');
+    console.log('Looks like you are missing some dependencies.' +
+      '\nDouble check that ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed and try again.');
     shelljs.exit(1);
   }
 
