@@ -5,9 +5,15 @@
 
 name: <%= appname %>
 description: <%= jekDescript %>
+tagline: <%= tagline %>
+
 author:
   name: <%= author %>
   email: <%= email %>
+  bio: <%= bio %>
+  twitter: <%= twitter %>
+  # used for Google Authorship
+  google_plus: <%= google_plus %>
 
 # Grunt handles images and assets.
 exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
