@@ -335,7 +335,11 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   var prompts = [{
     name: 'jekyllPermalinks',
     type: 'list',
-    message: 'Post permalink style',
+    message: 'Post permalink style' + 
+    (chalk.red(
+      '\n    date:    /:categories/:year/:month/:day/:title.html' + 
+      '\n    pretty:  /:categories/:year/:month/:day/:title/' +
+      '\n    none:    /:categories/:title.html')),
     choices: ['date', 'pretty', 'none']
   },
   {
