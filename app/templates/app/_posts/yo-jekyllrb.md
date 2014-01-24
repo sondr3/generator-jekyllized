@@ -10,9 +10,9 @@ You now have
 
 - Jekyll<% if (templateType === 'h5bp') { %>
 - Html5 Boilerplate based templates<% } %><% if (h5bpJs) { %>
-- jQuery and Modernizr<% } %><% if (cssPre === 'sass') { %>
-- Sass<% } %><% if (cssPre === 'compass') { %>
-- Sass and Compass<% } %><% if (jsPre === 'coffeescript') { %>
+- jQuery and Modernizr<% } %><% if (cssPreprocessor === 'sass') { %>
+- Sass<% } %><% if (cssPreprocessor === 'compass') { %>
+- Sass and Compass<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
 - Coffeescript tools<% } %>
 - <%= jekMkd %> markdown parser<% if (jekPyg) { %> and Pygments highlighter<% } %>
 

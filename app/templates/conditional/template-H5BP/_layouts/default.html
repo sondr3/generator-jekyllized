@@ -9,13 +9,13 @@
 
     <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
 
-    <!-- build:css<% if (cssPre) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= cssDir %>/main.css --><% if (h5bpCss) { %>
+    <!-- build:css<% if (cssPreprocessor) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= cssDirectory %>/main.css --><% if (h5bpCss) { %>
     <link rel="stylesheet" href="/_bower_components/normalize-css/normalize.css"><% } %><% if (jekPyg) { %>
-    <link rel="stylesheet" href="/<%= cssDir %>/syntax.css"><% } %>
-    <link rel="stylesheet" href="/<%= cssDir %>/main.css">
+    <link rel="stylesheet" href="/<%= cssDirectory %>/syntax.css"><% } %>
+    <link rel="stylesheet" href="/<%= cssDirectory %>/main.css">
     <!-- endbuild --><% if (h5bpJs) { %>
 
-    <!-- build:js<% if (jsPre) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= jsDir %>/head-scripts.js -->
+    <!-- build:js<% if (javascriptPreprocessor) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= javascriptDirectory %>/head-scripts.js -->
     <!-- Replace with a custom modernizer build for production -->
     <script src="/_bower_components/modernizr/modernizr.js"></script><% } %>
     <!-- endbuild -->

@@ -6,7 +6,7 @@ var yeoman = require('yeoman-generator');
 var globule = require('globule');
 var shelljs = require('shelljs');
 
-var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, options, config) {
+var JekyllizeGenerator = module.exports = function JekyllizedGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   var dependenciesInstalled = ['bundle', 'ruby'].every(function (depend) {
@@ -20,7 +20,7 @@ var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, optio
     shelljs.exit(1);
   }
 
-  // Find some defaults to fill in with
+  // Find the users name and email from Git 
   this.gitInfo = {
     ownerName: this.user.git.username,
     ownerEmail: this.user.git.email
@@ -55,6 +55,7 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
 
   // Fill in information about the project itself
   console.log(this.yeoman);
+  console.log(chalk.yellow.bold('\nJekyllize will install and configure a Jekyll site after your liking.'))
   console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
 
   this.prompt(prompts, function (props) {
@@ -113,18 +114,18 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
   var prompts = [
   {
-    name: 'cssPre',
+    name: 'cssPreprocessor',
     type: 'list',
     message: 'CSS preprocessor',
     choices: ['Compass', 'Sass', 'None']
   },
   {
-    name: 'autoPre',
+    name: 'autoPrefixer',
     type: 'confirm',
-    message: 'Use Autoprefixer?'
+    message: 'Use autoPrefixer?'
   },
   {
-    name: 'jsPre',
+    name: 'javascriptPreprocessor',
     type: 'list',
     message: 'Javascript preprocessor',
     choices: ['None', 'Coffeescript'],
@@ -135,9 +136,9 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   this.prompt(prompts, function (props) {
 
     // Multiple choice 'None' to false
-    this.cssPre  = props.cssPre === 'None' ? false : props.cssPre.toLowerCase();
-    this.jsPre   = props.jsPre === 'None' ? false : props.jsPre.toLowerCase();
-    this.autoPre = props.autoPre;
+    this.cssPreprocessor          = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
+    this.javascriptPreprocessor   = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
+    this.autoPrefixer             = props.autoPrefixer;
 
     cb();
   }.bind(this));
@@ -145,51 +146,51 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
 
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
-  var cssPre = this.cssPre;
-  var jsPre  = this.jsPre;
+  var cssPreprocessor = this.cssPreprocessor;
+  var javascriptPreprocessor  = this.javascriptPreprocessor;
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
   };
   var prompts = [{
-    name: 'cssDir',
+    name: 'cssDirectory',
     message: 'CSS directory',
     default: 'css',
     filter: slashFilter
   },
   {
-    name: 'jsDir',
+    name: 'javascriptDirectory',
     message: 'Javascript directory',
     default: 'js',
     filter: slashFilter
   },
   {
-    name: 'imgDir',
+    name: 'imageDirectory',
     message: 'Image directory',
     default: 'img',
     filter: slashFilter
   },
   {
-    name: 'fontsDir',
+    name: 'fontsDirectory',
     message: 'Webfont directory',
     default: 'fonts',
     filter: slashFilter
   },
   {
-    name: 'cssPreDir',
+    name: 'cssPreprocessorDirectory',
     message: 'CSS preprocessor directory',
     default: '_scss',
     filter: slashFilter,
     when: function () {
-      return cssPre;
+      return cssPreprocessor;
     }
   },
   {
-    name: 'jsPreDir',
+    name: 'javascriptPreprocessorDirectory',
     message: 'Javascript preprocessor directory',
     default: '_src',
     filter: slashFilter,
     when: function () {
-      return jsPre;
+      return javascriptPreprocessor;
     }
   }];
 
@@ -198,18 +199,18 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
 
   this.prompt(prompts, function (props) {
 
-    this.cssDir    = props.cssDir;
-    this.jsDir     = props.jsDir;
-    this.imgDir    = props.imgDir;
-    this.fontsDir  = props.fontsDir;
-    this.cssPreDir = props.cssPreDir;
-    this.jsPreDir  = props.jsPreDir;
+    this.cssDirectory                     = props.cssDirectory;
+    this.javascriptDirectory              = props.javascriptDirectory;
+    this.imageDirectory                   = props.imageDirectory;
+    this.fontsDirectory                   = props.fontsDirectory;
+    this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory;
+    this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
     // Split asset directories on slashes
-    this.cssExDir   = props.cssDir.split('/').pop();
-    this.jsExDir    = props.jsDir.split('/').pop();
-    this.imgExDir   = props.imgDir.split('/').pop();
-    this.fontsExDir = props.fontsDir.split('/').pop();
+    this.cssExDirectory   = props.cssDirectory.split('/').pop();
+    this.jsExDirectory    = props.javascriptDirectory.split('/').pop();
+    this.imgExDirectory   = props.imageDirectory.split('/').pop();
+    this.fontsExDirectory = props.fontsDirectory.split('/').pop();
 
     cb();
   }.bind(this));
@@ -360,8 +361,8 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 
   this.prompt(prompts, function (props) {
 
-    this.jekyllPygments               = props.jekyllPygments;
-    this.markdownEngine               = props.markdownEngine;
+    this.jekyllPygments       = props.jekyllPygments;
+    this.markdownEngine       = props.markdownEngine;
     this.jekyllPermalinks     = props.jekyllPermalinks;
     this.jekyllPageinate      = /^all$/i.test(props.jekyllPageinate) ? false : props.jekyllPageinate;
 
@@ -437,10 +438,10 @@ JekyllizeGenerator.prototype.templates = function templates() {
   this.mkdir('app/_posts');
   this.mkdir('app/_includes');
   this.mkdir('app/_plugins');
-  this.mkdir(path.join('app', this.cssDir));
-  this.mkdir(path.join('app', this.jsDir));
-  this.mkdir(path.join('app', this.imgDir));
-  this.mkdir(path.join('app', this.fontsDir));
+  this.mkdir(path.join('app', this.cssDirectory));
+  this.mkdir(path.join('app', this.javascriptDirectory));
+  this.mkdir(path.join('app', this.imageDirectory));
+  this.mkdir(path.join('app', this.fontsDirectory));
 
   // Jekyll config files
   this.copy('_config.build.yml', '_config.build.yml');
@@ -456,13 +457,13 @@ JekyllizeGenerator.prototype.templates = function templates() {
     // Default Jekyll files
     this.copy(path.join(this.jekyllTmp, 'index.html'), 'app/index.html');
     this.copy(path.join(this.jekyllTmp, '_layouts/post.html'), 'app/_layouts/post.html');
-    this.copy(path.join(this.jekyllTmp, 'css/main.css'), path.join('app', this.cssDir, 'main.css'));
+    this.copy(path.join(this.jekyllTmp, 'css/main.css'), path.join('app', this.cssDirectory, 'main.css'));
 
     // Jekyll files tailored for Yeoman
     this.template('conditional/template-default/_layouts/default.html', 'app/_layouts/default.html');
 
     // Empty file for Usemin defaults
-    this.write(path.join('app', this.jsDir, 'main.js'), '');
+    this.write(path.join('app', this.javascriptDirectory, 'main.js'), '');
   }
 
   // HTML5 Boilerplate template
@@ -498,21 +499,21 @@ JekyllizeGenerator.prototype.templates = function templates() {
 
       // CSS boilerplate
       if (this.h5bpCss) {
-        remote.copy('css/main.css', path.join('app', this.cssDir, 'main.css'));
+        remote.copy('css/main.css', path.join('app', this.cssDirectory, 'main.css'));
       }
       else {
         // Empty file
-        this.write(path.join('app', this.cssDir, 'main.css'), '');
+        this.write(path.join('app', this.cssDirectory, 'main.css'), '');
       }
 
       // Js boilerplate
       if (this.h5bpJs) {
-        remote.copy('js/main.js', path.join('app', this.jsDir, 'main.js'));
-        remote.copy('js/plugins.js', path.join('app', this.jsDir, 'plugins.js'));
+        remote.copy('js/main.js', path.join('app', this.javascriptDirectory, 'main.js'));
+        remote.copy('js/plugins.js', path.join('app', this.javascriptDirectory, 'plugins.js'));
       }
       else {
         // Empty file
-        this.write(path.join('app', this.jsDir, 'main.js'), '');
+        this.write(path.join('app', this.javascriptDirectory, 'main.js'), '');
       }
 
       // Touch and favicon
@@ -537,40 +538,40 @@ JekyllizeGenerator.prototype.templates = function templates() {
 JekyllizeGenerator.prototype.pygments = function pygments() {
   // Pygments styles
   if (this.jekyllPygments) {
-    this.copy(path.join(this.jekyllTmp, 'css/syntax.css'), path.join('app', this.cssDir, 'syntax.css'));
+    this.copy(path.join(this.jekyllTmp, 'css/syntax.css'), path.join('app', this.cssDirectory, 'syntax.css'));
   }
 };
 
-JekyllizeGenerator.prototype.cssPreprocessor = function cssPreprocessor() {
-  var files = globule.find('**/*.css', {srcBase: path.join('app', this.cssDir)});
-  var cssDir = this.cssDir;
+JekyllizeGenerator.prototype.cssPreprocessorprocessor = function cssPreprocessorprocessor() {
+  var files = globule.find('**/*.css', {srcBase: path.join('app', this.cssDirectory)});
+  var cssDirectory = this.cssDirectory;
 
-  if (this.cssPre) {
-    this.mkdir(path.join('app', this.cssPreDir));
-    this.template('conditional/css-pre/readme.md', path.join('app', this.cssPreDir, 'readme.md'));
+  if (this.cssPreprocessor) {
+    this.mkdir(path.join('app', this.cssPreprocessorDirectory));
+    this.template('conditional/css-pre/readme.md', path.join('app', this.cssPreprocessorDirectory, 'readme.md'));
 
     // Copy CSS files to preprocessor files
     files.forEach(function (file) {
-      this.copy(path.join(process.cwd(), 'app', cssDir, file),
-                path.join('app', this.cssPreDir, file.replace(/\.css$/, '.scss')));
+      this.copy(path.join(process.cwd(), 'app', cssDirectory, file),
+                path.join('app', this.cssPreprocessorDirectory, file.replace(/\.css$/, '.scss')));
 
       // Wait until copy is completely finished and then delete files.
       this.conflicter.resolve(function (err) {
         if (err) {
           return this.emit('error', err);
         }
-        spawn('rm', [path.join('app', cssDir, file)], { stdio: 'inherit' });
+        spawn('rm', [path.join('app', cssDirectory, file)], { stdio: 'inherit' });
       });
     }, this);
   }
 };
 
-JekyllizeGenerator.prototype.jsPreprocessor = function jsPreprocessor() {
-  if (this.jsPre) {
-    this.mkdir(path.join('app', this.jsPreDir));
+JekyllizeGenerator.prototype.javascriptPreprocessorprocessor = function javascriptPreprocessorprocessor() {
+  if (this.javascriptPreprocessor) {
+    this.mkdir(path.join('app', this.javascriptPreprocessorDirectory));
   }
 
-  if (this.jsPre === 'coffeescript') {
-    this.template('conditional/coffee/readme.md', path.join('app', this.jsPreDir, 'readme.md'));
+  if (this.javascriptPreprocessor === 'coffeescript') {
+    this.template('conditional/coffee/readme.md', path.join('app', this.javascriptPreprocessorDirectory, 'readme.md'));
   }
 };

@@ -2,12 +2,12 @@
 'use strict';
 
 // Directory reference:
-//   css: <%= cssDir %><% if (cssPre) { %>
-//   <%= cssPre %>: <%= cssPreDir %><% } %>
-//   javascript: <%= jsDir %><% if (jsPre) { %>
-//   <%= jsPre %>: <%= jsPreDir %><% } %>
-//   images: <%= imgDir %>
-//   fonts: <%= fontsDir %>
+//   css: <%= cssDirectory %><% if (cssPreprocessor) { %>
+//   <%= cssPreprocessor %>: <%= cssPreprocessorDirectory %><% } %>
+//   javascript: <%= javascriptDirectory %><% if (javascriptPreprocessor) { %>
+//   <%= javascriptPreprocessor %>: <%= javascriptPreprocessorDirectory %><% } %>
+//   images: <%= imageDirectory %>
+//   fonts: <%= fontsDirectory %>
 
 module.exports = function (grunt) {
   // Show elapsed time after tasks run
@@ -21,17 +21,17 @@ module.exports = function (grunt) {
       app: 'app',
       dist: 'dist'
     },
-    watch: {<% if (cssPre === 'sass' || cssPre === 'compass' ) { %>
-      <%= cssPre %>: {
-        files: ['<%%= yeoman.app %>/<%= cssPreDir %>/**/*.{scss,sass}'],
-        tasks: ['<%= cssPre %>:server'<% if (autoPre) { %>, 'autoprefixer:server'<% } %>]
+    watch: {<% if (cssPreprocessor === 'sass' || cssPreprocessor === 'compass' ) { %>
+      <%= cssPreprocessor %>: {
+        files: ['<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>/**/*.{scss,sass}'],
+        tasks: ['<%= cssPreprocessor %>:server'<% if (autoPre) { %>, 'autoPrefixer:server'<% } %>]
       },
-      autoprefixer: {
-        files: ['<%%= yeoman.app %>/<%= cssDir %>/**/*.css'],
-        tasks: ['copy:stageCss', 'autoprefixer:server']
-      },<% } %><% if (jsPre === 'coffeescript') { %>
+      autoPrefixer: {
+        files: ['<%%= yeoman.app %>/<%= cssDirectory %>/**/*.css'],
+        tasks: ['copy:stageCss', 'autoPrefixer:server']
+      },<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
       coffee: {
-        files: ['<%%= yeoman.app %>/<%= jsPreDir %>/**/*.coffee'],
+        files: ['<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>/**/*.coffee'],
         tasks: ['coffee:dist']
       },
       coffeeTest: {
@@ -51,10 +51,10 @@ module.exports = function (grunt) {
         },
         files: [
           '.jekyll/**/*.html',<% if (autoPre) { %>
-          '.tmp/<%= cssDir %>/**/*.css',<% } else { %>
-          '{.tmp,<%%= yeoman.app %>}/<%= cssDir %>/**/*.css',<% } %>
+          '.tmp/<%= cssDirectory %>/**/*.css',<% } else { %>
+          '{.tmp,<%%= yeoman.app %>}/<%= cssDirectory %>/**/*.css',<% } %>
           '{.tmp,<%%= yeoman.app %>}/<%%= js %>/**/*.js',
-          '<%%= yeoman.app %>/<%= imgDir %>/**/*.{gif,jpg,jpeg,png,svg,webp}'
+          '<%%= yeoman.app %>/<%= imageDirectory %>/**/*.{gif,jpg,jpeg,png,svg,webp}'
         ]
       }
     },
@@ -111,7 +111,7 @@ module.exports = function (grunt) {
         '.tmp',
         '.jekyll'
       ]
-    },<% if (cssPre === 'sass') { %>
+    },<% if (cssPreprocessor === 'sass') { %>
     sass: {
       options: {
         bundleExec: true,
@@ -122,9 +122,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/<%= cssPreDir %>',
+          cwd: '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>',
           src: '**/*.{scss,sass}',
-          dest: '.tmp/<%= cssDir %>',
+          dest: '.tmp/<%= cssDirectory %>',
           ext: '.css'
         }]
       },
@@ -135,68 +135,68 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/<%= cssPreDir %>',
+          cwd: '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>',
           src: '**/*.{scss,sass}',
-          dest: '.tmp/<%= cssDir %>',
+          dest: '.tmp/<%= cssDirectory %>',
           ext: '.css'
         }]
       }
-    },<% } %><% if (cssPre === 'compass') { %>
+    },<% } %><% if (cssPreprocessor === 'compass') { %>
     compass: {
       options: {
         // If you're using global Sass gems, require them here.
         // require: ['singularity', 'jacket'],
         bundleExec: true,
-        sassDir: '<%%= yeoman.app %>/<%= cssPreDir %>',
-        cssDir: '.tmp/<%= cssDir %>',
-        imagesDir: '<%%= yeoman.app %>/<%= imgDir %>',
-        javascriptsDir: '<%%= yeoman.app %>/<%= jsDir %>',
+        sassDir: '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>',
+        cssDirectory: '.tmp/<%= cssDirectory %>',
+        imagesDir: '<%%= yeoman.app %>/<%= imageDirectory %>',
+        javascriptsDir: '<%%= yeoman.app %>/<%= javascriptDirectory %>',
         relativeAssets: false,
-        httpImagesPath: '/<%= imgDir %>',
-        httpGeneratedImagesPath: '/<%= imgDir %>/generated',
+        httpImagesPath: '/<%= imageDirectory %>',
+        httpGeneratedImagesPath: '/<%= imageDirectory %>/generated',
         outputStyle: 'expanded',
         raw: 'extensions_dir = "<%%= yeoman.app %>/_bower_components"\n'
       },
       dist: {
         options: {
-          generatedImagesDir: '<%%= yeoman.dist %>/<%= imgDir %>/generated'
+          generatedImagesDir: '<%%= yeoman.dist %>/<%= imageDirectory %>/generated'
         }
       },
       server: {
         options: {
           debugInfo: true,
-          generatedImagesDir: '.tmp/<%= imgDir %>/generated'
+          generatedImagesDir: '.tmp/<%= imageDirectory %>/generated'
         }
       }
     },<% } %><% if (autoPre) { %>
-    autoprefixer: {
+    autoPrefixer: {
       options: {
         browsers: ['last 2 versions']
       },
       dist: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.dist %>/<%= cssDir %>',
+          cwd: '<%%= yeoman.dist %>/<%= cssDirectory %>',
           src: '**/*.css',
-          dest: '<%%= yeoman.dist %>/<%= cssDir %>'
+          dest: '<%%= yeoman.dist %>/<%= cssDirectory %>'
         }]
       },
       server: {
         files: [{
           expand: true,
-          cwd: '.tmp/<%= cssDir %>',
+          cwd: '.tmp/<%= cssDirectory %>',
           src: '**/*.css',
-          dest: '.tmp/<%= cssDir %>'
+          dest: '.tmp/<%= cssDirectory %>'
         }]
       }
-    },<% } %><% if (jsPre === 'coffeescript') { %>
+    },<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
     coffee: {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/<%= jsPreDir %>',
+          cwd: '<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>',
           src: '**/*.coffee',
-          dest: '.tmp/<%= jsDir %>',
+          dest: '.tmp/<%= javascriptDirectory %>',
           ext: '.js'
         }]
       },
@@ -244,7 +244,7 @@ module.exports = function (grunt) {
         assetsDirs: '<%%= yeoman.dist %>',
       },
       html: ['<%%= yeoman.dist %>/**/*.html'],
-      css: ['<%%= yeoman.dist %>/<%= cssDir %>/**/*.css']
+      css: ['<%%= yeoman.dist %>/<%= cssDirectory %>/**/*.css']
     },
     htmlmin: {
       dist: {
@@ -307,8 +307,8 @@ module.exports = function (grunt) {
             // Jekyll processes and moves HTML and text files.
             // Usemin moves CSS and javascript inside of Usemin blocks.
             // Copy moves asset files and directories.
-            '<%= imgDir %>/**/*',
-            '<%= fontsDir %>/**/*',
+            '<%= imageDirectory %>/**/*',
+            '<%= fontsDirectory %>/**/*',
             // Like Jekyll, exclude files & folders prefixed with an underscore.
             '!**/_*{,/**}'<% if (h5bpJs) { %>,<% } %>
             // Explicitly add any files your site needs for distribution here.
@@ -319,14 +319,14 @@ module.exports = function (grunt) {
           dest: '<%%= yeoman.dist %>'
         }]
       }<% if (autoPre) { %>,
-      // Copy CSS into .tmp directory for Autoprefixer processing
+      // Copy CSS into .tmp directory for autoPrefixer processing
       stageCss: {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%%= yeoman.app %>/<%= cssDir %>',
+          cwd: '<%%= yeoman.app %>/<%= cssDirectory %>',
           src: '**/*.css',
-          dest: '.tmp/<%= cssDir %>'
+          dest: '.tmp/<%= cssDirectory %>'
         }]
       }<% } %>
     },
@@ -337,10 +337,10 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           src: [
-            '<%%= yeoman.dist %>/<%= jsDir %>/**/*.js',
-            '<%%= yeoman.dist %>/<%= cssDir %>/**/*.css',
-            '<%%= yeoman.dist %>/<%= imgDir %>/**/*.{gif,jpg,jpeg,png,svg,webp}',
-            '<%%= yeoman.dist %>/<%= fontsDir %>/**/*.{eot*,otf,svg,ttf,woff}'
+            '<%%= yeoman.dist %>/<%= javascriptDirectory %>/**/*.js',
+            '<%%= yeoman.dist %>/<%= cssDirectory %>/**/*.css',
+            '<%%= yeoman.dist %>/<%= imageDirectory %>/**/*.{gif,jpg,jpeg,png,svg,webp}',
+            '<%%= yeoman.dist %>/<%= fontsDirectory %>/**/*.{eot*,otf,svg,ttf,woff}'
           ]
         }]
       }
@@ -354,14 +354,14 @@ module.exports = function (grunt) {
           push: true
         }
       }
-    },<% } %><% if (jsPre === 'coffeescript') { %>
+    },<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
     coffeelint: {
       options: {
         'max_line_length': {
           'level': 'ignore'
         }
       },
-      check: ['<%%= yeoman.app %>/<%= jsPreDir %>/*.coffee']
+      check: ['<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>/*.coffee']
     },<% } %>
     jshint: {
       options: {
@@ -370,7 +370,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%%= yeoman.app %>/<%= jsDir %>/**/*.js',
+        '<%%= yeoman.app %>/<%= javascriptDirectory %>/**/*.js',
         'test/spec/**/*.js'
       ]
     },
@@ -380,22 +380,22 @@ module.exports = function (grunt) {
       },
       check: {
         src: [
-          '<%%= yeoman.app %>/<%= cssDir %>/**/*.css',
-          '<%%= yeoman.app %>/<%= cssPreDir %>/**/*.scss'
+          '<%%= yeoman.app %>/<%= cssDirectory %>/**/*.css',
+          '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>/**/*.scss'
         ]
       }
     },
     concurrent: {
-      server: [<% if (cssPre === 'sass') { %>
-        'sass:server',<% } %><% if (cssPre === 'compass') { %>
-        'compass:server',<% } %><% if (jsPre === 'coffeescript') { %>
+      server: [<% if (cssPreprocessor === 'sass') { %>
+        'sass:server',<% } %><% if (cssPreprocessor === 'compass') { %>
+        'compass:server',<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
         'coffee:dist',<% } %><% if (autoPre) { %>
         'copy:stageCss',<% } %>
         'jekyll:server'
       ],
-      dist: [<% if (cssPre === 'sass') { %>
-        'sass:dist',<% } %><% if (cssPre === 'compass') { %>
-        'compass:dist',<% } %><% if (jsPre === 'coffeescript') { %>
+      dist: [<% if (cssPreprocessor === 'sass') { %>
+        'sass:dist',<% } %><% if (cssPreprocessor === 'compass') { %>
+        'compass:dist',<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
         'coffee:dist',<% } %>
         'copy:dist'
       ]
@@ -411,7 +411,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'concurrent:server',<% if (autoPre) { %>
-      'autoprefixer:server',<% } %>
+      'autoPrefixer:server',<% } %>
       'connect:livereload',
       'watch'
     ]);
@@ -431,9 +431,9 @@ module.exports = function (grunt) {
 
   grunt.registerTask('check', [
     'clean:server',
-    'jekyll:check',<% if (cssPre === 'sass') { %>
-    'sass:server',<% } %><% if (cssPre === 'compass') { %>
-    'compass:server',<% } %><% if (jsPre === 'coffeescript') { %>
+    'jekyll:check',<% if (cssPreprocessor === 'sass') { %>
+    'sass:server',<% } %><% if (cssPreprocessor === 'compass') { %>
+    'compass:server',<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
     'coffeelint:check',
     'coffee:dist',<% } %>
     'jshint:all',
@@ -447,7 +447,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'useminPrepare',
     'concat',<% if (autoPre) { %>
-    'autoprefixer:dist',<% } %>
+    'autoPrefixer:dist',<% } %>
     'cssmin',
     'uglify',
     'imagemin',

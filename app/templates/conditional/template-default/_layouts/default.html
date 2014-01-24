@@ -6,12 +6,12 @@
         <title>{{ page.title }}</title>
         <meta name="viewport" content="width=device-width">
 
-        <!-- build:css<% if (cssPre) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= cssDir %>/main.css --><% if (jekPyg) { %>
+        <!-- build:css<% if (cssPreprocessor) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= cssDirectory %>/main.css --><% if (jekPyg) { %>
         <!-- Syntax highlighting CSS -->
-        <link rel="stylesheet" href="/<%= cssDir %>/syntax.css">
+        <link rel="stylesheet" href="/<%= cssDirectory %>/syntax.css">
 <% } %>
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/<%= cssDir %>/main.css">
+        <link rel="stylesheet" href="/<%= cssDirectory %>/main.css">
         <!-- endbuild -->
 
     </head>
@@ -41,8 +41,8 @@
           </div>
         </div>
 
-    <!-- build:js<% if (jsPre) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= jsDir %>/scripts.js -->
-    <script src="/<%= jsDir %>/main.js"></script>
+    <!-- build:js<% if (javascriptPreprocessor) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= javascriptDirectory %>/scripts.js -->
+    <script src="/<%= javascriptDirectory %>/main.js"></script>
     <!-- endbuild -->
     </body>
 </html>
