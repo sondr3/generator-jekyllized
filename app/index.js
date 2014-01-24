@@ -6,73 +6,77 @@ var yeoman = require('yeoman-generator');
 var globule = require('globule');
 var shelljs = require('shelljs');
 
-var PlaybookGenerator = module.exports = function PlaybookGenerator(args, options, config) {
+
+var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   var dependenciesInstalled = ['bundle', 'ruby'].every(function (depend) {
     return shelljs.which(depend);
   });
 
+  // Exit if Ruby dependencies aren't installed
   if (!dependenciesInstalled) {
-    console.log('Seems like you are missing some dependencies.' +
-      '\nDouble check that ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed and try again.');
+    console.log('Looks like you\'re missing some dependencies.' +
+      '\nMake sure ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed, then run again.');
     shelljs.exit(1);
   }
 
-  yeoman.generators.Base.apply(this, arguments);
-
-  // Get static info for templating
-  this.jekyllTmp = path.join(process.cwd(), '.jekyll');
-  this.appname = path.basename(process.cwd());
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
   this.gitInfo = {
     name: this.user.git.username,
-    email: this.user.git.email,
-  };
+    email: this.user.git.email
+  }
 
   this.on('end', function () {
-    // Clean up temp files
-    spawn('rm', ['-r', '.jekyll'], { stdio: 'inherit' });
-
-    // Install Grunt and Bower dependencies
     this.installDependencies({ skipInstall: options['skip-install'] });
-
-    if (bundle === false) {
-      console.log(chalk.yellow.bold('Bundle install failed. Try running the command yourself.'));
-    }
   });
+
+  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
-util.inherits(Generator, yeoman.generators.Base);
+util.inherits(JekyllizeGenerator, yeoman.generators.Base);
 
-// Prompts
-Generator.prototype.askForUser = function askForUser() {
+// Promts
+JekyllizeGenerator.prototype.askForUser = function askForUser() {
   var cb = this.async();
-  var prompts = [{
-    name: 'author',
-    message: 'Name',
-    default: this.gitInfo.name
-  },
-  {
-    name: 'email',
-    message: 'Email',
-    default: this.gitInfo.email
-  }];
+  var prompts = [
+      {
+      name: 'projectname',
+      message: 'What is the name of the project?'
+    }
+    {
+      name: 'description',
+      message: 'Description of your project'
+    }
+    {
+      name: 'tagline',
+      message: 'What is the tagline of your project?'
+    }
+    {
+      name: 'author',
+      message: 'What is your name?',
+      default: this.gitInfo.name
+    },
+    {
+      name: 'email',
+      message: 'What is your email?',
+      default: this.gitInfo.email
+    },
+  ];
 
   console.log(this.yeoman);
-  console.log(chalk.yellow.bold('This generator will scaffold and wire a Jekyll site. Yo, Jekyllrb!') +
-    chalk.yellow('\n\nTell us a little about yourself.') + ' ☛');
+  console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
 
   this.prompt(prompts, function (props) {
 
-    this.author  = props.author;
-    this.email   = props.email;
+    this.authorName  = props.authorName;
+    this.authorEmail = props.authorEmail;
+    this.projectName = props.projectName;
 
     cb();
   }.bind(this));
 };
 
-Generator.prototype.askForTools = function askForTools() {
+JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
   var prompts = [{
     name: 'cssPre',
@@ -105,7 +109,7 @@ Generator.prototype.askForTools = function askForTools() {
   }.bind(this));
 };
 
-Generator.prototype.askForStructure = function askForStructure() {
+JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
   var cssPre = this.cssPre;
   var jsPre  = this.jsPre;
@@ -177,7 +181,7 @@ Generator.prototype.askForStructure = function askForStructure() {
   }.bind(this));
 };
 
-Generator.prototype.askForTemplates = function askForTemplates() {
+JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
   var cb = this.async();
   var prompts = [{
     name: 'templateType',
@@ -247,7 +251,7 @@ Generator.prototype.askForTemplates = function askForTemplates() {
   }.bind(this));
 };
 
-Generator.prototype.askForDeployment = function askForDeployment() {
+JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
   var cb = this.async();
   var prompts = [{
     name: 'deploy',
@@ -283,7 +287,7 @@ Generator.prototype.askForDeployment = function askForDeployment() {
   }.bind(this));
 };
 
-Generator.prototype.askForJekyll = function askForJekyll() {
+JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   var cb = this.async();
   var prompts = [{
     name: 'jekDescript',
@@ -337,41 +341,41 @@ Generator.prototype.askForJekyll = function askForJekyll() {
 };
 
 // Generate App
-Generator.prototype.git = function git() {
+JekyllizeGenerator.prototype.git = function git() {
   this.template('gitignore', '.gitignore');
   this.copy('gitattributes', '.gitattributes');
 };
 
-Generator.prototype.gruntfile = function gruntfile() {
+JekyllizeGenerator.prototype.gruntfile = function gruntfile() {
   this.template('Gruntfile.js');
 };
 
-Generator.prototype.packageJSON = function packageJSON() {
+JekyllizeGenerator.prototype.packageJSON = function packageJSON() {
   this.template('_package.json', 'package.json');
 };
 
-Generator.prototype.bower = function bower() {
+JekyllizeGenerator.prototype.bower = function bower() {
   this.copy('bowerrc', '.bowerrc');
   this.template('_bower.json', 'bower.json');
 };
 
-Generator.prototype.gemfile = function gemfile() {
+JekyllizeGenerator.prototype.gemfile = function gemfile() {
   this.template('Gemfile');
 };
 
-Generator.prototype.jshint = function jshint() {
+JekyllizeGenerator.prototype.jshint = function jshint() {
   this.copy('jshintrc', '.jshintrc');
 };
 
-Generator.prototype.csslint = function csslint() {
+JekyllizeGenerator.prototype.csslint = function csslint() {
   this.template('csslintrc', '.csslintrc');
 };
 
-Generator.prototype.editor = function editor() {
+JekyllizeGenerator.prototype.editor = function editor() {
   this.copy('editorconfig', '.editorconfig');
 };
 
-Generator.prototype.rubyDependencies = function rubyDependencies() {
+JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
   var execComplete;
 
   console.log('\nRunning ' + chalk.yellow.bold('bundle install') + ' to install the required gems.');
@@ -389,12 +393,12 @@ Generator.prototype.rubyDependencies = function rubyDependencies() {
   });
 };
 
-Generator.prototype.jekyllInit = function jekyllInit() {
+JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
   // Create the default Jekyll site in a temp folder
   shelljs.exec('bundle exec jekyll new ' + this.jekyllTmp);
 };
 
-Generator.prototype.templates = function templates() {
+JekyllizeGenerator.prototype.templates = function templates() {
   // Format date for posts
   var date = new Date();
   var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
@@ -501,14 +505,14 @@ Generator.prototype.templates = function templates() {
   }
 };
 
-Generator.prototype.pygments = function pygments() {
+JekyllizeGenerator.prototype.pygments = function pygments() {
   // Pygments styles
   if (this.jekPyg) {
     this.copy(path.join(this.jekyllTmp, 'css/syntax.css'), path.join('app', this.cssDir, 'syntax.css'));
   }
 };
 
-Generator.prototype.cssPreprocessor = function cssPreprocessor() {
+JekyllizeGenerator.prototype.cssPreprocessor = function cssPreprocessor() {
   var files = globule.find('**/*.css', {srcBase: path.join('app', this.cssDir)});
   var cssDir = this.cssDir;
 
@@ -532,7 +536,7 @@ Generator.prototype.cssPreprocessor = function cssPreprocessor() {
   }
 };
 
-Generator.prototype.jsPreprocessor = function jsPreprocessor() {
+JekyllizeGenerator.prototype.jsPreprocessor = function jsPreprocessor() {
   if (this.jsPre) {
     this.mkdir(path.join('app', this.jsPreDir));
   }

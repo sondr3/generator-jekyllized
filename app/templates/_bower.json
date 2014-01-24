@@ -1,5 +1,5 @@
 {
-  "name": "<%= _.slugify(appname) %>",
+  "name": "<%= _.slugify(projectname) %>",
   "version": "0.0.0",
   "dependencies": {<%
     var depn = [];

@@ -3,8 +3,8 @@
 # 2. config.build.yml
 # 3. config.yml
 
-name: <%= appname %>
-description: <%= jekDescript %>
+name: <%= projectname %>
+description: <%= description %>
 tagline: <%= tagline %>
 
 author:
@@ -23,14 +23,14 @@ include: ['.htaccess']
 
 # _config.build.yml sets future and show_drafts to false on `grunt build`
 future: true
-show_drafts: true<% if (jekPage) { %>
+show_drafts: true<% if (jekyllPageinate) { %>
 
-permalink: <%= jekPost %>
-paginate: <%= jekPage %>
+permalink: <%= jekyllPermalinks %>
+paginate: <%= jekyllPageinate %>
 paginate_path: 'page:num'<% } %>
 
 # Markdown library
-markdown: <%= jekMkd %><% if (jekMkd === 'maruku') { %>
+markdown: <%= markdownEngine %><% if (markdownEngine === 'maruku') { %>
 #   use_tex:    false
 #   use_divs:   false
 #   png_engine: blahtex
@@ -51,4 +51,4 @@ markdown: <%= jekMkd %><% if (jekMkd === 'maruku') { %>
 #     coderay_css: style<% } %><% if (jekMkd === 'redcarpet') {%>
 #   extensions: ['fenced_code_blocks', 'smart']<% } %>
 
-pygments: <%= jekPyg %>
+pygments: <%= jekyllPygments %>
