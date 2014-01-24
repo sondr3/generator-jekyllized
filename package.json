@@ -36,7 +36,7 @@
     "yeoman-generator": "~0.13.4",
     "globule": "~0.1.0",
     "shelljs": "~0.1.4",
-    "chalk": "~0.2.0",
+    "chalk": "~0.2.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0"
