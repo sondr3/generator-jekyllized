@@ -1,4 +1,5 @@
 ## HEAD
+* Fix the pathing issues with cssExDir, jsExDir etc. ([#10](https://github.com/sondr3/generator-jekyllized/issues/10))
 * Added support for installing Google Analytics during the installation. ([#9](https://github.com/sondr3/generator-jekyllized/issues/9))
 * Moved assets into their own folder by default. ([#8](https://github.com/sondr3/generator-jekyllized/issues/8)) & ([#3](https://github.com/sondr3/generator-jekyllized/issues/3))
 * Updated the README so people know that this will be a buggy ride

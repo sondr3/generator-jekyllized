@@ -215,10 +215,10 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
     // Split asset directories on slashes
-    this.cssExDirectory   = props.cssDirectory.split('/').pop();
-    this.jsExDirectory    = props.javascriptDirectory.split('/').pop();
-    this.imgExDirectory   = props.imageDirectory.split('/').pop();
-    this.fontsExDirectory = props.fontsDirectory.split('/').pop();
+    this.cssExDirectory           = props.cssDirectory.split('/').pop();
+    this.javascriptsExDirectory   = props.javascriptDirectory.split('/').pop();
+    this.imgagesExDirectory       = props.imageDirectory.split('/').pop();
+    this.fontsExDirectory         = props.fontsDirectory.split('/').pop();
 
     cb();
   }.bind(this));
@@ -414,20 +414,15 @@ JekyllizeGenerator.prototype.editor = function editor() {
 };
 
 JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
-  var execComplete;
-
+  
   console.log('\nRunning ' + chalk.yellow.bold('bundle install') + ' to install the required gems.');
 
+  this.template('Gemfile');
   this.conflicter.resolve(function (err) {
     if (err) {
       return this.emit('error', err);
     }
-
-    execComplete = shelljs.exec('bundle install');
-
-    if (execComplete.code === 0) {
-      bundle = true;
-    }
+    shelljs.exec('bundle install');
   });
 };
 

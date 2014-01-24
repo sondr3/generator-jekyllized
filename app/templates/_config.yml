@@ -32,8 +32,8 @@ markdown: <%= markdownEngine %><% if (markdownEngine === 'maruku') { %>
 #   use_divs:   false
 #   png_engine: blahtex
 #   png_dir:    images/latex
-#   png_url:    /images/latex<% } %><% if (jekMkd === 'rdiscount') {%>
-#   extensions: []<% } %><% if (jekMkd === 'kramdown') {%>
+#   png_url:    /images/latex<% } %><% if (markdownEngine === 'rdiscount') {%>
+#   extensions: []<% } %><% if (markdownEngine === 'kramdown') {%>
 #   auto_ids: true
 #   footnote_nr: 1
 #   entity_output: as_char
@@ -45,13 +45,13 @@ markdown: <%= markdownEngine %><% if (markdownEngine === 'maruku') { %>
 #     coderay_line_numbers_start: 1
 #     coderay_tab_width: 4
 #     coderay_bold_every: 10
-#     coderay_css: style<% } %><% if (jekMkd === 'redcarpet') {%>
+#     coderay_css: style<% } %><% if (markdownEngine === 'redcarpet') {%>
 #   extensions: ['fenced_code_blocks', 'smart']<% } %>
 
 pygments: <%= jekyllPygments %>
 
 # Grunt handles images and assets.
-exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
+exclude: ['<%= imgagesExDirectory %>', '<%= cssExDirectory %>', '<%= javascriptsExDirectory %>', '<%= fontsExDirectory %>',
           '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
 
 include: ['.htaccess']

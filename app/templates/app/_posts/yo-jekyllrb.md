@@ -14,7 +14,7 @@ You now have
 - Sass<% } %><% if (cssPreprocessor === 'compass') { %>
 - Sass and Compass<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
 - Coffeescript tools<% } %>
-- <%= jekMkd %> markdown parser<% if (jekPyg) { %> and Pygments highlighter<% } %>
+- <%= markdownEngine %> markdown parser<% if (jekPyg) { %> and Pygments highlighter<% } %>
 
 installed.
 
