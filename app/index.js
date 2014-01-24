@@ -154,31 +154,31 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var prompts = [{
     name: 'cssDirectory',
     message: 'CSS directory',
-    default: 'css',
+    default: '/assets/stylesheets',
     filter: slashFilter
   },
   {
     name: 'javascriptDirectory',
     message: 'Javascript directory',
-    default: 'js',
+    default: '/assets/javascript',
     filter: slashFilter
   },
   {
     name: 'imageDirectory',
     message: 'Image directory',
-    default: 'img',
+    default: '/assets/images',
     filter: slashFilter
   },
   {
     name: 'fontsDirectory',
     message: 'Webfont directory',
-    default: 'fonts',
+    default: '/assets/fonts',
     filter: slashFilter
   },
   {
     name: 'cssPreprocessorDirectory',
     message: 'CSS preprocessor directory',
-    default: '_scss',
+    default: '/assets/_scss',
     filter: slashFilter,
     when: function () {
       return cssPreprocessor;
@@ -187,7 +187,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   {
     name: 'javascriptPreprocessorDirectory',
     message: 'Javascript preprocessor directory',
-    default: '_src',
+    default: '/assets/_src',
     filter: slashFilter,
     when: function () {
       return javascriptPreprocessor;
