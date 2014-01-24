@@ -1,4 +1,5 @@
 ## HEAD
+* Added support for installing Google Analytics during the installation. ([#9](https://github.com/sondr3/generator-jekyllized/issues/9))
 * Moved assets into their own folder by default. ([#8](https://github.com/sondr3/generator-jekyllized/issues/8)) & ([#3](https://github.com/sondr3/generator-jekyllized/issues/3))
 * Updated the README so people know that this will be a buggy ride
 * Renamed all of the css, javascript and such names into longer, easier to read names ([#7](https://github.com/sondr3/generator-jekyllized/issues/7))

@@ -15,11 +15,8 @@ owner:
   # used for Google Authorship
   google_plus: <%= ownerGoogle_plus %>
 
-# Grunt handles images and assets.
-exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
-          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
-
-include: ['.htaccess']
+# general setting for Jekyll
+googleAnalytics: <%= googleAnalytics %>
 
 # _config.build.yml sets future and show_drafts to false on `grunt build`
 future: true
@@ -52,3 +49,9 @@ markdown: <%= markdownEngine %><% if (markdownEngine === 'maruku') { %>
 #   extensions: ['fenced_code_blocks', 'smart']<% } %>
 
 pygments: <%= jekyllPygments %>
+
+# Grunt handles images and assets.
+exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
+          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+
+include: ['.htaccess']

@@ -113,23 +113,29 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
 JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
   var prompts = [
-  {
-    name: 'cssPreprocessor',
-    type: 'list',
-    message: 'CSS preprocessor',
-    choices: ['Compass', 'Sass', 'None']
-  },
-  {
-    name: 'autoPrefixer',
-    type: 'confirm',
-    message: 'Use autoPrefixer?'
-  },
-  {
-    name: 'javascriptPreprocessor',
-    type: 'list',
-    message: 'Javascript preprocessor',
-    choices: ['None', 'Coffeescript'],
-  }];
+    {
+      name: 'cssPreprocessor',
+      type: 'list',
+      message: 'CSS preprocessor',
+      choices: ['Compass', 'Sass', 'None']
+    },
+    {
+      name: 'autoPrefixer',
+      type: 'confirm',
+      message: 'Use autoPrefixer?'
+    },
+    {
+      name: 'javascriptPreprocessor',
+      type: 'list',
+      message: 'Javascript preprocessor',
+      choices: ['None', 'Coffeescript'],
+    },
+    {
+      name: 'googleAnalytics',
+      type: 'confirm',
+      message: 'Include Google Analytics?'
+    }
+  ];
 
   console.log(chalk.yellow('\nWire tools and preprocessors.') + ' ☛');
 
@@ -139,6 +145,7 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
     this.cssPreprocessor          = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
     this.javascriptPreprocessor   = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
     this.autoPrefixer             = props.autoPrefixer;
+    this.googleAnalytics          = props.googleanalytics;
 
     cb();
   }.bind(this));
