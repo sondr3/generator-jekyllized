@@ -6,7 +6,6 @@ var yeoman = require('yeoman-generator');
 var globule = require('globule');
 var shelljs = require('shelljs');
 
-
 var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
@@ -16,8 +15,8 @@ var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, optio
 
   // Exit if Ruby dependencies aren't installed
   if (!dependenciesInstalled) {
-    console.log('Looks like you\'re missing some dependencies.' +
-      '\nMake sure ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed, then run again.');
+    console.log('Seems like you are missing some dependencies.' +
+      '\nDouble check that ' + chalk.white('Ruby') + ' and the ' + chalk.white('Bundler gem') + ' are installed and try again.');
     shelljs.exit(1);
   }
 
