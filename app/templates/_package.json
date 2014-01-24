@@ -1,8 +1,8 @@
 {
-  "name": "<%= _.slugify(projectname) %>",
+  "name": "<%= _.slugify(appname) %>",
   "private": true,
   "version": "0.0.2",
-  "description": "Yeoman workflow for <%= projectname %>",
+  "description": "Yeoman workflow for <%= appname %>",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",<% if (autoPre) { %>

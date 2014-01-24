@@ -20,6 +20,7 @@ var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, optio
     shelljs.exit(1);
   }
 
+  // Find some defaults to fill in with
   this.gitInfo = {
     ownerName: this.user.git.username,
     ownerEmail: this.user.git.email
@@ -38,7 +39,7 @@ util.inherits(JekyllizeGenerator, yeoman.generators.Base);
 JekyllizeGenerator.prototype.askForProject = function askForProject() {
   var cb = this.async();
   var prompts = [
-      {
+    {
       name: 'projectname',
       message: 'What is the name of the project?'
     },
@@ -52,7 +53,7 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
     }
   ];
 
-  // Fill in information about the project and owner
+  // Fill in information about the project itself
   console.log(this.yeoman);
   console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
 
@@ -93,10 +94,10 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
     }
   ];
 
-  console.log(this.yeoman);
+  // This is to fill out the information about the owner
   console.log(chalk.yellow('\nNow tell us about yourself.') + ' →');
 
-  this prompt(prompts, function (props) {
+  this.prompt(prompts, function (props) {
 
     this.ownerName        = props.ownerName;
     this.ownerEmail       = props.ownerEmail;
@@ -110,7 +111,8 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
 
 JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
-  var prompts = [{
+  var prompts = [
+  {
     name: 'cssPre',
     type: 'list',
     message: 'CSS preprocessor',
@@ -322,28 +324,24 @@ JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
 JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   var cb = this.async();
   var prompts = [{
-    name: 'jekDescript',
-    message: 'Site description'
-  },
-  {
-    name: 'jekPost',
+    name: 'jekyllPermalinks',
     type: 'list',
     message: 'Post permalink style',
     choices: ['date', 'pretty', 'none']
   },
   {
-    name: 'jekMkd',
+    name: 'markdownEngine',
     type: 'list',
     message: 'Markdown library',
     choices: ['redcarpet', 'maruku', 'rdiscount', 'kramdown']
   },
   {
-    name: 'jekPyg',
+    name: 'jekyllPygments',
     type: 'confirm',
     message: 'Use the Pygments code highlighting library?'
   },
   {
-    name: 'jekPage',
+    name: 'jekyllPageinate',
     message: 'Number of posts to show on the home page',
     default: 'all',
     validate: function (input) {
@@ -362,11 +360,10 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 
   this.prompt(prompts, function (props) {
 
-    this.jekPyg      = props.jekPyg;
-    this.jekMkd      = props.jekMkd;
-    this.jekPost     = props.jekPost;
-    this.jekDescript = props.jekDescript;
-    this.jekPage     = /^all$/i.test(props.jekPage) ? false : props.jekPage;
+    this.jekyllPygments               = props.jekyllPygments;
+    this.markdownEngine               = props.markdownEngine;
+    this.jekyllPermalinks     = props.jekyllPermalinks;
+    this.jekyllPageinate      = /^all$/i.test(props.jekyllPageinate) ? false : props.jekyllPageinate;
 
     cb();
   }.bind(this));
@@ -539,7 +536,7 @@ JekyllizeGenerator.prototype.templates = function templates() {
 
 JekyllizeGenerator.prototype.pygments = function pygments() {
   // Pygments styles
-  if (this.jekPyg) {
+  if (this.jekyllPygments) {
     this.copy(path.join(this.jekyllTmp, 'css/syntax.css'), path.join('app', this.cssDir, 'syntax.css'));
   }
 };
