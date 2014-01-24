@@ -22,8 +22,8 @@ var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, optio
   }
 
   this.gitInfo = {
-    name: this.user.git.username,
-    email: this.user.git.email
+    ownerName: this.user.git.username,
+    ownerEmail: this.user.git.email
   }
 
   this.on('end', function () {
@@ -36,7 +36,7 @@ var JekyllizeGenerator = module.exports = function PlaybookGenerator(args, optio
 util.inherits(JekyllizeGenerator, yeoman.generators.Base);
 
 // Promts
-JekyllizeGenerator.prototype.askForUser = function askForUser() {
+JekyllizeGenerator.prototype.askForProject = function askForProject() {
   var cb = this.async();
   var prompts = [
       {
@@ -50,16 +50,35 @@ JekyllizeGenerator.prototype.askForUser = function askForUser() {
     {
       name: 'tagline',
       message: 'What is the tagline of your project?'
-    },
+    }
+  ];
+
+  // Fill in information about the project and owner
+  console.log(this.yeoman);
+  console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
+
+  this.prompt(prompts, function (props) {
+
+    this.projectname  = props.projectname;
+    this.description  = props.description;
+    this.tagline      = props.tagline;
+
+    cb();
+  }.bind(this));
+}
+
+JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
+  var cb = this.async();
+  var prompts = [
     {
       name: 'ownerName',
       message: 'What is your name?',
-      default: this.gitInfo.name
+      default: this.gitInfo.ownerName
     },
     {
       name: 'ownerEmail',
       message: 'What is your email?',
-      default: this.gitInfo.email
+      default: this.gitInfo.ownerEmail
     },
     {
       name: 'ownerBio',
@@ -75,24 +94,10 @@ JekyllizeGenerator.prototype.askForUser = function askForUser() {
     }
   ];
 
-  // Fill in information about the project: names etc
   console.log(this.yeoman);
-  console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
+  console.log(chalk.yellow('\nNow tell us about yourself.') + ' →');
 
-  this.prompt(prompts, function (props) {
-
-    this.projectname  = props.projectname;
-    this.description  = props.description;
-    this.tagline      = props.tagline;
-
-    cb();
-  }.bind(this));
-
-  // Fill in information about the owner of the project
-  console.log(this.yeoman);
-  console.log(chalk.yellow('\nNow a little about yourself.') + ' →');
-
-  this.prompt(prompts, function (props) {
+  this prompt(prompts, function (props) {
 
     this.ownerName        = props.ownerName;
     this.ownerEmail       = props.ownerEmail;
@@ -102,7 +107,7 @@ JekyllizeGenerator.prototype.askForUser = function askForUser() {
 
     cb();
   }.bind(this));
-};
+}
 
 JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
