@@ -1,6 +1,6 @@
 {
   "name": "<%= _.slugify(projectname) %>",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "dependencies": {<%
     var depn = [];
     if (h5bpCss) {
