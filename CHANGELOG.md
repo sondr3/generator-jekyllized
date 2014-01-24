@@ -1,5 +1,4 @@
 ## HEAD
-* Made [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) a requirement. Used when the user is asked for Google Analytics. Also extends issue ([#9](https://github.com/sondr3/generator-jekyllized/issues/9)). 
 * Added _README.md file to the template directory. Needs to be written for the user.
 * A new application logic to copy over the necessary files for the app.
 * Minor restructuring of the index.js file.

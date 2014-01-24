@@ -5,7 +5,6 @@ var chalk = require('chalk');
 var yeoman = require('yeoman-generator');
 var globule = require('globule');
 var shelljs = require('shelljs');
-var inquirer = require('inquirer')
 
 var JekyllizeGenerator = module.exports = function JekyllizeGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -134,8 +133,8 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
     {
       name: 'googleAnalytics',
       type: 'confirm',
-      message: 'Include Google Analytics?'
-    }
+      message: 'Include Google Analytics?',
+    },
   ];
 
   console.log(chalk.yellow('\nWire tools and preprocessors.') + ' ☛');
@@ -225,7 +224,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   }.bind(this));
 };
 
-/*JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
+JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
   var cb = this.async();
   var prompts = [{
     name: 'templateType',
@@ -293,7 +292,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
 
     cb();
   }.bind(this));
-};*/
+};
 
 JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
   var cb = this.async();
