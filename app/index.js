@@ -144,6 +144,7 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   }.bind(this));
 };
 
+// The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
   var cssPreprocessor = this.cssPreprocessor;

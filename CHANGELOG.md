@@ -1,5 +1,5 @@
 ## HEAD
-* Moved assets into their own folder by default. ([#8](https://github.com/sondr3/generator-jekyllized/issues/8))
+* Moved assets into their own folder by default. ([#8](https://github.com/sondr3/generator-jekyllized/issues/8)) & ([#3](https://github.com/sondr3/generator-jekyllized/issues/3))
 * Updated the README so people know that this will be a buggy ride
 * Renamed all of the css, javascript and such names into longer, easier to read names ([#7](https://github.com/sondr3/generator-jekyllized/issues/7))
 * Renamed projectname into appname so it generates correctly. ([#2](https://github.com/sondr3/generator-jekyllized/issues/2))
