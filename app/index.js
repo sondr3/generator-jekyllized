@@ -42,35 +42,63 @@ JekyllizeGenerator.prototype.askForUser = function askForUser() {
       {
       name: 'projectname',
       message: 'What is the name of the project?'
-    }
+    },
     {
       name: 'description',
-      message: 'Description of your project'
-    }
+      message: 'Description of your project:'
+    },
     {
       name: 'tagline',
       message: 'What is the tagline of your project?'
-    }
+    },
     {
-      name: 'author',
+      name: 'ownerName',
       message: 'What is your name?',
       default: this.gitInfo.name
     },
     {
-      name: 'email',
+      name: 'ownerEmail',
       message: 'What is your email?',
       default: this.gitInfo.email
     },
+    {
+      name: 'ownerBio',
+      message: 'A short description of yourself'
+    },
+    {
+      name: 'ownerTwitter',
+      message: 'Your Twitter profile'
+    },
+    {
+      name: 'ownerGoogle_plus',
+      message: 'Your full Google Plus URL (used for Google Authorship)'
+    }
   ];
 
+  // Fill in information about the project: names etc
   console.log(this.yeoman);
   console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
 
   this.prompt(prompts, function (props) {
 
-    this.authorName  = props.authorName;
-    this.authorEmail = props.authorEmail;
-    this.projectName = props.projectName;
+    this.projectname  = props.projectname;
+    this.description  = props.description;
+    this.tagline      = props.tagline;
+
+    cb();
+  }.bind(this));
+
+  // Fill in information about the owner of the project
+  console.log(this.yeoman);
+  console.log(chalk.yellow('\nNow a little about yourself.') + ' →');
+
+  this.prompt(prompts, function (props) {
+
+    this.ownerName        = props.ownerName;
+    this.ownerEmail       = props.ownerEmail;
+    this.ownerBio         = props.ownerBio;
+    this.ownerTwitter     = props.ownerTwitter;
+    this.ownerGoogle_plus = props.ownerGoogle_plus;
 
     cb();
   }.bind(this));

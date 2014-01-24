@@ -7,13 +7,13 @@ name: <%= projectname %>
 description: <%= description %>
 tagline: <%= tagline %>
 
-author:
-  name: <%= author %>
-  email: <%= email %>
-  bio: <%= bio %>
-  twitter: <%= twitter %>
+owner:
+  name: <%= ownerName %>
+  email: <%= ownerEmail %>
+  bio: <%= ownerBio %>
+  twitter: <%= ownerTwitter %>
   # used for Google Authorship
-  google_plus: <%= google_plus %>
+  google_plus: <%= ownerGoogle_plus %>
 
 # Grunt handles images and assets.
 exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
