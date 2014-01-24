@@ -5,8 +5,9 @@ var chalk = require('chalk');
 var yeoman = require('yeoman-generator');
 var globule = require('globule');
 var shelljs = require('shelljs');
+var inquirer = require('inquirer')
 
-var JekyllizeGenerator = module.exports = function JekyllizedGenerator(args, options, config) {
+var JekyllizeGenerator = module.exports = function JekyllizeGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
 
   var dependenciesInstalled = ['bundle', 'ruby'].every(function (depend) {
@@ -224,7 +225,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   }.bind(this));
 };
 
-JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
+/*JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
   var cb = this.async();
   var prompts = [{
     name: 'templateType',
@@ -292,7 +293,7 @@ JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
 
     cb();
   }.bind(this));
-};
+};*/
 
 JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
   var cb = this.async();
@@ -408,7 +409,7 @@ JekyllizeGenerator.prototype.application = function application() {
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
   this.template('_README.MD', 'README.md');
-}
+};
 
 JekyllizeGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('editorconfig', '.editorconfig');
@@ -421,6 +422,15 @@ JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
 };
 
 JekyllizeGenerator.prototype.templates = function templates() {
+  this.template('conditional/template-default/_layouts/default.html', 'app/_layout/default.html');
+  this.template('conditional/template-default/index.md', 'app/index.md');
+
+  if (this.googleAnalytics) {
+    this.copy('conditional/template-default/_includes/_googleanalytics.html', 'app/_includes/_googleanalytics.html');
+  };
+};
+
+/*JekyllizeGenerator.prototype.templates = function templates() {
   // Format date for posts
   var date = new Date();
   var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
@@ -525,7 +535,7 @@ JekyllizeGenerator.prototype.templates = function templates() {
       cb();
     }.bind(this));
   }
-};
+};*/
 
 JekyllizeGenerator.prototype.pygments = function pygments() {
   // Pygments styles
