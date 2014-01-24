@@ -1,4 +1,7 @@
 ## HEAD
+* Removed the H5BP template as this app won't be using more than one highly opinionated template. ([#14](https://github.com/sondr3/generator-jekyllized/issues/14)).
+* Removed the inquirer.js requirement and updated the GA code to reflect this change. See the commit [276483c](https://github.com/sondr3/generator-jekyllized/commit/276483c61597a77dd27b17eca8936c9e0099aa1f) as well as the issue ([#9](https://github.com/sondr3/generator-jekyllized/issues/9)).
+* Added index.md file to the app so you have something to work from.
 * Added _README.md file to the template directory. Needs to be written for the user.
 * A new application logic to copy over the necessary files for the app.
 * Minor restructuring of the index.js file.
