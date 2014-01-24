@@ -21,15 +21,15 @@ module.exports = function (grunt) {
       app: 'app',
       dist: 'dist'
     },
-    watch: {<% if (cssPreprocessor === 'sass' || cssPreprocessor === 'compass' ) { %>
-      <%= cssPreprocessor %>: {
-        files: ['<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>/**/*.{scss,sass}'],
-        tasks: ['<%= cssPreprocessor %>:server'<% if (autoPrefixer) { %>, 'autoPrefixer:server'<% } %>]
+    watch:       
+      sass: {
+        files: ['<%%= yeoman.app %>/assets/_scss/**/*.{scss,sass}'],
+        tasks: ['sass:server']
       },
       autoPrefixer: {
         files: ['<%%= yeoman.app %>/<%= cssDirectory %>/**/*.css'],
         tasks: ['copy:stageCss', 'autoPrefixer:server']
-      },<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
+      },<% if (javascriptPreprocessor === 'coffeescript') { %>
       coffee: {
         files: ['<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>/**/*.coffee'],
         tasks: ['coffee:dist']
@@ -111,7 +111,7 @@ module.exports = function (grunt) {
         '.tmp',
         '.jekyll'
       ]
-    },<% if (cssPreprocessor === 'sass') { %>
+    },
     sass: {
       options: {
         bundleExec: true,
@@ -141,34 +141,7 @@ module.exports = function (grunt) {
           ext: '.css'
         }]
       }
-    },<% } %><% if (cssPreprocessor === 'compass') { %>
-    compass: {
-      options: {
-        // If you're using global Sass gems, require them here.
-        // require: ['singularity', 'jacket'],
-        bundleExec: true,
-        sassDir: '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>',
-        cssDirectory: '.tmp/<%= cssDirectory %>',
-        imagesDir: '<%%= yeoman.app %>/<%= imageDirectory %>',
-        javascriptsDir: '<%%= yeoman.app %>/<%= javascriptDirectory %>',
-        relativeAssets: false,
-        httpImagesPath: '/<%= imageDirectory %>',
-        httpGeneratedImagesPath: '/<%= imageDirectory %>/generated',
-        outputStyle: 'expanded',
-        raw: 'extensions_dir = "<%%= yeoman.app %>/_bower_components"\n'
-      },
-      dist: {
-        options: {
-          generatedImagesDir: '<%%= yeoman.dist %>/<%= imageDirectory %>/generated'
-        }
-      },
-      server: {
-        options: {
-          debugInfo: true,
-          generatedImagesDir: '.tmp/<%= imageDirectory %>/generated'
-        }
-      }
-    },<% } %><% if (autoPrefixer) { %>
+    },<% if (autoPrefixer) { %>
     autoPrefixer: {
       options: {
         browsers: ['last 2 versions']
@@ -310,11 +283,11 @@ module.exports = function (grunt) {
             '<%= imageDirectory %>/**/*',
             '<%= fontsDirectory %>/**/*',
             // Like Jekyll, exclude files & folders prefixed with an underscore.
-            '!**/_*{,/**}'<% if (h5bpJs) { %>,<% } %>
-            // Explicitly add any files your site needs for distribution here.
-            <% if (!h5bpJs) { %>//<% } %>'_bower_components/jquery/jquery.js',
-            <% if (!h5bpJs) { %>//<% } %>'favicon.ico',
-            <% if (!h5bpJs) { %>//<% } %>'apple-touch*.png'
+            '!**/_*{,/**}'
+            // Explicitly add any files your site needs for distribution here
+            //'_bower_components/jquery/jquery.js',
+            // 'favicon.ico',
+            // 'apple-touch*.png'
           ],
           dest: '<%%= yeoman.dist %>'
         }]
@@ -374,6 +347,20 @@ module.exports = function (grunt) {
         'test/spec/**/*.js'
       ]
     },
+    csscss: {
+      options: {
+        bundleExec: true,
+        minMatch: 4,
+        ignoreProperties: '-moz-appearance,-ms-appearance,-o-appearance,-webkit-appearance',
+        ignoreSassMixins: false,
+        colorize: true,
+        shorthand: false,
+        verbose: true
+      },
+      check: {
+        src: ['.tmp/<%= cssDirectory %>/screen.css']
+      }
+    },
     csslint: {
       options: {
         csslintrc: '.csslintrc'
@@ -386,16 +373,13 @@ module.exports = function (grunt) {
       }
     },
     concurrent: {
-      server: [<% if (cssPreprocessor === 'sass') { %>
-        'sass:server',<% } %><% if (cssPreprocessor === 'compass') { %>
-        'compass:server',<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
-        'coffee:dist',<% } %><% if (autoPrefixer) { %>
-        'copy:stageCss',<% } %>
+      server: [
+        'sass:server',<% if (javascriptPreprocessor === 'coffeescript') { %>
+        'coffee:dist',<% } %>
         'jekyll:server'
       ],
-      dist: [<% if (cssPreprocessor === 'sass') { %>
-        'sass:dist',<% } %><% if (cssPreprocessor === 'compass') { %>
-        'compass:dist',<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
+      dist: [
+        'sass:dist',<% if (javascriptPreprocessor === 'coffeescript') { %>
         'coffee:dist',<% } %>
         'copy:dist'
       ]
@@ -415,11 +399,6 @@ module.exports = function (grunt) {
       'connect:livereload',
       'watch'
     ]);
-  });
-
-  grunt.registerTask('server', function () {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve']);
   });
 
   // No real tests yet. Add your own.

@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 
 gem 'jekyll', '~>1.4.0'
-gem '<%= markdownEngine %>'<% if (cssPreprocessor === 'sass') { %>
-gem 'sass', '>=3.2'<% } %><%  if (cssPreprocessor === 'compass') { %>
-gem 'compass', '>=0.12'<%     } %>
+gem 'redcarpet'
+gem 'csscss', '~>1.3'
+gem 'sass', '>=3.2'
+

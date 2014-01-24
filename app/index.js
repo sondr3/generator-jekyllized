@@ -224,76 +224,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   }.bind(this));
 };
 
-JekyllizeGenerator.prototype.askForTemplates = function askForTemplates() {
-  var cb = this.async();
-  var prompts = [{
-    name: 'templateType',
-    type: 'list',
-    message: 'Site template',
-    choices: ['Default Jekyll', 'HTML5 ★ Boilerplate'],
-  },
-  {
-    name: 'h5bpCss',
-    type: 'confirm',
-    message: 'Add H5★BP CSS files?',
-    when: function (answers) {
-      return answers.templateType === 'HTML5 ★ Boilerplate';
-    }
-  },
-  {
-    name: 'h5bpJs',
-    type: 'confirm',
-    message: 'Add H5★BP javascript files?',
-    when: function (answers) {
-      return answers.templateType === 'HTML5 ★ Boilerplate';
-    }
-  },
-  {
-    name: 'h5bpIco',
-    type: 'confirm',
-    message: 'Add H5★BP favorite and touch icons?',
-    when: function (answers) {
-      return answers.templateType === 'HTML5 ★ Boilerplate';
-    }
-  },
-  {
-    name: 'h5bpDocs',
-    type: 'confirm',
-    message: 'Add H5★BP documentation?',
-    when: function (answers) {
-      return answers.templateType === 'HTML5 ★ Boilerplate';
-    }
-  },
-  {
-    name: 'h5bpAnalytics',
-    type: 'confirm',
-    message: 'Include Google Analytics?',
-    when: function (answers) {
-      return answers.templateType === 'HTML5 ★ Boilerplate';
-    }
-  }];
-
-  console.log(chalk.yellow('\nChoose a template.') + ' ☛');
-
-  this.prompt(prompts, function (props) {
-
-    if (props.templateType === 'Default Jekyll') {
-      this.templateType = 'default';
-    }
-    else if (props.templateType === 'HTML5 ★ Boilerplate') {
-      this.templateType = 'h5bp';
-    }
-
-    this.h5bpCss       = props.h5bpCss;
-    this.h5bpJs        = props.h5bpJs;
-    this.h5bpIco       = props.h5bpIco;
-    this.h5bpDocs      = props.h5bpDocs;
-    this.h5bpAnalytics = props.h5bpAnalytics;
-
-    cb();
-  }.bind(this));
-};
-
 JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
   var cb = this.async();
   var prompts = [{
@@ -568,11 +498,9 @@ JekyllizeGenerator.prototype.cssPreprocessorprocessor = function cssPreprocessor
 };
 
 JekyllizeGenerator.prototype.javascriptPreprocessorprocessor = function javascriptPreprocessorprocessor() {
-  if (this.javascriptPreprocessor) {
-    this.mkdir(path.join('app', this.javascriptPreprocessorDirectory));
-  }
-
-  if (this.javascriptPreprocessor === 'coffeescript') {
-    this.template('conditional/coffee/readme.md', path.join('app', this.javascriptPreprocessorDirectory, 'readme.md'));
+  if (this.jsPre === 'coffeescript') {
+    this.mkdir('app/assets/_coffee');
+    this.copy('conditional/coffee/README.md', 'app/assets/_coffee/README.md');
+    this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
   }
 };
