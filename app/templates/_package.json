@@ -5,11 +5,11 @@
   "description": "Yeoman workflow for <%= appname %>",
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.1",<% if (autoprefixer) { %>
-    "grunt-autoprefixer": "~0.6.4",<% } %><% if (deploy) { %>
-    "grunt-build-control": "~0.1.2",<% } %>
+    "grunt": "~0.4.1",
+    "grunt-autoprefixer": "~0.6.4",
+    "grunt-build-control": "~0.1.2",
     "grunt-concurrent": "~0.4.3",
-    "grunt-contrib-clean": "~0.5.0",<% if (javascriptPreprocessor === 'coffeescript') { %>
+    "grunt-contrib-clean": "~0.5.0",
     "grunt-coffeelint": "~0.0.8",
     "grunt-contrib-coffee": "~0.8.2",
     "grunt-contrib-concat": "~0.3.0",

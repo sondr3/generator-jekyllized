@@ -8,12 +8,12 @@ categories: jekyll update
 
 You now have
 
-- Jekyll<% if (templateType === 'h5bp') { %>
-- Html5 Boilerplate based templates<% } %><% if (h5bpJs) { %>
-- jQuery and Modernizr<% } %>
-- Sass<% if (javascriptPreprocessor === 'coffeescript') { %>
-- Coffeescript tools<% } %>
-- Redcarpet and Pygments by default
+- Jekyll
+- Html5 Boilerplate based templates
+- jQuery and Modernizr
+- Sass
+- Coffeescript tools
+- Redcarpet and Pygments
 
 installed.
 

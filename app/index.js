@@ -110,44 +110,36 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
   }.bind(this));
 }
 
-JekyllizeGenerator.prototype.askForTools = function askForTools() {
-  var cb = this.async();
-  var prompts = [
-    {
-      name: 'autoprefixer',
-      type: 'confirm',
-      message: 'Use autoprefixer?'
-    },
-    {
-      name: 'javascriptPreprocessor',
-      type: 'list',
-      message: 'Javascript preprocessor',
-      choices: ['None', 'Coffeescript'],
-    },
-    {
-      name: 'googleAnalytics',
-      type: 'confirm',
-      message: 'Include Google Analytics?',
-    },
-  ];
+// JekyllizeGenerator.prototype.askForTools = function askForTools() {
+//   var cb = this.async();
+//   var prompts = [
+//     {
+//       name: 'autoprefixer',
+//       type: 'confirm',
+//       message: 'Use autoprefixer?'
+//     },
+//     {
+//       name: 'googleAnalytics',
+//       type: 'confirm',
+//       message: 'Include Google Analytics?',
+//     }
+//   ];
 
-  console.log(chalk.yellow('\nWire tools and preprocessors.') + ' ☛');
+//   console.log(chalk.yellow('\nWire tools and preprocessors.') + ' ☛');
 
-  this.prompt(prompts, function (props) {
+//   this.prompt(prompts, function (props) {
 
-    // Multiple choice 'None' to false
-    this.javascriptPreprocessor   = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
-    this.autoprefixer             = props.autoprefixer;
-    this.googleAnalytics          = props.googleanalytics;
+//     // Multiple choice 'None' to false
+//     this.autoprefixer             = props.autoprefixer;
+//     this.googleAnalytics          = props.googleanalytics;
 
-    cb();
-  }.bind(this));
-};
+//     cb();
+//   }.bind(this));
+// };
 
 // The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
-  var javascriptPreprocessor  = this.javascriptPreprocessor;
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
   };
@@ -175,16 +167,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     default: '/assets/fonts',
     filter: slashFilter
   },
-  },
-  {
-    name: 'javascriptPreprocessorDirectory',
-    message: 'Javascript preprocessor directory',
-    default: '/assets/_src',
-    filter: slashFilter,
-    when: function () {
-      return javascriptPreprocessor;
-    }
-  }];
+}];
 
   console.log(chalk.yellow('\nSet up some directories.') + ' ☛' +
     '\nSee note about nested directories in the README.');
@@ -195,7 +178,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     this.javascriptDirectory              = props.javascriptDirectory;
     this.imageDirectory                   = props.imageDirectory;
     this.fontsDirectory                   = props.fontsDirectory;
-    this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
     // Split asset directories on slashes
     this.cssExDirectory           = props.cssDirectory.split('/').pop();
@@ -327,10 +309,8 @@ JekyllizeGenerator.prototype.templates = function templates() {
   };
 };
 
-JekyllizeGenerator.prototype.javascriptPreprocessorprocessor = function javascriptPreprocessorprocessor() {
-  if (this.jsPre === 'coffeescript') {
-    this.mkdir('app/assets/_coffee');
-    this.copy('conditional/coffee/README.md', 'app/assets/_coffee/README.md');
-    this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
-  }
+JekyllizeGenerator.prototype.coffeescript = function coffeescript() {
+  this.mkdir('app/assets/_coffee');
+  this.copy('conditional/coffee/README.md', 'app/assets/_coffee/README.md');
+  this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
 };

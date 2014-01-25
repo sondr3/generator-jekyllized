@@ -3,8 +3,8 @@
 
 // Directory reference:
 //   css: <%= cssDirectory %>
-//   javascript: <%= javascriptDirectory %><% if (javascriptPreprocessor) { %>
-//   <%= javascriptPreprocessor %>: <%= javascriptPreprocessorDirectory %><% } %>
+//   javascript: <%= javascriptDirectory %>
+//   coffeescript: <%= javascriptDirectory %>/_coffee
 //   images: <%= imageDirectory %>
 //   fonts: <%= fontsDirectory %>
 
@@ -22,24 +22,25 @@ module.exports = function (grunt) {
     },
     watch: {      
       sass: {
-        files: ['<%%= yeoman.app %>/assets/_scss/**/*.{scss,sass}'],
+        files: ['<%%= yeoman.app %>/<%= cssDirectory %>/_scss/**/*.{scss,sass}'],
         tasks: ['sass:server']
       },
       autoprefixer: {
         files: ['<%%= yeoman.app %>/<%= cssDirectory %>/**/*.css'],
         tasks: ['copy:stageCss', 'autoprefixer:server']
-      },<% if (javascriptPreprocessor === 'coffeescript') { %>
+      },
       coffee: {
-        files: ['<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>/**/*.coffee'],
+        files: ['<%%= yeoman.app %>/<%= javascriptDirectory %>/**/*.coffee'],
         tasks: ['coffee:dist']
       },
       coffeeTest: {
         files: ['test/spec/**/*.coffee'],
         tasks: ['coffee:test']
-      },<% } %>
+      },
       jekyll: {
         files: [
           '<%%= yeoman.app %>/**/*.{html,yml,md,mkd,markdown}',
+          '_config.yml',
           '!<%%= yeoman.app %>/_bower_components/**/*'
         ],
         tasks: ['jekyll:server']
@@ -49,9 +50,9 @@ module.exports = function (grunt) {
           livereload: '<%%= connect.options.livereload %>'
         },
         files: [
-          '.jekyll/**/*.html',<% if (autoprefixer) { %>
-          '.tmp/<%= cssDirectory %>/**/*.css',<% } else { %>
-          '{.tmp,<%%= yeoman.app %>}/<%= cssDirectory %>/**/*.css',<% } %>
+          '.jekyll/**/*.html',
+          '.tmp/<%= cssDirectory %>/**/*.css',
+          '{.tmp,<%%= yeoman.app %>}/<%= cssDirectory %>/**/*.css',
           '{.tmp,<%%= yeoman.app %>}/<%%= js %>/**/*.js',
           '<%%= yeoman.app %>/<%= imageDirectory %>/**/*.{gif,jpg,jpeg,png,svg,webp}'
         ]
@@ -140,7 +141,7 @@ module.exports = function (grunt) {
           ext: '.css'
         }]
       }
-    },<% if (autoprefixer) { %>
+    },
     autoprefixer: {
       options: {
         browsers: ['last 2 versions']
@@ -161,12 +162,12 @@ module.exports = function (grunt) {
           dest: '.tmp/<%= cssDirectory %>'
         }]
       }
-    },<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
+    },
     coffee: {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>',
+          cwd: '<%%= yeoman.app %>/<%= javascriptDirectory %>/_coffee',
           src: '**/*.coffee',
           dest: '.tmp/<%= javascriptDirectory %>',
           ext: '.js'
@@ -181,7 +182,7 @@ module.exports = function (grunt) {
           ext: '.js'
         }]
       }
-    },<% } %>
+    },
     jekyll: {
       options: {
         bundleExec: true,
@@ -326,15 +327,15 @@ module.exports = function (grunt) {
           push: true
         }
       }
-    },<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
+    },<% } %>
     coffeelint: {
       options: {
         'max_line_length': {
           'level': 'ignore'
         }
       },
-      check: ['<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>/*.coffee']
-    },<% } %>
+      check: ['<%%= yeoman.app %>/<%= javascriptDirectory %>/_coffee/*.coffee']
+    },
     jshint: {
       options: {
         jshintrc: '.jshintrc',
@@ -372,13 +373,13 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'sass:server',<% if (javascriptPreprocessor === 'coffeescript') { %>
-        'coffee:dist',<% } %>
+        'sass:server',
+        'coffee:dist',
         'jekyll:server'
       ],
       dist: [
-        'sass:dist',<% if (javascriptPreprocessor === 'coffeescript') { %>
-        'coffee:dist',<% } %>
+        'sass:dist',
+        'coffee:dist',
         'copy:dist'
       ]
     }
@@ -392,8 +393,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'concurrent:server',<% if (autoprefixer) { %>
-      'autoprefixer:server',<% } %>
+      'concurrent:server'
+      'autoprefixer:server',
       'connect:livereload',
       'watch'
     ]);
@@ -409,9 +410,9 @@ module.exports = function (grunt) {
   grunt.registerTask('check', [
     'clean:server',
     'jekyll:check',
-    'sass:server',<% if (javascriptPreprocessor === 'coffeescript') { %>
+    'sass:server',
     'coffeelint:check',
-    'coffee:dist',<% } %>
+    'coffee:dist',
     'jshint:all',
     'csslint:check'
   ]);
@@ -422,8 +423,8 @@ module.exports = function (grunt) {
     'jekyll:dist',
     'concurrent:dist',
     'useminPrepare',
-    'concat',<% if (autoprefixer) { %>
-    'autoprefixer:dist',<% } %>
+    'concat',
+    'autoprefixer:dist',>
     'cssmin',
     'uglify',
     'imagemin',
