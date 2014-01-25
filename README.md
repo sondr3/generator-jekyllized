@@ -25,6 +25,6 @@ Jekyllized is a highly opinionated generator for developing static sites, and es
 [libsass]: https://github.com/hcatlin/libsass
 [gruntsass]: https://github.com/sindresorhus/grunt-sass
 [nodesass]: https://github.com/andrew/node-sass
-[coffescript]: http://coffeescript.org/
+[coffeescript]: http://coffeescript.org/
 [autoprefixer]: https://github.com/ai/autoprefixer
 [html5boilerplate]: http://html5boilerplate.com/
