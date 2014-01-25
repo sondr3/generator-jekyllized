@@ -117,7 +117,7 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
       name: 'cssPreprocessor',
       type: 'list',
       message: 'CSS preprocessor',
-      choices: ['Compass', 'Sass', 'None']
+      choices: ['Sass', 'None']
     },
     {
       name: 'autoPrefixer',
@@ -314,9 +314,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 
 // Make sure the Ruby dependencies are installed and works
 JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
-  
-  console.log('\nRunning ' + chalk.yellow.bold('bundle install') + ' to install the required gems.');
-
   this.template('Gemfile');
   this.conflicter.resolve(function (err) {
     if (err) {
@@ -327,7 +324,7 @@ JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
 };
 
 // Generate and copy over the necessary files to the application
-JekyllizeGenerator.prototype.application = function application() {
+JekyllizeGenerator.prototype.copyFiles = function copyFiles() {
   this.directory('app', 'app');
   this.copy('Gemfile', 'Gemfile');
   this.copy('csslintrc', '.csslintrc');
@@ -351,127 +348,20 @@ JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
 };
 
 JekyllizeGenerator.prototype.templates = function templates() {
-  this.template('conditional/template-default/_layouts/default.html', 'app/_layout/default.html');
-  this.template('conditional/template-default/index.md', 'app/index.md');
+  this.template('conditional/template/default.html', 'app/_layouts/default.html');
+  this.template('conditional/template/index.md', 'app/index.md');
 
   if (this.googleAnalytics) {
-    this.copy('conditional/template-default/_includes/_googleanalytics.html', 'app/_includes/_googleanalytics.html');
+    this.copy('conditional/template/google-analytics.html', 'app/_includes/google-analytics.html');
   };
 };
 
-/*JekyllizeGenerator.prototype.templates = function templates() {
-  // Format date for posts
-  var date = new Date();
-  var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-
-  // Scaffold Jekyll dirs
-  this.mkdir('app/_layouts');
-  this.mkdir('app/_posts');
-  this.mkdir('app/_includes');
-  this.mkdir('app/_plugins');
-  this.mkdir(path.join('app', this.cssDirectory));
-  this.mkdir(path.join('app', this.javascriptDirectory));
-  this.mkdir(path.join('app', this.imageDirectory));
-  this.mkdir(path.join('app', this.fontsDirectory));
-
-  // Jekyll config files
-  this.copy('_config.build.yml', '_config.build.yml');
-  this.template('_config.yml');
-
-  // Project posts
-  this.copy(path.join(this.jekyllTmp, '_posts', formattedDate + '-welcome-to-jekyll.markdown'), path.join('app/_posts', formattedDate + '-welcome-to-jekyll.md'));
-  this.template('app/_posts/yo-jekyllrb.md', 'app/_posts/' + formattedDate + '-yo-jekyllrb.md');
-
-  // Jekyll default template
-  if (this.templateType === 'default') {
-
-    // Default Jekyll files
-    this.copy(path.join(this.jekyllTmp, 'index.html'), 'app/index.html');
-    this.copy(path.join(this.jekyllTmp, '_layouts/post.html'), 'app/_layouts/post.html');
-    this.copy(path.join(this.jekyllTmp, 'css/main.css'), path.join('app', this.cssDirectory, 'main.css'));
-
-    // Jekyll files tailored for Yeoman
-    this.template('conditional/template-default/_layouts/default.html', 'app/_layouts/default.html');
-
-    // Empty file for Usemin defaults
-    this.write(path.join('app', this.javascriptDirectory, 'main.js'), '');
-  }
-
-  // HTML5 Boilerplate template
-  else if (this.templateType === 'h5bp') {
-    var cb = this.async();
-
-    // H5BP files tailored for Yeoman and Jekyll
-    this.copy('conditional/template-h5bp/index.html', 'app/index.html');
-    this.copy('conditional/template-h5bp/_layouts/post.html', 'app/_layouts/post.html');
-    this.template('conditional/template-h5bp/_includes/scripts.html', 'app/_includes/scripts.html');
-    this.template('conditional/template-h5bp/_layouts/default.html', 'app/_layouts/default.html');
-
-    // Google analytics include
-    if (this.h5bpAnalytics) {
-      this.copy('conditional/template-h5bp/_includes/googleanalytics.html', 'app/_includes/googleanalytics.html');
-    }
-
-    // Pull H5BP in from Github
-    // Use a pre-release commit because there's so much good stuff in it, but
-    // we should switch to an official release soon.
-    this.remote('h5bp', 'html5-boilerplate', 'fbffd2322d37f920825629c385f905a05d141061', function (err, remote) {
-      if (err) {
-        return cb(err);
-      }
-
-      // Always include files
-      remote.copy('.htaccess', 'app/.htaccess');
-      remote.copy('404.html', 'app/404.html');
-      remote.copy('crossdomain.xml', 'app/crossdomain.xml');
-      remote.copy('LICENSE.md', 'app/_h5bp-docs/LICENSE.md');
-      remote.copy('robots.txt', 'app/robots.txt');
-      remote.copy('humans.txt', 'app/humans.txt');
-
-      // CSS boilerplate
-      if (this.h5bpCss) {
-        remote.copy('css/main.css', path.join('app', this.cssDirectory, 'main.css'));
-      }
-      else {
-        // Empty file
-        this.write(path.join('app', this.cssDirectory, 'main.css'), '');
-      }
-
-      // Js boilerplate
-      if (this.h5bpJs) {
-        remote.copy('js/main.js', path.join('app', this.javascriptDirectory, 'main.js'));
-        remote.copy('js/plugins.js', path.join('app', this.javascriptDirectory, 'plugins.js'));
-      }
-      else {
-        // Empty file
-        this.write(path.join('app', this.javascriptDirectory, 'main.js'), '');
-      }
-
-      // Touch and favicon
-      if (this.h5bpIco) {
-        remote.copy('apple-touch-icon-precomposed.png', 'app/apple-touch-icon-precomposed.png');
-        remote.copy('favicon.ico', 'app/favicon.ico');
-      }
-
-      // Docs
-      if (this.h5bpDocs) {
-        remote.directory('doc', 'app/_h5bp-docs/code-docs');
-        remote.copy('CHANGELOG.md', 'app/_h5bp-docs/CHANGELOG.md');
-        remote.copy('CONTRIBUTING.md', 'app/_h5bp-docs/CONTRIBUTING.md');
-        remote.copy('README.md', 'app/_h5bp-docs/README.md');
-      }
-
-      cb();
-    }.bind(this));
-  }
-};*/
-
-JekyllizeGenerator.prototype.pygments = function pygments() {
+/*JekyllizeGenerator.prototype.pygments = function pygments() {
   // Pygments styles
   if (this.jekyllPygments) {
     this.copy(path.join(this.jekyllTmp, 'css/syntax.css'), path.join('app', this.cssDirectory, 'syntax.css'));
   }
-};
+};*/
 
 JekyllizeGenerator.prototype.cssPreprocessorprocessor = function cssPreprocessorprocessor() {
   var files = globule.find('**/*.css', {srcBase: path.join('app', this.cssDirectory)});

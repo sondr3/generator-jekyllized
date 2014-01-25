@@ -6,7 +6,7 @@
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",<% if (autoPrefixer) { %>
-    "grunt-autoPrefixer": "~0.6.4",<% } %><% if (deploy) { %>
+    "grunt-autoprefixer": "~0.6.4",<% } %><% if (deploy) { %>
     "grunt-build-control": "~0.1.2",<% } %>
     "grunt-concurrent": "~0.4.3",
     "grunt-contrib-clean": "~0.5.0",<% if (javascriptPreprocessor === 'coffeescript') { %>
