@@ -2,8 +2,7 @@
 'use strict';
 
 // Directory reference:
-//   css: <%= cssDirectory %><% if (cssPreprocessor) { %>
-//   <%= cssPreprocessor %>: <%= cssPreprocessorDirectory %><% } %>
+//   css: <%= cssDirectory %>
 //   javascript: <%= javascriptDirectory %><% if (javascriptPreprocessor) { %>
 //   <%= javascriptPreprocessor %>: <%= javascriptPreprocessorDirectory %><% } %>
 //   images: <%= imageDirectory %>
@@ -122,7 +121,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>',
+          cwd: '<%%= yeoman.app %>/',
           src: '**/*.{scss,sass}',
           dest: '.tmp/<%= cssDirectory %>',
           ext: '.css'
@@ -135,7 +134,7 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>',
+          cwd: '<%%= yeoman.app %>/',
           src: '**/*.{scss,sass}',
           dest: '.tmp/<%= cssDirectory %>',
           ext: '.css'
@@ -368,7 +367,6 @@ module.exports = function (grunt) {
       check: {
         src: [
           '<%%= yeoman.app %>/<%= cssDirectory %>/**/*.css',
-          '<%%= yeoman.app %>/<%= cssPreprocessorDirectory %>/**/*.scss'
         ]
       }
     },

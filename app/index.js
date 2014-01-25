@@ -114,12 +114,6 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
   var prompts = [
     {
-      name: 'cssPreprocessor',
-      type: 'list',
-      message: 'CSS preprocessor',
-      choices: ['Sass', 'None']
-    },
-    {
       name: 'autoprefixer',
       type: 'confirm',
       message: 'Use autoprefixer?'
@@ -142,7 +136,6 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   this.prompt(prompts, function (props) {
 
     // Multiple choice 'None' to false
-    this.cssPreprocessor          = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
     this.javascriptPreprocessor   = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
     this.autoprefixer             = props.autoprefixer;
     this.googleAnalytics          = props.googleanalytics;
@@ -154,7 +147,6 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
 // The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
-  var cssPreprocessor = this.cssPreprocessor;
   var javascriptPreprocessor  = this.javascriptPreprocessor;
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
@@ -183,14 +175,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     default: '/assets/fonts',
     filter: slashFilter
   },
-  {
-    name: 'cssPreprocessorDirectory',
-    message: 'CSS preprocessor directory',
-    default: '/assets/_scss',
-    filter: slashFilter,
-    when: function () {
-      return cssPreprocessor;
-    }
   },
   {
     name: 'javascriptPreprocessorDirectory',
@@ -211,7 +195,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     this.javascriptDirectory              = props.javascriptDirectory;
     this.imageDirectory                   = props.imageDirectory;
     this.fontsDirectory                   = props.fontsDirectory;
-    this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory;
     this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
     // Split asset directories on slashes
