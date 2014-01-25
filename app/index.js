@@ -110,33 +110,6 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
   }.bind(this));
 }
 
-// JekyllizeGenerator.prototype.askForTools = function askForTools() {
-//   var cb = this.async();
-//   var prompts = [
-//     {
-//       name: 'autoprefixer',
-//       type: 'confirm',
-//       message: 'Use autoprefixer?'
-//     },
-//     {
-//       name: 'googleAnalytics',
-//       type: 'confirm',
-//       message: 'Include Google Analytics?',
-//     }
-//   ];
-
-//   console.log(chalk.yellow('\nWire tools and preprocessors.') + ' ☛');
-
-//   this.prompt(prompts, function (props) {
-
-//     // Multiple choice 'None' to false
-//     this.autoprefixer             = props.autoprefixer;
-//     this.googleAnalytics          = props.googleanalytics;
-
-//     cb();
-//   }.bind(this));
-// };
-
 // The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();

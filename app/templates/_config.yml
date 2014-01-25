@@ -16,7 +16,7 @@ owner:
   google_plus: <%= ownerGoogle_plus %>
 
 # general setting for Jekyll
-googleAnalytics: <%= googleAnalytics %>
+googleAnalytics: UA-XXXXX-X
 
 # _config.build.yml sets future and show_drafts to false on `grunt build`
 future: true
