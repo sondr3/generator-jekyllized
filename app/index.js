@@ -143,31 +143,32 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
   };
-  var prompts = [{
-    name: 'cssDirectory',
-    message: 'CSS directory',
-    default: '/assets/stylesheets',
-    filter: slashFilter
-  },
-  {
-    name: 'javascriptDirectory',
-    message: 'Javascript directory',
-    default: '/assets/javascript',
-    filter: slashFilter
-  },
-  {
-    name: 'imageDirectory',
-    message: 'Image directory',
-    default: '/assets/images',
-    filter: slashFilter
-  },
-  {
-    name: 'fontsDirectory',
-    message: 'Webfont directory',
-    default: '/assets/fonts',
-    filter: slashFilter
-  },
-}];
+  var prompts = [
+    {
+      name: 'cssDirectory',
+      message: 'CSS directory',
+      default: '/assets/stylesheets',
+      filter: slashFilter
+    },
+    {
+      name: 'javascriptDirectory',
+      message: 'Javascript directory',
+      default: '/assets/javascript',
+      filter: slashFilter
+    },
+    {
+      name: 'imageDirectory',
+      message: 'Image directory',
+      default: '/assets/images',
+      filter: slashFilter
+    },
+    {
+      name: 'fontsDirectory',
+      message: 'Webfont directory',
+      default: '/assets/fonts',
+      filter: slashFilter
+    },
+  ];
 
   console.log(chalk.yellow('\nSet up some directories.') + ' ☛' +
     '\nSee note about nested directories in the README.');

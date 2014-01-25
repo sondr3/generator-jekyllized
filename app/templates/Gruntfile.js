@@ -291,7 +291,7 @@ module.exports = function (grunt) {
           ],
           dest: '<%%= yeoman.dist %>'
         }]
-      }<% if (autoprefixer) { %>,
+      },
       // Copy CSS into .tmp directory for autoprefixer processing
       stageCss: {
         files: [{
@@ -301,7 +301,7 @@ module.exports = function (grunt) {
           src: '**/*.css',
           dest: '.tmp/<%= cssDirectory %>'
         }]
-      }<% } %>
+      }
     },
     filerev: {
       options: {
