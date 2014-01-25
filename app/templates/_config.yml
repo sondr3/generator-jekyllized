@@ -27,31 +27,15 @@ paginate: <%= jekyllPageinate %>
 paginate_path: 'page:num'<% } %>
 
 # Markdown library
-markdown: <%= markdownEngine %><% if (markdownEngine === 'maruku') { %>
-#   use_tex:    false
-#   use_divs:   false
-#   png_engine: blahtex
-#   png_dir:    images/latex
-#   png_url:    /images/latex<% } %><% if (markdownEngine === 'rdiscount') {%>
-#   extensions: []<% } %><% if (markdownEngine === 'kramdown') {%>
-#   auto_ids: true
-#   footnote_nr: 1
-#   entity_output: as_char
-#   toc_levels: 1..6
-#   use_coderay: false
-#   coderay:
-#     coderay_wrap: div
-#     coderay_line_numbers: inline
-#     coderay_line_numbers_start: 1
-#     coderay_tab_width: 4
-#     coderay_bold_every: 10
-#     coderay_css: style<% } %><% if (markdownEngine === 'redcarpet') {%>
-#   extensions: ['fenced_code_blocks', 'smart']<% } %>
+markdown: redcarpet
+# Markdown library options
+# redcarpet:
+  # extensions: ['fenced_code_blocks', 'smart']
 
-pygments: <%= jekyllPygments %>
+pygments: true
 
 # Grunt handles images and assets.
 exclude: ['<%= imgagesExDirectory %>', '<%= cssExDirectory %>', '<%= javascriptsExDirectory %>', '<%= fontsExDirectory %>',
           '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
 
-include: ['.htaccess']
+include: ['']
