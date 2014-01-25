@@ -410,9 +410,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('check', [
     'clean:server',
-    'jekyll:check',<% if (cssPreprocessor === 'sass') { %>
-    'sass:server',<% } %><% if (cssPreprocessor === 'compass') { %>
-    'compass:server',<% } %><% if (javascriptPreprocessor === 'coffeescript') { %>
+    'jekyll:check',
+    'sass:server',<% if (javascriptPreprocessor === 'coffeescript') { %>
     'coffeelint:check',
     'coffee:dist',<% } %>
     'jshint:all',
