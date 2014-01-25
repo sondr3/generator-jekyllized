@@ -13,7 +13,7 @@ You now have
 - jQuery and Modernizr<% } %>
 - Sass<% if (javascriptPreprocessor === 'coffeescript') { %>
 - Coffeescript tools<% } %>
-- <%= markdownEngine %> markdown parser<% if (jekyllPygments) { %> and Pygments highlighter<% } %>
+- Redcarpet and Pygments by default
 
 installed.
 
