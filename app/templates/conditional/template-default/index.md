@@ -1,8 +1,8 @@
 ---
 layout: default
-title: <%= projectName %>
+title: <%= projectname %>
 ---
 
-# <%= projectName %>
+# <%= projectname %>
 
-Awesome! <%= projectName %> just got Jekyllized!
+Awesome! <%= projectname %> just got Jekyllized!
