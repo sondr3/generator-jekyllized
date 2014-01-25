@@ -279,11 +279,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
     choices: ['redcarpet', 'maruku', 'rdiscount', 'kramdown']
   },
   {
-    name: 'jekyllPygments',
-    type: 'confirm',
-    message: 'Use the Pygments code highlighting library?'
-  },
-  {
     name: 'jekyllPageinate',
     message: 'Number of posts to show on the home page',
     default: 'all',
@@ -303,7 +298,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 
   this.prompt(prompts, function (props) {
 
-    this.jekyllPygments       = props.jekyllPygments;
     this.markdownEngine       = props.markdownEngine;
     this.jekyllPermalinks     = props.jekyllPermalinks;
     this.jekyllPageinate      = /^all$/i.test(props.jekyllPageinate) ? false : props.jekyllPageinate;
@@ -357,37 +351,6 @@ JekyllizeGenerator.prototype.templates = function templates() {
   };
 };
 
-/*JekyllizeGenerator.prototype.pygments = function pygments() {
-  // Pygments styles
-  if (this.jekyllPygments) {
-    this.copy(path.join(this.jekyllTmp, 'css/syntax.css'), path.join('app', this.cssDirectory, 'syntax.css'));
-  }
-};*/
-
-JekyllizeGenerator.prototype.cssPreprocessorprocessor = function cssPreprocessorprocessor() {
-  var files = globule.find('**/*.css', {srcBase: path.join('app', this.cssDirectory)});
-  var cssDirectory = this.cssDirectory;
-
-  if (this.cssPreprocessor) {
-    this.mkdir(path.join('app', this.cssPreprocessorDirectory));
-    this.template('conditional/css-pre/readme.md', path.join('app', this.cssPreprocessorDirectory, 'readme.md'));
-
-    // Copy CSS files to preprocessor files
-    files.forEach(function (file) {
-      this.copy(path.join(process.cwd(), 'app', cssDirectory, file),
-                path.join('app', this.cssPreprocessorDirectory, file.replace(/\.css$/, '.scss')));
-
-      // Wait until copy is completely finished and then delete files.
-      this.conflicter.resolve(function (err) {
-        if (err) {
-          return this.emit('error', err);
-        }
-        spawn('rm', [path.join('app', cssDirectory, file)], { stdio: 'inherit' });
-      });
-    }, this);
-  }
-};
-
 JekyllizeGenerator.prototype.javascriptPreprocessorprocessor = function javascriptPreprocessorprocessor() {
   if (this.jsPre === 'coffeescript') {
     this.mkdir('app/assets/_coffee');
@@ -395,4 +358,3 @@ JekyllizeGenerator.prototype.javascriptPreprocessorprocessor = function javascri
     this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
   }
 };
-
