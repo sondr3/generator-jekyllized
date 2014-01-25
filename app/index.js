@@ -273,12 +273,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
     choices: ['date', 'pretty', 'none']
   },
   {
-    name: 'markdownEngine',
-    type: 'list',
-    message: 'Markdown library',
-    choices: ['redcarpet', 'maruku', 'rdiscount', 'kramdown']
-  },
-  {
     name: 'jekyllPageinate',
     message: 'Number of posts to show on the home page',
     default: 'all',
@@ -298,7 +292,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 
   this.prompt(prompts, function (props) {
 
-    this.markdownEngine       = props.markdownEngine;
     this.jekyllPermalinks     = props.jekyllPermalinks;
     this.jekyllPageinate      = /^all$/i.test(props.jekyllPageinate) ? false : props.jekyllPageinate;
 
