@@ -120,9 +120,9 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
       choices: ['Sass', 'None']
     },
     {
-      name: 'autoPrefixer',
+      name: 'autoprefixer',
       type: 'confirm',
-      message: 'Use autoPrefixer?'
+      message: 'Use autoprefixer?'
     },
     {
       name: 'javascriptPreprocessor',
@@ -144,7 +144,7 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
     // Multiple choice 'None' to false
     this.cssPreprocessor          = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
     this.javascriptPreprocessor   = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
-    this.autoPrefixer             = props.autoPrefixer;
+    this.autoprefixer             = props.autoprefixer;
     this.googleAnalytics          = props.googleanalytics;
 
     cb();
@@ -345,7 +345,7 @@ JekyllizeGenerator.prototype.projectfiles = function projectfiles() {
 
 JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
   // Create the default Jekyll site in a temp folder
-  shelljs.exec('bundle exec jekyll new ' + this.jekyllTmp);
+  shelljs.exec('bundle exec jekyll new');
 };
 
 JekyllizeGenerator.prototype.templates = function templates() {

@@ -1,4 +1,7 @@
 ## HEAD
+
+## 0.0.5 (January 25, 2014)
+* Minor tweaking and renaming of index.js and Gruntfile.js variables and the site now compiles! Jekyll still doesn't really work properly, but it's a start.
 * Fixed some of the naming in HTML files to correct the errors given when generating the site.
 * Removed most of the code for choosing the templates as well as renamed the default template. ([#14](https://github.com/sondr3/generator-jekyllized/issues/14)).
 * Fixed the error in issue 13 as well as updated it so that ```path.join``` no longer throws an error. ([#13](https://github.com/sondr3/generator-jekyllized/issues/13))

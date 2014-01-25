@@ -21,14 +21,14 @@ module.exports = function (grunt) {
       app: 'app',
       dist: 'dist'
     },
-    watch:       
+    watch: {      
       sass: {
         files: ['<%%= yeoman.app %>/assets/_scss/**/*.{scss,sass}'],
         tasks: ['sass:server']
       },
-      autoPrefixer: {
+      autoprefixer: {
         files: ['<%%= yeoman.app %>/<%= cssDirectory %>/**/*.css'],
-        tasks: ['copy:stageCss', 'autoPrefixer:server']
+        tasks: ['copy:stageCss', 'autoprefixer:server']
       },<% if (javascriptPreprocessor === 'coffeescript') { %>
       coffee: {
         files: ['<%%= yeoman.app %>/<%= javascriptPreprocessorDirectory %>/**/*.coffee'],
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
           livereload: '<%%= connect.options.livereload %>'
         },
         files: [
-          '.jekyll/**/*.html',<% if (autoPrefixer) { %>
+          '.jekyll/**/*.html',<% if (autoprefixer) { %>
           '.tmp/<%= cssDirectory %>/**/*.css',<% } else { %>
           '{.tmp,<%%= yeoman.app %>}/<%= cssDirectory %>/**/*.css',<% } %>
           '{.tmp,<%%= yeoman.app %>}/<%%= js %>/**/*.js',
@@ -141,8 +141,8 @@ module.exports = function (grunt) {
           ext: '.css'
         }]
       }
-    },<% if (autoPrefixer) { %>
-    autoPrefixer: {
+    },<% if (autoprefixer) { %>
+    autoprefixer: {
       options: {
         browsers: ['last 2 versions']
       },
@@ -291,8 +291,8 @@ module.exports = function (grunt) {
           ],
           dest: '<%%= yeoman.dist %>'
         }]
-      }<% if (autoPrefixer) { %>,
-      // Copy CSS into .tmp directory for autoPrefixer processing
+      }<% if (autoprefixer) { %>,
+      // Copy CSS into .tmp directory for autoprefixer processing
       stageCss: {
         files: [{
           expand: true,
@@ -394,8 +394,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'concurrent:server',<% if (autoPrefixer) { %>
-      'autoPrefixer:server',<% } %>
+      'concurrent:server',<% if (autoprefixer) { %>
+      'autoprefixer:server',<% } %>
       'connect:livereload',
       'watch'
     ]);
@@ -425,8 +425,8 @@ module.exports = function (grunt) {
     'jekyll:dist',
     'concurrent:dist',
     'useminPrepare',
-    'concat',<% if (autoPrefixer) { %>
-    'autoPrefixer:dist',<% } %>
+    'concat',<% if (autoprefixer) { %>
+    'autoprefixer:dist',<% } %>
     'cssmin',
     'uglify',
     'imagemin',
