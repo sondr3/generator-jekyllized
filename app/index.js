@@ -315,6 +315,7 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 // Make sure the Ruby dependencies are installed and works
 JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
   this.template('Gemfile');
+  console.log('\nRunning ' + chalk.yellow.bold('bundle install') + ' to install the required gems.');
   this.conflicter.resolve(function (err) {
     if (err) {
       return this.emit('error', err);
@@ -348,11 +349,11 @@ JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
 };
 
 JekyllizeGenerator.prototype.templates = function templates() {
-  this.template('conditional/template/default.html', 'app/_layouts/default.html');
+  this.template('conditional/template/_layouts/default.html', 'app/_layouts/default.html');
   this.template('conditional/template/index.md', 'app/index.md');
 
   if (this.googleAnalytics) {
-    this.copy('conditional/template/google-analytics.html', 'app/_includes/google-analytics.html');
+    this.copy('conditional/template/_includes/_googleanalytics.html', 'app/_includes/_googleanalytics.html');
   };
 };
 
@@ -394,3 +395,4 @@ JekyllizeGenerator.prototype.javascriptPreprocessorprocessor = function javascri
     this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
   }
 };
+
