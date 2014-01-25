@@ -1,4 +1,7 @@
 ## HEAD
+* Following up on [#16](https://github.com/sondr3/generator-jekyllized/issues/16), also removed all code for choosing between SASS and Compass etc. This will later run on libsass. ([#15](https://github.com/sondr3/generator-jekyllized/issues/15))
+* Removed all code for jekyllPygments, it is now installed by default.
+* Started a major cleanup of code throughout all the codebase to remove all functionality for choosing a default Markdown engine. ([#16](https://github.com/sondr3/generator-jekyllized/issues/16))
 
 ## 0.0.5 (January 25, 2014)
 * Minor tweaking and renaming of index.js and Gruntfile.js variables and the site now compiles! Jekyll still doesn't really work properly, but it's a start.
