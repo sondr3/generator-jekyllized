@@ -17,14 +17,14 @@ Jekyllized is a highly opinionated generator for developing static sites, and es
 - [HTML5 ★ BOILERPLATE][html5boilerplate] based theme
 - Sane Jekyll defaults with some extras
 
-[jekyll](https://jekyllrb.com)
-[yeoman](http://yeoman.io)
-[yo](https://github.com/yeoman/yo)
-[bower](http://bower.io/)
-[grunt](http://gruntjs.com/)
-[libsass](https://github.com/hcatlin/libsass)
-[gruntsass](https://github.com/sindresorhus/grunt-sass)
-[nodesass](https://github.com/andrew/node-sass)
-[coffescript](http://coffeescript.org/)
-[autoprefixer](https://github.com/ai/autoprefixer)
-[html5boilerplate](http://html5boilerplate.com/)
+[jekyll]: https://jekyllrb.com
+[yeoman]: http://yeoman.io
+[yo]: https://github.com/yeoman/yo
+[bower]: http://bower.io/
+[grunt]: http://gruntjs.com/
+[libsass]: https://github.com/hcatlin/libsass
+[gruntsass]: https://github.com/sindresorhus/grunt-sass
+[nodesass]: https://github.com/andrew/node-sass
+[coffescript]: http://coffeescript.org/
+[autoprefixer]: https://github.com/ai/autoprefixer
+[html5boilerplate]: http://html5boilerplate.com/
