@@ -5,3 +5,7 @@
 **Stylized and opinionated Jekyll development**
 
 Write more later. Yep.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sondr3/generator-jekyllized/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
