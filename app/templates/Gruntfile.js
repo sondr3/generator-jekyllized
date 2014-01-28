@@ -348,7 +348,7 @@ module.exports = function (grunt) {
         verbose: true
       },
       check: {
-        src: ['.tmp/assets/stylesheets/screen.css']
+        src: ['.tmp/assets/stylesheets/main.css']
       }
     },
     csslint: {
@@ -383,7 +383,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'concurrent:server'
+      'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
       'watch'
@@ -414,7 +414,7 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'useminPrepare',
     'concat',
-    'autoprefixer:dist',>
+    'autoprefixer:dist',
     'cssmin',
     'uglify',
     'imagemin',

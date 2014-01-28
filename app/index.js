@@ -275,16 +275,13 @@ JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
 };
 
 JekyllizeGenerator.prototype.templates = function templates() {
-  this.template('conditional/template/_layouts/default.html', 'app/_layouts/default.html');
-  this.template('conditional/template/index.md', 'app/index.md');
-
   if (this.googleAnalytics) {
     this.copy('conditional/template/_includes/_googleanalytics.html', 'app/_includes/_googleanalytics.html');
   };
 };
 
-JekyllizeGenerator.prototype.coffeescript = function coffeescript() {
+/*JekyllizeGenerator.prototype.coffeescript = function coffeescript() {
   this.mkdir('app/assets/_coffee');
   this.copy('conditional/coffee/README.md', 'app/assets/_coffee/README.md');
   this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
-};
+};*/

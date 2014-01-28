@@ -1,7 +1,7 @@
 {
   "name": "<%= _.slugify(appname) %>",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Yeoman workflow for <%= appname %>",
   "dependencies": {},
   "devDependencies": {

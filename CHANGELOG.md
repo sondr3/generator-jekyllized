@@ -1,3 +1,8 @@
+## 0.1.0
+* There's now a very, very, very basic theme to do something from. ([#25](https://github.com/sondr3/generator-jekyllized/issues/25))
+* Running tests now work. ([#24](https://github.com/sondr3/generator-jekyllized/issues/24))
+* Added a bunch of badges to the README. Yay, badges, badges, badgers, badgers.
+
 ## 0.0.9 (January 28, 2014)
 * Major restructuring and fixing of the Gruntfile and Index.js. This removes the functionality for the deploy options and changes the assets directories so you can't change them.
 * Added Bitdeli, Travis CI and Waffle.io to the README. ([#23](https://github.com/sondr3/generator-jekyllized/issues/23)) & ([#21](https://github.com/sondr3/generator-jekyllized/issues/21)) & ([#20](https://github.com/sondr3/generator-jekyllized/issues/20))
