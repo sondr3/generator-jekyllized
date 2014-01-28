@@ -111,7 +111,7 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
 }
 
 // The directories will default to /assets/ for better structure in the app
-JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
+/*JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
@@ -156,14 +156,14 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     // Split asset directories on slashes
     this.cssExDirectory           = props.cssDirectory.split('/').pop();
     this.javascriptsExDirectory   = props.javascriptDirectory.split('/').pop();
-    this.imgagesExDirectory       = props.imageDirectory.split('/').pop();
+    this.imagesExDirectory        = props.imageDirectory.split('/').pop();
     this.fontsExDirectory         = props.fontsDirectory.split('/').pop();
 
     cb();
   }.bind(this));
-};
+};*/
 
-JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
+/*JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
   var cb = this.async();
   var prompts = [{
     name: 'deploy',
@@ -197,7 +197,7 @@ JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
 
     cb();
   }.bind(this));
-};
+};*/
 
 JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   var cb = this.async();

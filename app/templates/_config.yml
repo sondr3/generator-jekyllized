@@ -35,7 +35,6 @@ markdown: redcarpet
 pygments: true
 
 # Grunt handles images and assets.
-exclude: ['<%= imgagesExDirectory %>', '<%= cssExDirectory %>', '<%= javascriptsExDirectory %>', '<%= fontsExDirectory %>',
-          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+exclude: ['assets', '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
 
 include: ['']
