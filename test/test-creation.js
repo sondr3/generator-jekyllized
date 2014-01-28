@@ -12,7 +12,7 @@ describe('jekyll generator', function () {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('jekyll:app', [
+      this.app = helpers.createGenerator('jekyllized:app', [
         '../../app'
       ]);
       done();
