@@ -1,4 +1,5 @@
 ## HEAD
+* Added Bitdeli, Travis CI and Waffle.io to the README. ([#23](https://github.com/sondr3/generator-jekyllized/issues/23)) & ([#21](https://github.com/sondr3/generator-jekyllized/issues/21)) & ([#20](https://github.com/sondr3/generator-jekyllized/issues/20))
 * Google Analytics is included by default. ([#17](https://github.com/sondr3/generator-jekyllized/issues/17))
 * Removed all mentions of javascriptPreprocessor in the code. ([#18](https://github.com/sondr3/generator-jekyllized/issues/18)) & ([#17](https://github.com/sondr3/generator-jekyllized/issues/17))
 * Following up on [#16](https://github.com/sondr3/generator-jekyllized/issues/16), also removed all code for choosing between SASS and Compass etc. This will later run on libsass. ([#15](https://github.com/sondr3/generator-jekyllized/issues/15))
