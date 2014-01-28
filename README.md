@@ -19,6 +19,8 @@ Jekyllized is a highly opinionated generator for developing static sites, and es
 - [HTML5 ★ BOILERPLATE][html5boilerplate] based theme
 - Sane Jekyll defaults with some extras
 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sondr3/generator-jekyllized/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
 [jekyll]: https://jekyllrb.com
 [yeoman]: http://yeoman.io
 [yo]: https://github.com/yeoman/yo
@@ -30,3 +32,4 @@ Jekyllized is a highly opinionated generator for developing static sites, and es
 [coffeescript]: http://coffeescript.org/
 [autoprefixer]: https://github.com/ai/autoprefixer
 [html5boilerplate]: http://html5boilerplate.com/
+
