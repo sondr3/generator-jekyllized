@@ -1,6 +1,12 @@
 [![Stories in Ready](https://badge.waffle.io/sondr3/generator-jekyllized.png?label=ready)](https://waffle.io/sondr3/generator-jekyllized)
 [![Build Status](https://travis-ci.org/sondr3/generator-jekyllized.png?branch=master)](https://travis-ci.org/sondr3/generator-jekyllized)
+[![Dependency Status](https://david-dm.org/sondr3/generator-jekyllized.png?theme=shields.io)](https://david-dm.org/sondr3/generator-jekyllized)
+[![devDependency Status](https://david-dm.org/sondr3/generator-jekyllized/dev-status.png)](https://david-dm.org/sondr3/generator-jekyllized#info=devDependencies)
+
 # generator-jekyllized
+
+[![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized)
+[![NPM](https://nodei.co/npm/generator-jekyllized.png?compact=true)](https://nodei.co/npm/generator-jekyllized/)
 
 ### NOTE: WORK IN PROGRESS
 ## **Bugs ahoy! Use at your own discretion.**
