@@ -1,0 +1,3 @@
+# <%= projectname %>
+
+[Describe the project.]

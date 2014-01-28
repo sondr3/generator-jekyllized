@@ -3,46 +3,38 @@
 # 2. config.build.yml
 # 3. config.yml
 
-name: <%= appname %>
-description: <%= jekDescript %>
-author:
-  name: <%= author %>
-  email: <%= email %>
+name: <%= projectname %>
+description: <%= description %>
+tagline: <%= tagline %>
 
-# Grunt handles images and assets.
-exclude: ['<%= imgExDir %>', '<%= cssExDir %>', '<%= jsExDir %>', '<%= fontsExDir %>',
-          '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+owner:
+  name: <%= ownerName %>
+  email: <%= ownerEmail %>
+  bio: <%= ownerBio %>
+  twitter: <%= ownerTwitter %>
+  # used for Google Authorship
+  google_plus: <%= ownerGoogle_plus %>
 
-include: ['.htaccess']
+# general setting for Jekyll
+googleAnalytics: UA-XXXXX-X
 
 # _config.build.yml sets future and show_drafts to false on `grunt build`
 future: true
-show_drafts: true<% if (jekPage) { %>
+show_drafts: true<% if (jekyllPageinate) { %>
 
-permalink: <%= jekPost %>
-paginate: <%= jekPage %>
+permalink: <%= jekyllPermalinks %>
+paginate: <%= jekyllPageinate %>
 paginate_path: 'page:num'<% } %>
 
 # Markdown library
-markdown: <%= jekMkd %><% if (jekMkd === 'maruku') { %>
-#   use_tex:    false
-#   use_divs:   false
-#   png_engine: blahtex
-#   png_dir:    images/latex
-#   png_url:    /images/latex<% } %><% if (jekMkd === 'rdiscount') {%>
-#   extensions: []<% } %><% if (jekMkd === 'kramdown') {%>
-#   auto_ids: true
-#   footnote_nr: 1
-#   entity_output: as_char
-#   toc_levels: 1..6
-#   use_coderay: false
-#   coderay:
-#     coderay_wrap: div
-#     coderay_line_numbers: inline
-#     coderay_line_numbers_start: 1
-#     coderay_tab_width: 4
-#     coderay_bold_every: 10
-#     coderay_css: style<% } %><% if (jekMkd === 'redcarpet') {%>
-#   extensions: ['fenced_code_blocks', 'smart']<% } %>
+markdown: redcarpet
+# Markdown library options
+# redcarpet:
+  # extensions: ['fenced_code_blocks', 'smart']
 
-pygments: <%= jekPyg %>
+pygments: true
+
+# Grunt handles images and assets.
+exclude: ['assets', '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
+
+include: ['']

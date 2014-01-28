@@ -6,12 +6,12 @@
         <title>{{ page.title }}</title>
         <meta name="viewport" content="width=device-width">
 
-        <!-- build:css<% if (cssPre) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= cssDir %>/main.css --><% if (jekPyg) { %>
+        <!-- build:css({.tmp,app}) assets/stylesheets/main.css -->
         <!-- Syntax highlighting CSS -->
-        <link rel="stylesheet" href="/<%= cssDir %>/syntax.css">
-<% } %>
+        <link rel="stylesheet" href="/assets/stylesheets/syntax.css">
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/<%= cssDir %>/main.css">
+        <link rel="stylesheet" href="/_bower_components/normalize-css/normalize.css">
+        <link rel="stylesheet" href="/assets/stylesheets/main.css">
         <!-- endbuild -->
 
     </head>
@@ -28,21 +28,22 @@
           <div class="footer">
             <div class="contact">
               <p>
-                <%= author %><br />
-                <a href="mailto:<%= email %>"><%= email %></a>
+                <%= ownerName %><br />
+                <a href="mailto:<%= ownerEmail %>"><%= ownerEmail %></a>
               </p>
             </div>
             <div class="contact">
               <p>
                 <a href="https://github.com/yourusername">github.com/yourusername</a><br />
-                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
+                <a href="https://twitter.com/{{ ownerTwitter }}">twitter.com/{{ ownerTwitter }}</a><br />
               </p>
             </div>
           </div>
         </div>
 
-    <!-- build:js<% if (jsPre) { %>({app,.tmp})<% } else { %>(app)<% } %> /<%= jsDir %>/scripts.js -->
-    <script src="/<%= jsDir %>/main.js"></script>
+    <!-- build:js({app,.tmp}) /assets/javascript/main.js -->
+    <script src="/_bower_components/modernizr/modernizr.js"></script>
+    <script src="/assets/javascript/main.js"></script>
     <!-- endbuild -->
     </body>
 </html>
