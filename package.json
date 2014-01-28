@@ -10,11 +10,13 @@
     "sass"
   ],
   "homepage": "https://github.com/sondr3/generator-jekyllized",
+  "bugs": "https://github.com/sondr3/generator-jekyllized/issues",
   "author": {
     "name": "Sondre Nilsen",
     "email": "nilsen.sondre@gmail.com",
     "url": "https://github.com/sondr3"
   },
+  "main": "app/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/sondr3/generator-jekyllized.git"
@@ -24,11 +26,6 @@
       "type": "MIT"
     }
   ],
-  "bugs": "https://github.com/sondr3/generator-jekyllized/issues",
-  "main": "app/index.js",
-  "scripts": {
-    "test": "mocha"
-  },
   "scripts": {
     "test": "mocha"
   },

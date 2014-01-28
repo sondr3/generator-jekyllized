@@ -1,4 +1,5 @@
-## HEAD
+## 0.0.9 (January 28, 2014)
+* Major restructuring and fixing of the Gruntfile and Index.js. This removes the functionality for the deploy options and changes the assets directories so you can't change them.
 * Added Bitdeli, Travis CI and Waffle.io to the README. ([#23](https://github.com/sondr3/generator-jekyllized/issues/23)) & ([#21](https://github.com/sondr3/generator-jekyllized/issues/21)) & ([#20](https://github.com/sondr3/generator-jekyllized/issues/20))
 * Google Analytics is included by default. ([#17](https://github.com/sondr3/generator-jekyllized/issues/17))
 * Removed all mentions of javascriptPreprocessor in the code. ([#18](https://github.com/sondr3/generator-jekyllized/issues/18)) & ([#17](https://github.com/sondr3/generator-jekyllized/issues/17))
