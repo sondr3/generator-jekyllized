@@ -37,6 +37,24 @@ util.inherits(JekyllizeGenerator, yeoman.generators.Base);
 
 // Promts
 JekyllizeGenerator.prototype.askForProject = function askForProject() {
+
+  console.log('\n' + 
+              chalk.blue('     ____        ___                 ___ ___')  + chalk.yellow('                            ___\n') + 
+              chalk.blue('     `MM         `MM                 `MM `MM')  + chalk.yellow(' 68b                        `MM\n') +
+              chalk.blue('      MM          MM                  MM  MM')  + chalk.yellow(' Y89                         MM\n') +
+              chalk.blue('      MM   ____   MM   __ ____    ___ MM  MM')  + chalk.yellow(' ___ _________  ____     ____MM\n') +
+              chalk.blue('      MM  6MMMMb  MM   d` `MM(    )M` MM  MM')  + chalk.yellow(' `MM MMMMMMMMP 6MMMMb   6MMMMMM\n') +
+              chalk.blue('      MM 6M`  `Mb MM  d`   `Mb    d`  MM  MM')  + chalk.yellow('  MM /    dMP 6M`  `Mb 6M`  `MM\n') +
+              chalk.blue('      MM MM    MM MM d`     YM.  ,P   MM  MM')  + chalk.yellow('  MM     dMP  MM    MM MM    MM\n') +
+              chalk.blue('      MM MMMMMMMM MMdM.      MM  M    MM  MM')  + chalk.yellow('  MM    dMP   MMMMMMMM MM    MM\n') +
+              chalk.blue('(8)   MM MM       MMPYM.     `Mbd`    MM  MM')  + chalk.yellow('  MM   dMP    MM       MM    MM\n') +
+              chalk.blue('((   ,M9 YM    d9 MM  YM.     YMP     MM  MM')  + chalk.yellow('  MM  dMP    /YM    d9 YM.  ,MM\n') +
+              chalk.blue(' YMMMM9   YMMMM9 _MM_  YM._    M     _MM__MM')  + chalk.yellow('__MM_dMMMMMMMM YMMMM9   YMMMMMM_\n') +
+              chalk.blue('                              d`            ')  + chalk.yellow('\n') +
+              chalk.blue('                          (8),P             ')  + chalk.yellow('\n') +
+              chalk.blue('                           YMM              ')  + chalk.yellow('\n')
+    );
+
   var cb = this.async();
   var prompts = [
     {
@@ -54,7 +72,7 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
   ];
 
   // Fill in information about the project itself
-  console.log(this.yeoman);
+  // console.log(this.yeoman);
   console.log(chalk.yellow.bold('\nJekyllize will install and configure a Jekyll site after your liking.'))
   console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
 
