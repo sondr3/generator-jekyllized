@@ -256,10 +256,27 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   }.bind(this));
 };
 
+// Generate and copy over the necessary files to the application
+JekyllizeGenerator.prototype.scaffold = function scaffold() {
+  this.directory('app', 'app');
+  this.template('Gruntfile.js', 'Gruntfile.js');
+  this.template('_package.json', 'package.json');
+  this.copy('gitignore', '.gitignore');
+  this.copy('gitattributes', '.gitattributes');
+  this.copy('bowerrc', '.bowerrc');
+  this.copy('_bower.json', 'bower.json');  
+  this.copy('Gemfile', 'Gemfile');
+  this.copy('jshintrc', '.jshintrc');
+  this.copy('csslintrc', '.csslintrc');
+  this.copy('editorconfig', '.editorconfig');
+  this.template('_config.yml', '_config.yml');
+  this.template('_config.build.yml', '_config.build.yml');
+  this.template('_README.md', 'README.md');
+};
+
 // Make sure the Ruby dependencies are installed and works
 JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
-  this.template('Gemfile');
-  console.log('\nRunning ' + chalk.yellow.bold('bundle install') + ' to install the required gems.');
+  console.log(chalk.yellow('\nRunning ', chalk.blue('bundle install'), chalk.yellow(' to install the required gems.')));
   this.conflicter.resolve(function (err) {
     if (err) {
       return this.emit('error', err);
@@ -267,25 +284,6 @@ JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
     shelljs.exec('bundle install');
   });
 };
-
-// Generate and copy over the necessary files to the application
-JekyllizeGenerator.prototype.copyFiles = function copyFiles() {
-  this.directory('app', 'app');
-  this.copy('Gemfile', 'Gemfile');
-  this.copy('csslintrc', '.csslintrc');
-  this.copy('gitignore', '.gitignore');
-  this.template('Gruntfile.js', 'Gruntfile.js');
-  this.template('_config.yml', '_config.yml');
-  this.template('_config.build.yml', '_config.build.yml');
-  this.template('_package.json', 'package.json');
-  this.template('_bower.json', 'bower.json');
-  this.template('_README.md', 'README.md');
-};
-
-JekyllizeGenerator.prototype.projectfiles = function projectfiles() {
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', '.jshintrc')
-}
 
 JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
   // Create the default Jekyll site in a temp folder
