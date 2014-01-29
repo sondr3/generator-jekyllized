@@ -3,5 +3,6 @@
 .travis.yml
 .jshintrc
 .gitattributes
+*.sublime-*
 contributing.md
 test
