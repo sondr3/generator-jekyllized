@@ -5,6 +5,7 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 describe('jekyll generator', function () {
+  var jekyllized;
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
@@ -26,7 +27,7 @@ describe('jekyll generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      'someOption': 'Y'
+      features: ['modernizr', 'normalize', 'jquery']
     });
 
     this.app.run({}, function () {

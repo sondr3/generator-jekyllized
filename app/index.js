@@ -134,32 +134,29 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
 
   var prompts = [{
-    type: 'list',
     name: 'cssPreprocessor',
+    type: 'list',
     message: 'What CSS preprocessor would you like to use?',
-    choices: ['libsass', 'Sass', 'Compass', 'Bourbon', 'Stylus', 'LESS', 'None']
+    choices: ['libsass', 'Sass', 'Compass', 'Bourbon', 'Stylus', 'LESS', 'None'],
+    filter: function(val) { return val.toLowerCase(); }
   },
   {
-    type: 'list',
     name: 'markupEngine',
+    type: 'list',
     message: 'What markup language do you want to use?',
-    choices: ['HAML', 'SLIM', 'Jade', 'None']
+    choices: ['HAML', 'SLIM', 'Jade', 'None'],
+    filter: function(val) { return val.toLowerCase(); }
   },
   {
-    type: 'list',
-    name: 'javascriptPreprocessor',
+     name: 'javascriptPreprocessor',
+   type: 'list',
     message: 'Would you like to run CoffeScript or JavaScript?',
-    choices: ['CoffeScript', 'JavaScript']
+    choices: ['CoffeScript', 'None'],
+    filter: function(val) { return val.toLowerCase(); }
   },
   {
-    type: 'list',
-    name: 'templateName',
-    message: 'What template would you like to use?',
-    choices: ['H5BP', 'Jekyll', 'None']
-  },
-  {
-    type: 'checkbox',
     name: 'developmentTools',
+    type: 'checkbox',
     message: 'What libraries do you want?',
     choices: [
     {
@@ -182,31 +179,19 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   console.log(chalk.yellow('\nNow choose the tools you want to use.'))
 
   this.prompt(prompts, function (props) {
-    var hasTool = function (mod) { return props.developmentTools.indexOf(mod) !== -1; };
+    var features = props.features;
+
+    function hasTool(feat) {
+        return features.indexOf(feat) !== -1;
+    }
+
+    this.cssPreprocessor        = props.cssPreprocessor//         === 'None' ? false : props.cssPreprocessor.toLowerCase();
+    this.javascriptPreprocessor = props.javascriptPreprocessor//  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
+    this.markupEngine           = props.markupEngine//            === 'None' ? false : props.markupEngine.toLowerCase();
+
     this.modernizr  = hasTool('modernizr');
     this.normalize  = hasTool('normalize');
     this.jquery     = hasTool('jquery');
-
-    var jekyllizedTools = [];
-
-    if (this.modernizr) {
-      jekyllizedTools.push("'modernizr'");
-    }
-    if (this.normalize) {
-      jekyllizedTools.push("'normalize'");
-    }
-    if (this.jquery) {
-      jekyllizedTools.push("'jquery'");
-    };
-
-    if (jekyllizedTools.length) {
-      this.env.options.jekyllizedDependencies = '\n ' + jekyllizedTools.join(',\n') + '\n';
-    }
-
-    this.cssPreprocessor        = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
-    this.javascriptPreprocessor = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
-    this.templateName           = props.templateName            === 'None' ? false : props.templateName.toLowerCase();
-    this.markupEngine           = props.markupEngine            === 'None' ? false : props.markupEngine.toLowerCase();
 
     cb();
   }.bind(this));
