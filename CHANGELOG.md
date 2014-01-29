@@ -1,4 +1,5 @@
 ## HEAD
+* Lots if minor bug fixes. Using checklists now work, using .split('/') on the assets directories now works and some other minor tweaks.
 * Reworked some of the logic for copying files to work with the new version of Yeoman Generator
 * Updated the needed version of dependencies.
 * Added a custom welcome message ([#27](https://github.com/sondr3/generator-jekyllized/issues/27))

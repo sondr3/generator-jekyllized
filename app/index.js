@@ -74,7 +74,6 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
   ];
 
   // Fill in information about the project itself
-  // console.log(this.yeoman);
   console.log(chalk.magenta('\nIt\'s time to Jekyllize your project!'))
   console.log(chalk.yellow('\nTell us a little about it.') + ' →');
 
@@ -132,27 +131,31 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
 
 JekyllizeGenerator.prototype.askForTools = function askForTools() {
   var cb = this.async();
-
   var prompts = [{
     name: 'cssPreprocessor',
     type: 'list',
     message: 'What CSS preprocessor would you like to use?',
     choices: ['libsass', 'Sass', 'Compass', 'Bourbon', 'Stylus', 'LESS', 'None'],
-    filter: function(val) { return val.toLowerCase(); }
+    filter: function(value) { return value.toLowerCase(); }
+  },
+  {
+    name: 'autoprefixer',
+    type: 'confirm',
+    message: 'Do you want to use AutoPrefixer?'
   },
   {
     name: 'markupEngine',
     type: 'list',
     message: 'What markup language do you want to use?',
     choices: ['HAML', 'SLIM', 'Jade', 'None'],
-    filter: function(val) { return val.toLowerCase(); }
+    filter: function(value) { return value.toLowerCase(); }
   },
   {
      name: 'javascriptPreprocessor',
    type: 'list',
     message: 'Would you like to run CoffeScript or JavaScript?',
     choices: ['CoffeScript', 'None'],
-    filter: function(val) { return val.toLowerCase(); }
+    filter: function(value) { return value.toLowerCase(); }
   },
   {
     name: 'developmentTools',
@@ -179,15 +182,15 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   console.log(chalk.yellow('\nNow choose the tools you want to use.'))
 
   this.prompt(prompts, function (props) {
-    var features = props.features;
+    var developmentTools = props.developmentTools;
 
     function hasTool(feat) {
-        return features.indexOf(feat) !== -1;
+        return developmentTools.indexOf(feat) !== -1;
     }
 
-    this.cssPreprocessor        = props.cssPreprocessor//         === 'None' ? false : props.cssPreprocessor.toLowerCase();
-    this.javascriptPreprocessor = props.javascriptPreprocessor//  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
-    this.markupEngine           = props.markupEngine//            === 'None' ? false : props.markupEngine.toLowerCase();
+    this.cssPreprocessor        = props.cssPreprocessor;
+    this.javascriptPreprocessor = props.javascriptPreprocessor;
+    this.markupEngine           = props.markupEngine;
 
     this.modernizr  = hasTool('modernizr');
     this.normalize  = hasTool('normalize');
@@ -198,8 +201,12 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
 };
 
 // The directories will default to /assets/ for better structure in the app
-/*JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
+JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
+
+  var cssPreprocessor         = this.cssPreprocessor;
+  var javascriptPreprocessor  = this.javascriptPreprocessor;
+
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
   };
@@ -208,30 +215,68 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
       name: 'cssDirectory',
       message: 'CSS directory',
       default: '/assets/stylesheets',
-      filter: slashFilter
+      filter: function(value) { return value.split('/').pop(); }
     },
     {
       name: 'javascriptDirectory',
       message: 'Javascript directory',
       default: '/assets/javascript',
-      filter: slashFilter
+      filter: function(value) { return value.split('/').pop(); }
     },
     {
       name: 'imageDirectory',
       message: 'Image directory',
       default: '/assets/images',
-      filter: slashFilter
+      filter: function(value) { return value.split('/').pop(); }
     },
     {
       name: 'fontsDirectory',
       message: 'Webfont directory',
       default: '/assets/fonts',
-      filter: slashFilter
+      filter: function(value) { return value.split('/').pop(); }
     },
+    {
+      name: 'cssPreprocessorDirectory',
+      message: 'CSS Preprocessor directory',
+      default: function(default) {
+        if (this.cssPreprocessor === 'libsass') {
+          this.default.push("'/assets/_scss'");
+        }
+        else if (this.cssPreprocessor === 'Sass') {
+          this.default.push("'/assets/_scss'");
+        }
+        else if (this.cssPreprocessor === 'Compass') {
+          this.default.push("'/assets/_scss'");
+        }
+        else if (this.cssPreprocessor === 'Bourbon') {
+          this.default.push("'/assets/_scss'");
+        }
+        else if (this.cssPreprocessor === 'Stylus') {
+          this.default.push("'/assets/_styl'");
+        }
+        else if (this.cssPreprocessor === 'LESS') {
+          this.default.push("'/assets/_less'");
+        }
+      },
+      filter: function(value) { return value.split('/').pop(); },
+      when: function() {
+        return cssPreprocessor;
+      },
+    },
+    {
+      name: 'javascriptPreprocessorDirectory',
+      message: 'CoffeeScript directory',
+      default: '/assets/_coffee',
+      filter: function(value) { return value.split('/').pop(); },
+      when: function() {
+        return javascriptPreprocessor;
+      },
+    }
   ];
 
-  console.log(chalk.yellow('\nSet up some directories.') + ' ☛' +
-    '\nSee note about nested directories in the README.');
+  console.log(chalk.yellow
+              ('\nConfigure the asset structure.') + ' ☛' +
+              '\nSee note about nested directories in the README.');
 
   this.prompt(prompts, function (props) {
 
@@ -239,52 +284,39 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
     this.javascriptDirectory              = props.javascriptDirectory;
     this.imageDirectory                   = props.imageDirectory;
     this.fontsDirectory                   = props.fontsDirectory;
-
-    // Split asset directories on slashes
-    this.cssExDirectory           = props.cssDirectory.split('/').pop();
-    this.javascriptsExDirectory   = props.javascriptDirectory.split('/').pop();
-    this.imagesExDirectory        = props.imageDirectory.split('/').pop();
-    this.fontsExDirectory         = props.fontsDirectory.split('/').pop();
+    this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory;
+    this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
     cb();
   }.bind(this));
-};*/
+};
 
-/*JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
+JekyllizeGenerator.prototype.askForTemplate = function askForTemplate() {
   var cb = this.async();
-  var prompts = [{
-    name: 'deploy',
-    message: 'Use grunt-build-control for deployment?',
-    type: 'confirm'
-  },
+  var prompts = [
   {
-    name: 'deployRemote',
-    message: 'Remote to deploy to',
-    default: '../',
-    when: function (answers) {
-      return answers.deploy;
-    }
-  },
-  {
-    name: 'deployBranch',
-    message: 'Branch to deploy to',
-    default: 'gh-pages',
-    when: function (answers) {
-      return answers.deploy;
-    }
+    name: 'templateName',
+    type: 'list',
+    message: 'What template do you want to use?',
+    choices: ['Jekyll', 'H5BP', 'None']
   }];
 
-  console.log(chalk.yellow('\nChoose deployment options.') + ' ☛');
+  console.log(chalk.yellow('\nChoose a template to use for Jekyll.') + ' ☛');
 
   this.prompt(prompts, function (props) {
-
-    this.deploy       = props.deploy;
-    this.deployRemote = props.deployRemote;
-    this.deployBranch = props.deployBranch;
+    if (props.templateName === 'Jekyll') {
+      this.templateName = 'jekyll';
+    }
+    else if (props.templateName === 'H5BP') {
+      this.templateName = 'h5bp';
+    }
+    else if (props.templateName === 'None') {
+      this.templateName = 'none';
+    }
 
     cb();
   }.bind(this));
-};*/
+};
 
 JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   var cb = this.async();
@@ -325,6 +357,42 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   }.bind(this));
 };
 
+/*JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
+  var cb = this.async();
+  var prompts = [{
+    name: 'deploy',
+    message: 'Use grunt-build-control for deployment?',
+    type: 'confirm'
+  },
+  {
+    name: 'deployRemote',
+    message: 'Remote to deploy to',
+    default: '../',
+    when: function (answers) {
+      return answers.deploy;
+    }
+  },
+  {
+    name: 'deployBranch',
+    message: 'Branch to deploy to',
+    default: 'gh-pages',
+    when: function (answers) {
+      return answers.deploy;
+    }
+  }];
+
+  console.log(chalk.yellow('\nChoose deployment options.') + ' ☛');
+
+  this.prompt(prompts, function (props) {
+
+    this.deploy       = props.deploy;
+    this.deployRemote = props.deployRemote;
+    this.deployBranch = props.deployBranch;
+
+    cb();
+  }.bind(this));
+};*/
+
 // Generate and copy over the necessary files to the application
 JekyllizeGenerator.prototype.scaffold = function scaffold() {
   this.directory('app', 'app');
@@ -354,19 +422,3 @@ JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
   });
 };
 
-JekyllizeGenerator.prototype.jekyllInit = function jekyllInit() {
-  // Create the default Jekyll site in a temp folder
-  shelljs.exec('bundle exec jekyll new');
-};
-
-JekyllizeGenerator.prototype.templates = function templates() {
-  if (this.googleAnalytics) {
-    this.copy('conditional/template/_includes/_googleanalytics.html', 'app/_includes/_googleanalytics.html');
-  };
-};
-
-/*JekyllizeGenerator.prototype.coffeescript = function coffeescript() {
-  this.mkdir('app/assets/_coffee');
-  this.copy('conditional/coffee/README.md', 'app/assets/_coffee/README.md');
-  this.copy('conditional/coffee/app.coffee', 'app/assets/_coffee/app.coffee');
-};*/

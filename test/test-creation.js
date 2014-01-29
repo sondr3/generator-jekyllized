@@ -5,6 +5,7 @@ var path    = require('path');
 var helpers = require('yeoman-generator').test;
 
 describe('jekyll generator', function () {
+  this.timeout(15000);
   var jekyllized;
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
@@ -20,6 +21,7 @@ describe('jekyll generator', function () {
   });
 
   it('creates expected files', function (done) {
+    // setTimeout(15000);
     var expected = [
       // add files you expect to exist here.
       '.jshintrc',
@@ -27,7 +29,7 @@ describe('jekyll generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      features: ['modernizr', 'normalize', 'jquery']
+      developmentTools: ['modernizr', 'normalize', 'jquery']
     });
 
     this.app.run({}, function () {
