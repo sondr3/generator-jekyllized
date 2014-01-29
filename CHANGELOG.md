@@ -2,7 +2,7 @@
 * Reworked some of the logic for copying files to work with the new version of Yeoman Generator
 * Updated the needed version of dependencies.
 * Added a custom welcome message ([#27](https://github.com/sondr3/generator-jekyllized/issues/27))
-* Added a .npmignore file for NPM publish not to include all the files
+* Added a .npmignore so that when publishing to NPM only the needed files are included
 
 ## 0.1.0
 * There's now a very, very, very basic theme to do something from. ([#25](https://github.com/sondr3/generator-jekyllized/issues/25))

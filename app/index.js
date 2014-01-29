@@ -27,7 +27,9 @@ var JekyllizeGenerator = module.exports = function JekyllizeGenerator(args, opti
   }
 
   this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
+    this.installDependencies({ 
+      skipInstall: options['skip-install'] 
+    });
   });
 
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
@@ -59,7 +61,7 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
   var prompts = [
     {
       name: 'projectname',
-      message: 'What is the name of the project?'
+      message: 'What is the name of your project?'
     },
     {
       name: 'description',
@@ -73,8 +75,8 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
 
   // Fill in information about the project itself
   // console.log(this.yeoman);
-  console.log(chalk.yellow.bold('\nJekyllize will install and configure a Jekyll site after your liking.'))
-  console.log(chalk.yellow('\nTell us a little about the project.') + ' →');
+  console.log(chalk.magenta('\nIt\'s time to Jekyllize your project!'))
+  console.log(chalk.yellow('\nTell us a little about it.') + ' →');
 
   this.prompt(prompts, function (props) {
 
@@ -105,11 +107,11 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
     },
     {
       name: 'ownerTwitter',
-      message: 'Your Twitter profile'
+      message: 'Your Twitter URL'
     },
     {
       name: 'ownerGoogle_plus',
-      message: 'Your full Google Plus URL (used for Google Authorship)'
+      message: 'Your Google Plus URL'
     }
   ];
 
@@ -127,6 +129,88 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
     cb();
   }.bind(this));
 }
+
+JekyllizeGenerator.prototype.askForTools = function askForTools() {
+  var cb = this.async();
+
+  var prompts = [{
+    type: 'list',
+    name: 'cssPreprocessor',
+    message: 'What CSS preprocessor would you like to use?',
+    choices: ['libsass', 'Sass', 'Compass', 'Bourbon', 'Stylus', 'LESS', 'None']
+  },
+  {
+    type: 'list',
+    name: 'markupEngine',
+    message: 'What markup language do you want to use?',
+    choices: ['HAML', 'SLIM', 'Jade', 'None']
+  },
+  {
+    type: 'list',
+    name: 'javascriptPreprocessor',
+    message: 'Would you like to run CoffeScript or JavaScript?',
+    choices: ['CoffeScript', 'JavaScript']
+  },
+  {
+    type: 'list',
+    name: 'templateName',
+    message: 'What template would you like to use?',
+    choices: ['H5BP', 'Jekyll', 'None']
+  },
+  {
+    type: 'checkbox',
+    name: 'developmentTools',
+    message: 'What libraries do you want?',
+    choices: [
+    {
+      name: 'Modernizr',
+      value: 'modernizr',
+      checked: false
+    },
+    {
+      name: 'Normalize.css',
+      value: 'normalize',
+      checked: false
+    },
+    {
+      name: 'jQuery',
+      value: 'jquery',
+      checked: false
+    }]
+  }];
+
+  console.log(chalk.yellow('\nNow choose the tools you want to use.'))
+
+  this.prompt(prompts, function (props) {
+    var hasTool = function (mod) { return props.developmentTools.indexOf(mod) !== -1; };
+    this.modernizr  = hasTool('modernizr');
+    this.normalize  = hasTool('normalize');
+    this.jquery     = hasTool('jquery');
+
+    var jekyllizedTools = [];
+
+    if (this.modernizr) {
+      jekyllizedTools.push("'modernizr'");
+    }
+    if (this.normalize) {
+      jekyllizedTools.push("'normalize'");
+    }
+    if (this.jquery) {
+      jekyllizedTools.push("'jquery'");
+    };
+
+    if (jekyllizedTools.length) {
+      this.env.options.jekyllizedDependencies = '\n ' + jekyllizedTools.join(',\n') + '\n';
+    }
+
+    this.cssPreprocessor        = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
+    this.javascriptPreprocessor = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
+    this.templateName           = props.templateName            === 'None' ? false : props.templateName.toLowerCase();
+    this.markupEngine           = props.markupEngine            === 'None' ? false : props.markupEngine.toLowerCase();
+
+    cb();
+  }.bind(this));
+};
 
 // The directories will default to /assets/ for better structure in the app
 /*JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
@@ -276,7 +360,7 @@ JekyllizeGenerator.prototype.scaffold = function scaffold() {
 
 // Make sure the Ruby dependencies are installed and works
 JekyllizeGenerator.prototype.rubyDependencies = function rubyDependencies() {
-  console.log(chalk.yellow('\nRunning ', chalk.blue('bundle install'), chalk.yellow(' to install the required gems.')));
+  console.log(chalk.yellow('\nRunning '), chalk.blue('bundle install'), chalk.yellow(' to install the required gems.'));
   this.conflicter.resolve(function (err) {
     if (err) {
       return this.emit('error', err);
