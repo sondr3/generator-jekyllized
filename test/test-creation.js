@@ -29,7 +29,16 @@ describe('jekyll generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      developmentTools: ['modernizr', 'normalize', 'jquery']
+      cssPreprocessor: 'libsass',
+      markupEngine: 'HAML',
+      javascriptPreprocessor: 'CoffeeScript',
+      developmentTools: ['modernizr', 'normalize', 'jquery'],
+      cssDirectory: '/assets/stylesheets',
+      javascriptDirectory: '/assets/javascript',
+      imageDirectory: '/assets/images',
+      fontsDirectory: '/assets/fonts',
+      cssPreprocessorDirectory: '/assets/_scss',
+      javascriptPreprocessorDirectory: '/assets/_coffee'
     });
 
     this.app.run({}, function () {
