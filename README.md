@@ -22,10 +22,6 @@ Jekyllized is a highly opinionated generator for developing static sites, and es
 - [HTML5 ★ BOILERPLATE][html5boilerplate] based theme
 - Sane Jekyll defaults with some extras
 
-[![Stories in Ready](https://badge.waffle.io/sondr3/generator-jekyllized.png?label=ready)](https://waffle.io/sondr3/generator-jekyllized)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sondr3/generator-jekyllized/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
 [jekyll]: https://jekyllrb.com
 [yeoman]: http://yeoman.io
 [yo]: https://github.com/yeoman/yo

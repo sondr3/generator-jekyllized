@@ -20,6 +20,20 @@ var JekyllizeGenerator = module.exports = function JekyllizeGenerator(args, opti
     shelljs.exit(1);
   }
 
+  // Setup the test framework so Gulp and Mocha will cooperate
+  this.testFramework = options['test-framework'] || 'mocha';
+  options['test-framework'] = this.testFramework;
+
+  this.hookFor('test-framework', {
+    as: 'app',
+    options: {
+      options: {
+        'skip-install': options['skip-install-message'],
+        'skip-message': options['skip-install']
+      }
+    }
+  });
+
   // Find the users name and email from Git 
   this.gitInfo = {
     ownerName: this.user.git.username,
@@ -32,6 +46,7 @@ var JekyllizeGenerator = module.exports = function JekyllizeGenerator(args, opti
     });
   });
 
+  this.options = options;
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
 
@@ -333,6 +348,7 @@ JekyllizeGenerator.prototype.scaffold = function scaffold() {
   this.template('Gruntfile.js', 'Gruntfile.js');
   this.template('gulpfile.js', 'gulpfile.js');
   this.template('_package.json', 'package.json');
+  this.template('_config.json', 'config.json');
   this.copy('gitignore', '.gitignore');
   this.copy('gitattributes', '.gitattributes');
   this.copy('bowerrc', '.bowerrc');

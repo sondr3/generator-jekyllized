@@ -1,0 +1,10 @@
+{
+	"watch": {
+		"src": [
+			"<%%= yeoman.app %>/assets/_scss/**/*.scss"
+		],
+		"dest": [
+			"<%%= yeoman.dist %>/assets/stylesheets/**/*.css"
+		]
+	}
+}
