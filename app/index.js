@@ -124,19 +124,9 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
   console.log(chalk.yellow('\nNow choose the tools you want to use.'))
 
   this.prompt([{
-    name: 'cssPreprocessor',
-    type: 'list',
-    message: 'What CSS preprocessor would you like to use?',
-    choices: ['libsass', 'Sass', 'Compass', 'Bourbon', 'Stylus', 'LESS', 'None'],
-  }, {
     name: 'autoprefixer',
     type: 'confirm',
     message: 'Do you want to use AutoPrefixer?'
-  }, {
-    name: 'markupEngine',
-    type: 'list',
-    message: 'What markup language do you want to use?',
-    choices: ['HAML', 'SLIM', 'Jade', 'None'],
   }, {
     name: 'javascriptPreprocessor',
     type: 'list',
@@ -169,9 +159,8 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
         return developmentTools.indexOf(feat) !== -1;
     }
 
-    this.cssPreprocessor        = props.cssPreprocessor         === 'None' ? false : props.cssPreprocessor.toLowerCase();
-    this.javascriptPreprocessor = props.javascriptPreprocessor  === 'None' ? false : props.javascriptPreprocessor.toLowerCase();
-    this.markupEngine           = props.markupEngine            === 'None' ? false : props.markupEngine.toLowerCase();
+    this.autoprefixer           = props.autoprefixer;
+    this.javascriptPreprocessor = props.javascriptPreprocessor === 'None' ? false : props.javascriptPreprocessor.toLowerCase();;
 
     this.modernizr  = hasTool('modernizr');
     this.normalize  = hasTool('normalize');
@@ -183,31 +172,9 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
 
 // The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
-  var cssPreprocessor         = this.cssPreprocessor;
-  var javascriptPreprocessor  = this.javascriptPreprocessor; 
-
-  var cssDefaultDirectory;
-
-  if (cssPreprocessor === 'libsass') {
-    cssDefaultDirectory = '/assets/_scss'
-  }
-  else if (this.cssPreprocessor === 'sass') {
-    cssDefaultDirectory = '/assets/_scss'
-  }
-  else if (this.cssPreprocessor === 'compass') {
-    cssDefaultDirectory = '/assets/_scss'
-  }
-  else if (this.cssPreprocessor === 'bourbon') {
-    cssDefaultDirectory = '/assets/_scss'
-  }
-  else if (this.cssPreprocessor === 'stylus') {
-    cssDefaultDirectory = '/assets/_styl'
-  }
-  else if (this.cssPreprocessor === 'less') {
-    cssDefaultDirectory = '/assets/_less'
-  }
-
   var cb = this.async();
+
+  var javascriptPreprocessor = this.javascriptPreprocessor;
 
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
@@ -240,17 +207,14 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   }, {
     name: 'cssPreprocessorDirectory',
     message: 'CSS Preprocessor directory',
-    default: cssDefaultDirectory,
+    default: '/assets/_scss',
     filter: slashFilter,
-    when: function(props) {
-      return cssPreprocessor;
-    }
   }, {
     name: 'javascriptPreprocessorDirectory',
     message: 'CoffeeScript directory',
     default: '/assets/_coffee',
     filter: slashFilter,
-    when: function (props) {
+    when: function () {
       return javascriptPreprocessor;
     }
   }], function (props) {
@@ -262,17 +226,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory;
     this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
-    this.cssDirectory                     = props.cssDirectory.split('/').pop();
-    this.javascriptDirectory              = props.javascriptDirectory.split('/').pop();
-    this.imageDirectory                   = props.imageDirectory.split('/').pop();
-    this.fontsDirectory                   = props.fontsDirectory.split('/').pop();
-    if (this.cssPreprocessorDirectory === true) {
-      this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory.split('/').pop();
-    }
-    if (this.javascriptPreprocessorDirectory === true) {
-      this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory.split('/').pop();
-    }
-    
     cb();
   }.bind(this));
 }
@@ -378,6 +331,7 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 JekyllizeGenerator.prototype.scaffold = function scaffold() {
   this.directory('app', 'app');
   this.template('Gruntfile.js', 'Gruntfile.js');
+  this.template('gulpfile.js', 'gulpfile.js');
   this.template('_package.json', 'package.json');
   this.copy('gitignore', '.gitignore');
   this.copy('gitattributes', '.gitattributes');

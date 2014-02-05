@@ -2,12 +2,12 @@
 'use strict';
 
 // Directory reference:
-//    css:          assets/stylesheets
-//    sass:         assets/_scss
-//    javascript:   assets/javascript
-//    coffeescript: assets/_coffee
-//    images:       assets/images
-//    fonts:        assets/fonts
+//    css:          <%= cssDirectory %>
+//    sass:         <%= cssPreprocessorDirectory %>
+//    javascript:   <%= javascriptDirectory %>
+//    coffeescript: <%= javascriptPreprocessorDirectory %>
+//    images:       <%= imageDirectory %>
+//    fonts:        <%= fontsDirectory %>
 
 module.exports = function (grunt) {
   // Show elapsed time after tasks run
