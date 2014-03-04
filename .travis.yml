@@ -4,4 +4,4 @@ node_js:
 before_script:
   - npm install -g bower mocha istanbul
 after_success:
-	- coveralls
+  - coveralls
