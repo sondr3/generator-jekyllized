@@ -6,16 +6,21 @@ var helpers = require('yeoman-generator').test;
 
 describe('jekyll generator', function () {
   this.timeout(15000);
-  var jekyllized;
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('jekyllized:app', [
-        '../../app'
+      this.jekyllized = helpers.createGenerator('jekyllized:app', [
+        '../../app', [
+          helpers.createDummyGenerator(),
+          'mocha:app'
+        ]
       ]);
+
+      this.jekyllized.options['skip-install'] = true;
+
       done();
     }.bind(this));
   });
@@ -28,20 +33,12 @@ describe('jekyll generator', function () {
       '.editorconfig'
     ];
 
-    helpers.mockPrompt(this.app, {
-      cssPreprocessor: 'libsass',
-      markupEngine: 'HAML',
+    helpers.mockPrompt(this.jekyllized, {
       javascriptPreprocessor: 'CoffeeScript',
-      developmentTools: ['modernizr', 'normalize', 'jquery'],
-      cssDirectory: '/assets/stylesheets',
-      javascriptDirectory: '/assets/javascript',
-      imageDirectory: '/assets/images',
-      fontsDirectory: '/assets/fonts',
-      cssPreprocessorDirectory: '/assets/_scss',
-      javascriptPreprocessorDirectory: '/assets/_coffee'
+      developmentTools: ['modernizr', 'normalize', 'jquery']
     });
 
-    this.app.run({}, function () {
+    this.jekyllized.run({}, function () {
       helpers.assertFiles(expected);
       done();
     });

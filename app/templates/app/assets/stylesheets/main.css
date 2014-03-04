@@ -1,265 +1,274 @@
-/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
-
+/* 
+The main SCSS file for everything, yep
+*/
+/*****************************************************************************/
 /*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
+/* Common
+/*
+/*****************************************************************************/
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0; }
 
 html {
-    color: #222;
-    font-size: 1em;
-    line-height: 1.4;
-}
+  height: 100%; }
 
+body {
+  height: 100%;
+  background-color: #FFF;
+  font: 13.34px Helvetica, Arial, sans-serif;
+  font-size: small;
+  text-align: center; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%; }
+
+h1 {
+  margin-bottom: 1em; }
+
+p {
+  margin: 1em 0; }
+
+a {
+  color: #00a; }
+  a:hover {
+    color: #000; }
+  a:visited {
+    color: #a0a; }
+
+/*****************************************************************************/
 /*
- * Remove text-shadow in selection highlight: h5bp.com/i
- * These selection rule sets have to be separate.
- * Customize the background color to match your design.
- */
-
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
-::selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
+/* Home
 /*
- * A better looking default horizontal rule
- */
+/*****************************************************************************/
+.posts {
+  list-style-type: none;
+  margin-bottom: 2em; }
+  .posts li {
+    line-height: 1.75em; }
+  .posts span {
+    color: #aaa;
+    font-family: Monaco, "Courier New", monospace;
+    font-size: 80%; }
 
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
+/*****************************************************************************/
 /*
- * Remove the gap between images, videos, audio and canvas and the bottom of
- * their containers: h5bp.com/i/440
- */
-
-audio,
-canvas,
-img,
-svg,
-video {
-    vertical-align: middle;
-}
-
+/* Site
 /*
- * Remove default fieldset styles.
- */
+/*****************************************************************************/
+.site {
+  font-size: 115%;
+  text-align: justify;
+  width: 42em;
+  margin: 3em auto 2em;
+  line-height: 1.5em; }
 
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
+.header a {
+  font-weight: bold;
+  text-decoration: none; }
 
+.title {
+  display: inline-block;
+  margin-bottom: 2em; }
+  .title a {
+    color: #a00; }
+    .title a:hover {
+      color: #000; }
+
+.header a.extra {
+  color: #aaa;
+  margin-left: 1em; }
+  .header a.extra:hover {
+    color: #000; }
+
+.meta {
+  color: #aaa; }
+
+.footer {
+  font-size: 80%;
+  color: #666;
+  border-top: 4px solid #eee;
+  margin-top: 2em;
+  overflow: hidden; }
+  .footer .contact {
+    float: left;
+    margin-right: 3em; }
+    .footer .contact a {
+      color: #8085C1; }
+  .footer .rss {
+    margin-top: 1.1em;
+    margin-right: -0.2em;
+    float: right; }
+    .footer .rss img {
+      border: 0; }
+
+/*****************************************************************************/
 /*
- * Allow only vertical resizing of textareas.
- */
-
-textarea {
-    resize: vertical;
-}
-
-/* ==========================================================================
-   Browse Happy prompt
-   ========================================================================== */
-
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
+/* Posts
 /*
- * Hide from both screenreaders and browsers: h5bp.com/u
- */
+/*****************************************************************************/
+/* standard */
+.post pre {
+  border: 1px solid #ddd;
+  background-color: #eef;
+  padding: 0 0.4em; }
+.post ul, .post ol {
+  margin-left: 1.35em; }
+.post code {
+  border: 1px solid #ddd;
+  background-color: #eef;
+  padding: 0 0.2em; }
+.post pre {
+  /* terminal */ }
+  .post pre code {
+    border: none; }
+  .post pre.terminal {
+    border: 1px solid #000;
+    background-color: #333;
+    color: #FFF; }
+    .post pre.terminal code {
+      background-color: #333; }
 
-.hidden {
-    display: none !important;
-    visibility: hidden;
-}
-
-/*
- * Hide only visually, but have it available for screenreaders: h5bp.com/v
- */
-
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-/*
- * Extends the .visuallyhidden class to allow the element to be focusable
- * when navigated to via the keyboard: h5bp.com/p
- */
-
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
-}
-
-/*
- * Hide visually and from screenreaders, but maintain layout
- */
-
-.invisible {
-    visibility: hidden;
-}
-
-/*
- * Clearfix: contain floats
- *
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
-
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
-}
-
-.clearfix:after {
-    clear: both;
-}
-
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
-}
-
-@media print,
-       (-o-min-device-pixel-ratio: 5/4),
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 120dpi) {
-    /* Style adjustments for high resolution devices */
-}
-
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid required HTTP connection: h5bp.com/r
-   ========================================================================== */
-
-@media print {
-    * {
-        background: transparent !important;
-        color: #000 !important; /* Black prints faster: h5bp.com/s */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    /*
-     * Don't show links for images, or javascript/internal links
-     */
-
-    a[href^="javascript:"]:after,
-    a[href^="#"]:after {
-        content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    thead {
-        display: table-header-group; /* h5bp.com/t */
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
-}
+.highlight {
+  background: #ffffff; }
+  .highlight .c {
+    /* Comment */
+    color: #999988;
+    font-style: italic; }
+  .highlight .err {
+    /* Error */
+    color: #a61717;
+    background-color: #e3d2d2; }
+  .highlight .k, .highlight .o {
+    /* Keyword & Operator */
+    font-weight: bold; }
+  .highlight .cm {
+    /* Comment.Multiline */
+    color: #999988;
+    font-style: italic; }
+  .highlight .cp {
+    /* Comment.Preproc */
+    color: #999999;
+    font-weight: bold; }
+  .highlight .c1 {
+    /* Comment.Single */
+    color: #999988;
+    font-style: italic; }
+  .highlight .cs {
+    /* Comment.Special */
+    color: #999999;
+    font-weight: bold;
+    font-style: italic; }
+  .highlight .gd {
+    /* Generic.Deleted */
+    color: #000000;
+    background-color: #ffdddd; }
+    .highlight .gd .x {
+      /* Generic.Deleted.Specific */
+      color: #000000;
+      background-color: #ffaaaa; }
+  .highlight .ge {
+    /* Generic.Emph */
+    font-style: italic; }
+  .highlight .gr {
+    /* Generic.Error */
+    color: #aa0000; }
+  .highlight .gh {
+    /* Generic.Heading */
+    color: #999999; }
+  .highlight .gi {
+    /* Generic.Inserted */
+    color: #000000;
+    background-color: #ddffdd; }
+    .highlight .gi .x {
+      /* Generic.Inserted.Specific */
+      color: #000000;
+      background-color: #aaffaa; }
+  .highlight .go {
+    /* Generic.Output */
+    color: #888888; }
+  .highlight .gp {
+    /* Generic.Prompt */
+    color: #555555; }
+  .highlight .gs {
+    /* Generic.Strong */
+    font-weight: bold; }
+  .highlight .gu {
+    /* Generic.Subheading */
+    color: #aaaaaa; }
+  .highlight .gt {
+    /* Generic.Traceback */
+    color: #aa0000; }
+  .highlight .kc, .highlight .kd, .highlight .kp, .highlight .kr {
+    /* Keyword.{Constant,Declaration,Pseudo,Reserved} */
+    font-weight: bold; }
+  .highlight .kt {
+    /* Keyword.Type */
+    color: #445588;
+    font-weight: bold; }
+  .highlight .m {
+    /* Literal.Number */
+    color: #009999; }
+  .highlight .s {
+    /* Literal.String */
+    color: #dd1144; }
+  .highlight .na {
+    /* Name.Attribute */
+    color: teal; }
+  .highlight .nb {
+    /* Name.Builtin */
+    color: #0086b3; }
+  .highlight .nc {
+    /* Name.Class */
+    color: #445588;
+    font-weight: bold; }
+  .highlight .no {
+    /* Name.Constant */
+    color: teal; }
+  .highlight .ni {
+    /* Name.Entity */
+    color: purple; }
+  .highlight .ne, .highlight .nf {
+    /* Name.Exception & Name.Function */
+    color: #990000;
+    font-weight: bold; }
+  .highlight .nn {
+    /* Name.Namespace */
+    color: #555555; }
+  .highlight .nt {
+    /* Name.Tag */
+    color: navy; }
+  .highlight .nv {
+    /* Name.Variable */
+    color: teal; }
+  .highlight .ow {
+    /* Operator.Word */
+    font-weight: bold; }
+  .highlight .w {
+    /* Text.Whitespace */
+    color: #bbbbbb; }
+  .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo {
+    /* Literal.Number.{Float,Hex,Integer,Oct} */
+    color: #009999; }
+  .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx {
+    /* Literal.String.{Backtick,Char,Doc,Double,Escape,Heredoc,Interpol,Other} */
+    color: #dd1144; }
+  .highlight .sr {
+    /* Literal.String.Regex */
+    color: #009926; }
+  .highlight .s1 {
+    /* Literal.String.Single */
+    color: #dd1144; }
+  .highlight .ss {
+    /* Literal.String.Symbol */
+    color: #990073; }
+  .highlight .bp {
+    /* Name.Builtin.Pseudo */
+    color: #999999; }
+  .highlight .vc, .highlight .vg, .highlight .vi {
+    /* Name.Variable.{Class,Global,Instance} */
+    color: teal; }
+  .highlight .il {
+    /* Literal.Number.Integer.Long */
+    color: #009999; }
