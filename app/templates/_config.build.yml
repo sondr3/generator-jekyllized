@@ -5,3 +5,6 @@
 
 future: false
 show_drafts: false
+
+source: 'src'
+destination: 'serve'

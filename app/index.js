@@ -344,11 +344,10 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 
 // Generate and copy over the necessary files to the application
 JekyllizeGenerator.prototype.scaffold = function scaffold() {
-  this.directory('app', 'app');
-  this.template('Gruntfile.js', 'Gruntfile.js');
+  this.directory('app', 'src');
+  this.template('envrc', '.envrc');
   this.template('gulpfile.js', 'gulpfile.js');
   this.template('_package.json', 'package.json');
-  this.template('_config.json', 'config.json');
   this.copy('gitignore', '.gitignore');
   this.copy('gitattributes', '.gitattributes');
   this.copy('bowerrc', '.bowerrc');
