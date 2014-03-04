@@ -345,7 +345,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
 // Generate and copy over the necessary files to the application
 JekyllizeGenerator.prototype.scaffold = function scaffold() {
   this.directory('app', 'src');
-  this.template('envrc', '.envrc');
   this.template('gulpfile.js', 'gulpfile.js');
   this.template('_package.json', 'package.json');
   this.copy('gitignore', '.gitignore');
