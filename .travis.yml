@@ -1,10 +1,12 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 before_script:
-  - npm install -g bower mocha istanbul
-after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+- npm install -g bower mocha istanbul
 notifications:
   email:
     on_success: change
     on_failure: change
+env:
+  global:
+    secure: IuI08EIR+WQtjNuqFrvxQ+iA5rstFUgZNf97y9UFLYOWZ8felBY1xdyyL1m7yM2mtmx61tv9cikz9XiGHleabbltQGGzExdmjA3IBUqUwg8hXwmThHTPDX7F+oB29sw4ICzf6k8IJfm6AjJg+B+72X/jDcm82U6NVO/vO33e3VY=
