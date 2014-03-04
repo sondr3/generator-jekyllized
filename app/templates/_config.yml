@@ -37,7 +37,3 @@ markdown: redcarpet
   # extensions: ['fenced_code_blocks', 'smart']
 
 pygments: true
-
-# Grunt handles images and assets.
-exclude: ['assets', '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
-include: ['']
