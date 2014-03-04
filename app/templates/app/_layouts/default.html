@@ -6,12 +6,12 @@
         <title>{{ page.title }}</title>
         <meta name="viewport" content="width=device-width">
 
-        <!-- build:css({.tmp,app}) assets/stylesheets/main.css -->
-        <!-- Syntax highlighting CSS -->
-        <link rel="stylesheet" href="/assets/stylesheets/syntax.css">
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/_bower_components/normalize-css/normalize.css">
         <link rel="stylesheet" href="/assets/stylesheets/main.css">
+
+        <!-- build:js ./assets/javascript/all.min.js -->
+        <script src="/assets/javascript/fastclick.js"></script>
+        <script src="/assets/javascript/ngprogress.js"></script>
         <!-- endbuild -->
 
     </head>
@@ -28,22 +28,19 @@
           <div class="footer">
             <div class="contact">
               <p>
-                <%= ownerName %><br />
-                <a href="mailto:<%= ownerEmail %>"><%= ownerEmail %></a>
+                Sondre Nilsen<br />
+                What You Are<br />
+                you@example.com
               </p>
             </div>
             <div class="contact">
               <p>
                 <a href="https://github.com/yourusername">github.com/yourusername</a><br />
-                <a href="https://twitter.com/{{ ownerTwitter }}">twitter.com/{{ ownerTwitter }}</a><br />
+                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
               </p>
             </div>
           </div>
         </div>
 
-    <!-- build:js({app,.tmp}) /assets/javascript/main.js -->
-    <script src="/_bower_components/modernizr/modernizr.js"></script>
-    <script src="/assets/javascript/main.js"></script>
-    <!-- endbuild -->
     </body>
 </html>

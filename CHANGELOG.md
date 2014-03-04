@@ -1,3 +1,11 @@
+## HEAD
+* Removed Grunt in favor of Gulp. For more of this see ([#40](https://github.com/sondr3/generator-jekyllized/issues/40)), ([#39](https://github.com/sondr3/generator-jekyllized/issues/39)), ([#31](https://github.com/sondr3/generator-jekyllized/issues/31)) and ([#30](https://github.com/sondr3/generator-jekyllized/issues/30))
+* Lots of minor bug fixes. Using checklists now work, using .split('/') on the assets directories now works and some other minor tweaks.
+* Reworked some of the logic for copying files to work with the new version of Yeoman Generator
+* Updated the needed version of dependencies.
+* Added a custom welcome message ([#27](https://github.com/sondr3/generator-jekyllized/issues/27))
+* Added a .npmignore so that when publishing to NPM only the needed files are included
+
 ## 0.1.0
 * There's now a very, very, very basic theme to do something from. ([#25](https://github.com/sondr3/generator-jekyllized/issues/25))
 * Running tests now work. ([#24](https://github.com/sondr3/generator-jekyllized/issues/24))

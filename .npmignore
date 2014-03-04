@@ -1,0 +1,10 @@
+coverage/
+test/
+.npmignore
+.editorconfig
+.travis.yml
+.jshintrc
+.gitattributes
+*.sublime-*
+contributing.md
+test

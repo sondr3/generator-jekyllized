@@ -1,11 +1,15 @@
 # Jekyll configuration precedence:
-# 1. Gruntfile task
+# 1. gulpfile
 # 2. config.build.yml
 # 3. config.yml
 
 name: <%= projectname %>
 description: <%= description %>
 tagline: <%= tagline %>
+
+# Used so Gulp knows where our app lives
+source: 'src'
+destination: 'serve'
 
 owner:
   name: <%= ownerName %>
@@ -36,5 +40,4 @@ pygments: true
 
 # Grunt handles images and assets.
 exclude: ['assets', '**.png', '**.jpg', '**.jpeg', '**.gif', '**.webp', '**.svg', '**.ico']
-
 include: ['']
