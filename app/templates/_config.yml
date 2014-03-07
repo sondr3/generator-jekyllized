@@ -16,8 +16,6 @@ owner:
   email: <%= ownerEmail %>
   bio: <%= ownerBio %>
   twitter: <%= ownerTwitter %>
-  # used for Google Authorship
-  google_plus: <%= ownerGoogle_plus %>
 
 # general setting for Jekyll
 googleAnalytics: UA-XXXXX-X
