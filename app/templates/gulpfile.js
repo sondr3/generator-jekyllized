@@ -5,7 +5,6 @@
 //    css:          <%= cssDirectory %>
 //    sass:         <%= cssPreprocessorDirectory %>
 //    javascript:   <%= javascriptDirectory %>
-//    coffeescript: <%= javascriptPreprocessorDirectory %>
 //    images:       <%= imageDirectory %>
 //    fonts:        <%= fontsDirectory %>
 

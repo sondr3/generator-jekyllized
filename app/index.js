@@ -137,8 +137,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     return input.replace(/^\/*|\/*$/g, '');
   };
 
-  console.log(chalk.yellow
-              ('\nConfigure the asset structure. ☛');
+  console.log(chalk.yellow('\nConfigure the asset structure. ☛'));
 
   this.prompt([{
     name: 'cssDirectory',
