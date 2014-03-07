@@ -1,10 +1,17 @@
-<a name="0.2.1"></a>
-### 0.2.1 (2014-03-07)
+<a name="0.3.0"></a>
+## 0.3.0 (2014-03-07)
 
 
 #### Bug Fixes
 
 * **templates:** Should not be versioned ([7c9ec67b](https://github.com/sondr3/generator-jekyllized/commit/7c9ec67b343897be936cc12953d771eace2ff70f))
+
+
+#### Features
+
+* **coffeescript:** CoffeeScript not included ([cc139a7f](https://github.com/sondr3/generator-jekyllized/commit/cc139a7f9578bfc5c31317c3e6adeefe46abfbd3))
+* **googleplus:** Google Plus question removed ([e9463119](https://github.com/sondr3/generator-jekyllized/commit/e946311941b4b26e35f301fb0ea8eee358351cfd))
+
 
 
 ## 0.2.0
