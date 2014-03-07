@@ -285,42 +285,6 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   }.bind(this));
 }
 
-/*JekyllizeGenerator.prototype.askForDeployment = function askForDeployment() {
-  var cb = this.async();
-  var prompts = [{
-    name: 'deploy',
-    message: 'Use grunt-build-control for deployment?',
-    type: 'confirm'
-  },
-  {
-    name: 'deployRemote',
-    message: 'Remote to deploy to',
-    default: '../',
-    when: function (answers) {
-      return answers.deploy;
-    }
-  },
-  {
-    name: 'deployBranch',
-    message: 'Branch to deploy to',
-    default: 'gh-pages',
-    when: function (answers) {
-      return answers.deploy;
-    }
-  }];
-
-  console.log(chalk.yellow('\nChoose deployment options.') + ' ☛');
-
-  this.prompt(prompts, function (props) {
-
-    this.deploy       = props.deploy;
-    this.deployRemote = props.deployRemote;
-    this.deployBranch = props.deployBranch;
-
-    cb();
-  }.bind(this));
-};*/
-
 // Generate and copy over the necessary files to the application
 JekyllizeGenerator.prototype.scaffold = function scaffold() {
   this.directory('app', 'src');
