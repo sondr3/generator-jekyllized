@@ -119,15 +119,11 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
   }, {
     name: 'ownerTwitter',
     message: 'Your Twitter URL'
-  }, {
-    name: 'ownerGoogle_plus',
-    message: 'Your Google Plus URL'
   }], function (props) {
     this.ownerName        = props.ownerName;
     this.ownerEmail       = props.ownerEmail;
     this.ownerBio         = props.ownerBio;
     this.ownerTwitter     = props.ownerTwitter;
-    this.ownerGoogle_plus = props.ownerGoogle_plus;
 
     cb();
   }.bind(this));
@@ -142,11 +138,6 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
     name: 'autoprefixer',
     type: 'confirm',
     message: 'Do you want to use AutoPrefixer?'
-  }, {
-    name: 'javascriptPreprocessor',
-    type: 'list',
-    message: 'Would you like to run CoffeScript or JavaScript?',
-    choices: ['CoffeScript', 'None'],
   }, {
     name: 'developmentTools',
     type: 'checkbox',
@@ -175,7 +166,6 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
     }
 
     this.autoprefixer           = props.autoprefixer;
-    this.javascriptPreprocessor = props.javascriptPreprocessor === 'None' ? false : props.javascriptPreprocessor.toLowerCase();;
 
     this.modernizr  = hasTool('modernizr');
     this.normalize  = hasTool('normalize');
@@ -188,8 +178,6 @@ JekyllizeGenerator.prototype.askForTools = function askForTools() {
 // The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
-
-  var javascriptPreprocessor = this.javascriptPreprocessor;
 
   var slashFilter = function (input) {
     return input.replace(/^\/*|\/*$/g, '');
@@ -224,14 +212,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     message: 'CSS Preprocessor directory',
     default: '/assets/_scss',
     filter: slashFilter,
-  }, {
-    name: 'javascriptPreprocessorDirectory',
-    message: 'CoffeeScript directory',
-    default: '/assets/_coffee',
-    filter: slashFilter,
-    when: function () {
-      return javascriptPreprocessor;
-    }
   }], function (props) {
 
     this.cssDirectory                     = props.cssDirectory;
@@ -239,7 +219,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     this.imageDirectory                   = props.imageDirectory;
     this.fontsDirectory                   = props.fontsDirectory;
     this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory;
-    this.javascriptPreprocessorDirectory  = props.javascriptPreprocessorDirectory;
 
     cb();
   }.bind(this));
