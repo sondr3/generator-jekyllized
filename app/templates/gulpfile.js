@@ -27,9 +27,9 @@ gulp.task('connect', $.connect.server({
   root: ['serve'],
   port: 4000,
   livereload: true,
-  // Automatically opens Google Chrome when executed
+  // Automatically opens Firefox when executed
   open: {
-    browser: 'Google Chrome' // if not OS X this should be 'chrome'
+    browser: 'Firefox' // if not OS X this should be 'firefox'
   }
 }));
 
@@ -164,7 +164,7 @@ gulp.task('jsoptimize', function() {
 // Run CSS Lint against your CSS
 gulp.task('csslint', function() {
   gulp.src('./serve/assets/stylesheets/main.css')
-  	// Lint your CSS to check for common errors
+  	// Check your CSS quality against your .csslintrc file
     .pipe($.csslint('.csslintrc'))
     .pipe($.csslint.reporter())
 });
@@ -177,48 +177,43 @@ gulp.task('jslint', function() {
     .pipe($.jshint.reporter());
 });
 
-// Looks for changes for specific file types and runs it's task if it is changed
+// Runs 'jekyll doctor' on your site to check for errors with your configuration
+// and will check for URL errors a well
+gulp.task('doctor', function() {
+  return gulp.src('')
+    .pipe($.exec("jekyll doctor"));
+});
+
+// Watch your files for changes and reload them automatically
 gulp.task('watch', function () {
   gulp.watch('./src/**/*.html', ['html']);
   gulp.watch('./src/_posts/**/*.md', ['markdown']);
-  gulp.watch('./src/<%= imageDirectory %>/**/*', ['jekyll']);
-  gulp.watch('./src/<%= cssPreprocessorDirectory %>/**/*.scss', ['sass']);
-  gulp.watch('./src/<%= cssDirectory %>/**/*.css', ['stylesheets']);
-  gulp.watch('./src/<%= javascriptDirectory %>/**/*.js', ['scripts']);
-  gulp.watch('./src/<%= imageDirectory %>/**/*', ['images']);
+  gulp.watch('./src/assets/images/**/*', ['jekyll']);
+  gulp.watch('./src/assets/_scss/**/*.scss', ['sass']);
+  gulp.watch('./src/assets/stylesheets/**/*.css', ['stylesheets']);
+  gulp.watch('./src/assets/javascript/**/*.js', ['scripts']);
+  gulp.watch('./src/assets/images/**/*', ['images']);
 });
 
 // Default task, run when just writing 'gulp' in the terminal
-// Runs the commands in sequence so they don't overlap
-gulp.task('default', function(callback) {
-  runSequence('clean-serve',
-              'jekyll',
-              ['sass', 'stylesheets', 'images', 'scripts'],
-              'connect',
-              'watch',
-              callback);
+gulp.task('default', ['clean-serve', 'jekyll'], function() {
+  gulp.start('connect', 'watch');
 });
 
-// Check your CSS and JS for errors
-gulp.task('check', ['csslint', 'jslint'], function() {
-	// Whoop whoops
+// Checks your CSS, JS and Jekyll for errors
+gulp.task('check', ['csslint', 'jslint', 'doctor'], function() {
+  // Better hope nothing is wrong.
 });
 
 // Builds the site but doesn't serve it to you
-gulp.task('build', function(callback) {
-  runSequence('clean-serve',
-              'jekyll',
-              ['sass', 'stylesheets', 'images', 'scripts'],
-              callback);
+gulp.task('build', ['clean-serve', 'jekyll',
+                    'sass', 'stylesheets', 
+                    'images', 'scripts'], function() {
 });
 
 // Builds your site with the 'build' command and then runs all the optimizations on
 // it and outputs it to './site'
-gulp.task('publish', ['build'], function(callback) {
-  runSequence('clean-dist',
-              'htmlify',
-              'cssoptimize',
-              'imgoptimize',
-              'jsoptimize',
-              callback);
+gulp.task('publish', ['build', 'clean-dist'], function() {
+  gulp.start('htmlify', 'cssoptimize', 
+              'imgoptimize', 'jsoptimize');
 });
