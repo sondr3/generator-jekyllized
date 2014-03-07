@@ -1,4 +1,13 @@
-## HEAD
+<a name="0.2.1"></a>
+### 0.2.1 (2014-03-07)
+
+
+#### Bug Fixes
+
+* **templates:** Should not be versioned ([7c9ec67b](https://github.com/sondr3/generator-jekyllized/commit/7c9ec67b343897be936cc12953d771eace2ff70f))
+
+
+## 0.2.0
 * Removed Grunt in favor of Gulp. For more of this see ([#40](https://github.com/sondr3/generator-jekyllized/issues/40)), ([#39](https://github.com/sondr3/generator-jekyllized/issues/39)), ([#31](https://github.com/sondr3/generator-jekyllized/issues/31)) and ([#30](https://github.com/sondr3/generator-jekyllized/issues/30))
 * Lots of minor bug fixes. Using checklists now work, using .split('/') on the assets directories now works and some other minor tweaks.
 * Reworked some of the logic for copying files to work with the new version of Yeoman Generator
