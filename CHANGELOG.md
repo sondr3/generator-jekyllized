@@ -1,4 +1,22 @@
-## HEAD
+<a name="0.3.0"></a>
+## 0.3.0 (2014-03-07)
+
+
+#### Bug Fixes
+
+* **templates:** Should not be versioned ([7c9ec67b](https://github.com/sondr3/generator-jekyllized/commit/7c9ec67b343897be936cc12953d771eace2ff70f))
+
+
+#### Features
+
+* **coffeescript:** CoffeeScript not included ([cc139a7f](https://github.com/sondr3/generator-jekyllized/commit/cc139a7f9578bfc5c31317c3e6adeefe46abfbd3))
+* **deploy:** Removed deploy option from jekyllized ([ab397f04](https://github.com/sondr3/generator-jekyllized/commit/ab397f04178c2d081d313a49d9e419f805a4d0f7))
+* **generator:** Update for index.js ([4b9ae250](https://github.com/sondr3/generator-jekyllized/commit/4b9ae25037cbf8d6d0f46f7ce9065cbf9c47641f))
+* **googleanalytics:** Removed from jekyllized ([9ed48f1a](https://github.com/sondr3/generator-jekyllized/commit/9ed48f1ab525ed0989062864c111ddde407d4b0d))
+* **googleplus:** Google Plus question removed ([e9463119](https://github.com/sondr3/generator-jekyllized/commit/e946311941b4b26e35f301fb0ea8eee358351cfd))
+* **tools:** Doesn't ask for tools ([e71ccb13](https://github.com/sondr3/generator-jekyllized/commit/e71ccb135a7444d3e30825e46aaa24da6a309a72))
+
+## 0.2.0
 * Removed Grunt in favor of Gulp. For more of this see ([#40](https://github.com/sondr3/generator-jekyllized/issues/40)), ([#39](https://github.com/sondr3/generator-jekyllized/issues/39)), ([#31](https://github.com/sondr3/generator-jekyllized/issues/31)) and ([#30](https://github.com/sondr3/generator-jekyllized/issues/30))
 * Lots of minor bug fixes. Using checklists now work, using .split('/') on the assets directories now works and some other minor tweaks.
 * Reworked some of the logic for copying files to work with the new version of Yeoman Generator
