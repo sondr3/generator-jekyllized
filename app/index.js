@@ -129,52 +129,6 @@ JekyllizeGenerator.prototype.askforOwner = function askforOwner() {
   }.bind(this));
 }
 
-JekyllizeGenerator.prototype.askForTools = function askForTools() {
-  var cb = this.async();
-
-  console.log(chalk.yellow('\nNow choose the tools you want to use.'))
-
-  this.prompt([{
-    name: 'autoprefixer',
-    type: 'confirm',
-    message: 'Do you want to use AutoPrefixer?'
-  }, {
-    name: 'developmentTools',
-    type: 'checkbox',
-    message: 'What libraries do you want?',
-    choices: [
-    {
-      name: 'Modernizr',
-      value: 'modernizr',
-      checked: false
-    },
-    {
-      name: 'Normalize.css',
-      value: 'normalize',
-      checked: false
-    },
-    {
-      name: 'jQuery',
-      value: 'jquery',
-      checked: false
-    }]
-  }], function (props) {
-    var developmentTools = props.developmentTools;
-
-    function hasTool(feat) {
-        return developmentTools.indexOf(feat) !== -1;
-    }
-
-    this.autoprefixer           = props.autoprefixer;
-
-    this.modernizr  = hasTool('modernizr');
-    this.normalize  = hasTool('normalize');
-    this.jquery     = hasTool('jquery');
-
-    cb();
-  }.bind(this));
-}
-
 // The directories will default to /assets/ for better structure in the app
 JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   var cb = this.async();
