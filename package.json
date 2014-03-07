@@ -19,7 +19,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/sondr3/generator-jekyllized.git"
+    "url": "https://github.com/sondr3/generator-jekyllized"
   },
   "licenses": [
     {
@@ -41,6 +41,10 @@
     "istanbul": "~0.2.4"
   },
   "devDependencies": {
+    "gulp": "~3.5.5",
+    "gulp-conventional-changelog": "~0.1.2",
+    "gulp-bump": "~0.1.6",
+    "conventional-changelog": "0.0.6"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
