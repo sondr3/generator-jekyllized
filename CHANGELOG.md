@@ -4,6 +4,7 @@
 
 #### Bug Fixes
 
+* **generator:** fixed the error ([a1fe2096](https://github.com/sondr3/generator-jekyllized/commit/a1fe2096553b67194952f8e78d80d07ce27068e4))
 * **templates:** Should not be versioned ([7c9ec67b](https://github.com/sondr3/generator-jekyllized/commit/7c9ec67b343897be936cc12953d771eace2ff70f))
 
 
