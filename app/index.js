@@ -138,8 +138,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
   };
 
   console.log(chalk.yellow
-              ('\nConfigure the asset structure.') + ' ☛' +
-              '\nSee note about nested directories in the README.');
+              ('\nConfigure the asset structure. ☛');
 
   this.prompt([{
     name: 'cssDirectory',
@@ -163,7 +162,7 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     filter: slashFilter
   }, {
     name: 'cssPreprocessorDirectory',
-    message: 'CSS Preprocessor directory',
+    message: 'SASS directory',
     default: '/assets/_scss',
     filter: slashFilter,
   }], function (props) {
@@ -173,31 +172,6 @@ JekyllizeGenerator.prototype.askForStructure = function askForStructure() {
     this.imageDirectory                   = props.imageDirectory;
     this.fontsDirectory                   = props.fontsDirectory;
     this.cssPreprocessorDirectory         = props.cssPreprocessorDirectory;
-
-    cb();
-  }.bind(this));
-}
-
-JekyllizeGenerator.prototype.askForTemplate = function askForTemplate() {
-  var cb = this.async();
-
-  console.log(chalk.yellow('\nChoose a template to use for Jekyll.') + ' ☛');
-
-  this.prompt([{
-    name: 'templateName',
-    type: 'list',
-    message: 'What template do you want to use?',
-    choices: ['Jekyll', 'H5BP', 'None']
-  }], function (props) {
-    if (props.templateName === 'Jekyll') {
-      this.templateName = 'jekyll';
-    }
-    else if (props.templateName === 'H5BP') {
-      this.templateName = 'h5bp';
-    }
-    else if (props.templateName === 'None') {
-      this.templateName = 'none';
-    }
 
     cb();
   }.bind(this));
