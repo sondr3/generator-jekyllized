@@ -1,3 +1,12 @@
+<a name="0.4.0"></a>
+## 0.4.0 (2014-03-08)
+
+
+#### Features
+
+* **jekyll:** Major update for Jekyll ([05d928ae](https://github.com/sondr3/generator-jekyllized/commit/05d928ae14035a480a52c346ea877aac3023886b))
+
+
 <a name="0.3.0"></a>
 ## 0.3.0 (2014-03-07)
 
