@@ -1,46 +1,30 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ page.title }}</title>
-        <meta name="viewport" content="width=device-width">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/assets/stylesheets/main.css">
+  {% include head.html %}
 
-        <!-- build:js ./assets/javascript/all.min.js -->
-        <script src="/assets/javascript/fastclick.js"></script>
-        <script src="/assets/javascript/ngprogress.js"></script>
-        <!-- endbuild -->
+  <body>
 
-    </head>
-    <body>
+    {% include sidebar.html %}
 
-        <div class="site">
-          <div class="header">
-            <h1 class="title"><a href="/">{{ site.name }}</a></h1>
-            <a class="extra" href="/">home</a>
-          </div>
-
-          {{ content }}
-
-          <div class="footer">
-            <div class="contact">
-              <p>
-                Sondre Nilsen<br />
-                What You Are<br />
-                you@example.com
-              </p>
-            </div>
-            <div class="contact">
-              <p>
-                <a href="https://github.com/yourusername">github.com/yourusername</a><br />
-                <a href="https://twitter.com/yourusername">twitter.com/yourusername</a><br />
-              </p>
-            </div>
-          </div>
+    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
+         content to avoid any CSS collisions with our real content. -->
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">{{ site.title }}</a>
+            <small>{{ site.tagline }}</small>
+          </h3>
         </div>
+      </div>
 
-    </body>
+      <div class="container content">
+        {{ content }}
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+  </body>
 </html>

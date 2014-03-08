@@ -1,10 +1,16 @@
-# Jekyll configuration precedence:
-# 1. Gruntfile task
-# 2. config.build.yml
-# 3. config.yml
+# Run during the 'gulp build' command
+# Overrides these options in the 
 
+# Overrides the default URL, needed for your atom feed and sitemap
+url: <%= projecturl %>
+
+# Hides your drafts and future posts
 future: false
 show_drafts: false
+# Gives you more accurate related posts
+lsi: true
+# Removes the upper limit for posts generated
+limit_posts: 0
 
 source: 'src'
 destination: 'serve'

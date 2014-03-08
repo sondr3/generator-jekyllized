@@ -1,16 +1,16 @@
-# Jekyll configuration precedence:
-# 1. gulpfile
-# 2. config.build.yml
-# 3. config.yml
-
-name: <%= projectname %>
+# Title, decription, tagline and URL for your site
+# Can be used in your theme by calling 'site.title' and so on
+title: <%= projectname %>
 description: <%= description %>
 tagline: <%= tagline %>
+url: localhost:4000
 
-# Used so Gulp knows where our app lives
-source: 'src'
-destination: 'serve'
+# Used so Jekyll outputs the site correctly so Gulp can do what it wants
+source: src
+destination: serve
 
+# Same as the title etc for your site but can instead be
+# called by using 'site.owner.name' and so on
 owner:
   name: <%= ownerName %>
   email: <%= ownerEmail %>
@@ -20,11 +20,18 @@ owner:
 # general setting for Jekyll
 googleAnalytics: UA-XXXXX-X
 
-# _config.build.yml sets future and show_drafts to false on `grunt build`
+# _config.build.yml overwrites these options when you run `gulp build`
+# Enables future posts (posts with dates in the future) and drafts
 future: true
-show_drafts: true<% if (jekyllPageinate) { %>
+show_drafts: true
+# Disables the more accurate related posts for faster generating of the site
+lsi: false
+# Only make the last 10 posts so generating isn't slow
+limit_posts: 10
 
-permalink: <%= jekyllPermalinks %>
+# Permalink structure and pagination options
+relative_permalinks: true
+permalink: <%= jekyllPermalinks %><% if (jekyllPageinate) { %>
 paginate: <%= jekyllPageinate %>
 paginate_path: 'page:num'<% } %>
 
@@ -33,5 +40,4 @@ markdown: redcarpet
 # Markdown library options
 # redcarpet:
   # extensions: ['fenced_code_blocks', 'smart']
-
 pygments: true

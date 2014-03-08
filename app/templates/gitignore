@@ -52,6 +52,7 @@ tags
 # Packages
 node_modules/*
 .tmp
+test/
 
 # Sublime
 *.sublime-project

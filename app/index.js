@@ -90,10 +90,14 @@ JekyllizeGenerator.prototype.askForProject = function askForProject() {
   }, {
     name: 'tagline',
     message: 'What is the tagline of your project?'
+  }, {
+    name: 'projecturl',
+    message: 'What will the address for your site be?'
   }], function (props) {
     this.projectname  = props.projectname;
     this.description  = props.description;
     this.tagline      = props.tagline;
+    this.projecturl   = props.projecturl;
     
     cb();
   }.bind(this));
@@ -194,7 +198,7 @@ JekyllizeGenerator.prototype.askForJekyll = function askForJekyll() {
   }, {
     name: 'jekyllPageinate',
     message: 'Number of posts to show on the home page',
-    default: 'all',
+    default: '10',
     validate: function (input) {
       if (/^[0-9]*$/.test(input)) {
         return true;

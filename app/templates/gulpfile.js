@@ -44,24 +44,30 @@ gulp.task('clean-dist', function() {
       .pipe($.rimraf());
 });
 
-// Runs the build command for Jekyll to (re)compile the site
-// When watching the site for changes this will be executed every time a HTML or Markdown
-// file is changed and the changes are available via LiveReload automatically
-gulp.task('jekyll', function() {
+// Runs the build command for Jekyll to compile the site locally
+gulp.task('jekyll-serve', function() {
   return gulp.src('')
     .pipe($.exec("jekyll build"));
 });
 
+// Almost identical to the above task, but instead we load in the build configuration
+// that overwrites some of the settings in the regular configuration so that you
+// don't end up publishing your drafts or future posts
+gulp.task('jekyll-build', function() {
+  return gulp.src('')
+    .pipe($.exec("jekyll build --config _config.yml,_config.build.yml"));
+});
+
 // Runs every time a HTML file is changed in the './src' directory
 // Also runs the 'jekyll' gulp task
-gulp.task('html', ['jekyll'], function () {
+gulp.task('html', ['jekyll-serve'], function () {
   return gulp.src('./src/**/*.html')
     .pipe($.connect.reload());
 });
 
 // Runs every time a Markdown file with the .md extention is changed in the './src' directory
 // Also runs the 'jekyll' gulp task
-gulp.task('markdown',['jekyll'], function() {
+gulp.task('markdown',['jekyll-serve'], function() {
   return gulp.src('./src/**/*.md')
     .pipe($.connect.reload());
 });
@@ -93,11 +99,11 @@ gulp.task('stylesheets', function() {
 
 // LiveReload for JS
 gulp.task('scripts', function() {
-    return gulp.src('./src/<%= javascriptDirectory %>/**/*.js')
-      .pipe($.changed('./serve/<%= javascriptDirectory %>/**/*'))
-      .pipe(gulp.dest('./serve/<%= javascriptDirectory %>'))
-      .pipe($.size())
-      .pipe($.connect.reload());
+  return gulp.src('./src/<%= javascriptDirectory %>/**/*.js')
+    .pipe($.changed('./serve/<%= javascriptDirectory %>/**/*'))
+    .pipe(gulp.dest('./serve/<%= javascriptDirectory %>'))
+    .pipe($.size())
+    .pipe($.connect.reload());
 });
 
 // LiveReload for images
@@ -112,9 +118,15 @@ gulp.task('images', function() {
 
 // Minifies the HTML of the site
 gulp.task('htmlify', function() {
-    return gulp.src('./serve/**/*.html')
-      .pipe(minifyHTML())
-      .pipe(gulp.dest('./site'));
+  return gulp.src('./serve/**/*.html')
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('./site'));
+});
+
+// Move the '.txt' and '.xml' files from './serve' to './site'
+gulp.task('move', function() {
+  return gulp.src(['./serve/**/*.xml', './serve/**/*.txt'])
+    .pipe(gulp.dest('./site'))
 });
 
 // Optimize the CSS with Autoprefixer and CSS Optimizer
@@ -187,15 +199,15 @@ gulp.task('doctor', function() {
 gulp.task('watch', function () {
   gulp.watch('./src/**/*.html', ['html']);
   gulp.watch('./src/_posts/**/*.md', ['markdown']);
-  gulp.watch('./src/assets/images/**/*', ['jekyll']);
+  gulp.watch('./src/assets/images/**/*', ['jekyll-serve', 'images']);
   gulp.watch('./src/assets/_scss/**/*.scss', ['sass']);
   gulp.watch('./src/assets/stylesheets/**/*.css', ['stylesheets']);
   gulp.watch('./src/assets/javascript/**/*.js', ['scripts']);
-  gulp.watch('./src/assets/images/**/*', ['images']);
 });
 
 // Default task, run when just writing 'gulp' in the terminal
-gulp.task('default', ['clean-serve', 'jekyll'], function() {
+gulp.task('default', ['clean-serve', 'jekyll-serve', 'sass', 
+                      'stylesheets', 'scripts', 'images'], function() {
   gulp.start('connect', 'watch');
 });
 
@@ -205,7 +217,7 @@ gulp.task('check', ['csslint', 'jslint', 'doctor'], function() {
 });
 
 // Builds the site but doesn't serve it to you
-gulp.task('build', ['clean-serve', 'jekyll',
+gulp.task('build', ['clean-serve', 'jekyll-build',
                     'sass', 'stylesheets', 
                     'images', 'scripts'], function() {
 });
@@ -213,6 +225,6 @@ gulp.task('build', ['clean-serve', 'jekyll',
 // Builds your site with the 'build' command and then runs all the optimizations on
 // it and outputs it to './site'
 gulp.task('publish', ['build', 'clean-dist'], function() {
-  gulp.start('htmlify', 'cssoptimize', 
+  gulp.start('htmlify', 'cssoptimize', 'move',
               'imgoptimize', 'jsoptimize');
 });

@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2014-03-01 21:49:55
-categories: jekyll update
+date: 2014-03-03
+title:  Welcome to Jekyll!
+categories: jekyll
 ---
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
@@ -19,10 +19,6 @@ print_hi('Tom')
 {% endhighlight %}
 
 Check out the [Jekyll docs][jekyll] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll's GitHub repo][jekyll-gh].
-
-Maybe some paragraphs in the post then? It should bloody work now. If it is in the correct directory... And has the correct file ending.
-
-What about now then?
 
 [jekyll-gh]: https://github.com/mojombo/jekyll
 [jekyll]:    http://jekyllrb.com
