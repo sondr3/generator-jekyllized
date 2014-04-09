@@ -1,6 +1,6 @@
 {
   "name": "generator-jekyllized",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Use Jekyll with Gulp, Yeoman, Bower, Bourbon and so much more!",
   "keywords": [
     "yeoman-generator",
@@ -9,7 +9,7 @@
     "h5bp",
     "sass"
   ],
-  "homepage": "https://github.com/sondr3/generator-jekyllized",
+  "homepage": "http://sondr3.github.io/generator-jekyllized",
   "bugs": "https://github.com/sondr3/generator-jekyllized/issues",
   "author": {
     "name": "Sondre Nilsen",
