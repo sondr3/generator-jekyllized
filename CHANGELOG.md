@@ -5,7 +5,7 @@
 #### Bug Fixes
 
 * **generator:** fixed the error ([79b05225](https://github.com/sondr3/generator-jekyllized/commit/79b05225e68950a227f0c0d82556be007b221110))
-
+* **gulp:** Remove gulp-conventional-changelog ([1dc25404](https://github.com/sondr3/generator-jekyllized/commit/1dc25404bebc1da88d04aad336d579c2a7742685))
 
 <a name="0.4.0"></a>
 ## 0.4.0 (2014-03-08)
