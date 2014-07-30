@@ -4,3 +4,4 @@ coverage/
 *.sublime-*
 *.tgz
 *.orig.*
+*.swp

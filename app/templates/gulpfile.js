@@ -9,68 +9,38 @@
 //    fonts:        <%= fontsDirectory %>
 
 var gulp = require('gulp');
-// Since these gulp plugins contains hyphens they can't be properly
-// configured with gulp-load-plugins
-var runSequence = require('run-sequence');
-var minifyHTML = require('gulp-minify-html');
 // Used for Bower files (jQuery, Normalize etc)
 var wiredep = require('wiredep').streams;
-
 // Loads the plugins without having to list all of them, but you need 
 // to call them as $.pluginname
 var $ = require('gulp-load-plugins')();
-
-// Used for running a LiveReload Server and automatically opening your browser
-gulp.task('connect', $.connect.server({
-  // Declare what directory and port it runs from
-  root: ['serve'],
-  port: 4000,
-  livereload: true,
-  // Automatically opens Firefox when executed
-  open: {
-    browser: 'Firefox' // if not OS X this should be 'firefox'
-  }
-}));
+// 'del' is used to clean out directories and such
+var del = require('del');
+// 'fs' is used to read files from the system (used for AWS uploading)
+var fs = require('fs');
+// BrowserSync isn't a gulp package, and needs to be loaded manually
+var browserSync = require('browser-sync');
+// merge is used to merge the output from two different streams into the same stream
+var merge = require('merge-stream');
+// Need a command for reloading webpages using BrowserSync
+var reload = browserSync.relad;
+// And define a variable that BrowserSync uses in it's function
+var bs;
 
 // Cleans out the './serve' directory used for serving the site locally
-gulp.task('clean-serve', function() {
-    return gulp.src('./serve/**/*', { read: false })
-      .pipe($.rimraf());
-});
+gulp.task('clean:serve', del.bind(null, ['serve']));
 
 // Cleans out the './site' directory used when generating the site
-gulp.task('clean-dist', function() {
-    return gulp.src('./site/**/*', { read: false })
-      .pipe($.rimraf());
-});
+gulp.task('clean:dist', del.bind(null, ['site']));
 
 // Runs the build command for Jekyll to compile the site locally
-gulp.task('jekyll-serve', function() {
-  return gulp.src('')
-    .pipe($.exec("jekyll build"));
-});
+// This will build the site with the production settings
+gulp.task('jekyll:serve', $.shell.task('jekyll build'));
 
 // Almost identical to the above task, but instead we load in the build configuration
 // that overwrites some of the settings in the regular configuration so that you
 // don't end up publishing your drafts or future posts
-gulp.task('jekyll-build', function() {
-  return gulp.src('')
-    .pipe($.exec("jekyll build --config _config.yml,_config.build.yml"));
-});
-
-// Runs every time a HTML file is changed in the './src' directory
-// Also runs the 'jekyll' gulp task
-gulp.task('html', ['jekyll-serve'], function () {
-  return gulp.src('./src/**/*.html')
-    .pipe($.connect.reload());
-});
-
-// Runs every time a Markdown file with the .md extention is changed in the './src' directory
-// Also runs the 'jekyll' gulp task
-gulp.task('markdown',['jekyll-serve'], function() {
-  return gulp.src('./src/**/*.md')
-    .pipe($.connect.reload());
-});
+gulp.task('jekyll:build', $.shell.task('jekyll build --config _config.yml,_config.build.yml'));
 
 // Compiles the SASS files and moved them into the '<%= cssDirectory %>' directory
 gulp.task('sass', function() {
@@ -190,19 +160,36 @@ gulp.task('jslint', function() {
 
 // Runs 'jekyll doctor' on your site to check for errors with your configuration
 // and will check for URL errors a well
-gulp.task('doctor', function() {
-  return gulp.src('')
-    .pipe($.exec("jekyll doctor"));
+gulp.task('doctor', $.shell.task('jekyll doctor'));
+
+// BrowserSync will serve our site on a local server for us and other devices to use
+// It will also autoreload across all devices as well as keep the viewport synchronized
+// between them.
+gulp.task('serve', function() {
+    bs = browserSync({
+        notify: false,
+        // tunnel: '',
+        server: {
+            baseDir: 'serve'
+        }
+    }):
+
+    // These tasks will look for files that change while serving and will auto-regenerate or
+    // reload the website accordingly. Update or add other files you need to be watched.
+    gulp.watch(['src/**/*.md', 'src/**/*.html'], ['jekyll:serve']);
+    gulp.watch(['serve/**/*.html', 'serve/**/*.css', 'serve/**/*.js'], reload);
+    gulp.watch(['src/assets/_scss/**/*.scss'], ['style:scss']);
+    gulp.wathc(['src/assets/stylesheets/**/*.css'], ['style:css', reload]);
 });
 
-// Watch your files for changes and reload them automatically
-gulp.task('watch', function () {
-  gulp.watch('./src/**/*.html', ['html']);
-  gulp.watch('./src/_posts/**/*.md', ['markdown']);
-  gulp.watch('./src/assets/images/**/*', ['jekyll-serve', 'images']);
-  gulp.watch('./src/assets/_scss/**/*.scss', ['sass']);
-  gulp.watch('./src/assets/stylesheets/**/*.css', ['stylesheets']);
-  gulp.watch('./src/assets/javascript/**/*.js', ['scripts']);
+// Serve the site after optimizations to see that everything looks fine
+gulp.task('serve:dist', function() {
+    bs = browserSync({
+        notify: false,
+        server: {
+            baseDir: 'site'
+        }
+    });
 });
 
 // Default task, run when just writing 'gulp' in the terminal
