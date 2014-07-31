@@ -9,8 +9,6 @@
 //    fonts:        <%= fontsDirectory %>
 
 var gulp = require('gulp');
-// Used for Bower files (jQuery, Normalize etc)
-var wiredep = require('wiredep').streams;
 // Loads the plugins without having to list all of them, but you need 
 // to call them as $.pluginname
 var $ = require('gulp-load-plugins')();
@@ -23,7 +21,7 @@ var browserSync = require('browser-sync');
 // merge is used to merge the output from two different streams into the same stream
 var merge = require('merge-stream');
 // Need a command for reloading webpages using BrowserSync
-var reload = browserSync.relad;
+var reload = browserSync.reload;
 // And define a variable that BrowserSync uses in it's function
 var bs;
 
@@ -35,111 +33,85 @@ gulp.task('clean:dist', del.bind(null, ['site']));
 
 // Runs the build command for Jekyll to compile the site locally
 // This will build the site with the production settings
-gulp.task('jekyll:serve', $.shell.task('jekyll build'));
+gulp.task('jekyll:serve', $.shell.task('jekyll build -w'));
 
 // Almost identical to the above task, but instead we load in the build configuration
 // that overwrites some of the settings in the regular configuration so that you
 // don't end up publishing your drafts or future posts
 gulp.task('jekyll:build', $.shell.task('jekyll build --config _config.yml,_config.build.yml'));
 
-// Compiles the SASS files and moved them into the '<%= cssDirectory %>' directory
-gulp.task('sass', function() {
-  // Only runs on the '<%= cssPreprocessorDirectory %>/main.scss' file so you need to import all the SCSS files in it
-  return gulp.src('./src/<%= cssPreprocessorDirectory %>/main.scss')
-    // Only runs if the file is actually changed, otherwise it will skip it
-    .pipe($.changed('./src/<%= cssDirectory %>/**/*'))
-    // Prevents it from creating a cache directory and disables warnings
-  	.pipe($.sass({
-      noCache: true,
-      quiet: true
-    }))
-  	.pipe(gulp.dest('./src/<%= cssDirectory %>'));
+// Compiles the SASS files and moves them into the '<%= cssDirectory %>' directory
+gulp.task('styles:scss', function() {
+    // Looks at the style.scss file for what to include and creates a style.css file
+    return gulp.src('src/<%= cssPreprocessorDirectory %>/style.scss')
+        .pipe($.sass())
+        .pipe(gulp.dest('src/<%= cssDirectory %>/'))
+        .pipe(gulp.dest('serve/<%= cssDirectory %>/'))
+        // Outputs the size of the CSS file
+        .pipe($.size({title: 'SCSS'}));
 });
 
-// LiveReload for the CSS
-gulp.task('stylesheets', function() {
-	return gulp.src('./src/<%= cssDirectory %>/main.css')
-    .pipe($.changed('./serve/<%= cssDirectory %>/**/*'))
-  	.pipe(gulp.dest('./serve/<%= cssDirectory %>'))
-    // Shows the file size in the terminal output
-    .pipe($.size())
-    // Connects the changes to the LoveReload server and reloads them when they change
-    .pipe($.connect.reload());
+// Autoprefixes the CSS
+gulp.task('styles:css', function() {
+    return gulp.src('src/<%= cssDirectory %>/**/*.css')
+        .pipe($.changed('src/<%= cssDirectory %>/**/*.css'))
+        .pipe($.autoprefixer('last 1 version'))
+        .pipe($.size({title: 'CSS'}));
 });
 
-// LiveReload for JS
-gulp.task('scripts', function() {
-  return gulp.src('./src/<%= javascriptDirectory %>/**/*.js')
-    .pipe($.changed('./serve/<%= javascriptDirectory %>/**/*'))
-    .pipe(gulp.dest('./serve/<%= javascriptDirectory %>'))
-    .pipe($.size())
-    .pipe($.connect.reload());
-});
+// Run both the style commands
+gulp.task('styles', ['styles:scss', 'styles:css']);
 
-// LiveReload for images
+// Optimizes the images that exists
 gulp.task('images', function() {
-  // Only works on PNG, JPEG and GIFs currently
-  return gulp.src(['./src/<%= imageDirectory %>/**/*.jpg', './src/<%= imageDirectory %>/**/*.png', './src/<%= imageDirectory %>/**/*.gif'])
-    .pipe($.changed('./serve/<%= imageDirectory %>/**/*'))
-    .pipe(gulp.dest('./serve/<%= imageDirectory %>'))
-    .pipe($.size())
-    .pipe($.connect.reload());
+    return gulp.src('src/<%= imageDirectory %>/**/*')
+        .pipe($.cache($.imagemin({
+            // Runs 16 trials on the PNGs to better the optimization
+            // Can by anything from 1 to 7, for more see 
+            // https://github.com/sindresorhus/gulp-imagemin#optimizationlevel-png
+            optimizationLevel: 3,
+            // Lossless conversion to progressive JPGs
+            progressive: true,
+            // Interlace GIFs for progressive rendering
+            interlaced: true
+        })))
+        .pipe($.size({title: 'Images'}));
 });
 
-// Minifies the HTML of the site
-gulp.task('htmlify', function() {
-  return gulp.src('./serve/**/*.html')
-    .pipe(minifyHTML())
-    .pipe(gulp.dest('./site'));
+// Optimizes all the CSS, HTML and concats the JS etc
+gulp.task('html', ['styles'], function() {
+    return gulp.src('serve/**/*.html')
+        .pipe($.useref.assets({searchPath: 'serve'}))
+        // Concatenate JavaScript files and preserve important comments
+        .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
+        // Remove unused CSS from your CSS files
+        .pipe($.if('*.css', $.uncss({
+            // Add files that contain the styles you use here
+            html: [
+                'serve/index.html'
+                // 'serve/styleguide.html'
+            ],
+            // CSS selectors that shouldn't be removed
+            ignore: [
+                ''
+            ]
+        })))
+        // Minify CSS
+        .pipe($.if('*.css', $.minifyCss()))
+        .pipe($.useref.restore())
+        .pipe($.useref())
+        // Minify HTML
+        .pipe($.if('*.html', $.htmlmin()))
+        // .pipe($.if(['*.txt', '*.xml']), gulp.dest('serve'))
+        // Send the output to the correct folder
+        .pipe(gulp.dest('site'))
+        .pipe($.size({title: 'Optimizations'}));
 });
 
 // Move the '.txt' and '.xml' files from './serve' to './site'
 gulp.task('move', function() {
   return gulp.src(['./serve/**/*.xml', './serve/**/*.txt'])
     .pipe(gulp.dest('./site'))
-});
-
-// Optimize the CSS with Autoprefixer and CSS Optimizer
-gulp.task('cssoptimize', function() {
-  return gulp.src('./serve/<%= cssDirectory %>/main.css')
-    // Autoprefixes your CSS for the last version of the browers
-    .pipe($.autoprefixer('last 1 version'))
-    // Optimizes it via CSS Optimizer
-    .pipe($.csso())
-    .pipe(gulp.dest('./site/<%= cssDirectory %>'))
-    .pipe($.size());
-});
-
-// Optimize images using image-min and only update changed files
-gulp.task('imgoptimize', function() {
-  return gulp.src(['./src/<%= imageDirectory %>/**/*.jpg', './src/<%= imageDirectory %>/**/*.png', './src/<%= imageDirectory %>/**/*.gif'])
-    .pipe($.changed('./site/<%= imageDirectory %>/**/*'))
-    .pipe($.imagemin({
-      // Runs 16 trials on the PNGs to better the optimization
-      // Can by anything from 1 to 7, for more see https://github.com/gruntjs/grunt-contrib-imagemin#optimizationlevel-png-only
-      optimizationLevel: 3,
-      // Lossless conversion to progressive JPGs
-      progressive: true,
-      // Interlace GIFs for progressive rendering
-      interlaced: true,
-      // Enables pngquant lossy compression
-      pngquant: true
-    }))
-    .pipe(gulp.dest('./site/<%= imageDirectory %>'))
-    .pipe($.size());
-});
-
-// Optimize the JavaScript
-gulp.task('jsoptimize', function() {
-  return gulp.src('./serve/<%= javascriptDirectory %>/**/*.js')
-    // Concats the JS files into one file, see '_layouts_default.html'
-    .pipe($.useref())
-    // Concats the files into one minimized one
-    .pipe($.concat('all.min.js'))
-    // Minifies the JS via Uglify
-    .pipe($.uglify())
-    .pipe(gulp.dest('site/<%= javascriptDirectory %>'))
-    .pipe($.size());
 });
 
 // Run CSS Lint against your CSS
@@ -172,14 +144,14 @@ gulp.task('serve', function() {
         server: {
             baseDir: 'serve'
         }
-    }):
+    });
 
     // These tasks will look for files that change while serving and will auto-regenerate or
     // reload the website accordingly. Update or add other files you need to be watched.
     gulp.watch(['src/**/*.md', 'src/**/*.html'], ['jekyll:serve']);
     gulp.watch(['serve/**/*.html', 'serve/**/*.css', 'serve/**/*.js'], reload);
-    gulp.watch(['src/assets/_scss/**/*.scss'], ['style:scss']);
-    gulp.wathc(['src/assets/stylesheets/**/*.css'], ['style:css', reload]);
+    gulp.watch(['src/assets/_scss/**/*.scss'], ['styles:scss']);
+    gulp.watch(['src/assets/stylesheets/**/*.css'], ['styles:css', reload]);
 });
 
 // Serve the site after optimizations to see that everything looks fine
@@ -193,9 +165,8 @@ gulp.task('serve:dist', function() {
 });
 
 // Default task, run when just writing 'gulp' in the terminal
-gulp.task('default', ['clean-serve', 'jekyll-serve', 'sass', 
-                      'stylesheets', 'scripts', 'images'], function() {
-  gulp.start('connect', 'watch');
+gulp.task('default', ['build'], function() {
+    gulp.start('serve');
 });
 
 // Checks your CSS, JS and Jekyll for errors
@@ -204,14 +175,12 @@ gulp.task('check', ['csslint', 'jslint', 'doctor'], function() {
 });
 
 // Builds the site but doesn't serve it to you
-gulp.task('build', ['clean-serve', 'jekyll-build',
-                    'sass', 'stylesheets', 
-                    'images', 'scripts'], function() {
+gulp.task('build', ['jekyll:build',
+                    'styles', 'images'], function() {
 });
 
 // Builds your site with the 'build' command and then runs all the optimizations on
 // it and outputs it to './site'
-gulp.task('publish', ['build', 'clean-dist'], function() {
-  gulp.start('htmlify', 'cssoptimize', 'move',
-              'imgoptimize', 'jsoptimize');
+gulp.task('publish', ['build', 'clean:dist'], function() {
+  gulp.start('html');
 });

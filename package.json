@@ -31,7 +31,7 @@
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "dependencies": {
-    "yeoman-generator": "~0.17.1",
+    "yeoman-generator": "~0.16.0",
     "globule": "~0.2.0",
     "shelljs": "~0.3.0",
     "chalk": "~0.5.1",
