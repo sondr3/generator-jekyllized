@@ -25,20 +25,27 @@ var reload = browserSync.reload;
 // And define a variable that BrowserSync uses in it's function
 var bs;
 
-// Cleans out the './serve' directory used for serving the site locally
-gulp.task('clean:serve', del.bind(null, ['serve']));
+// Deletes the directory that is used to serve the site during development
+gulp.task('clean:dev', del.bind(null, ['serve']));
 
-// Cleans out the './site' directory used when generating the site
-gulp.task('clean:dist', del.bind(null, ['site']));
+// Deletes the directory that the optimized site is output to
+gulp.task('clean:prod', del.bind(null, ['site']));
+
+var messages = {
+    jekyllBuild: '<span style="color: grey">Running</span> $ jekyll build'
+};
 
 // Runs the build command for Jekyll to compile the site locally
 // This will build the site with the production settings
-gulp.task('jekyll:dev', $.shell.task('jekyll build -w'));
+gulp.task('jekyll:dev', function() {
+    browserSync.notify(messages.jekyllBuild);
+    $.shell.task('jekyll build -w'); 
+});
 
 // Almost identical to the above task, but instead we load in the build configuration
 // that overwrites some of the settings in the regular configuration so that you
 // don't end up publishing your drafts or future posts
-gulp.task('jekyll:build', $.shell.task('jekyll build --config _config.yml,_config.build.yml'));
+gulp.task('jekyll:prod', $.shell.task('jekyll build --config _config.yml,_config.build.yml'));
 
 // Compiles the SASS files and moves them into the '<%= cssDirectory %>' directory
 gulp.task('styles', function() {
@@ -46,7 +53,7 @@ gulp.task('styles', function() {
     return gulp.src('src/<%= cssPreprocessorDirectory %>/style.scss')
         .pipe($.sass())
         // AutoPrefix your CSS so it works between browsers
-        .pipe($.autoprefixer('last 1 version'))
+        .pipe($.autoprefixer('last 1 version', { cascade: true }))
         // Directory your CSS file goes to
         .pipe(gulp.dest('src/assets/stylesheets/'))
         .pipe(gulp.dest('serve/assets/stylesheets/'))
@@ -96,24 +103,9 @@ gulp.task('html', ['styles'], function() {
         .pipe($.useref())
         // Minify HTML
         .pipe($.if('*.html', $.htmlmin()))
-        // .pipe($.if(['*.txt', '*.xml']), gulp.dest('serve'))
         // Send the output to the correct folder
         .pipe(gulp.dest('site'))
         .pipe($.size({title: 'Optimizations'}));
-});
-
-// Move the '.txt' and '.xml' files from './serve' to './site'
-gulp.task('move', function() {
-  return gulp.src(['./serve/**/*.xml', './serve/**/*.txt'])
-    .pipe(gulp.dest('./site'))
-});
-
-// Run CSS Lint against your CSS
-gulp.task('csslint', function() {
-  gulp.src('./serve/assets/stylesheets/main.css')
-  	// Check your CSS quality against your .csslintrc file
-    .pipe($.csslint('.csslintrc'))
-    .pipe($.csslint.reporter())
 });
 
 // Run JS Lint against your JS
@@ -128,12 +120,26 @@ gulp.task('jslint', function() {
 // and will check for URL errors a well
 gulp.task('doctor', $.shell.task('jekyll doctor'));
 
+// Copies over images, media assets and .xml/.txt files to the distribution folder
+gulp.task('copy', function() {
+    // Each var is for different kinds of files/folders
+    var xmlandtxt = gulp.src(['src/*.txt', 'src/*.xml'])
+        .pipe(gulp.dest('site'));
+    var images = gulp.src('src/images/**/*')
+        .pipe(gulp.dest('site/images'));
+    var media = gulp.src('src/media/**/*')
+        .pipe(gulp.dest('site/media'));
+
+    // Merges the three streams into a single output
+    return merge(xmlandtxt, images, media);
+});
+
 // BrowserSync will serve our site on a local server for us and other devices to use
 // It will also autoreload across all devices as well as keep the viewport synchronized
 // between them.
-gulp.task('serve', function() {
+gulp.task('serve:dev', function() {
     bs = browserSync({
-        notify: false,
+        notify: true,
         // tunnel: '',
         server: {
             baseDir: 'serve'
@@ -145,11 +151,10 @@ gulp.task('serve', function() {
     gulp.watch(['src/**/*.md', 'src/**/*.html'], ['jekyll:dev']);
     gulp.watch(['serve/**/*.html', 'serve/**/*.css', 'serve/**/*.js'], reload);
     gulp.watch(['src/assets/_scss/**/*.scss'], ['styles']);
-    // gulp.watch(['src/assets/stylesheets/**/*.css'], reload);
 });
 
 // Serve the site after optimizations to see that everything looks fine
-gulp.task('serve:dist', function() {
+gulp.task('serve:prod', function() {
     bs = browserSync({
         notify: false,
         server: {
@@ -160,21 +165,21 @@ gulp.task('serve:dist', function() {
 
 // Default task, run when just writing 'gulp' in the terminal
 gulp.task('default', ['build'], function() {
-    gulp.start('serve');
+    gulp.start('serve:dev');
 });
 
 // Checks your CSS, JS and Jekyll for errors
-gulp.task('check', ['csslint', 'jslint', 'doctor'], function() {
+gulp.task('check', ['jslint', 'doctor'], function() {
   // Better hope nothing is wrong.
 });
 
 // Builds the site but doesn't serve it to you
-gulp.task('build', ['jekyll:build',
+gulp.task('build', ['jekyll:prod',
                     'styles', 'images'], function() {
 });
 
 // Builds your site with the 'build' command and then runs all the optimizations on
 // it and outputs it to './site'
-gulp.task('publish', ['build', 'clean:dist'], function() {
+gulp.task('publish', ['build', 'clean:prod'], function() {
   gulp.start('html');
 });
