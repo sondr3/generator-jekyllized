@@ -33,7 +33,7 @@ gulp.task('clean:dist', del.bind(null, ['site']));
 
 // Runs the build command for Jekyll to compile the site locally
 // This will build the site with the production settings
-gulp.task('jekyll:serve', $.shell.task('jekyll build -w'));
+gulp.task('jekyll:dev', $.shell.task('jekyll build -w'));
 
 // Almost identical to the above task, but instead we load in the build configuration
 // that overwrites some of the settings in the regular configuration so that you
@@ -41,26 +41,20 @@ gulp.task('jekyll:serve', $.shell.task('jekyll build -w'));
 gulp.task('jekyll:build', $.shell.task('jekyll build --config _config.yml,_config.build.yml'));
 
 // Compiles the SASS files and moves them into the '<%= cssDirectory %>' directory
-gulp.task('styles:scss', function() {
+gulp.task('styles', function() {
     // Looks at the style.scss file for what to include and creates a style.css file
     return gulp.src('src/<%= cssPreprocessorDirectory %>/style.scss')
         .pipe($.sass())
-        .pipe(gulp.dest('src/<%= cssDirectory %>/'))
-        .pipe(gulp.dest('serve/<%= cssDirectory %>/'))
-        // Outputs the size of the CSS file
-        .pipe($.size({title: 'SCSS'}));
-});
-
-// Autoprefixes the CSS
-gulp.task('styles:css', function() {
-    return gulp.src('src/<%= cssDirectory %>/**/*.css')
-        .pipe($.changed('src/<%= cssDirectory %>/**/*.css'))
+        // AutoPrefix your CSS so it works between browsers
         .pipe($.autoprefixer('last 1 version'))
-        .pipe($.size({title: 'CSS'}));
+        // Directory your CSS file goes to
+        .pipe(gulp.dest('src/assets/stylesheets/'))
+        .pipe(gulp.dest('serve/assets/stylesheets/'))
+        // Outputs the size of the CSS file
+        .pipe($.size({title: 'SCSS'}))
+        // Injects the CSS changes to your browser since Jekyll doesn't rebuild the CSS
+        .pipe(reload({stream: true}));
 });
-
-// Run both the style commands
-gulp.task('styles', ['styles:scss', 'styles:css']);
 
 // Optimizes the images that exists
 gulp.task('images', function() {
@@ -148,10 +142,10 @@ gulp.task('serve', function() {
 
     // These tasks will look for files that change while serving and will auto-regenerate or
     // reload the website accordingly. Update or add other files you need to be watched.
-    gulp.watch(['src/**/*.md', 'src/**/*.html'], ['jekyll:serve']);
+    gulp.watch(['src/**/*.md', 'src/**/*.html'], ['jekyll:dev']);
     gulp.watch(['serve/**/*.html', 'serve/**/*.css', 'serve/**/*.js'], reload);
-    gulp.watch(['src/assets/_scss/**/*.scss'], ['styles:scss']);
-    gulp.watch(['src/assets/stylesheets/**/*.css'], ['styles:css', reload]);
+    gulp.watch(['src/assets/_scss/**/*.scss'], ['styles']);
+    // gulp.watch(['src/assets/stylesheets/**/*.css'], reload);
 });
 
 // Serve the site after optimizations to see that everything looks fine
