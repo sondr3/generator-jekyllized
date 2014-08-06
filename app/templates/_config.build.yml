@@ -2,7 +2,7 @@
 # Overrides these options in the 
 
 # Overrides the default URL, needed for your atom feed and sitemap
-url: <%= projecturl %>
+url: <%= projectUrl %>
 
 # Hides your drafts and future posts
 future: false

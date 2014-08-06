@@ -1,8 +1,8 @@
 # Title, decription, tagline and URL for your site
 # Can be used in your theme by calling 'site.title' and so on
-title: <%= projectname %>
-description: <%= description %>
-tagline: <%= tagline %>
+title: <%= projectName %>
+description: <%= projectDescription %>
+tagline: <%= projectTagline %>
 url: localhost:4000
 
 # Used so Jekyll outputs the site correctly so Gulp can do what it wants
@@ -31,8 +31,8 @@ limit_posts: 10
 
 # Permalink structure and pagination options
 relative_permalinks: true
-permalink: <%= jekyllPermalinks %><% if (jekyllPageinate) { %>
-paginate: <%= jekyllPageinate %>
+permalink: <%= jekyllPermalinks %><% if (jekyllPaginate) { %>
+paginate: <%= jekyllPaginate%>
 paginate_path: 'page:num'<% } %>
 
 # Markdown library
