@@ -121,7 +121,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
     jekyllPrompting: function () {
         var cb = this.async();
 
-        this.log(chalk.yellow('Now on to set some Jekyll settings: »') +
+        this.log(chalk.yellow('\nNow on to set some Jekyll settings: »') +
                 '\nYou can change all of this later in the _config.yml file');
 
         var prompts = [{
@@ -156,72 +156,55 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
 
-    writing: {
-
-        packageJSON: function () {
-            this.template('_package.json', 'package.json');
-        },
-
-        config: function () {
-            this.template('_config.yml', '_config.yml');
-            this.template('_config.build.yml', '_config.build.yml');
-        },
-
-        readme: function () {
-            this.template('_README.md', 'README.md');
-        },
-
-        gulpfile: function () {
-            this.copy('gulpfile.js', 'gulpfile.js');
-        },
-
-        git: function () {
-            this.copy('gitignore', '.gitignore');
-            this.copy('gitattributes', 'gitattributes');
-        },
-
-        gemfile: function () {
-            this.copy('Gemfile', 'Gemfile');
-        },
-
-        bower: function () {
-            this.copy('bowerrc', '.bowerrc');
-            this.copy('_bower.json', 'bower.json');
-        },
-
-        jshint: function () {
-            this.copy('jshintrc', '.jshintrc');
-        },
-
-        editorconfig: function () {
-            this.copy('editorconfig', '.editorconfig');
-        },
-
-        jekyll: function () {
-            this.directory('app', 'src');
-        }
+    writing: function () {
+        this.template('_package.json', 'package.json');
+        this.template('_config.yml', '_config.yml');
+        this.template('_config.build.yml', '_config.build.yml');
+        this.template('_README.md', 'README.md');
+        this.copy('gulpfile.js', 'gulpfile.js');
+        this.copy('gitignore', '.gitignore');
+        this.copy('gitattributes', 'gitattributes');
+        this.copy('Gemfile', 'Gemfile');
+        this.copy('bowerrc', '.bowerrc');
+        this.copy('_bower.json', 'bower.json');
+        this.copy('jshintrc', '.jshintrc');
+        this.copy('editorconfig', '.editorconfig');
+        this.directory('app', 'src');
     },
+    
+    bundlerInstallation: function () {
+        this.log(chalk.yellow('Installing'), chalk.blue('Bundler'), chalk.yellow('gems for Jekyll\n'));
 
-    rubyDependencies: function () {
-        this.log(chalk.yellow('\nRunning '), chalk.blue('bundle install'), chalk.yellow(' to install the required gems'));
-        this.conflicter.resolve(function (error) {
-            if (error) {
-                return this.emit('error', error);
+        this.conflicter.resolve(function (err) {
+            if (err) {
+                return this.emit('error', err);
             }
             shelljs.exec('bundle install');
         });
     },
 
-    npmInstall: function () {
-        this.log(chalk.yellow('\nRunning '), chalk.blue('npm install'), chalk.yellow(' to make gulp work'));
-        this.conflicter.resolve(function (error) {
-            if (error) {
-                return this.emit('error', error);
+    npmInstallation: function () {
+        this.log(chalk.yellow('Now it\'s time to install some'), chalk.blue('npm'), chalk.yellow('packages for gulp\n'));
+
+        this.conflicter.resolve(function (err) {
+            if (err) {
+                return this.emit('error', err);
             }
             shelljs.exec('npm install');
         });
     },
 
+    bowerInstallation: function () {
+        this.log(chalk.yellow('And finally it\'s time to install some'), chalk.blue('Bower'), chalk.yellow('packages\n'));
+
+        this.conflicter.resolve(function (err) {
+            if (err) {
+                return this.emit('error', err);
+            }
+            shelljs.exec('bower install');
+        });
+    },
+    
     install: function () {
         if (['jekyllized:app', 'jekyllized'].indexOf(this.options.namespace) >= 0) {
             this.installDependencies({ skipInstall: this.options['skip-install'] });
