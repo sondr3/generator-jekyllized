@@ -7,6 +7,7 @@ var yeoman  = require('yeoman-generator');
 var helpers = yeoman.test;
 
 describe('Jekyllized generator test', function () {
+    this.timeout(15000);
     beforeEach(function (done) {
         helpers.testDirectory(path.join(__dirname, './temp'), function (err) {
             if (err) {
@@ -37,7 +38,7 @@ describe('Jekyllized generator test', function () {
             'src/index.html',
             'src/robots.txt',
             'src/assets/favicon.ico',
-            'src/assets/_scss/style.scss'
+            'src/assets/scss/style.scss'
         ];
 
         helpers.mockPrompt(this.jekyllized, {

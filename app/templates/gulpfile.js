@@ -1,13 +1,6 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
-// Directories used:
-//    css:          <%= cssDirectory %>
-//    sass:         <%= scssDirectory %>
-//    javascript:   <%= javascriptDirectory %>
-//    images:       <%= imagesDirectory %>
-//    fonts:        <%= fontsDirectory %>
-
 var gulp = require('gulp');
 // Loads the plugins without having to list all of them, but you need 
 // to call them as $.pluginname
@@ -47,16 +40,16 @@ gulp.task('jekyll:dev', function () {
 // don't end up publishing your drafts or future posts
 gulp.task('jekyll:prod', $.shell.task('jekyll build --config _config.yml,_config.build.yml'));
 
-// Compiles the SASS files and moves them into the '<%= cssDirectory %>' directory
+// Compiles the SASS files and moves them into the 'assets/stylesheets' directory
 gulp.task('styles', function () {
     // Looks at the style.scss file for what to include and creates a style.css file
-    return gulp.src('src/<%= scssDirectory %>/style.scss')
+    return gulp.src('src/assets/scss/style.scss')
         .pipe($.sass())
         // AutoPrefix your CSS so it works between browsers
         .pipe($.autoprefixer('last 1 version', { cascade: true }))
         // Directory your CSS file goes to
-        .pipe(gulp.dest('src/<%= cssDirectory %>/'))
-        .pipe(gulp.dest('serve/<%= cssDirectory %>/'))
+        .pipe(gulp.dest('src/assets/stylesheets/'))
+        .pipe(gulp.dest('serve/assets/stylesheets/'))
         // Outputs the size of the CSS file
         .pipe($.size({title: 'SCSS'}))
         // Injects the CSS changes to your browser since Jekyll doesn't rebuild the CSS
@@ -65,7 +58,7 @@ gulp.task('styles', function () {
 
 // Optimizes the images that exists
 gulp.task('images', function () {
-    return gulp.src('src/<%= imagesDirectory %>/**/*')
+    return gulp.src('src/assets/images/**/*')
         .pipe($.cache($.imagemin({
             // Runs 16 trials on the PNGs to better the optimization
             // Can by anything from 1 to 7, for more see 
@@ -110,7 +103,7 @@ gulp.task('html', ['styles'], function () {
 
 // Run JS Lint against your JS
 gulp.task('jslint', function () {
-  gulp.src('./serve/<%= javascriptDirectory %>/*.js')
+  gulp.src('./serve/assets/javascript/*.js')
     // Checks your JS code quality against your .jshintrc file
     .pipe($.jshint('.jshintrc'))
     .pipe($.jshint.reporter());
@@ -125,8 +118,8 @@ gulp.task('copy', function () {
     // Each var is for different kinds of files/folders
     var xmlandtxt = gulp.src(['src/*.txt', 'src/*.xml'])
         .pipe(gulp.dest('site'));
-    var images = gulp.src('src/<%= imagesDirectory =%>/**/*')
-        .pipe(gulp.dest('site/<%= imagesDirectory =%>'));
+    var images = gulp.src('src/assets/images/**/*')
+        .pipe(gulp.dest('site/assets/images'));
 
     // Merges the three streams into a single output
     return merge(xmlandtxt, images);

@@ -156,58 +156,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
 
-    assetPrompting: function () {
-        var cb = this.async();
-
-        var slashFilter = function (input) {
-            return input.replace(/^\/*|\/*$/g, '');
-        };
-
-        this.log(chalk.yellow('\nNow it\'s time to configure your asset structure. »'));
-
-        var prompts = [{
-            name: 'cssDirectory',
-            message: 'Where do you want your CSS to live?',
-            default: '/assets/stylesheets',
-            filter: slashFilter
-        }, {
-            name: 'scssDirectory',
-            message: 'Where do you want your SCSS to live?',
-            default: 'assets/scss',
-            filter: slashFilter
-        }, {
-            name: 'javascriptDirectory',
-            message: 'Where do you want your JavaScript to live?',
-            default: 'assets/javascript',
-            filter: slashFilter
-        }, {
-            name: 'imagesDirectory',
-            message: 'Where do you want your images to live?',
-            default: 'assets/images',
-            filter: slashFilter
-        }, {
-            name: 'fontsDirectory',
-            message: 'Where do you want your fonts to live?',
-            default: 'assets/fonts',
-            filter: slashFilter
-        }];
-
-        this.prompt(prompts, function (props) {
-            this.cssDirectory           = props.cssDirectory;
-            this.scssDirectory          = props.scssDirectory;
-            this.javascriptDirectory    = props.javascriptDirectory;
-            this.imagesDirectory        = props.imagesDirectory;
-            this.fontsDirectory         = props.fontsDirectory;
-
-            cb();
-        }.bind(this));
-    },
-
     writing: {
-
-        gulpfile: function () {
-            this.template('_gulpfile.js', 'gulpfile.js');
-        },
 
         packageJSON: function () {
             this.template('_package.json', 'package.json');
@@ -220,6 +169,10 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
 
         readme: function () {
             this.template('_README.md', 'README.md');
+        },
+
+        gulpfile: function () {
+            this.copy('gulpfile.js', 'gulpfile.js');
         },
 
         git: function () {
@@ -242,6 +195,10 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
 
         editorconfig: function () {
             this.copy('editorconfig', '.editorconfig');
+        },
+
+        jekyll: function () {
+            this.directory('app', 'src');
         }
     },
 
@@ -252,6 +209,16 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 return this.emit('error', error);
             }
             shelljs.exec('bundle install');
+        });
+    },
+
+    npmInstall: function () {
+        this.log(chalk.yellow('\nRunning '), chalk.blue('npm install'), chalk.yellow(' to make gulp work'));
+        this.conflicter.resolve(function (error) {
+            if (error) {
+                return this.emit('error', error);
+            }
+            shelljs.exec('npm install');
         });
     },
 
