@@ -43,7 +43,8 @@
   },
   "peerDependencies": {
     "generator-mocha": ">=0.1.5",
-    "yo": ">=1.1.2"
+    "yo": ">=1.1.2",
+    "gulp": ">=3.5.0"
   },
   "engines": {
     "node": ">=0.10",

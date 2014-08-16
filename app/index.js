@@ -7,8 +7,7 @@ var globule = require('globule');
 var shelljs = require('shelljs');
 
 var JekyllizedGenerator = yeoman.generators.Base.extend({
-    constructor: function () {
-        yeoman.generators.Base.apply(this, arguments);
+    init: function () {
 
         var dependenciesInstalled = ['bundle', 'ruby'].every(function (depend) {
             return shelljs.which(depend);
@@ -22,19 +21,13 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         };
 
         this.testFramework = this.options['test-framework'] || 'mocha';
-        this.options['test-framework'] = this.testFramework;
 
-        this.hookFor(this.testFramework, {
-            as: 'app',
-            options: {
-                'skip-install': this.options['skip-install']
+        this.on('end', function () {
+            if (!this.options['skip-install']) {
+                this.spawnCommand('bundle', ['install']);
+                this.installDependencies();
             }
         });
-
-        this.gitInfo = {
-            ownerName: this.user.git.username,
-            ownerEmail: this.user.git.email
-        };
 
         this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
     },
@@ -95,11 +88,9 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         var prompts = [{
             name: 'ownerName',
             message: 'What is your name?',
-            default: this.gitInfo.ownerName
         }, {
             name: 'ownerEmail',
             message: 'What is your email?',
-            default: this.gitInfo.ownerEmail
         }, {
             name: 'ownerBio',
             message: 'Write a short description of yourself:'
@@ -122,7 +113,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         var cb = this.async();
 
         this.log(chalk.yellow('\nNow on to set some Jekyll settings: »') +
-                '\nYou can change all of this later in the _config.yml file');
+                chalk.red('\nYou can change all of this later in the _config.yml file'));
 
         var prompts = [{
             name: 'jekyllPermalinks',
@@ -156,7 +147,10 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
 
-    writing: function () {
+    scaffolding: function () {
+        this.copy('Gemfile', 'Gemfile');
+        this.copy('bowerrc', '.bowerrc');
+        this.copy('_bower.json', 'bower.json');
         this.template('_package.json', 'package.json');
         this.template('_config.yml', '_config.yml');
         this.template('_config.build.yml', '_config.build.yml');
@@ -164,51 +158,12 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.copy('gulpfile.js', 'gulpfile.js');
         this.copy('gitignore', '.gitignore');
         this.copy('gitattributes', 'gitattributes');
-        this.copy('Gemfile', 'Gemfile');
-        this.copy('bowerrc', '.bowerrc');
-        this.copy('_bower.json', 'bower.json');
         this.copy('jshintrc', '.jshintrc');
         this.copy('editorconfig', '.editorconfig');
+    },
+    
+    jekyll: function () {
         this.directory('app', 'src');
-    },
-    
-    bundlerInstallation: function () {
-        this.log(chalk.yellow('Installing'), chalk.blue('Bundler'), chalk.yellow('gems for Jekyll\n'));
-
-        this.conflicter.resolve(function (err) {
-            if (err) {
-                return this.emit('error', err);
-            }
-            shelljs.exec('bundle install');
-        });
-    },
-
-    npmInstallation: function () {
-        this.log(chalk.yellow('Now it\'s time to install some'), chalk.blue('npm'), chalk.yellow('packages for gulp\n'));
-
-        this.conflicter.resolve(function (err) {
-            if (err) {
-                return this.emit('error', err);
-            }
-            shelljs.exec('npm install');
-        });
-    },
-
-    bowerInstallation: function () {
-        this.log(chalk.yellow('And finally it\'s time to install some'), chalk.blue('Bower'), chalk.yellow('packages\n'));
-
-        this.conflicter.resolve(function (err) {
-            if (err) {
-                return this.emit('error', err);
-            }
-            shelljs.exec('bower install');
-        });
-    },
-    
-    install: function () {
-        if (['jekyllized:app', 'jekyllized'].indexOf(this.options.namespace) >= 0) {
-            this.installDependencies({ skipInstall: this.options['skip-install'] });
-        }
     }
 });
 

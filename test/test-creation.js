@@ -52,11 +52,6 @@ describe('Jekyllized generator test', function () {
             ownerTwitter: ['olanordmann123123'],
             jekyllPermalinks: ['pretty'],
             jekyllPaginate: ['10'],
-            cssDirectory: ['assets/stylesheets'],
-            javascriptDirectory: ['assets/javascript'],
-            imagesDirectory: ['assets/images'],
-            fontsDirectory: ['assets/fonts'],
-            scssDirectory: ['assets/scss']
         });
 
         this.jekyllized.run({}, function () {
