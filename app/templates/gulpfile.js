@@ -171,5 +171,5 @@ gulp.task('build', ['jekyll:prod', 'styles', 'images'], function () {
 // Builds your site with the 'build' command and then runs all the optimizations on
 // it and outputs it to './site'
 gulp.task('publish', ['build', 'clean:prod'], function () {
-    gulp.start('html');
+    gulp.start('html', 'copy');
 });

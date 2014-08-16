@@ -1,6 +1,6 @@
 {
   "name": "generator-jekyllized",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Use Jekyll with Gulp, Yeoman, Bower, Bourbon and so much more!",
   "keywords": [
     "yeoman-generator",
