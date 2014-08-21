@@ -160,9 +160,6 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.copy('gitattributes', 'gitattributes');
         this.copy('jshintrc', '.jshintrc');
         this.copy('editorconfig', '.editorconfig');
-    },
-    
-    jekyll: function () {
         this.directory('app', 'src');
     }
 });
