@@ -31,12 +31,12 @@
       "test": "mocha --reporter spec"
   },
   "dependencies": {
-    "yeoman-generator": "~0.17.0"
-  },
-  "devDependencies": {
+    "yeoman-generator": "~0.17.0",
     "globule": "~0.2.0",
     "shelljs": "~0.3.0",
-    "chalk": "~0.4.0",
+    "chalk": "~0.4.0"
+  },
+  "devDependencies": {
     "mocha": "*",
     "istanbul": "~0.3.0",
     "coveralls": "~2.11.1"
