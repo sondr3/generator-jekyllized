@@ -147,6 +147,78 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         }.bind(this));
     },
 
+    uploadPrompting: function () {
+        var cb = this.async();
+
+        this.log(chalk.yellow('\nIf you want to we can configure how to upload your site. You can do this either via Amazon S3/Cloudfront or Rsync to your own server: »') +
+                chalk.red('\nNOTE: This is a one time choice, you\'ll have to check the source of jekyllized to change this later on'));
+
+        var prompts = [{
+            name: 'upload',
+            type: 'list',
+            message: 'How do you want to upload your site?',
+            choices: [{
+                name: 'Amazon S3 + Cloudfront',
+                value: 'amazonCloudfrontS3'
+            }, {
+                name: 'Rsync',
+                value: 'rsync'
+            }, {
+                name: 'None',
+                value: 'noUpload'
+            }]
+        }, {
+            name: 'amazonKey',
+            message: 'What is your key to AWS?',
+            when: function (answers) {
+                return answers.upload === 'amazonCloudfrontS3';
+            }
+        }, {
+            name: 'amazonSecret',
+            message: 'What is your secret?',
+            when: function (answers) {
+                return answers.upload === 'amazonCloudfrontS3';
+            }
+        }, {
+            name: 'amazonBucket',
+            message: 'What do you want your S3 bucket to be called?',
+            when: function (answers) {
+                return answers.upload === 'amazonCloudfrontS3';
+            }
+        }, {
+            name: 'rsyncServer',
+            message: 'Where do you want your site to be uploaded? Include both the address for the server and the folder, eg. 192.168.1.1:~/public_html/site',
+            when: function (answers) {
+                return answers.upload === 'rsync';
+            }
+        }];
+       
+        this.prompt(prompts, function (props) {
+
+            if (props.upload === 'Amazon S3 + Cloudfront') {
+                this.upload = 'amazonCloudfrontS3';
+            }
+            else if (props.upload === 'Rsync') {
+                this.upload = 'rsync';
+            }
+            else if (props.upload === 'None') {
+                this.upload = 'noUpload';
+            }
+            
+            this.amazonCloudfrontS3 = props.amazonCloudfrontS3;
+            this.rsync              = props.rsync;
+            this.noUpload           = props.noUpload;
+
+            this.amazonKey          = props.amazonKey;
+            this.amazonSecret       = props.amazonSecret;
+            this.amazonBucket       = props.amazonBucket;
+
+            this.rsyncServer        = props.rsyncServer;
+
+            cb();
+        }.bind(this));
+    },
+
     scaffolding: function () {
         this.copy('Gemfile', 'Gemfile');
         this.copy('bowerrc', '.bowerrc');
@@ -161,6 +233,10 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.copy('jshintrc', '.jshintrc');
         this.copy('editorconfig', '.editorconfig');
         this.directory('app', 'src');
+
+        if (this.upload === 'Amazon S3 + Cloudfront') {
+            this.template('conditional/_aws-credentials.json', 'aws-credentials.json');
+        }
     }
 });
 

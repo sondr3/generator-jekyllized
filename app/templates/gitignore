@@ -64,3 +64,6 @@ app/_bower_components
 # Output folders
 serve
 site
+
+# hide the AWS conditionals file
+aws-credentials.json
