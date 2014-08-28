@@ -1,3 +1,21 @@
+<a name="0.5.2"></a>
+### 0.5.2 (2014-08-21)
+Bugfix from [David Pett](https://github.com/davidpett) because I messed up the dependencies/dev-dependencies in the package.json file.
+
+<a name="0.5.1"></a>
+### 0.5.1 (2014-08-17)
+Forgot to include some of the new changes to the gulpfile before pushing it to NPM. Oops.
+
+<a name="0.5.0"></a>
+## 0.5.0 (2014-08-17)
+
+Complete overhaul of the Gulpfile, upgraded to use the newest version of Jekyll (2.3.x as of writing this) and some changes to how the generator works.
+
+#### Changes
+* **Gulpfile:** Major overhaul, added BrowserSync for live previews, changes to how the tasks are run and removed a lot of unneeded tasks
+* **Generator:** Complete rewrite, now also doesn't ask for directories anymore and now should install all the needed packages from Bower and NPM on install
+* **Other:** Changed some of the tests to go with the rewrite of the generator, redid some of the folder structuring
+
 <a name="0.4.1"></a>
 ### 0.4.1 (2014-04-09)
 
