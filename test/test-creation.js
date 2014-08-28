@@ -38,7 +38,8 @@ describe('Jekyllized generator test', function () {
             'src/index.html',
             'src/robots.txt',
             'src/assets/favicon.ico',
-            'src/assets/scss/style.scss'
+            'src/assets/scss/style.scss',
+            'aws-credentials.json'
         ];
 
         helpers.mockPrompt(this.jekyllized, {
@@ -52,6 +53,10 @@ describe('Jekyllized generator test', function () {
             ownerTwitter: ['olanordmann123123'],
             jekyllPermalinks: ['pretty'],
             jekyllPaginate: ['10'],
+            upload: ['Amazon S3 + Cloudfront'],
+            amazonKey: ['123123123123123'],
+            amazonSecret: ['14141414141414'],
+            amazonBucket: ['135135135135135']
         });
 
         this.jekyllized.run({}, function () {

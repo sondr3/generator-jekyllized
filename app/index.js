@@ -235,7 +235,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.directory('app', 'src');
 
         if (this.upload === 'Amazon S3 + Cloudfront') {
-            this.template('conditional/_aws-credentials.json', 'aws-credentials.json');
+            this.template('conditionals/_aws-credentials.json', 'aws-credentials.json');
         }
     }
 });
