@@ -1,3 +1,9 @@
+<a name="0.6.0"></a>
+## 0.6.0 - Cache busting and Amazon S3/Cloudfront or Rsync support
+
+#### Fixes
+* **HTML minificaton:** Now actually minifies HTML. Forgot to actually pass the commands to minify whitespace and comments. Oops.
+
 <a name="0.5.2"></a>
 ### 0.5.2 (2014-08-21)
 Bugfix from [David Pett](https://github.com/davidpett) because I messed up the dependencies/dev-dependencies in the package.json file.
