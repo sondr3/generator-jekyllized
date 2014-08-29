@@ -53,7 +53,7 @@ describe('Jekyllized generator test', function () {
             ownerTwitter: ['olanordmann123123'],
             jekyllPermalinks: ['pretty'],
             jekyllPaginate: ['10'],
-            upload: ['Amazon S3 + Cloudfront'],
+            uploadChoices: ['amazonCloudfrontS3'],
             amazonKey: ['123123123123123'],
             amazonSecret: ['14141414141414'],
             amazonBucket: ['135135135135135']

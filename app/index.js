@@ -154,68 +154,75 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 chalk.red('\nNOTE: This is a one time choice, you\'ll have to check the source of jekyllized to change this later on'));
 
         var prompts = [{
-            name: 'upload',
+            name: 'uploadChoices',
             type: 'list',
-            message: 'How do you want to upload your site?',
+            message: 'How would you like to host/upload your site?',
             choices: [{
                 name: 'Amazon S3 + Cloudfront',
-                value: 'amazonCloudfrontS3'
+                value: 'amazonCloudfrontS3',
             }, {
                 name: 'Rsync',
-                value: 'rsync'
+                value: 'rsync',
             }, {
-                name: 'None',
+                name: 'Neither',
                 value: 'noUpload'
             }]
-        }, {
+        }];
+       
+        this.prompt(prompts, function (answers, props) {
+            var features = answers.uploadChoices;
+
+            var hasFeature = function (feat) {
+                return features.indexOf(feat) !== -1;
+            }
+
+            this.amazonCloudfrontS3 = hasFeature('amazonCloudfrontS3');
+            this.rsync              = hasFeature('rsync');
+            
+            cb();
+        }.bind(this));
+    },
+
+    secretPrompting: function () {
+        var cb = this.async();
+
+        this.log(chalk.yellow('\nNow we only need some details about how to upload your site: »') +
+                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in either aws-credentials.json or rsync-credentials.json.'));
+
+        var prompts = [{
             name: 'amazonKey',
             message: 'What is your key to AWS?',
             when: function (answers) {
-                return answers.upload === 'amazonCloudfrontS3';
+                return answers.uploadChoices === 'amazonCloudfrontS3';
             }
         }, {
             name: 'amazonSecret',
             message: 'What is your secret?',
             when: function (answers) {
-                return answers.upload === 'amazonCloudfrontS3';
+                return answers.uploadChoices === 'amazonCloudfrontS3';
             }
         }, {
             name: 'amazonBucket',
             message: 'What do you want your S3 bucket to be called?',
             when: function (answers) {
-                return answers.upload === 'amazonCloudfrontS3';
+                return answers.uploadChoices === 'amazonCloudfrontS3';
             }
         }, {
             name: 'rsyncServer',
-            message: 'Where do you want your site to be uploaded? Include both the address for the server and the folder, eg. 192.168.1.1:~/public_html/site',
+            message: 'Where do you want your site to be uploaded? Include both the address for the server and the folder, eg. 192.168.1.1:/srv/site/public_html/',
             when: function (answers) {
-                return answers.upload === 'rsync';
+                return answers.uploadChoices === 'rsync';
             }
         }];
-       
+
         this.prompt(prompts, function (props) {
+            this.amazonKey      = props.amazonKey;
+            this.amazonSecret   = props.amazonSecret;
+            this.amazonBucket   = props.amazonBucket;
 
-            if (props.upload === 'Amazon S3 + Cloudfront') {
-                this.upload = 'amazonCloudfrontS3';
-            }
-            else if (props.upload === 'Rsync') {
-                this.upload = 'rsync';
-            }
-            else if (props.upload === 'None') {
-                this.upload = 'noUpload';
-            }
-            
-            this.amazonCloudfrontS3 = props.amazonCloudfrontS3;
-            this.rsync              = props.rsync;
-            this.noUpload           = props.noUpload;
+            this.rsyncServer    = props.rsyncServer;
 
-            this.amazonKey          = props.amazonKey;
-            this.amazonSecret       = props.amazonSecret;
-            this.amazonBucket       = props.amazonBucket;
-
-            this.rsyncServer        = props.rsyncServer;
-
-            cb();
+            cb()
         }.bind(this));
     },
 
@@ -234,8 +241,11 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.copy('editorconfig', '.editorconfig');
         this.directory('app', 'src');
 
-        if (this.upload === 'Amazon S3 + Cloudfront') {
+        if (this.amazonCloudfrontS3) {
             this.template('conditionals/_aws-credentials.json', 'aws-credentials.json');
+        }
+        else if (this.uploadChoices === 'rsync') {
+            this.template('conditionals/_rsync-credentials.json', 'rsync-dredentials.json');
         }
     }
 });
