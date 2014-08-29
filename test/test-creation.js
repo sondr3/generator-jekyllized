@@ -56,7 +56,8 @@ describe('Jekyllized generator test', function () {
             uploadChoices: ['amazonCloudfrontS3'],
             amazonKey: ['123123123123123'],
             amazonSecret: ['14141414141414'],
-            amazonBucket: ['135135135135135']
+            amazonBucket: ['135135135135135'],
+            amazonDistID: ['2121212121212121']
         });
 
         this.jekyllized.run({}, function () {

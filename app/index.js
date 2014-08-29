@@ -149,6 +149,8 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
     uploadPrompting: function () {
         var cb = this.async();
 
+        this.log(chalk.yellow('\nNow we only need some details about how to upload your site: »') +
+                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in either aws-credentials.json or rsync-credentials.json.'));
 
         var prompts = [{
             name: 'uploadChoices',
@@ -184,6 +186,12 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 return answers.uploadChoices === 'amazonCloudfrontS3';
             }
         }, {
+            name: 'amazonDistID',
+            message: 'What is the Cloudfront distribution ID?',
+            when: function (answers) {
+                return answers.uploadChoices === 'amazonCloudfrontS3';
+            }
+        }, {
             name: 'rsyncServer',
             message: 'Where do you want your site to be uploaded? Include both the address for the server and the folder, eg. 192.168.1.1:/srv/site/public_html/',
             when: function (answers) {
@@ -191,8 +199,6 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
             }
         }];
        
-        this.log(chalk.yellow('\nNow we only need some details about how to upload your site: »') +
-                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in either aws-credentials.json or rsync-credentials.json.'));
         this.prompt(prompts, function (props) {
             var features = props.uploadChoices;
 
@@ -206,6 +212,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
             this.amazonKey      = props.amazonKey;
             this.amazonSecret   = props.amazonSecret;
             this.amazonBucket   = props.amazonBucket;
+            this.amazonDistID   = props.amazonDistID;
 
             this.rsyncServer    = props.rsyncServer;
 

@@ -9,6 +9,8 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 // 'fs' is used to read files from the system (used for AWS uploading)
 var fs = require('fs');
+// Parallelize the uploads when uploading to Amazon S3
+var parallelize = require("concurrent-transform");
 // BrowserSync isn't a gulp package, and needs to be loaded manually
 var browserSync = require('browser-sync');
 // merge is used to merge the output from two different streams into the same stream
@@ -99,6 +101,31 @@ gulp.task('html', ['styles'], function () {
         // Send the output to the correct folder
         .pipe(gulp.dest('site'))
         .pipe($.size({title: 'Optimizations'}));
+});
+
+// Task to deploy your site to Amazon S3 and Cloudfront
+gulp.task('deploy', function () {
+    // Generate the needed credentials (bucket, secret key etc) from a "hidden" JSON file
+    var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
+    var publisher = $.awspublish.create(credentials);
+    // Give your files the proper headers
+    var headers = {
+        'Cache-Control': 'max-age=315360000, no-transform, public',
+    };
+
+    gulp.src('site/**/*')
+        // Gzip your files for even more zoom
+        .pipe($.awspublish.gzip())
+        // Parallelize the number of concurrent uploads, in this case 30
+        .pipe(parallelize(publisher.publish(headers), 30))
+        // Have your files in the system cache so you don't have to recheck all the files every time
+        .pipe(publisher.cache())
+        // Synchronize the contents of the bucket and local (this deletes everything that isn't in local!)
+        .pipe(publisher.sync())
+        // And print the ouput, glorious
+        .pipe($.awspublish.reporter())
+        // And update the default root object
+        .pipe($.cloudfront(credentials));
 });
 
 // Run JS Lint against your JS
