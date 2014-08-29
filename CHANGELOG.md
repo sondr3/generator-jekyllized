@@ -2,7 +2,7 @@
 ## 0.6.0 - Cache busting and Amazon S3/Cloudfront or Rsync support
 
 #### Changes
-* **Cache busting:** CSS and JavaScript files are now cache busted when running ```gulp publish``` so you don't need to invalidate assets on Cloudfront
+* **Cache busting:** CSS and JavaScript files are now cache busted when running ```gulp publish``` so you don't need to invalidate assets on Cloudfront, this is done with [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) so even if a file that your CSS references changes so does the cache. Nice.
 
 <a name="0.5.2"></a>
 ### 0.5.2 (2014-08-21)

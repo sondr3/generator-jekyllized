@@ -93,7 +93,7 @@ gulp.task('html', ['styles'], function () {
         // Minify CSS
         .pipe($.if('*.css', $.minifyCss()))
         // Start cache busting the files
-        .pipe($.rev())
+        .pipe($.revAll())
         .pipe($.useref.restore())
         // Conctenate your files based on what you specified in _layout/header.html
         .pipe($.useref())
