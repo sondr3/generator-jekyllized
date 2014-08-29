@@ -118,11 +118,10 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         var prompts = [{
             name: 'jekyllPermalinks',
             type: 'list',
-            message: 'Permalink style' +
-                (chalk.red(
+            message: 'Permalink style' + (chalk.red(
                            '\n  pretty: /:categories:/:year/:month/:day/:title/' +
                            '\n  date:   /:categories/:year/:month/:day/:title.html' +
-                           '\n  none:   /:categories/:title.html')),
+                           '\n  none:   /:categories/:title.html')) + '\n',
             choices: ['pretty', 'date', 'none']
         }, {
             name: 'jekyllPaginate',
@@ -150,8 +149,6 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
     uploadPrompting: function () {
         var cb = this.async();
 
-        this.log(chalk.yellow('\nIf you want to we can configure how to upload your site. You can do this either via Amazon S3/Cloudfront or Rsync to your own server: »') +
-                chalk.red('\nNOTE: This is a one time choice, you\'ll have to check the source of jekyllized to change this later on'));
 
         var prompts = [{
             name: 'uploadChoices',
@@ -167,31 +164,10 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 name: 'Neither',
                 value: 'noUpload'
             }]
-        }];
-       
-        this.prompt(prompts, function (answers, props) {
-            var features = answers.uploadChoices;
-
-            var hasFeature = function (feat) {
-                return features.indexOf(feat) !== -1;
-            }
-
-            this.amazonCloudfrontS3 = hasFeature('amazonCloudfrontS3');
-            this.rsync              = hasFeature('rsync');
-            
-            cb();
-        }.bind(this));
-    },
-
-    secretPrompting: function () {
-        var cb = this.async();
-
-        this.log(chalk.yellow('\nNow we only need some details about how to upload your site: »') +
-                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in either aws-credentials.json or rsync-credentials.json.'));
-
-        var prompts = [{
+        }, {
             name: 'amazonKey',
-            message: 'What is your key to AWS?',
+            message: chalk.yellow('\n\nIf you want to we can configure how to upload your site. You can do this either via Amazon S3/Cloudfront or Rsync to your own server: »') +
+                chalk.red('\nNOTE: This is a one time choice, you\'ll have to check the source of jekyllized to change this later on') + '\nWhat is your key to AWS?',
             when: function (answers) {
                 return answers.uploadChoices === 'amazonCloudfrontS3';
             }
@@ -214,15 +190,26 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 return answers.uploadChoices === 'rsync';
             }
         }];
-
+       
+        this.log(chalk.yellow('\nNow we only need some details about how to upload your site: »') +
+                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in either aws-credentials.json or rsync-credentials.json.'));
         this.prompt(prompts, function (props) {
+            var features = props.uploadChoices;
+
+            var hasFeature = function (feat) {
+                return features.indexOf(feat) !== -1;
+            }
+
+            this.amazonCloudfrontS3 = hasFeature('amazonCloudfrontS3');
+            this.rsync              = hasFeature('rsync');
+            
             this.amazonKey      = props.amazonKey;
             this.amazonSecret   = props.amazonSecret;
             this.amazonBucket   = props.amazonBucket;
 
             this.rsyncServer    = props.rsyncServer;
 
-            cb()
+            cb();
         }.bind(this));
     },
 
@@ -244,7 +231,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         if (this.amazonCloudfrontS3) {
             this.template('conditionals/_aws-credentials.json', 'aws-credentials.json');
         }
-        else if (this.uploadChoices === 'rsync') {
+        else if (this.rsync) {
             this.template('conditionals/_rsync-credentials.json', 'rsync-dredentials.json');
         }
     }
