@@ -95,7 +95,7 @@ gulp.task('html', ['styles'], function () {
         .pipe($.useref.restore())
         .pipe($.useref())
         // Minify HTML
-        .pipe($.if('*.html', $.htmlmin()))
+        .pipe($.if('*.html', $.htmlmin({removeComments: true, collapseWhitespace: true})))
         // Send the output to the correct folder
         .pipe(gulp.dest('site'))
         .pipe($.size({title: 'Optimizations'}));
