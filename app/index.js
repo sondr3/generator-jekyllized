@@ -200,13 +200,13 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
             }
         }, {
             name: 'rsyncHostname',
-            message: 'What is the hostname?' + chalk.red('(eg. example.com or 192.168.1.1)'),
+            message: 'What is the hostname?' + chalk.red('\n(eg. example.com or 192.168.1.1)'),
             when: function (answers) {
                 return answers.uploadChoices === 'rsync';
             }
         }, {
             name: 'rsyncDestination',
-            message: 'Where do you want to save the files?' + chalk.red('(eg. /srv/www/site/public_html)'),
+            message: 'Where do you want to save the files?' + chalk.red('\n(eg. /srv/www/site/public_html)'),
             when: function (answers) {
                 return answers.uploadChoices === 'rsync';
             }

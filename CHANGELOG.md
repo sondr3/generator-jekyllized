@@ -3,9 +3,12 @@
 
 This update is for ways to deploy your site, you can now deploy your site via Amazon S3 with Cloudfront support as well or via Rsync to your own server. Also included is support for cache-busting so you won't have to invalidate files on Cloudfront all the time as well as some minr fixes for the generation of a couple of files.
 
+#### IMPORTANT!
+* **Gzip:** Your content is gzipped when you run ```gulp publish``` so make sure your server is configured for this properly when using Rsync. If you are using Amazon S3 and Cloudfront it will automatically give your files the corrent content-encoding header.
+
 #### Changes 
 * **Amazon S3 and Cloudfront:** You can now upload your site to Amazon S3 and it'll apply the correct headers and gzip your files. Also updates the default root object in your Cloudfront distribution.
-* **Rsync:** You can also choose to use Rsync to upload your site instead, works pretty much the same. It will gzip your files as well, so make sure your server is configured properly!
+* **Rsync:** You can also choose to use Rsync to upload your site instead, works pretty much the same. Your files are gzipped before uploading so configure your server accordingly! 
 * **Conditionals:** Both the package.json and gulpfile.js are now filled only with the packages and commands you need so as to not bloat them.
 * **Cache busting:** CSS and JavaScript files are now cache busted when running ```gulp publish``` so you don't need to invalidate assets on Cloudfront, this is done with [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) so even if a file that your CSS references changes so does the cache. Nice.
 

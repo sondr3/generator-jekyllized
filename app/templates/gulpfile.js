@@ -102,12 +102,26 @@ gulp.task('html', ['styles'], function () {
         // Replace the asset names with their cache busted names
         .pipe($.revReplace())
         // Minify HTML
-        .pipe($.if('*.html', $.htmlmin({removeComments: true, collapseWhitespace: true})))
+        .pipe($.if('*.html', $.htmlmin({
+            removeComments: true, 
+            removeCommentsFromCDATA: true,
+            removeCDATASectionsFromCDATA: true,
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            removeAttributeQuotes: true,
+            removeRedundantAttributes: true
+        })))
+        // Gzip your text files 
+        .pipe($.if('*.html', $.gzip({append: false})))
+        .pipe($.if('*.xml', $.gzip({append: false})))
+        .pipe($.if('*.txt', $.gzip({append: false})))
+        .pipe($.if('*.css', $.gzip({append: false})))
+        .pipe($.if('*.js', $.gzip({append: false})))
         // Send the output to the correct folder
         .pipe(gulp.dest('site'))
         .pipe($.size({title: 'Optimizations'}));
-});
-<% if (amazonCloudfrontS3) { %>
+});<% if (amazonCloudfrontS3) { %>
+
 // Task to deploy your site to Amazon S3 and Cloudfront
 gulp.task('deploy', function () {
     // Generate the needed credentials (bucket, secret key etc) from a "hidden" JSON file
@@ -116,11 +130,10 @@ gulp.task('deploy', function () {
     // Give your files the proper headers
     var headers = {
         'Cache-Control': 'max-age=315360000, no-transform, public',
+        'Content-Encoding': 'gzip'
     };
 
     gulp.src('site/**/*')
-        // Gzip your files for even more zoom
-        .pipe($.awspublish.gzip())
         // Parallelize the number of concurrent uploads, in this case 30
         .pipe(parallelize(publisher.publish(headers), 30))
         // Have your files in the system cache so you don't have to recheck all the files every time
@@ -132,20 +145,9 @@ gulp.task('deploy', function () {
         // And update the default root object
         .pipe($.cloudfront(credentials));
 });<% } %><% if (rsync) { %>
-// Gzip all your files before being uploaded with Rsync
-// NOTE: THIS CURRENTLY OVERWRITES THE FILES EVERY TIME SO IT'LL SYNC ALL THE FILES EVERY TIME
-// THIS IS NOT INTENDED
-gulp.task('gzip', function() {
-    // Only gzips text files and such
-    return gulp.src(['site/**/*.html', 'site/**/*.css', 'site/**/*.js', 'site/**/*.xml', 'site/**/*.txt'])
-        // Doesn't append the .gz ending to your files
-        .pipe($.gzip({append: false}))
-        .pipe(gulp.dest('site'))
-        .pipe($.size({title: 'Gzip'}));
-});
 
 // Task to upload your site via Rsync to your server
-gulp.task('deploy', ['gzip'], function () {
+gulp.task('deploy', function () {
     // Load in the variables needed for our Rsync synchronization
     var secret = require('./rsync-credentials.json');
 
