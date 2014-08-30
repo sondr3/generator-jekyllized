@@ -38,7 +38,8 @@ describe('Jekyllized generator test', function () {
             'src/index.html',
             'src/robots.txt',
             'src/assets/favicon.ico',
-            'src/assets/scss/style.scss'
+            'src/assets/scss/style.scss',
+            'aws-credentials.json'
         ];
 
         helpers.mockPrompt(this.jekyllized, {
@@ -52,6 +53,14 @@ describe('Jekyllized generator test', function () {
             ownerTwitter: ['olanordmann123123'],
             jekyllPermalinks: ['pretty'],
             jekyllPaginate: ['10'],
+            uploadChoices: ['amazonCloudfrontS3'],
+            amazonKey: ['123123123123123'],
+            amazonSecret: ['14141414141414'],
+            amazonBucket: ['135135135135135'],
+            amazonDistID: ['2121212121212121'],
+            rsyncUsername: ['olanordmann'],
+            rsyncHostname: ['example.com'],
+            rsyncDestination: ['/srv/www/example.com/public_html']
         });
 
         this.jekyllized.run({}, function () {
