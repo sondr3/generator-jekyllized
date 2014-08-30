@@ -6,6 +6,7 @@
 
 #### Fixes
 * **HTML minificaton:** Now actually minifies HTML. Forgot to actually pass the commands to minify whitespace and comments. Oops.
+* **Generator:** Forgot to add a dot in front of the gitattributes file
 
 <a name="0.5.2"></a>
 ### 0.5.2 (2014-08-21)

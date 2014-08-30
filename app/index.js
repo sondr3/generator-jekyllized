@@ -157,7 +157,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.template('_README.md', 'README.md');
         this.copy('gulpfile.js', 'gulpfile.js');
         this.copy('gitignore', '.gitignore');
-        this.copy('gitattributes', 'gitattributes');
+        this.copy('gitattributes', '.gitattributes');
         this.copy('jshintrc', '.jshintrc');
         this.copy('editorconfig', '.editorconfig');
         this.directory('app', 'src');
