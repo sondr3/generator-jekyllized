@@ -65,5 +65,6 @@ app/_bower_components
 serve
 site
 
-# hide the AWS conditionals file
+# hide the AWS and Rsync credentials file
 aws-credentials.json
+rsync-credentials.json

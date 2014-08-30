@@ -9,9 +9,9 @@ var $ = require('gulp-load-plugins')();
 var del = require('del');
 // 'fs' is used to read files from the system (used for AWS uploading)
 var fs = require('fs');
-// Parallelize the uploads when uploading to Amazon S3
+<% if (amazonCloudfrontS3) { %>// Parallelize the uploads when uploading to Amazon S3
 var parallelize = require("concurrent-transform");
-// BrowserSync isn't a gulp package, and needs to be loaded manually
+<% } %>// BrowserSync isn't a gulp package, and needs to be loaded manually
 var browserSync = require('browser-sync');
 // merge is used to merge the output from two different streams into the same stream
 var merge = require('merge-stream');
@@ -102,7 +102,7 @@ gulp.task('html', ['styles'], function () {
         .pipe(gulp.dest('site'))
         .pipe($.size({title: 'Optimizations'}));
 });
-
+<% if (amazonCloudfrontS3) { %>
 // Task to deploy your site to Amazon S3 and Cloudfront
 gulp.task('deploy', function () {
     // Generate the needed credentials (bucket, secret key etc) from a "hidden" JSON file
@@ -126,7 +126,38 @@ gulp.task('deploy', function () {
         .pipe($.awspublish.reporter())
         // And update the default root object
         .pipe($.cloudfront(credentials));
+});<% } %><% if (rsync) { %>
+// Gzip all your files before being uploaded with Rsync
+// NOTE: THIS CURRENTLY OVERWRITES THE FILES EVERY TIME SO IT'LL SYNC ALL THE FILES EVERY TIME
+// THIS IS NOT INTENDED
+gulp.task('gzip', function() {
+    // Only gzips text files and such
+    return gulp.src(['site/**/*.html', 'site/**/*.css', 'site/**/*.js', 'site/**/*.xml', 'site/**/*.txt'])
+        // Doesn't append the .gz ending to your files
+        .pipe($.gzip({append: false}))
+        .pipe(gulp.dest('site'))
+        .pipe($.size({title: 'Gzip'}));
 });
+
+// Task to upload your site via Rsync to your server
+gulp.task('deploy', ['gzip'], function () {
+    // Load in the variables needed for our Rsync synchronization
+    var secret = require('./rsync-credentials.json');
+
+    return gulp.src('site/**')
+        .pipe($.rsync({
+            // This uploads the contenst of 'root', instead of the folder
+            root: 'site',
+            // Find your username, hostname and destination from your rsync-credentials.json
+            hostname: secret.hostname,
+            username: secret.username,
+            destination: secret.destination,
+            // Incremental uploading, adds a small delay but minimizes the amount of files transferred
+            incremental: true,
+            // Shows the progress on your files while uploading
+            progress: true
+    }));
+});<% } %>
 
 // Run JS Lint against your JS
 gulp.task('jslint', function () {

@@ -1,3 +1,14 @@
+<a name="0.6.0"></a>
+## 0.6.0 - Cache busting and Amazon S3/Buttfront or Rsync support
+
+#### Changes
+* **Amazon S3 and Cloudfront:** You can now upload your site to Amazon S3 and it'll apply the correct headers and gzip your files. Also updates the default root object in your Cloudfront distribution.
+* **Rsync:** You can also choose to use Rsync to upload your site instead, works pretty much the same. It will gzip your files as well, so make sure your server is configured properly!
+* **Conditionals:** Both the package.json and gulpfile.js are now filled only with the packages and commands you need so as to not bloat them.
+
+#### Fixes
+* **package.json:** Removed some unused packages.
+
 <a name="0.5.2"></a>
 ### 0.5.2 (2014-08-21)
 Bugfix from [David Pett](https://github.com/davidpett) because I messed up the dependencies/dev-dependencies in the package.json file.

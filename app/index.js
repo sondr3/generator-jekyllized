@@ -150,7 +150,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         var cb = this.async();
 
         this.log(chalk.yellow('\nNow we only need some details about how to upload your site: »') +
-                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in either aws-credentials.json or rsync-credentials.json.'));
+                chalk.red('\nNOTE: Take whatever time you need to get these right/fill them in later in eithers credentials file.'));
 
         var prompts = [{
             name: 'uploadChoices',
@@ -168,8 +168,8 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
             }]
         }, {
             name: 'amazonKey',
-            message: chalk.yellow('\n\nIf you want to we can configure how to upload your site. You can do this either via Amazon S3/Cloudfront or Rsync to your own server: »') +
-                chalk.red('\nNOTE: This is a one time choice, you\'ll have to check the source of jekyllized to change this later on') + '\nWhat is your key to AWS?',
+            message: chalk.yellow('\n\nNow we just need to fill out the detailes needed to configure your site for Amazon S3 and Cloudfront: »') +
+                chalk.red('\nNOTE: Take your time and get the correct settings from Amazon, or alternatively just fill them in blankly and fill out the aws-credentials.json later.') + '\nWhat is your key to AWS?',
             when: function (answers) {
                 return answers.uploadChoices === 'amazonCloudfrontS3';
             }
@@ -192,8 +192,21 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 return answers.uploadChoices === 'amazonCloudfrontS3';
             }
         }, {
-            name: 'rsyncServer',
-            message: 'Where do you want your site to be uploaded? Include both the address for the server and the folder, eg. 192.168.1.1:/srv/site/public_html/',
+            name: 'rsyncUsername',
+            message: chalk.yellow('\n\nNow we just need to fill out the detailes needed to upload your site via Rsync: »') +
+                chalk.red('\nNOTE: Take your time and get the correct settings for your server, or alternatively just fill them in blankly and fill out the rsync-credentials.json later.') + '\nWhat is the username of the user you will be uploading with?',
+            when: function (answers) {
+                return answers.uploadChoices === 'rsync';
+            }
+        }, {
+            name: 'rsyncHostname',
+            message: 'What is the hostname?' + chalk.red('(eg. example.com or 192.168.1.1)'),
+            when: function (answers) {
+                return answers.uploadChoices === 'rsync';
+            }
+        }, {
+            name: 'rsyncDestination',
+            message: 'Where do you want to save the files?' + chalk.red('(eg. /srv/www/site/public_html)'),
             when: function (answers) {
                 return answers.uploadChoices === 'rsync';
             }
@@ -214,7 +227,9 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
             this.amazonBucket   = props.amazonBucket;
             this.amazonDistID   = props.amazonDistID;
 
-            this.rsyncServer    = props.rsyncServer;
+            this.rsyncUsername      = props.rsyncUsername;
+            this.rsyncHostname      = props.rsyncHostname;
+            this.rsyncDestination   = props.rsyncDestination;
 
             cb();
         }.bind(this));
@@ -239,7 +254,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
             this.template('conditionals/_aws-credentials.json', 'aws-credentials.json');
         }
         else if (this.rsync) {
-            this.template('conditionals/_rsync-credentials.json', 'rsync-dredentials.json');
+            this.template('conditionals/_rsync-credentials.json', 'rsync-credentials.json');
         }
     }
 });
