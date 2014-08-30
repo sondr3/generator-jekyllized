@@ -6,8 +6,7 @@
 
 **Stylized and opinionated Jekyll development**
 
-Jekyllized is an opinionated [Yeoman][yeoman] generator for building [Jekyll][jekyll] based websites. Easy scaffolding via [Yo][yo] to get started quickly, 
-[Bower][bower] for managing frontend packages and [Gulp][gulp] to automate and optimize developing your site.
+Jekyllized is an opinionated [Yeoman][yeoman] generator for building [Jekyll][jekyll] based websites. Easy scaffolding via [Yo][yo] to get started quickly, [Bower][bower] for managing frontend packages and [Gulp][gulp] to automate and optimize developing your site.
 
 Based on [Jekyll][jekyll], Jekyllized is ideal for building highly optimized static sites and prototyping sites. Quickly review changes with LiveReload, optimize your stylesheets and images automatically and detect errors and unused code in your project.
 
@@ -17,14 +16,16 @@ Based on [Jekyll][jekyll], Jekyllized is ideal for building highly optimized sta
 
 - SASS using [libsass][libsass]
 - [AutoPrefixer][autoprefixer] for automatic vendor prefixing
+- Upload your site to either Amazon S3 or to your server with Rsync
 - [Lanyon][lanyon] theme based on [Poole][poole] from [mdo][mdo]
 - Jekyll with sane configurations and lots of extras
 
 ### Developing
 
-- Refresh and preview your site with LiveReload automatically
-- Detect errors and potential issues with your code using `jekyll doctor`, [JShint][jshint] and [CSSLint][csslint]
-- Automatically concatenate your files and optimize and minify your images, CSS, JavaScript and HTMl
+- Have your sites automatically refreshed across multiple devices with [BrowserSync](browsersync) 
+- Detect errors and potential issues with your code using `jekyll doctor` and [JShint][jshint]]
+- Optimize your assets and site: your CSS and JS is automatically concatenated, both your CSS, JS and HTMl is minifiyed and all your text files are gzipped for optimal performance. Your images are run through imagemin to optimize them as well
+- Cachebusting for your assets
 
 ## Getting started
 
@@ -36,11 +37,11 @@ To install you need [Node.js][nodejs] (`>0.10.0`) and [Ruby][rubylang] (`> 1.9`)
 
 #### `gulp`
 
-The default task, this will automatically compile and open the site in your browser. A watch task runs in the background and detects when any files change, recompiles them if nessecary and updates your browser with LiveReload.
+The default task, this will automatically compile and open the site in your browser. A watch task runs in the background and detects when any files change, recompiles them if nessecary and updates your browser with BrowserSync.
 
 #### `gulp check`
 
-Check the health of your JavaScript, CSS and Jekyll installation. You can change the settings for what it looks for in either `.jshintrc` or `.csslintrc.`
+Check the health of your JavaScript, CSS and Jekyll. You can change the settings for what it looks for in `.jshintrc`.
 
 #### `gulp build`
 
@@ -48,11 +49,14 @@ Almost the same as the default `gulp` task, but this won't start up a preview/Li
 
 #### `gulp publish`
 
-This will run the `gulp build` task first to make sure all changes are done, then it will optimize all the files. It will concatenate your CSS and JS, minify your HTML, CSS, JS and optimize your images.
+This will first run `gulp build` to make sure the changes you've made to your site are included and then optimize all your assets (images, HTML, CSS, JS++). If you want to display your optimized site to make sure everything is working run `gulp serve:prod` to see the changes.
+#### `gulp deploy`
+
+This will either upload your site to Amazon S3 or with Rsync to your server. If you are using Amazon S3 make sure you change the region you want to use in the aws-credentials.json and have created a bucket already. If you don't want to use Cloudfront you'll have to uncommend the last line in the `gulp deploy` task. For Rsync it should be automatic as long as your details are correct.
 
 ### Individual tasks
 
-All the Gulp tasks are built up of smaller tasks, which can be run individually. For example, the `gulp check` task runs the tasks `csslint`, `jslint` and `doctor`. If you wanted to check for Jekyll problems intead of checking for everything else you only run `gulp doctor`.
+A lot of the tasks are built up of smaller tasks that can be run individually. For example, the `gulp publish` task first runs `gulp build` (that also runs `jekyll:prod`, `styles` and `images`) and `clean:prod` and then runs the `html` and `copy` commands (`html` to optimize your site and `copy` to copy over some files that `html` misses). If you want to you can run any of these tasks without invoking their "parent" task. If you only wanted to optimize your assets and such, run `gulp html` and it won't run any of the tasks used with `gulp publish`.
 
 For all the different tasks that can be run, see the [gulpfile][gulpfile] and look through the code. Everything is commented and you can edit, change or remove what you want/need.
 
@@ -64,8 +68,9 @@ For all the different tasks that can be run, see the [gulpfile][gulpfile] and lo
 
 - Write more documentation
 - Implement Bower functionality
-- Maybe CoffeeScript
-- Probably some other stuff too
+- Get Github Pages implementation to work
+- Write more tests
+- And more things
 
 ### [Changelog][changelog]
 
@@ -80,8 +85,8 @@ For all the different tasks that can be run, see the [gulpfile][gulpfile] and lo
 [lanyon]: https://github.com/poole/lanyon
 [mdo]: https://github.com/mdo
 [jshint]: http://www.jshint.com/
-[csslint]: http://csslint.net/
 [nodejs]: http://nodejs.org/
 [rubylang]: http://www.ruby-lang.org/
 [gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/master/app/templates/gulpfile.js
 [changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
+[browsersync]: https://github.com/shakyShane/browser-sync

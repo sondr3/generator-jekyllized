@@ -1,7 +1,7 @@
 {
   "name": "generator-jekyllized",
-  "version": "0.5.2",
-  "description": "Use Jekyll with Gulp, Yeoman, Bower, Bourbon and so much more!",
+  "version": "0.6.0",
+  "description": "Jekyll workflow with Gulp, SASS, AutoPrefixer, asset optimization and cache busting and much more. Can you really want more?",
   "keywords": [
     "yeoman-generator",
     "jekyll",
