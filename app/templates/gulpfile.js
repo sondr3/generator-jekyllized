@@ -26,15 +26,11 @@ gulp.task('clean:dev', del.bind(null, ['serve']));
 // Deletes the directory that the optimized site is output to
 gulp.task('clean:prod', del.bind(null, ['site']));
 
-var messages = {
-    jekyllBuild: '<span style="color: grey">Running</span> $ jekyll build'
-};
-
 // Runs the build command for Jekyll to compile the site locally
 // This will build the site with the production settings
-gulp.task('jekyll:dev', function () {
-    browserSync.notify(messages.jekyllBuild);
-    $.shell.task('jekyll build -w'); 
+gulp.task('jekyll:dev', $.shell.task('jekyll build')); 
+gulp.task('jekyll-rebuild', ['jekyll:dev'], function () {
+    reload;
 });
 
 // Almost identical to the above task, but instead we load in the build configuration
@@ -53,50 +49,52 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('src/assets/stylesheets/'))
         .pipe(gulp.dest('serve/assets/stylesheets/'))
         // Outputs the size of the CSS file
-        .pipe($.size({title: 'SCSS'}))
+        .pipe($.size({title: 'styles'}))
         // Injects the CSS changes to your browser since Jekyll doesn't rebuild the CSS
         .pipe(reload({stream: true}));
 });
 
 // Optimizes the images that exists
 gulp.task('images', function () {
-    return gulp.src('src/assets/images/**/*')
-        .pipe($.cache($.imagemin({
-            // Runs 16 trials on the PNGs to better the optimization
-            // Can by anything from 1 to 7, for more see 
-            // https://github.com/sindresorhus/gulp-imagemin#optimizationlevel-png
-            optimizationLevel: 3,
+    return gulp.src('src/assets/images/**')
+        .pipe($.changed('site/assets/images'))
+        .pipe($.imagemin({
             // Lossless conversion to progressive JPGs
             progressive: true,
             // Interlace GIFs for progressive rendering
             interlaced: true
-        })))
-        .pipe($.size({title: 'Images'}));
+        }))
+        .pipe(gulp.dest('site/assets/images'))
+        .pipe($.size({title: 'images'}));
+});
+
+// Copy over fonts to the 'site' directory
+gulp.task('fonts', function () {
+    return gulp.src('src/assets/fonts/**')
+        .pipe(gulp.dest('site/assets/fonts'))
+        .pipe($.size({ title: 'fonts' }));
+});
+
+// Copy xml and txt files to the 'site' directory
+gulp.task('copy', function () {
+    return gulp.src(['serve/*.txt', 'serve/*.xml'])
+        .pipe(gulp.dest('site'))
+        .pipe($.size({ title: 'xml & txt' }))
 });
 
 // Optimizes all the CSS, HTML and concats the JS etc
 gulp.task('html', ['styles'], function () {
+    var assets = $.useref.assets({searchPath: 'serve'});
+
     return gulp.src('serve/**/*.html')
-        .pipe($.useref.assets({searchPath: 'serve'}))
+        .pipe(assets)
         // Concatenate JavaScript files and preserve important comments
         .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
-        // Remove unused CSS from your CSS files
-        .pipe($.if('*.css', $.uncss({
-            // Add files that contain the styles you use here
-            html: [
-                'serve/index.html'
-                // 'serve/styleguide.html'
-            ],
-            // CSS selectors that shouldn't be removed
-            ignore: [
-                ''
-            ]
-        })))
         // Minify CSS
         .pipe($.if('*.css', $.minifyCss()))
         // Start cache busting the files
-        .pipe($.revAll())
-        .pipe($.useref.restore())
+        .pipe($.revAll({ ignore: ['.eot', '.svg', '.ttf', '.woff'] }))
+        .pipe(assets.restore())
         // Conctenate your files based on what you specified in _layout/header.html
         .pipe($.useref())
         // Replace the asset names with their cache busted names
@@ -111,16 +109,10 @@ gulp.task('html', ['styles'], function () {
             removeAttributeQuotes: true,
             removeRedundantAttributes: true
         })))
-        // Gzip your text files 
-        .pipe($.if('*.html', $.gzip({append: false})))
-        .pipe($.if('*.xml', $.gzip({append: false})))
-        .pipe($.if('*.txt', $.gzip({append: false})))
-        .pipe($.if('*.css', $.gzip({append: false})))
-        .pipe($.if('*.js', $.gzip({append: false})))
         // Send the output to the correct folder
         .pipe(gulp.dest('site'))
-        .pipe($.size({title: 'Optimizations'}));
-});<% if (amazonCloudfrontS3) { %>
+        .pipe($.size({title: 'optimizations'}));
+});
 
 // Task to deploy your site to Amazon S3 and Cloudfront
 gulp.task('deploy', function () {
@@ -129,13 +121,51 @@ gulp.task('deploy', function () {
     var publisher = $.awspublish.create(credentials);
     // Give your files the proper headers
     var headers = {
-        'Cache-Control': 'max-age=315360000, no-transform, public',
+        'Cache-Control': 'max-age=0, no-transform, public',
         'Content-Encoding': 'gzip'
     };
 
     gulp.src('site/**/*')
+        .pipe($.awspublishRouter({
+            routes: {
+                "^assets/(?:.+)\\.(?:js|css)$": {
+                    key: "$&",
+                    headers: {
+                        'Cache-Control': 'max-age=315360000, no-transform, public',
+                        'Content-Encoding': 'gzip'
+                    }
+                },
+
+                "^assets/(?:.+)\\.(?:jpg|png|gif)$": {
+                    key: "$&",
+                    headers: {
+                        'Cache-Control': 'max-age=315360000, no-transform, public',
+                        'Content-Encoding': 'gzip'
+                    }
+                },
+
+                "^assets/fonts/(?:.+)\\.(?:eot|svg|ttf|woff)$": {
+                    key: "$&",
+                    headers: {
+                        'Cache-Control': 'max-age=315360000, no-transform, public'
+                    }
+                },
+
+                "^.+\\.html": {
+                    key: "$&",
+                    headers: {
+                        'Cache-Control': 'max-age=0, no-transform, public',
+                        'Content-Encoding': 'gzip'
+                    }
+                },
+
+                "^.+$": "$&"
+            }
+        }))
+        // Gzip the files for moar speed
+        .pipe($.awspublish.gzip())
         // Parallelize the number of concurrent uploads, in this case 30
-        .pipe(parallelize(publisher.publish(headers), 30))
+        .pipe(parallelize(publisher.publish(), 30))
         // Have your files in the system cache so you don't have to recheck all the files every time
         .pipe(publisher.cache())
         // Synchronize the contents of the bucket and local (this deletes everything that isn't in local!)
@@ -178,22 +208,10 @@ gulp.task('jslint', function () {
 // and will check for URL errors a well
 gulp.task('doctor', $.shell.task('jekyll doctor'));
 
-// Copies over images and .xml/.txt files to the distribution folder
-gulp.task('copy', function () {
-    // Each var is for different kinds of files/folders
-    var xmlandtxt = gulp.src(['src/*.txt', 'src/*.xml'])
-        .pipe(gulp.dest('site'));
-    var images = gulp.src('src/assets/images/**/*')
-        .pipe(gulp.dest('site/assets/images'));
-
-    // Merges the three streams into a single output
-    return merge(xmlandtxt, images);
-});
-
 // BrowserSync will serve our site on a local server for us and other devices to use
 // It will also autoreload across all devices as well as keep the viewport synchronized
 // between them.
-gulp.task('serve:dev', function () {
+gulp.task('serve:dev', ['styles', 'jekyll:dev'], function () {
     bs = browserSync({
         notify: true,
         // tunnel: '',
@@ -201,18 +219,21 @@ gulp.task('serve:dev', function () {
             baseDir: 'serve'
         }
     });
+});
 
-    // These tasks will look for files that change while serving and will auto-regenerate or
-    // reload the website accordingly. Update or add other files you need to be watched.
-    gulp.watch(['src/**/*.md', 'src/**/*.html'], ['jekyll:dev']);
-    gulp.watch(['serve/**/*.html', 'serve/**/*.css', 'serve/**/*.js'], reload);
-    gulp.watch(['src/assets/_scss/**/*.scss'], ['styles']);
+// These tasks will look for files that change while serving and will auto-regenerate or
+// reload the website accordingly. Update or add other files you need to be watched.
+gulp.task('watch', function () {
+    gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.xml', 'src/**/*.txt'], ['jekyll-rebuild']);
+    gulp.watch(['serve/assets/stylesheets/*.css', 'serve/assest/javascript/*.js'], reload);
+    gulp.watch(['src/assets/scss/**/*.scss'], ['styles']);
 });
 
 // Serve the site after optimizations to see that everything looks fine
 gulp.task('serve:prod', function () {
     bs = browserSync({
         notify: false,
+        // tunnel: true,
         server: {
             baseDir: 'site'
         }
@@ -220,9 +241,7 @@ gulp.task('serve:prod', function () {
 });
 
 // Default task, run when just writing 'gulp' in the terminal
-gulp.task('default', ['build'], function () {
-    gulp.start('serve:dev');
-});
+gulp.task('default', ['serve:dev', 'watch']);
 
 // Checks your CSS, JS and Jekyll for errors
 gulp.task('check', ['jslint', 'doctor'], function () {
@@ -230,11 +249,10 @@ gulp.task('check', ['jslint', 'doctor'], function () {
 });
 
 // Builds the site but doesn't serve it to you
-gulp.task('build', ['jekyll:prod', 'styles', 'images'], function () {
-});
+gulp.task('build', ['jekyll:prod', 'styles'], function () {});
 
 // Builds your site with the 'build' command and then runs all the optimizations on
 // it and outputs it to './site'
-gulp.task('publish', ['build', 'clean:prod'], function () {
-    gulp.start('html', 'copy');
+gulp.task('publish', ['build'], function () {
+    gulp.start('html', 'copy', 'images', 'fonts');
 });

@@ -5,35 +5,36 @@
   "description": "Yeoman workflow for <%= appname %>",
   "dependencies": {},
   "devDependencies": {
-    "browser-sync": "^1.1.1",<% if (amazonCloudfrontS3) { %>
+    "browser-sync": "^1.5.7",<% if (amazonCloudfrontS3) { %>
     "concurrent-transform": "^1.0.0",
     <% } %>"del": "^0.1.0",
-    "gulp": "^3.8.2",
-    "gulp-autoprefixer": "0.0.7",<% if (amazonCloudfrontS3) { %>
-    "gulp-awspublish": "0.0.20",
-    <% } %>"gulp-cache": "~0.2.0",
+    "gulp": "^3.8.8",
+    "gulp-autoprefixer": "1.0.1",<% if (amazonCloudfrontS3) { %>
+    "gulp-awspublish": "0.0.23",
+    "gulp-awspublish-router": "0.0.1",
+    <% } %>"gulp-cache": "~0.2.2",
     "gulp-cached": "^1.0.1",
-    "gulp-changed": "^0.4.0",<% if (amazonCloudfrontS3) { %>
+    "gulp-changed": "^1.0.0",<% if (amazonCloudfrontS3) { %>
     "gulp-cloudfront": "0.0.14",
-    <% } %>"gulp-filter": "^0.5.0",
+    <% } %>"gulp-filter": "^1.0.2",
     "gulp-gzip": "0.0.8",
     "gulp-htmlmin": "^0.2.0",
-    "gulp-if": "^1.2.2",
-    "gulp-imagemin": "^0.6.1",
-    "gulp-jshint": "^1.6.3",
-    "gulp-load-plugins": "^0.5.2",
-    "gulp-minify-css": "^0.3.6",
-    "gulp-rev-all": "^0.6.4",
-    "gulp-rev-replace": "^0.2.1",<% if (rsync) { %>
+    "gulp-if": "^1.2.4",
+    "gulp-imagemin": "^1.0.1",
+    "gulp-jshint": "^1.8.5",
+    "gulp-load-plugins": "^0.7.0",
+    "gulp-minify-css": "^0.3.10",
+    "gulp-rev-all": "^0.6.6",
+    "gulp-rev-replace": "^0.3.1",<% if (rsync) { %>
     "gulp-rsync": "0.0.2",
-    <% } %>"gulp-sass": "^0.7.2",
-    "gulp-shell": "^0.2.7",
-    "gulp-size": "^0.4.0",
-    "gulp-uglify": "^0.3.1",
-    "gulp-uncss": "^0.4.4",
-    "gulp-useref": "^0.5.0",
-    "jshint-stylish": "^0.4.0",
-    "merge-stream": "^0.1.5"
+    <% } %>"gulp-sass": "^1.0.0",
+    "gulp-shell": "^0.2.9",
+    "gulp-size": "^1.1.0",
+    "gulp-uglify": "^1.0.1",
+    "gulp-uncss": "^0.5.0",
+    "gulp-useref": "^1.0.2",
+    "jshint-stylish": "^1.0.0",
+    "merge-stream": "^0.1.6"
   },
   "engines": {
     "node": ">0.10.0"
