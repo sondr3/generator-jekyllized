@@ -36,8 +36,8 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         var cb = this.async();
 
         this.log(this.yeoman);
-        this.log('\n' + 
-            chalk.blue('     ____        ___                 ___ ___')  + chalk.yellow('                            ___\n') + 
+        this.log('\n' +
+            chalk.blue('     ____        ___                 ___ ___')  + chalk.yellow('                            ___\n') +
             chalk.blue('     `MM         `MM                 `MM `MM')  + chalk.yellow(' 68b                        `MM\n') +
             chalk.blue('      MM          MM                  MM  MM')  + chalk.yellow(' Y89                         MM\n') +
             chalk.blue('      MM   ____   MM   __ ____    ___ MM  MM')  + chalk.yellow(' ___ _________  ____     ____MM\n') +
@@ -211,7 +211,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
                 return answers.uploadChoices === 'rsync';
             }
         }];
-       
+
         this.prompt(prompts, function (props) {
             var features = props.uploadChoices;
 
@@ -221,7 +221,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
 
             this.amazonCloudfrontS3 = hasFeature('amazonCloudfrontS3');
             this.rsync              = hasFeature('rsync');
-            
+
             this.amazonKey      = props.amazonKey;
             this.amazonSecret   = props.amazonSecret;
             this.amazonBucket   = props.amazonBucket;
@@ -243,7 +243,7 @@ var JekyllizedGenerator = yeoman.generators.Base.extend({
         this.template('_config.yml', '_config.yml');
         this.template('_config.build.yml', '_config.build.yml');
         this.template('_README.md', 'README.md');
-        this.copy('gulpfile.js', 'gulpfile.js');
+        this.template('gulpfile.js', 'gulpfile.js');
         this.copy('gitignore', '.gitignore');
         this.copy('gitattributes', '.gitattributes');
         this.copy('jshintrc', '.jshintrc');

@@ -1,3 +1,10 @@
+<a name="0.6.5"></a>
+## 0.6.6 - Bugfixes
+Somehow I missed that the gulpfile shouldn't be copied but should be used as a
+template instead, this completely messed up running gulp because there were some
+leftover instances of if-statements that should be removed when actually running
+the generator. Whelp.
+
 <a name="0.6.0"></a>
 ## 0.6.0 - Cache busting and Amazon S3/Cloudfront or Rsync support
 
@@ -6,9 +13,9 @@ This update is for ways to deploy your site, you can now deploy your site via Am
 #### IMPORTANT!
 * **Gzip:** Your content is gzipped when you run ```gulp publish``` so make sure your server is configured for this properly when using Rsync. If you are using Amazon S3 and Cloudfront it will automatically give your files the corrent content-encoding header.
 
-#### Changes 
+#### Changes
 * **Amazon S3 and Cloudfront:** You can now upload your site to Amazon S3 and it'll apply the correct headers and gzip your files. Also updates the default root object in your Cloudfront distribution.
-* **Rsync:** You can also choose to use Rsync to upload your site instead, works pretty much the same. Your files are gzipped before uploading so configure your server accordingly! 
+* **Rsync:** You can also choose to use Rsync to upload your site instead, works pretty much the same. Your files are gzipped before uploading so configure your server accordingly!
 * **Conditionals:** Both the package.json and gulpfile.js are now filled only with the packages and commands you need so as to not bloat them.
 * **Cache busting:** CSS and JavaScript files are now cache busted when running ```gulp publish``` so you don't need to invalidate assets on Cloudfront, this is done with [gulp-rev-all](https://github.com/smysnk/gulp-rev-all) so even if a file that your CSS references changes so does the cache. Nice.
 
@@ -116,7 +123,7 @@ Complete overhaul of the Gulpfile, upgraded to use the newest version of Jekyll 
 ## 0.0.2 (January 24, 2014)
 * Restructured the index.js file so it asks for information about the project first and then the owner. ([#1](https://github.com/sondr3/generator-jekyllized/issues/1))
 * Added fields for a short biography, Twitter, Google Plus and tagline for the project and owner
-* Renamed some of the fields for easier understanding 
+* Renamed some of the fields for easier understanding
 
 ## 0.0.1 (January 23, 2014)
 * Forked from generator-playbook and generator-jekyllrb

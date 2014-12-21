@@ -2,14 +2,14 @@
 'use strict';
 
 var gulp = require('gulp');
-// Loads the plugins without having to list all of them, but you need 
+// Loads the plugins without having to list all of them, but you need
 // to call them as $.pluginname
 var $ = require('gulp-load-plugins')();
 // 'del' is used to clean out directories and such
 var del = require('del');
 // 'fs' is used to read files from the system (used for AWS uploading)
 var fs = require('fs');
-<% if (amazonCloudfrontS3) { %>// Parallelize the uploads when uploading to Amazon S3
+<%  if (amazonCloudfrontS3) { %>// Parallelize the uploads when uploading to Amazon S3
 var parallelize = require("concurrent-transform");
 <% } %>// BrowserSync isn't a gulp package, and needs to be loaded manually
 var browserSync = require('browser-sync');
@@ -28,7 +28,7 @@ gulp.task('clean:prod', del.bind(null, ['site']));
 
 // Runs the build command for Jekyll to compile the site locally
 // This will build the site with the production settings
-gulp.task('jekyll:dev', $.shell.task('jekyll build')); 
+gulp.task('jekyll:dev', $.shell.task('jekyll build'));
 gulp.task('jekyll-rebuild', ['jekyll:dev'], function () {
     reload;
 });
@@ -101,7 +101,7 @@ gulp.task('html', ['styles'], function () {
         .pipe($.revReplace())
         // Minify HTML
         .pipe($.if('*.html', $.htmlmin({
-            removeComments: true, 
+            removeComments: true,
             removeCommentsFromCDATA: true,
             removeCDATASectionsFromCDATA: true,
             collapseWhitespace: true,
@@ -114,7 +114,7 @@ gulp.task('html', ['styles'], function () {
         .pipe($.size({title: 'optimizations'}));
 });
 
-// Task to deploy your site to Amazon S3 and Cloudfront
+<% if (amazonCloudfrontS3) { %>// Task to deploy your site to Amazon S3 and Cloudfront
 gulp.task('deploy', function () {
     // Generate the needed credentials (bucket, secret key etc) from a "hidden" JSON file
     var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
