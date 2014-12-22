@@ -7,9 +7,9 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 // 'del' is used to clean out directories and such
 var del = require('del');
+<%  if (amazonCloudfrontS3) { %>// Parallelize the uploads when uploading to Amazon S3
 // 'fs' is used to read files from the system (used for AWS uploading)
 var fs = require('fs');
-<%  if (amazonCloudfrontS3) { %>// Parallelize the uploads when uploading to Amazon S3
 var parallelize = require("concurrent-transform");
 <% } %>// BrowserSync isn't a gulp package, and needs to be loaded manually
 var browserSync = require('browser-sync');
