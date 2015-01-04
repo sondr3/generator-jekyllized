@@ -1,5 +1,5 @@
 <a name="0.7.0"></a>
-## HEAD - NAME
+## 0.7.0 - GitHub Pages
 
 #### Changes
 * **GitHub Pages:** You can now upload your site to your personal repository on
