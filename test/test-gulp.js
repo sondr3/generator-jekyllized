@@ -17,7 +17,7 @@ describe('Jekyllized generator test for Gulp tasks without any uploading', funct
         projectName: ['Mocha Test'],
         projectDescription: ['Mocha tests for Jekyllized'],
         projectTagline: ['Better hope this doesn\'t blow up'],
-        projectUrl: ['testing.com'],
+        projectURL: ['testing.com'],
         authorName: ['Ola Nordmann'],
         authorEmail: ['ola.nordmann@email.com'],
         authorBio: ['Just your average Norwegian'],
@@ -27,6 +27,27 @@ describe('Jekyllized generator test for Gulp tasks without any uploading', funct
         uploadChoices: ['noUpload']
       })
     .on('end', done);
+  });
+
+  it('creates expected files', function () {
+    var expected = [
+      'bower.json',
+      'package.json',
+      'gulpfile.js',
+      'src/index.html',
+      'src/robots.txt',
+      'src/assets/favicon.ico',
+      'src/assets/scss/style.scss'
+    ];
+  });
+
+  it('does not create unexpected files', function () {
+    var unexpected = [
+      'aws-credentials.json',
+      'rsync-redentials.json'
+    ];
+
+  assert.noFile(unexpected);
   });
 
   it('should contain clean:dev task', function (done) {

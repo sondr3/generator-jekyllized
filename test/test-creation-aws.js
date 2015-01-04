@@ -13,16 +13,6 @@ describe('Jekyllized generator test when using Amazon AWS', function () {
       .inDir(path.join(__dirname, './temp/test-aws'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        projectName: ['Mocha Test'],
-        projectDescription: ['Mocha tests for Jekyllized'],
-        projectTagline: ['Better hope this doesn\'t blow up'],
-        projectUrl: ['testing.com'],
-        authorName: ['Ola Nordmann'],
-        authorEmail: ['ola.nordmann@email.com'],
-        authorBio: ['Just your average Norwegian'],
-        authorTwitter: ['olanordmann123123'],
-        jekyllPermalinks: ['pretty'],
-        jekyllPaginate: ['10'],
         uploadChoices: ['amazonCloudfrontS3'],
         amazonKey: ['123123123123123'],
         amazonSecret: ['14141414141414'],

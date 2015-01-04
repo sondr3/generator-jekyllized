@@ -68,15 +68,16 @@ module.exports = yeoman.generators.Base.extend({
       name: 'projectTagline',
       message: 'What is the tagline for your project?'
     }, {
-      name: 'projectUrl',
-      message: 'What will the URL for your project be?'
+      name: 'projectURL',
+      message: 'What will the URL for your project be?' +
+        chalk.red('\nIf you are using GitHub Pages use username.github.io')
     }];
 
     this.prompt(prompts, function (props) {
       this.projectName        = props.projectName;
       this.projectDescription = props.projectDescription;
       this.projectTagline     = props.projectTagline;
-      this.projectUrl         = props.projectUrl;
+      this.projectURL         = props.projectURL;
 
       cb();
     }.bind(this));
@@ -136,7 +137,7 @@ module.exports = yeoman.generators.Base.extend({
         if (/^all*$/i.test(input)) {
           return true;
         }
-        return 'Must be a number or \'all\'';
+        return 'Must be a number or all';
       }
     }];
 
@@ -168,7 +169,7 @@ module.exports = yeoman.generators.Base.extend({
         name: 'Github Pages',
         value: 'githubPages',
       }, {
-        name: 'Neither',
+        name: 'None',
         value: 'noUpload'
       }]
     }, {
@@ -180,7 +181,7 @@ module.exports = yeoman.generators.Base.extend({
       }
     }, {
       name: 'amazonSecret',
-      message: 'What is your secret?',
+      message: 'What is your AWS secret?',
       when: function (answers) {
         return answers.uploadChoices === 'amazonCloudfrontS3';
       }
@@ -215,12 +216,6 @@ module.exports = yeoman.generators.Base.extend({
       when: function (answers) {
         return answers.uploadChoices === 'rsync';
       }
-    }, {
-      name: 'githubRepoURL',
-      message: 'What will your URL be?' + chalk.red('(use either username.github.io or website.com if you are going to use a CNAME)'),
-      when: function (answers) {
-        return answers.uploadChoices === 'githubPages';
-      }
     }];
 
     this.prompt(prompts, function (props) {
@@ -242,8 +237,6 @@ module.exports = yeoman.generators.Base.extend({
       this.rsyncUsername      = props.rsyncUsername;
       this.rsyncHostname      = props.rsyncHostname;
       this.rsyncDestination   = props.rsyncDestination;
-
-      this.githubRepoURL = props.githubRepoURL;
 
       cb();
     }.bind(this));

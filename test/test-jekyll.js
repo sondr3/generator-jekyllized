@@ -17,7 +17,7 @@ describe('Jekyllized generator', function () {
           projectName: ['Mocha Test'],
           projectDescription: ['Mocha tests for Jekyllized'],
           projectTagline: ['Better hope this doesn\'t blow up'],
-          projectUrl: ['testing.com'],
+          projectURL: ['testing.com'],
           authorName: ['Ola Nordmann'],
           authorEmail: ['ola.nordmann@email.com'],
           authorBio: ['Just your average Norwegian'],

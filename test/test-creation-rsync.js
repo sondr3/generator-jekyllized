@@ -13,16 +13,6 @@ describe('Jekyllized generator test when using Rsync', function () {
       .inDir(path.join(__dirname, './temp/test-rsync'))
       .withArguments(['--skip-install'])
       .withPrompt({
-        projectName: ['Mocha Test'],
-        projectDescription: ['Mocha tests for Jekyllized'],
-        projectTagline: ['Better hope this doesn\'t blow up'],
-        projectUrl: ['testing.com'],
-        authorName: ['Ola Nordmann'],
-        authorEmail: ['ola.nordmann@email.com'],
-        authorBio: ['Just your average Norwegian'],
-        authorTwitter: ['olanordmann123123'],
-        jekyllPermalinks: ['pretty'],
-        jekyllPaginate: ['10'],
         uploadChoices: ['rsync'],
         rsyncUsername: ['olanordmann'],
         rsyncHostname: ['example.com'],

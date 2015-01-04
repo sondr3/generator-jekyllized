@@ -2,6 +2,9 @@
 ## HEAD - NAME
 
 #### Changes
+* **GitHub Pages:** You can now upload your site to your personal repository on
+  GitHub, but for now there's no support for project repositories, see the
+  README for how to fix that.
 * **Jekyll:** Added extensions to Redcarpet so it'll render Markdown with some
   additional settings and smartypants the HTML as well. Also included support
   for excerpts in posts. If you want to use it simply put `<!--more-->` in
