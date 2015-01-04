@@ -82,30 +82,30 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  ownerPrompting: function () {
+  authorPrompting: function () {
     var cb = this.async();
 
     this.log(chalk.yellow('\nNow it\'s time to tell me about you. »'));
 
     var prompts = [{
-      name: 'ownerName',
+      name: 'authorName',
       message: 'What is your name?',
     }, {
-      name: 'ownerEmail',
+      name: 'authorEmail',
       message: 'What is your email?',
     }, {
-      name: 'ownerBio',
+      name: 'authorBio',
       message: 'Write a short description of yourself:'
     }, {
-      name: 'ownerTwitter',
+      name: 'authorTwitter',
       message: 'Your Twitter URL:'
     }];
 
     this.prompt(prompts, function (props) {
-      this.ownerName      = props.ownerName;
-      this.ownerEmail     = props.ownerEmail;
-      this.ownerBio       = props.ownerBio;
-      this.ownerTwitter   = props.ownerTwitter;
+      this.authorName      = props.authorName;
+      this.authorEmail     = props.authorEmail;
+      this.authorBio       = props.authorBio;
+      this.authorTwitter   = props.authorTwitter;
 
       cb();
     }.bind(this));
@@ -121,13 +121,13 @@ module.exports = yeoman.generators.Base.extend({
       name: 'jekyllPermalinks',
       type: 'list',
       message: 'Permalink style' + (chalk.red(
-                     '\n  pretty: /:categories:/:year/:month/:day/:title/' +
-                     '\n  date:   /:categories/:year/:month/:day/:title.html' +
+                     '\n  pretty: /:year/:month/:day/:title/' +
+                     '\n  date:   /:year/:month/:day/:title.html' +
                      '\n  none:   /:categories/:title.html')) + '\n',
       choices: ['pretty', 'date', 'none']
     }, {
       name: 'jekyllPaginate',
-      message: 'How many posts do you want to show on your front page?',
+      message: 'How many posts do you want to show on your front page?' + chalk.red('\nMust be a number or all'),
       default: 10,
       validate: function (input) {
         if (/^[0-9]*$/.test(input)) {
@@ -142,7 +142,7 @@ module.exports = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
       this.jekyllPermalinks   = props.jekyllPermalinks;
-      this.jekyllPaginate     = /^all$/i.test(props.jekyllPaginate) ? false: props.jekyllPaginate;
+      this.jekyllPaginate     = props.jekyllPaginate;
 
       cb();
     }.bind(this));
@@ -164,6 +164,9 @@ module.exports = yeoman.generators.Base.extend({
       }, {
         name: 'Rsync',
         value: 'rsync',
+      }, {
+        name: 'Github Pages',
+        value: 'githubPages',
       }, {
         name: 'Neither',
         value: 'noUpload'
@@ -212,6 +215,12 @@ module.exports = yeoman.generators.Base.extend({
       when: function (answers) {
         return answers.uploadChoices === 'rsync';
       }
+    }, {
+      name: 'githubRepoURL',
+      message: 'What will your URL be?' + chalk.red('(use either username.github.io or website.com if you are going to use a CNAME)'),
+      when: function (answers) {
+        return answers.uploadChoices === 'githubPages';
+      }
     }];
 
     this.prompt(prompts, function (props) {
@@ -223,6 +232,7 @@ module.exports = yeoman.generators.Base.extend({
 
       this.amazonCloudfrontS3 = hasFeature('amazonCloudfrontS3');
       this.rsync              = hasFeature('rsync');
+      this.githubPages        = hasFeature('githubPages');
 
       this.amazonKey      = props.amazonKey;
       this.amazonSecret   = props.amazonSecret;
@@ -232,6 +242,8 @@ module.exports = yeoman.generators.Base.extend({
       this.rsyncUsername      = props.rsyncUsername;
       this.rsyncHostname      = props.rsyncHostname;
       this.rsyncDestination   = props.rsyncDestination;
+
+      this.githubRepoURL = props.githubRepoURL;
 
       cb();
     }.bind(this));

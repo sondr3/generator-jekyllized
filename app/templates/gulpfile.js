@@ -193,7 +193,15 @@ gulp.task('deploy', function () {
       // Shows the progress on your files while uploading
       progress: true
   }));
-});<% } %>
+});<% } %><% if (githubPages) { %>
+// Task to upload your site to your personal GH Pages repo
+gulp.task('deploy', function () {
+  return gulp.src('./serve/**/*')
+    .pipe($.ghPages({
+      branch: 'master'
+  }));
+});
+<% } %>
 
 // Run JS Lint against your JS
 gulp.task('jslint', function () {

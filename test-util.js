@@ -14,3 +14,25 @@ exports.assertTaskExists = function (generator, taskName, features, done) {
   );
   done();
 };
+
+exports.assertJekyllSettings = function (generator, settingName, settingValue, done) {
+  var configFile = fs.readFileSync('./_config.yml', 'utf8');
+  var settingRegExp = new RegExp(settingName + ': ' + settingValue);
+
+  assert.ok(
+    settingRegExp.test(configFile),
+    '_config.yml setting ' + settingName + ' does not contain the right value'
+  );
+  done();
+};
+
+exports.assertJekyllBuildSettings = function (generator, settingName, settingValue, done) {
+  var configBuildFile = fs.readFileSync('./_config.build.yml', 'utf8');
+  var settingRegExp = new RegExp(settingName + ': ' + settingValue);
+
+  assert.ok(
+    settingRegExp.test(configBuildFile),
+    '_config.build.yml setting ' + settingName + ' does not contain the right value'
+  );
+  done();
+};

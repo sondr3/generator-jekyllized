@@ -12,7 +12,8 @@
 * **Tests:** Updates and added a bunch more tests to make sure things actually
   work and run properly before publishing it, hopefully this should make dumb
   errors less likely. Also made a helper file so we can assert that tasks in the
-  gulpfile exist where they should.
+  gulpfile exist where they should. Added a test that checks for Jekyll settings
+  as well.
 * **Index:** Updated the main index file to be up to par with the newer
   versions.
 

@@ -11,17 +11,17 @@ var tasks = require('../test-util.js')
 describe('Jekyllized generator test for Gulp tasks without any uploading', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(__dirname, './test-gulp'))
+      .inDir(path.join(__dirname, './temp/test-gulp'))
       .withArguments(['--skip-install'])
       .withPrompt({
         projectName: ['Mocha Test'],
         projectDescription: ['Mocha tests for Jekyllized'],
         projectTagline: ['Better hope this doesn\'t blow up'],
         projectUrl: ['testing.com'],
-        ownerName: ['Ola Nordmann'],
-        ownerEmail: ['ola.nordmann@email.com'],
-        ownerBio: ['Just your average Norwegian'],
-        ownerTwitter: ['olanordmann123123'],
+        authorName: ['Ola Nordmann'],
+        authorEmail: ['ola.nordmann@email.com'],
+        authorBio: ['Just your average Norwegian'],
+        authorTwitter: ['olanordmann123123'],
         jekyllPermalinks: ['pretty'],
         jekyllPaginate: ['10'],
         uploadChoices: ['noUpload']

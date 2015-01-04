@@ -10,12 +10,12 @@ source: src
 destination: serve
 
 # Same as the title etc for your site but can instead be
-# called by using 'site.owner.name' and so on
-owner:
-  name: <%= ownerName %>
-  email: <%= ownerEmail %>
-  bio: <%= ownerBio %>
-  twitter: <%= ownerTwitter %>
+# called by using 'site.author.name' and so on
+author:
+  name: <%= authorName %>
+  email: <%= authorEmail %>
+  bio: <%= authorBio %>
+  twitter: <%= authorTwitter %>
 
 # general setting for Jekyll
 googleAnalytics: UA-XXXXX-X
@@ -31,9 +31,9 @@ limit_posts: 10
 
 # Permalink structure and pagination options
 relative_permalinks: true
-permalink: <%= jekyllPermalinks %><% if (jekyllPaginate) { %>
+permalink: <%= jekyllPermalinks %>
 paginate: <%= jekyllPaginate%>
-paginate_path: 'page:num'<% } %>
+paginate_path: 'page:num'
 excerpt_separator: '<!--more-->'
 
 # Markdown library
