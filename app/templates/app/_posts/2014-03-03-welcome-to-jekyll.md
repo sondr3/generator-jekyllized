@@ -10,13 +10,15 @@ You'll find this post in your `_posts` directory - edit this post and re-build
 a file in the `_posts` directory that follows the convention:
 YYYY-MM-DD-name-of-post.ext.
 
+<!--more-->
+
 We've also added a lot of different settings for [Redcarpet][redcarpet],
 including being able to ^superscript, _underline_, ==highlight==,
 ~~strikethrough~~, and footnotes.[^1] It even automatically makes links into
 URLs: www.jekyllrb.com and you can put multiple underscores in words without
-them leaning all over the place: this_word_has_underscores. It'll also make
-your quotes look nice, like this: "hoho", your dashes and hypens will be
-dashing too: ---/--.
+them leaning all over the place: this_word_has_underscores. It'll also make your
+quotes look nice, like this: "hoho", your dashes and hypens will be dashing too:
+---/--.
 
 Jekyll also offers powerful support for code snippets:
 
