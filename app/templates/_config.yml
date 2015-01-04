@@ -34,10 +34,12 @@ relative_permalinks: true
 permalink: <%= jekyllPermalinks %><% if (jekyllPaginate) { %>
 paginate: <%= jekyllPaginate%>
 paginate_path: 'page:num'<% } %>
+excerpt_separator: '<!--more-->'
 
 # Markdown library
 markdown: redcarpet
 # Markdown library options
-# redcarpet:
-  # extensions: ['fenced_code_blocks', 'smart']
+redcarpet:
+  extensions: ['no_intra_emphasis', 'tables', 'fenced_code_blocks', 'autolink', 'smart',
+              'strikethrough', 'superscript', 'underline', 'highlight', 'footnotes']
 highlighter: true

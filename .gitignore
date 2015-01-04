@@ -4,6 +4,7 @@ node_modules/
 temp/
 coverage/
 .envrc
+test/test-*/
 
 # Ignore hidden folders
 # This takes care of .tmp, .sass-cache, and many others
