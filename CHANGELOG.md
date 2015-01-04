@@ -1,10 +1,20 @@
 <a name="0.7.0"></a>
 ## HEAD - NAME
 
+#### Changes
+* **Jekyll:** Added extensions to Redcarpet so it'll render Markdown with some
+  additional settings and smartypants the HTML as well. Also included support
+  for excerpts in posts. If you want to use it simply put `<!--more-->` in
+  your posts where you want the excerpt to stop.
+* **Packages:** Updated the NPM packages to be more up to date
+
 #### Behind the scenes
-* **Tests:** Updates and added a bunch more tests to make sure things actually work and run
-  properly before publishing it, hopefully this should make dumb errors less
-  likely.
+* **Tests:** Updates and added a bunch more tests to make sure things actually
+  work and run properly before publishing it, hopefully this should make dumb
+  errors less likely. Also made a helper file so we can assert that tasks in the
+  gulpfile exist where they should.
+* **Index:** Updated the main index file to be up to par with the newer
+  versions.
 
 <a name="0.6.5"></a>
 ## 0.6.6 - Bugfixes

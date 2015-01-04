@@ -1,16 +1,16 @@
 /*global describe, beforeEach, it*/
-'use strict';
+'use strict'
 
-var path    = require('path');
-var fs      = require('fs');
+var path = require('path');
+var fs = require('fs');
 var helpers = require('yeoman-generator').test;
-var assert  = require('yeoman-generator').assert;
+var assert = require('yeoman-generator').assert;
 var tasks = require('../test-util.js')
 
-describe('Jekyllized generator test when using Amazon AWS', function () {
+describe('Jekyllized generator test when using GitHub Pages', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(__dirname, './test-aws'))
+      .inDir(path.join(__dirname, './test-pages'))
       .withArguments(['--skip-install'])
       .withPrompt({
         projectName: ['Mocha Test'],
@@ -23,11 +23,7 @@ describe('Jekyllized generator test when using Amazon AWS', function () {
         ownerTwitter: ['olanordmann123123'],
         jekyllPermalinks: ['pretty'],
         jekyllPaginate: ['10'],
-        uploadChoices: ['amazonCloudfrontS3'],
-        amazonKey: ['123123123123123'],
-        amazonSecret: ['14141414141414'],
-        amazonBucket: ['135135135135135'],
-        amazonDistID: ['2121212121212121']
+        uploadChoices: ['githubPages']
       })
     .on('end', done);
   });
@@ -40,14 +36,13 @@ describe('Jekyllized generator test when using Amazon AWS', function () {
       'src/index.html',
       'src/robots.txt',
       'src/assets/favicon.ico',
-      'src/assets/scss/style.scss',
-      'aws-credentials.json'
+      'src/assets/scss/style.scss'
     ];
 
   assert.file(expected);
   });
 
-  it('should contain deploy tasks', function (done) {
+  it('should contain deploy task', function (done) {
     tasks.assertTaskExists(this.jekyllized, 'deploy', [], done);
   });
 

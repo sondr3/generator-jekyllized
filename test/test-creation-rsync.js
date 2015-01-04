@@ -5,6 +5,7 @@ var path    = require('path');
 var fs      = require('fs');
 var helpers = require('yeoman-generator').test;
 var assert  = require('yeoman-generator').assert;
+var tasks = require('../test-util.js')
 
 describe('Jekyllized generator test when using Rsync', function () {
   before(function (done) {
@@ -43,6 +44,10 @@ describe('Jekyllized generator test when using Rsync', function () {
     ];
 
     assert.file(expected);
+  });
+
+  it('should contain deploy task', function (done) {
+    tasks.assertTaskExists(this.jekyllized, 'deploy', [], done);
   });
 
 });
