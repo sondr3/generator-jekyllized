@@ -69,8 +69,7 @@ module.exports = yeoman.generators.Base.extend({
       message: 'What is the tagline for your project?'
     }, {
       name: 'projectURL',
-      message: 'What will the URL for your project be?' +
-        chalk.red('\nIf you are using GitHub Pages use username.github.io')
+      message: chalk.red('If you are using GitHub Pages use username.github.io') + '\nWhat will the URL for your project be?'
     }];
 
     this.prompt(prompts, function (props) {
@@ -175,7 +174,9 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       name: 'amazonKey',
       message: chalk.yellow('\n\nNow we just need to fill out the detailes needed to configure your site for Amazon S3 and Cloudfront: »') +
-        chalk.red('\nNOTE: Take your time and get the correct settings from Amazon, or alternatively just fill them in blankly and fill out the aws-credentials.json later.') + '\nWhat is your key to AWS?',
+        chalk.red('\nNOTE: Take your time and get the correct settings from Amazon, or alternatively') +
+        chalk.red('\njust fill them in blankly and fill out the aws-credentials.json later.')
+        + '\nWhat is your key to AWS?',
       when: function (answers) {
         return answers.uploadChoices === 'amazonCloudfrontS3';
       }
@@ -200,19 +201,23 @@ module.exports = yeoman.generators.Base.extend({
     }, {
       name: 'rsyncUsername',
       message: chalk.yellow('\n\nNow we just need to fill out the detailes needed to upload your site via Rsync: »') +
-        chalk.red('\nNOTE: Take your time and get the correct settings for your server, or alternatively just fill them in blankly and fill out the rsync-credentials.json later.') + '\nWhat is the username of the user you will be uploading with?',
+        chalk.red('\nNOTE: Take your time and get the correct settings for your server, or alternatively') +
+        chalk.red('\njust fill them in blankly and fill out the rsync-credentials.json later.') +
+        '\nWhat is the username of the user you will be uploading with?',
       when: function (answers) {
         return answers.uploadChoices === 'rsync';
       }
     }, {
       name: 'rsyncHostname',
-      message: 'What is the hostname?' + chalk.red('\n(eg. example.com or 192.168.1.1)'),
+      message: chalk.red('\n(eg. example.com or 192.168.1.1)') +
+        '\nWhat is the hostname?',
       when: function (answers) {
         return answers.uploadChoices === 'rsync';
       }
     }, {
       name: 'rsyncDestination',
-      message: 'Where do you want to save the files?' + chalk.red('\n(eg. /srv/www/site/public_html)'),
+      message: chalk.red('\n(eg. /srv/www/site/public_html)') +
+        '\nWhere do you want to save the files?',
       when: function (answers) {
         return answers.uploadChoices === 'rsync';
       }
