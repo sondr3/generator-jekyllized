@@ -1,6 +1,6 @@
 # generator-jekyllized [![Build Status](https://travis-ci.org/sondr3/generator-jekyllized.png?branch=master)](https://travis-ci.org/sondr3/generator-jekyllized)
 
-[![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized)
+[![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
 
 ### Work in progress! Still unfinished.
 
