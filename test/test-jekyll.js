@@ -43,6 +43,10 @@ describe("Jekyllized generator", function () {
     assert.file(expected);
     });
 
+    it("gulpfile.js does NOT contain a deploy task", function () {
+      assert.noFileContent("gulpfile.js", /gulp.task \("deploy"\)/);
+    });
+
     it("_config.yml contains the correct title", function (done) {
       tasks.assertJekyllSettings(this.jekyllized, "title", "Mocha Test", done);
     });
