@@ -1,3 +1,10 @@
+<a name="0.7.1"></a>
+## 0.7.1 - Bugfix
+
+#### Fixes
+* **LiveReload:** Fix from @thiago-om for generating and reloading JavaScript
+  files with BrowserSync.
+
 <a name="0.7.0"></a>
 ## 0.7.0 - GitHub Pages
 
