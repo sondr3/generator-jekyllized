@@ -40,9 +40,10 @@ gulp.task("jekyll:prod", $.shell.task("jekyll build --config _config.yml,_config
 
 // Compiles the SASS files and moves them into the "assets/stylesheets" directory
 gulp.task("styles", function () {
-  // Looks at the style.scss file for what to include and creates a style.css file
-  return gulp.src("src/assets/scss/style.scss")
-    .pipe($.sass())
+  // Looks at the style.scss or style.sass file for what to include and creates a style.css file
+  return gulp.src('src/assets/scss/*.{scss,sass}')
+    .pipe($.if('*.sass', $.sass({indentedSyntax: true, errLogToConsole: true})))
+    .pipe($.if('*.scss', $.sass({indentedSyntax: false, errLogToConsole: true})))
     // AutoPrefix your CSS so it works between browsers
     .pipe($.autoprefixer("last 1 version", { cascade: true }))
     // Directory your CSS file goes to
@@ -235,7 +236,7 @@ gulp.task("serve:dev", ["styles", "jekyll:dev"], function () {
 gulp.task("watch", function () {
   gulp.watch(["src/**/*.md", "src/**/*.html", "src/**/*.xml", "src/**/*.txt"], ["jekyll-rebuild"]);
   gulp.watch(["serve/assets/stylesheets/*.css", "serve/assest/javascript/*.js"], reload);
-  gulp.watch(["src/assets/scss/**/*.scss"], ["styles"]);
+  gulp.watch(["src/assets/scss/**/*.{scss,sass}"], ["styles"]);
 });
 
 // Serve the site after optimizations to see that everything looks fine
