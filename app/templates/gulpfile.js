@@ -82,6 +82,16 @@ gulp.task("copy", function () {
     .pipe($.size({ title: "xml & txt" }))
 });
 
+// Compile jade layouts into html as plugins do not have permissions
+// all other jade files are compiled directly via jade-jekyll plugin
+gulp.task('layouts', function() {
+  return gulp.src('src/_layouts/jade/*.jade')
+    .pipe($.jade({
+      pretty: true
+    }))
+    .pipe(gulp.dest('src/_layouts'));
+});
+
 // Optimizes all the CSS, HTML and concats the JS etc
 gulp.task("html", ["styles"], function () {
   var assets = $.useref.assets({searchPath: "serve"});
@@ -232,10 +242,11 @@ gulp.task("serve:dev", ["styles", "jekyll:dev"], function () {
 
 // These tasks will look for files that change while serving and will auto-regenerate or
 // reload the website accordingly. Update or add other files you need to be watched.
-gulp.task("watch", function () {
-  gulp.watch(["src/**/*.md", "src/**/*.html", "src/**/*.xml", "src/**/*.txt"], ["jekyll-rebuild"]);
-  gulp.watch(["serve/assets/stylesheets/*.css", "serve/assest/javascript/*.js"], reload);
-  gulp.watch(["src/assets/scss/**/*.scss"], ["styles"]);
+gulp.task('watch', function () {
+  gulp.watch(['src/**/*.{md,html,xml,txt,js}'], ['jekyll-rebuild']);
+  gulp.watch(['serve/assets/stylesheets/*.css'], reload);
+  gulp.watch(['src/_layouts/jade/*.jade'], ['layouts']);
+  gulp.watch(['src/assets/scss/**/*.{scss,sass}'], ['styles']);
 });
 
 // Serve the site after optimizations to see that everything looks fine
