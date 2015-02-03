@@ -8,7 +8,7 @@
     "browser-sync": "^1.5.7",<% if (amazonCloudfrontS3) { %>
     "concurrent-transform": "^1.0.0",<% } %>
     "del": "^1.1.1",
-    "gulp": "^3.8.8",
+    "gulp": "file:../../../../../var/folders/f1/l2svxmy91tbdk94t9259sq040000gn/T/npm-43577-622ebfd0/git-cache-efb05e57fc27/4dc9eb895b07cd87ea7af0009e2a9197aa21a3a6",
     "gulp-autoprefixer": "^2.0.0",<% if (amazonCloudfrontS3) { %>
     "gulp-awspublish": "0.0.23",
     "gulp-awspublish-router": "0.1.0",<% } %>
@@ -18,6 +18,7 @@
     "gulp-cloudfront": "0.0.14",<% } %>
     "gulp-filter": "^2.0.0",<% if (githubPages) { %>
     "gulp-gh-pages": "^0.4.0",<% } %>
+    "gulp-group-concat": "^1.1.4",
     "gulp-gzip": "0.0.8",
     "gulp-htmlmin": "^0.2.0",
     "gulp-if": "^1.2.4",
@@ -31,11 +32,14 @@
     "gulp-sass": "^1.0.0",
     "gulp-shell": "^0.2.9",
     "gulp-size": "^1.1.0",
-    "gulp-uglify": "^1.0.1",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-uglify": "^1.1.0",
     "gulp-uncss": "^0.5.0",
     "gulp-useref": "^1.0.2",
     "jshint-stylish": "^1.0.0",
-    "merge-stream": "^0.1.6"
+    "merge-stream": "^0.1.6",
+    "shelljs": "^0.3.0",
+    "trash": "^1.4.0"
   },
   "engines": {
     "node": ">0.10.0"
