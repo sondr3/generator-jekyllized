@@ -75,13 +75,33 @@ describe("Jekyllized generator", function () {
       tasks.assertJekyllSettings(this.jekyllized, "twitter", "olanordmann123123", done);
     });
 
-    it("_config.build.yml contains the correct URL", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "url", "testing.com", done);
+    it("_config.build.yml contains the corrent setting for future posts", function (done) {
+      tasks.assertJekyllBuildSettings(this.jekyllized, "future", "false", done);
+    });
+
+    it("_config.build.yml contains the corrent setting for drafts", function (done) {
+      tasks.assertJekyllBuildSettings(this.jekyllized, "show_drafts", "false", done);
+    });
+
+    it("_config.build.yml contains the corrent setting for LSI", function (done) {
+      tasks.assertJekyllBuildSettings(this.jekyllized, "lsi", "true", done);
+    });
+
+    it("_config.build.yml contains the corrent setting for limiting posts", function (done) {
+      tasks.assertJekyllBuildSettings(this.jekyllized, "limit_posts", "0", done);
+    });
+
+    it("_config.build.yml contains the corrent setting for source dir", function (done) {
+      tasks.assertJekyllBuildSettings(this.jekyllized, "source", "src", done);
+    });
+
+    it("_config.build.yml contains the corrent setting for destination dir", function (done) {
+      tasks.assertJekyllBuildSettings(this.jekyllized, "destination", "dist", done);
     });
 
   });
 
-  describe("test for permalinks and pagination", function () {
+  describe("test pretty permalinks and 10 pages", function () {
     before(function (done) {
       helpers.run(path.join(__dirname, "../app"))
         .inDir(path.join(__dirname, "./temp/test-jekyll-pagination"))
@@ -104,7 +124,7 @@ describe("Jekyllized generator", function () {
 
   });
 
-  describe("", function () {
+  describe("test date permalinks and all pages", function () {
     before(function (done) {
       helpers.run(path.join(__dirname, "../app"))
         .inDir(path.join(__dirname, "./temp/test-jekyll-pagination-1"))
@@ -127,7 +147,7 @@ describe("Jekyllized generator", function () {
 
   });
 
-  describe("", function () {
+  describe("test no permalinks and 1 page", function () {
     before(function (done) {
       helpers.run(path.join(__dirname, "../app"))
         .inDir(path.join(__dirname, "./temp/test-jekyll-pagination-2"))

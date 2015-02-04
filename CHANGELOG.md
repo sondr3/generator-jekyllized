@@ -1,14 +1,22 @@
 <a name="HEAD"></a>
 ## HEAD
 
+## BREAKING CHANGES
+Gulp was updated to version 4.0 and much of the Gulpfile was updated
+accordingly, hence a lot of old tasks were removed and a few new ones
+introduced. This is breaking in the sense that people who have previously
+installed Jekyllized have to learn some new commands, but for those who have
+previously installed nothing will change, this is just an informal update.
+
 #### Changes
 * **Gulp:** Updated to Gulp 4.0 and changed the majority of the Gulpfile and
   most of the tasks there as well, this should be considered a breaking
   change.
 * **Jekyll:** Updated to Jekyll 3.0-beta since both Jekyll and Gulp is currently
   moving towards a new major version, the biggest change is the inclusion of
-  incremental regeneration. Also included a plugin for generating archives for
-  Jekyll.
+  incremental regeneration.
+* **Archives:** Added yearly and monthly archives and archives for tags and
+  categories.
 * **Jekyll directory:** Everything is now output to a `dist` folder instead of a
   `site` folder to be more in line with most other tools.
 * **Asset directories:** Moved most of the assets to live in a .tmp while working on
@@ -20,12 +28,17 @@
   and JS files will now have sourcemaps generated, both Jekyll and the
   asset-revitalizer now runs quietly to not clog the command line. All the JS
   files are concated into a `index.js` file as well.
+* **Jekyll:** Removed the URL setting from the `_config.build.yml` file into the
+  `_config.yml` file so getting the site ready for production doesn't involve
+  a full rebuild to better support incremental regeneration.
+* **Feed:** Updated the feed to be more up to par and completely valid
+* **Packages:** Updated the packages to be more up to date on NPM
 
 <a name="0.7.1"></a>
 ## 0.7.1 - Bugfix
 
 #### Fixes
-* **LiveReload:** Fix from @thiago-om for generating and reloading JavaScript
+* **LiveReload:** Fix from @[thiago-om](https://github.com/thiago-om) for generating and reloading JavaScript
   files with BrowserSync.
 
 <a name="0.7.0"></a>

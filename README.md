@@ -42,6 +42,13 @@ optimize your CSS, JS, HTML and images, automatic vendor prefixing with
 * Support for sourcemaps for ease of debugging for both your JS and CSS
 * Cachebusting for your assets that is automatically updated in your HTML
 
+### Jekyll
+
+* Jekyll is configured with [Redcarpet][redcarpet] that adds a ton of extra functionality to
+  writing Markdown (footnotes etc) and lots of sane settings
+* Automatic generation of year/month/category/tags archives
+* Fully valid Atom 1.0 feed and sitemap
+
 ## Getting started
 
 ## Installation
@@ -149,6 +156,7 @@ repositories there are some things you need to do:
 [aws]: http://aws.amazon.com/s3/
 [ghpages]: https://pages.github.com/
 [libsass]: https://github.com/hcatlin/libsass
+[redcarpet]: https://github.com/vmg/redcarpet
 [autoprefixer]: https://github.com/ai/autoprefixer
 [poole]: https://github.com/poole
 [lanyon]: https://github.com/poole/lanyon

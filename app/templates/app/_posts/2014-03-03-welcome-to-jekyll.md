@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 2014-03-03
+date: 2015-02-03
 title:  Welcome to Jekyll!
 categories: jekyll
 ---
@@ -34,6 +34,6 @@ Check out the [Jekyll docs][jekyll] for more info on how to get the most out of
 Jekyll. File all bugs/feature requests at [Jekyll's GitHub repo][jekyll-gh].
 
 [redcarpet]: https://github.com/vmg/redcarpet
-[jekyll-gh]: https://github.com/mojombo/jekyll
-[jekyll]:    http://jekyllrb.com
+[jekyll-gh]: https://github.com/jekyll/jekyll
+[jekyll]:    http://jekyllrb.com/docs/home/
 [^1]: Who are quite handy

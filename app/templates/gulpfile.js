@@ -87,7 +87,7 @@ function fonts() {
     .pipe($.size({ title: "fonts" }));
 }
 
-// Copy optimized images and (not optimized) fonts to the "site" folder
+// Copy optimized images and (not optimized) fonts to the "dist" folder
 function copy() {
   var images = gulp.src(".tmp/assets/images/**/*")
     .pipe(gulp.dest("dist/assets/images"))
