@@ -231,6 +231,7 @@ module.exports = yeoman.generators.Base.extend({
       this.amazonCloudfrontS3 = hasFeature("amazonCloudfrontS3");
       this.rsync              = hasFeature("rsync");
       this.githubPages        = hasFeature("githubPages");
+      this.noUpload           = hasFeature("noUpload");
 
       this.amazonKey      = props.amazonKey;
       this.amazonSecret   = props.amazonSecret;

@@ -4,7 +4,6 @@
 var path = require("path");
 var helpers = require("yeoman-generator").test;
 var assert = require("yeoman-generator").assert;
-var tasks = require("../test-util.js");
 
 describe("Jekyllized generator test when using GitHub Pages", function () {
   before(function (done) {
@@ -31,8 +30,21 @@ describe("Jekyllized generator test when using GitHub Pages", function () {
   assert.file(expected);
   });
 
-  it("should contain deploy task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "deploy", [], done);
+  it("should contain the correct deploy function", function () {
+    assert.fileContent("gulpfile.js", /\/\/ Task to upload your site to your personal GH Pages repo/);
+  });
+
+  it("should NOT contain either the Amazon or Rsync function", function () {
+    assert.noFileContent("gulpfile.js", /\/\/ Task to upload your site via Rsync to your server/);
+    assert.noFileContent("gulpfile.js", /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
+  });
+
+  it("should contain deploy tasks", function () {
+    assert.fileContent("gulpfile.js", /gulp.task\(\"deploy\"/);
+  });
+
+  it("should contain the correct packages", function () {
+   assert.fileContent("package.json", /\"gulp-gh-pages\"/);
   });
 
 });

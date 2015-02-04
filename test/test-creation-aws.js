@@ -4,7 +4,6 @@
 var path    = require("path");
 var helpers = require("yeoman-generator").test;
 var assert  = require("yeoman-generator").assert;
-var tasks = require("../test-util.js");
 
 describe("Jekyllized generator test when using Amazon AWS", function () {
   before(function (done) {
@@ -36,8 +35,28 @@ describe("Jekyllized generator test when using Amazon AWS", function () {
   assert.file(expected);
   });
 
-  it("should contain deploy tasks", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "deploy", [], done);
+  it("should contain the correct deploy function", function () {
+    assert.fileContent("gulpfile.js", /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
+  });
+
+  it("should NOT contain either the GH Pages or Rsync function", function () {
+    assert.noFileContent("gulpfile.js", /\/\/ Task to upload your site via Rsync to your server/);
+    assert.noFileContent("gulpfile.js", /\/\/ Task to upload your site to your personal GH Pages repo/);
+  });
+
+  it("should contain deploy tasks", function () {
+    assert.fileContent("gulpfile.js", /gulp.task\(\"deploy\"/);
+  });
+
+  it("should contain the correct packages", function () {
+    var expected = [
+      ["package.json", /\"concurrent-transform\"/],
+      ["package.json", /\"gulp-awspublish\"/],
+      ["package.json", /\"gulp-awspublish-router\"/],
+      ["package.json", /\"gulp-cloudfront\"/]
+    ];
+
+  assert.fileContent(expected);
   });
 
 });

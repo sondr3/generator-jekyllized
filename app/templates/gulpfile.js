@@ -273,10 +273,10 @@ gulp.task("optimize", gulp.series(
 gulp.task("build", gulp.series(
       gulp.series(jekyllDev),
       gulp.parallel(styles, javascript, fonts, images)
-));
+));<% if (!noUpload) { %>
 
 // Deploy your site for all to see
-gulp.task("deploy", deploy);
+gulp.task("deploy", deploy);<% } %>
 
 // Serves your site locally
 gulp.task("serve", serve);

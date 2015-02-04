@@ -4,7 +4,6 @@
 var path = require("path");
 var assert = require("assert");
 var helpers = require("yeoman-generator").test;
-var tasks = require("../test-util.js");
 
 describe("Jekyllized generator test for Gulp tasks without any uploading", function () {
   before(function (done) {
@@ -50,44 +49,24 @@ describe("Jekyllized generator test for Gulp tasks without any uploading", funct
   assert.noFile(unexpected);
   });
 
-  it("should contain default task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "default", [], done);
+  it ("should contain the standard tasks", function () {
+    var expected = [
+      ["gulpfile.js", /gulp.task\(\"default\"/],
+      ["gulpfile.js", /gulp.task\(\"optimize\"/],
+      ["gulpfile.js", /gulp.task\(\"build\"/],
+      ["gulpfile.js", /gulp.task\(\"serve\"/],
+      ["gulpfile.js", /gulp.task\(\"clean\"/],
+      ["gulpfile.js", /gulp.task\(\"rebuild\"/],
+      ["gulpfile.js", /gulp.task\(\"styles\"/],
+      ["gulpfile.js", /gulp.task\(\"javascript\"/],
+      ["gulpfile.js", /gulp.task\(\"check\"/]
+    ];
+
+  assert.fileContent(expected);
   });
 
-  it("should contain optimize task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "optimize", [], done);
-  });
-
-  it("should contain build task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "build", [], done);
-  });
-
-  it("should contain deploy task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "deploy", [], done);
-  });
-
-  it("should contain serve task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "serve", [], done);
-  });
-
-  it("should contain clean task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "clean", [], done);
-  });
-
-  it("should contain rebuild task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "rebuild", [], done);
-  });
-
-  it("should contain styles task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "styles", [], done);
-  });
-
-  it("should contain javascript task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "javascript", [], done);
-  });
-
-  it("should contain check task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "check", [], done);
+  it("should NOT contain a deploy task", function () {
+    assert.noFileContent("gulpfile.js", /gulp.task\(\"deploy\"/);
   });
 
 });

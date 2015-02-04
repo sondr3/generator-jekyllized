@@ -34,6 +34,10 @@ previously installed nothing will change, this is just an informal update.
 * **Feed:** Updated the feed to be more up to par and completely valid
 * **Packages:** Updated the packages to be more up to date on NPM
 
+#### Behind the scenes
+* **Tests:** Continued working on tests to make errors even less likely. Yay
+  tests.
+
 <a name="0.7.1"></a>
 ## 0.7.1 - Bugfix
 

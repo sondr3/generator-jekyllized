@@ -4,7 +4,6 @@
 var path = require("path");
 var helpers = require("yeoman-generator").test;
 var assert = require("yeoman-generator").assert;
-var tasks = require("../test-util.js");
 
 describe("Jekyllized generator", function () {
   describe("test for Jekyll settings", function () {
@@ -44,64 +43,39 @@ describe("Jekyllized generator", function () {
     });
 
     it("gulpfile.js does NOT contain a deploy task", function () {
-      assert.noFileContent("gulpfile.js", /gulp.task \("deploy"\)/);
+      assert.noFileContent("gulpfile.js", /gulp.task\(\"deploy\"/);
     });
 
-    it("_config.yml contains the correct title", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "title", "Mocha Test", done);
+    it("_config.yml contains the correct settings", function () {
+      var expected = [
+        ["_config.yml", /title\: Mocha Test/],
+        ["_config.yml", /description\: Mocha tests for Jekyllized/],
+        ["_config.yml", /tagline\: Better hope this doesn\"t blow up/],
+        ["_config.yml", /name\: Ola Nordmann/],
+        ["_config.yml", /email\: ola\.nordmann\@email\.com/],
+        ["_config.yml", /bio\: Just your average Norwegian/],
+        ["_config.yml", /twitter\: olanordmann123123/]
+      ];
+
+    assert.fileContent(expected);
     });
 
-    it("_config.yml contains the correct description", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "description", "Mocha tests for Jekyllized", done);
-    });
+    it("_config.build.yml contains the correct settings", function () {
+      var expected = [
+        ["_config.build.yml", /future\: false/],
+        ["_config.build.yml", /show_drafts\: false/],
+        ["_config.build.yml", /lsi\: true/],
+        ["_config.build.yml", /limit_posts\: 0/],
+        ["_config.build.yml", /source\: src/],
+        ["_config.build.yml", /destination\: dist/]
+      ];
 
-    it("_config.yml contains the correct tagline", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "tagline", "Better hope this doesn\"t blow up", done);
-    });
-
-    it("_config.yml contains the correct author name", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "name", "Ola Nordmann", done);
-    });
-
-    it("_config.yml contains the correct author email", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "email", "ola.nordmann@email.com", done);
-    });
-
-    it("_config.yml contains the correct author bio", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "bio", "Just your average Norwegian", done);
-    });
-
-    it("_config.yml contains the correct author Twitter", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "twitter", "olanordmann123123", done);
-    });
-
-    it("_config.build.yml contains the corrent setting for future posts", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "future", "false", done);
-    });
-
-    it("_config.build.yml contains the corrent setting for drafts", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "show_drafts", "false", done);
-    });
-
-    it("_config.build.yml contains the corrent setting for LSI", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "lsi", "true", done);
-    });
-
-    it("_config.build.yml contains the corrent setting for limiting posts", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "limit_posts", "0", done);
-    });
-
-    it("_config.build.yml contains the corrent setting for source dir", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "source", "src", done);
-    });
-
-    it("_config.build.yml contains the corrent setting for destination dir", function (done) {
-      tasks.assertJekyllBuildSettings(this.jekyllized, "destination", "dist", done);
+    assert.fileContent(expected);
     });
 
   });
 
-  describe("test pretty permalinks and 10 pages", function () {
+  describe("test with setting pretty permalinks and 10 posts per page", function () {
     before(function (done) {
       helpers.run(path.join(__dirname, "../app"))
         .inDir(path.join(__dirname, "./temp/test-jekyll-pagination"))
@@ -114,17 +88,17 @@ describe("Jekyllized generator", function () {
       .on("end", done);
     });
 
-    it("_config.yml permalink setting is 'pretty'", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "permalink", "pretty", done);
+    it("_config.yml permalink setting is 'pretty'", function () {
+      assert.fileContent("_config.yml", /permalink\: pretty/);
     });
 
-    it("_config.yml pagination setting is '10'", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "paginate", "10", done);
+    it("_config.yml pagination is '10' posts per page", function () {
+      assert.fileContent("_config.yml", /paginate\: 10/);
     });
 
   });
 
-  describe("test date permalinks and all pages", function () {
+  describe("test with setting date permalinks and all posts on the same page", function () {
     before(function (done) {
       helpers.run(path.join(__dirname, "../app"))
         .inDir(path.join(__dirname, "./temp/test-jekyll-pagination-1"))
@@ -137,17 +111,17 @@ describe("Jekyllized generator", function () {
       .on("end", done);
     });
 
-    it("_config.yml permalink setting is 'date'", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "permalink", "date", done);
+    it("_config.yml permalink setting is 'date'", function () {
+      assert.fileContent("_config.yml", /permalink\: date/);
     });
 
-    it("_config.yml pagination setting is 'all'", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "paginate", "all", done);
+    it("_config.yml pagination is 'all' posts per page", function () {
+      assert.fileContent("_config.yml", /paginate\: all/);
     });
 
   });
 
-  describe("test no permalinks and 1 page", function () {
+  describe("test with no permalinks setting and 1 post per page", function () {
     before(function (done) {
       helpers.run(path.join(__dirname, "../app"))
         .inDir(path.join(__dirname, "./temp/test-jekyll-pagination-2"))
@@ -160,12 +134,12 @@ describe("Jekyllized generator", function () {
       .on("end", done);
     });
 
-    it("_config.yml permalink setting is 'none'", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "permalink", "none", done);
+    it("_config.yml permalink setting is 'none'", function () {
+      assert.fileContent("_config.yml", /permalink\: none/);
     });
 
-    it("_config.yml pagination setting is '1'", function (done) {
-      tasks.assertJekyllSettings(this.jekyllized, "paginate", "1", done);
+    it("_config.yml pagination is '1' posts per page", function () {
+      assert.fileContent("_config.yml", /paginate\: 1/);
     });
 
   });
