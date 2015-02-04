@@ -13,4 +13,4 @@ lsi: true
 limit_posts: 0
 
 source: 'src'
-destination: 'serve'
+destination: 'dist'

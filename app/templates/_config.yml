@@ -7,7 +7,7 @@ url: localhost:4000
 
 # Used so Jekyll outputs the site correctly so Gulp can do what it wants
 source: src
-destination: serve
+destination: dist
 
 # Same as the title etc for your site but can instead be
 # called by using 'site.author.name' and so on

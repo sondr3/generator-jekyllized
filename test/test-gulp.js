@@ -58,12 +58,24 @@ describe("Jekyllized generator test for Gulp tasks without any uploading", funct
     tasks.assertTaskExists(this.jekyllized, "optimize", [], done);
   });
 
+  it("should contain build task", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "build", [], done);
+  });
+
   it("should contain deploy task", function (done) {
     tasks.assertTaskExists(this.jekyllized, "deploy", [], done);
   });
 
   it("should contain serve task", function (done) {
     tasks.assertTaskExists(this.jekyllized, "serve", [], done);
+  });
+
+  it("should contain clean task", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "clean", [], done);
+  });
+
+  it("should contain rebuild task", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "rebuild", [], done);
   });
 
   it("should contain styles task", function (done) {

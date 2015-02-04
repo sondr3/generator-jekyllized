@@ -20,7 +20,7 @@ var reload = browserSync.reload;
 var merge = require("merge-stream");
 
 // Deletes the directory that the optimized site is output to
-function clean(done) { trash(["site"]); done(); }
+function clean(done) { trash(["dist"]); done(); }
 function rebuild(done) { trash(["src/.jekyll-metadata"]); done(); }
 
 // Runs the build command for Jekyll to compile the site locally
@@ -90,11 +90,11 @@ function fonts() {
 // Copy optimized images and (not optimized) fonts to the "site" folder
 function copy() {
   var images = gulp.src(".tmp/assets/images/**/*")
-    .pipe(gulp.dest("site/assets/images"))
+    .pipe(gulp.dest("dist/assets/images"))
     .pipe($.size({title: "copied images"}));
 
   var fonts = gulp.src(".tmp/assets/fonts/**/*")
-    .pipe(gulp.dest("site/assets/fonts"))
+    .pipe(gulp.dest("dist/assets/fonts"))
     .pipe($.size({title: "copied fonts"}));
 
   return merge(images, fonts);
@@ -102,9 +102,9 @@ function copy() {
 
 // Optimizes all the CSS, HTML and concats the JS etc
 function optimize() {
-  var assets = $.useref.assets({searchPath: ["site", ".tmp"]});
+  var assets = $.useref.assets({searchPath: ["dist", ".tmp"]});
 
-  return gulp.src("site/**/*.html")
+  return gulp.src("dist/**/*.html")
     .pipe(assets)
     // Concatenate JavaScript files and preserve important comments
     .pipe($.if("*.js", $.uglify({preserveComments: "some"})))
@@ -128,7 +128,7 @@ function optimize() {
       removeRedundantAttributes: true
     })))
     // Send the output to the correct folder
-    .pipe(gulp.dest("site"))
+    .pipe(gulp.dest("dist"))
     .pipe($.size({title: "optimizations"}));
 }
 
@@ -143,7 +143,7 @@ function deploy() {
     "Content-Encoding": "gzip"
   };
 
-  gulp.src("site/**/*")
+  gulp.src("dist/**/*")
     .pipe($.awspublishRouter({
       routes: {
         "^assets/(?:.+)\\.(?:js|css)$": {
@@ -198,10 +198,10 @@ function deploy() {
   // Load in the variables needed for our Rsync synchronization
   var secret = require("./rsync-credentials.json");
 
-  return gulp.src("site/**")
+  return gulp.src("dist/**")
     .pipe($.rsync({
       // This uploads the contenst of "root", instead of the folder
-      root: "site",
+      root: "dist",
       // Find your username, hostname and destination from your rsync-credentials.json
       hostname: secret.hostname,
       username: secret.username,
@@ -215,7 +215,7 @@ function deploy() {
 // Task to upload your site to your personal GH Pages repo
 function deploy() {
   // Deploys your optimized site, you can change the settings in the html task if you want to
-  return gulp.src("./site/**/*")
+  return gulp.src("dist/**/*")
     .pipe($.ghPages({
       // Currently only personal GitHub Pages are supported so it will upload to the master
       // branch and automatically overwrite anything that is in the directory
@@ -243,7 +243,7 @@ function serve() {
     notify: true,
     // tunnel: "",
     server: {
-      baseDir: ["site", ".tmp"]
+      baseDir: ["dist", ".tmp"]
     }
   });
 
@@ -262,8 +262,9 @@ gulp.task("default", gulp.series(
 ));
 
 // Builds your site with the "build" command and then runs all the optimizations on
-// it and outputs it to "./site"
+// it and outputs it to "./dist"
 gulp.task("optimize", gulp.series(
+      gulp.series(rebuild),
       gulp.series(jekyllProd),
       gulp.parallel(styles, javascript, fonts, images, copy),
       gulp.series(optimize)
@@ -280,7 +281,7 @@ gulp.task("deploy", deploy);
 // Serves your site locally
 gulp.task("serve", serve);
 
-// Clean out your site folder
+// Clean out your dist folder
 gulp.task("clean", clean);
 gulp.task("rebuild", gulp.series("clean", rebuild));
 

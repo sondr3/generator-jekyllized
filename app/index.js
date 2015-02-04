@@ -54,7 +54,7 @@ module.exports = yeoman.generators.Base.extend({
     );
 
     this.log(chalk.magenta("\nIt\"s time to get Jekyllized!"));
-    this.log(chalk.yellow("\nTell me a little about your project »"));
+    this.log(chalk.yellow("\nTell me a little about your project >>"));
 
     var prompts = [{
       name: "projectName",
@@ -83,7 +83,7 @@ module.exports = yeoman.generators.Base.extend({
   authorPrompting: function () {
     var cb = this.async();
 
-    this.log(chalk.yellow("\nNow it\"s time to tell me about you. »"));
+    this.log(chalk.yellow("\nNow it\"s time to tell me about you. >>"));
 
     var prompts = [{
       name: "authorName",
@@ -112,7 +112,7 @@ module.exports = yeoman.generators.Base.extend({
   jekyllPrompting: function () {
     var cb = this.async();
 
-    this.log(chalk.yellow("\nNow on to set some Jekyll settings: »") +
+    this.log(chalk.yellow("\nNow on to set some Jekyll settings: >>") +
             chalk.red("\nYou can change all of this later in the _config.yml file"));
 
     var prompts = [{
@@ -149,7 +149,7 @@ module.exports = yeoman.generators.Base.extend({
   uploadPrompting: function () {
     var cb = this.async();
 
-    this.log(chalk.yellow("\nNow we only need some details about how to upload your site: »") +
+    this.log(chalk.yellow("\nNow we only need some details about how to upload your site: >>") +
             chalk.red("\nNOTE: Take whatever time you need to get these right/fill them in later in eithers credentials file."));
 
     var prompts = [{
@@ -171,7 +171,7 @@ module.exports = yeoman.generators.Base.extend({
       }]
     }, {
       name: "amazonKey",
-      message: chalk.yellow("\n\nNow we just need to fill out the detailes needed to configure your site for Amazon S3 and Cloudfront: »") +
+      message: chalk.yellow("\n\nNow we just need to fill out the detailes needed to configure your site for Amazon S3 and Cloudfront: >>") +
         chalk.red("\nNOTE: Take your time and get the correct settings from Amazon, or alternatively") +
         chalk.red("\njust fill them in blankly and fill out the aws-credentials.json later.") +
         "\nWhat is your key to AWS?",
@@ -198,7 +198,7 @@ module.exports = yeoman.generators.Base.extend({
       }
     }, {
       name: "rsyncUsername",
-      message: chalk.yellow("\n\nNow we just need to fill out the detailes needed to upload your site via Rsync: »") +
+      message: chalk.yellow("\n\nNow we just need to fill out the detailes needed to upload your site via Rsync: >>") +
         chalk.red("\nNOTE: Take your time and get the correct settings for your server, or alternatively") +
         chalk.red("\njust fill them in blankly and fill out the rsync-credentials.json later.") +
         "\nWhat is the username of the user you will be uploading with?",

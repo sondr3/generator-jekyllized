@@ -1,3 +1,26 @@
+<a name="HEAD"></a>
+## HEAD
+
+#### Changes
+* **Gulp:** Updated to Gulp 4.0 and changed the majority of the Gulpfile and
+  most of the tasks there as well, this should be considered a breaking
+  change.
+* **Jekyll:** Updated to Jekyll 3.0-beta since both Jekyll and Gulp is currently
+  moving towards a new major version, the biggest change is the inclusion of
+  incremental regeneration. Also included a plugin for generating archives for
+  Jekyll.
+* **Jekyll directory:** Everything is now output to a `dist` folder instead of a
+  `site` folder to be more in line with most other tools.
+* **Asset directories:** Moved most of the assets to live in a .tmp while working on
+  them because Jekyll would regenrate itself and not include the assets folder
+  when you changed something while BrowserSync was active.
+
+#### Fixes
+* **Gulp:** In general the gulpfile has seen most of it changes or added upon, both the SCSS
+  and JS files will now have sourcemaps generated, both Jekyll and the
+  asset-revitalizer now runs quietly to not clog the command line. All the JS
+  files are concated into a `index.js` file as well.
+
 <a name="0.7.1"></a>
 ## 0.7.1 - Bugfix
 
