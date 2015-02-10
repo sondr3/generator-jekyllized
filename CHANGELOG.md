@@ -21,6 +21,8 @@ as it was.
   some minor tweaks to suit this project better.
 * **Archives:** Added yearly and monthly archives and archives for tags and
   categories.
+* **Sitemap:** Removed the `sitemap.xml` file and now use the `jekyll-sitemap`
+  gem instead.
 * **Jekyll directory:** Everything is now output to a `dist` folder instead of a
   `site` folder to be more in line with most other tools.
 * **Asset directories:** Moved most of the assets to live in a .tmp while working on

@@ -2,4 +2,7 @@ source "http://rubygems.org"
 
 gem 'jekyll'
 gem 'redcarpet'
-gem 'jekyll-archives'
+
+# jekyll plugins
+gem 'jekyll-archives', :git => 'https://github.com/jekyll/jekyll-archives'
+gem 'jekyll-sitemap'

@@ -40,6 +40,7 @@ excerpt_separator: '<!--more-->'
 # Extras for Jekyll
 gems:
   - jekyll-archives
+  - jekyll-sitemap
 
 # Markdown library
 markdown: redcarpet
@@ -62,7 +63,7 @@ jekyll-archives:
     category: 'category-archive'
     tag: 'tag-archive'
   permalinks:
-    year: '/:year/'
-    month: '/:year/:month/'
+    year: '/archive/:year/'
+    month: '/archive/:year/:month/'
     category: '/category/:name/'
     tags: '/tag/:name/'
