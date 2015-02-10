@@ -2,6 +2,7 @@
 The main SCSS file for everything, yep
 */
 
-@import "poole";
-@import "syntax";
-@import "lanyon";
+@import "main";
+@import "base";
+@import "layout";
+@import "syntax-highlighting";

@@ -4,17 +4,21 @@
 ## BREAKING CHANGES
 Gulp was updated to version 4.0 and much of the Gulpfile was updated
 accordingly, hence a lot of old tasks were removed and a few new ones
-introduced. This is breaking in the sense that people who have previously
-installed Jekyllized have to learn some new commands, but for those who have
-previously installed nothing will change, this is just an informal update.
+introduced.
+
+This isn't strictly breaking as it won't affect people who have installed and
+are running a site with Jekyllized nor will it change for people who are new but
+if you are updating or coming from a previous install some things might not be
+as it was.
 
 #### Changes
 * **Gulp:** Updated to Gulp 4.0 and changed the majority of the Gulpfile and
   most of the tasks there as well, this should be considered a breaking
   change.
 * **Jekyll:** Updated to Jekyll 3.0-beta since both Jekyll and Gulp is currently
-  moving towards a new major version, the biggest change is the inclusion of
-  incremental regeneration.
+  moving towards a new major version, with one of the biggest changes being
+  incremental regeneration. Also moved back to the default theme for Jekyll with
+  some minor tweaks to suit this project better.
 * **Archives:** Added yearly and monthly archives and archives for tags and
   categories.
 * **Jekyll directory:** Everything is now output to a `dist` folder instead of a

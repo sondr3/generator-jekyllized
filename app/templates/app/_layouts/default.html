@@ -5,26 +5,15 @@
 
   <body>
 
-    {% include sidebar.html %}
+    {% include header.html %}
 
-    <!-- Wrap is the content to shift when toggling the sidebar. We wrap the
-         content to avoid any CSS collisions with our real content. -->
-    <div class="wrap">
-      <div class="masthead">
-        <div class="container">
-          <h3 class="masthead-title">
-            <a href="/" title="Home">{{ site.title }}</a>
-            <small>{{ site.tagline }}</small>
-          </h3>
-        </div>
-      </div>
-
-      <div class="container content">
+    <div class="page-content">
+      <div class="wrapper">
         {{ content }}
       </div>
     </div>
 
-    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    {% include footer.html %}
 
   <!-- JS -->
   <!-- build:js /assets/javascript/index.min.js -->
