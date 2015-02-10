@@ -2,6 +2,7 @@
 var path = require("path");
 var chalk = require("chalk");
 var yeoman = require("yeoman-generator");
+var yosay = require("yosay");
 var shelljs = require("shelljs");
 
 module.exports = yeoman.generators.Base.extend({
@@ -35,25 +36,8 @@ module.exports = yeoman.generators.Base.extend({
   projectPrompting: function () {
     var cb = this.async();
 
-    this.log(this.yeoman);
-    this.log("\n" +
-      chalk.blue("     ____        ___                 ___ ___")  + chalk.yellow("                            ___\n") +
-      chalk.blue("     `MM         `MM                 `MM `MM")  + chalk.yellow(" 68b                        `MM\n") +
-      chalk.blue("      MM          MM                  MM  MM")  + chalk.yellow(" Y89                         MM\n") +
-      chalk.blue("      MM   ____   MM   __ ____    ___ MM  MM")  + chalk.yellow(" ___ _________  ____     ____MM\n") +
-      chalk.blue("      MM  6MMMMb  MM   d` `MM(    )M` MM  MM")  + chalk.yellow(" `MM MMMMMMMMP 6MMMMb   6MMMMMM\n") +
-      chalk.blue("      MM 6M`  `Mb MM  d`   `Mb    d`  MM  MM")  + chalk.yellow("  MM /    dMP 6M`  `Mb 6M`  `MM\n") +
-      chalk.blue("      MM MM    MM MM d`     YM.  ,P   MM  MM")  + chalk.yellow("  MM     dMP  MM    MM MM    MM\n") +
-      chalk.blue("      MM MMMMMMMM MMdM.      MM  M    MM  MM")  + chalk.yellow("  MM    dMP   MMMMMMMM MM    MM\n") +
-      chalk.blue("(8)   MM MM       MMPYM.     `Mbd`    MM  MM")  + chalk.yellow("  MM   dMP    MM       MM    MM\n") +
-      chalk.blue("((   ,M9 YM    d9 MM  YM.     YMP     MM  MM")  + chalk.yellow("  MM  dMP    /YM    d9 YM.  ,MM\n") +
-      chalk.blue(" YMMMM9   YMMMM9 _MM_  YM._    M     _MM__MM")  + chalk.yellow("__MM_dMMMMMMMM YMMMM9   YMMMMMM_\n") +
-      chalk.blue("                              d`            ")  + chalk.yellow("\n") +
-      chalk.blue("                          (8),P             ")  + chalk.yellow("\n") +
-      chalk.blue("                           YMM              ")  + chalk.yellow("\n")
-    );
+    this.log(yosay("Time to supercharge your Jekyll development, time to get Jekyllized!"));
 
-    this.log(chalk.magenta("\nIt\"s time to get Jekyllized!"));
     this.log(chalk.yellow("\nTell me a little about your project >>"));
 
     var prompts = [{
