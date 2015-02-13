@@ -239,6 +239,7 @@ module.exports = yeoman.generators.Base.extend({
     this.template("_config.build.yml", "_config.build.yml");
     this.template("_README.md", "README.md");
     this.template("gulpfile.js", "gulpfile.js");
+    this.copy("gulp.config.json", "gulp.config.json");
     this.copy("gitignore", ".gitignore");
     this.copy("gitattributes", ".gitattributes");
     this.copy("jshintrc", ".jshintrc");

@@ -31,12 +31,11 @@ describe("Jekyllized generator", function () {
       var expected = [
         "src/404.html",
         "src/about.md",
-        "src/atom.xml",
+        "src/feed.xml",
         "src/crossdomain.xml",
         "src/humans.txt",
         "src/index.html",
-        "src/robots.txt",
-        "src/sitemap.xml"
+        "src/robots.txt"
       ];
 
     assert.file(expected);

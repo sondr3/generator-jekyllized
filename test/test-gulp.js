@@ -30,6 +30,7 @@ describe("Jekyllized generator test for Gulp tasks without any uploading", funct
     var expected = [
       "bower.json",
       "package.json",
+      "gulp.config.json",
       "gulpfile.js",
       "src/index.html",
       "src/robots.txt",

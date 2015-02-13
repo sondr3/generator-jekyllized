@@ -1,0 +1,36 @@
+{
+  "site": {
+    "src": "src",
+    "dest": "dist"
+  },
+  "scss": {
+    "src": "src/assets/scss/style.scss",
+    "dest": ".tmp/assets/stylesheets/"
+  },
+  "javascript": {
+    "src": "src/assets/javascript/*.js",
+    "dest": ".tmp/assets/javascript/"
+  },
+  "images": {
+    "src": "src/assets/images/**/*",
+    "dest": ".tmp/assets/images/",
+    "build": "dist/assets/images/"
+  },
+  "fonts": {
+    "src": "src/assets/fonts/**",
+    "dest": ".tmp/assets/fonts/",
+    "build": "dist/assets/fonts"
+  },
+  "assets": {
+    "searchPath": ["dist", ".tmp"],
+    "html": "dist/**/*.html",
+    "dest": "dist"
+  },
+  "watch": {
+    "baseDir": ["dist", ".tmp"],
+    "content": ["src/**/*.md", "src/**/*.html", "src/**/*.xml", "src/**/*.txt", "src/**/*.yml"],
+    "javascript": "src/assets/javascript/**/*.js",
+    "scss": "src/assets/scss/**/*.scss",
+    "images": "src/assets/images/**/*"
+  }
+}
