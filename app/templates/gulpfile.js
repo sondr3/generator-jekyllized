@@ -1,4 +1,5 @@
 // Generated on <%= (new Date).toISOString().split("T")[0] %> using <%= pkg.name %> <%= pkg.version %>
+/* jshint quotmark:double */
 "use strict";
 
 var gulp = require("gulp");
@@ -15,10 +16,15 @@ var parallelize = require("concurrent-transform");
 var browserSync = require("browser-sync");
 // merge is used to merge the output from two different streams into the same stream
 var merge = require("merge-stream");
+// wires bower dependencies into html
+var wiredep = require("wiredep");
 // Need a command for reloading webpages using BrowserSync
 var reload = browserSync.reload;
 // And define a variable that BrowserSync uses in it"s function
 var bs;
+
+// bower dependencies to exclude from autowiring.
+var bowerExcludes = [];
 
 // Deletes the directory that is used to serve the site during development
 gulp.task("clean:dev", del.bind(null, ["serve"]));
@@ -28,15 +34,18 @@ gulp.task("clean:prod", del.bind(null, ["site"]));
 
 // Runs the build command for Jekyll to compile the site locally
 // This will build the site with the production settings
-gulp.task("jekyll:dev", $.shell.task("jekyll build"));
-gulp.task("jekyll-rebuild", ["jekyll:dev"], function () {
-  reload;
+gulp.task("jekyll:pure", $.shell.task("jekyll build"));
+gulp.task("jekyll:dev", ["bower"], function () {
+  gulp.start("jekyll:pure");
+});
+gulp.task("jekyll-rebuild", ["jekyll:pure"], function () {
+  reload();
 });
 
 // Almost identical to the above task, but instead we load in the build configuration
 // that overwrites some of the settings in the regular configuration so that you
 // don"t end up publishing your drafts or future posts
-gulp.task("jekyll:prod", $.shell.task("jekyll build --config _config.yml,_config.build.yml"));
+gulp.task("jekyll:prod", ["bower"], $.shell.task("jekyll build --config _config.yml,_config.build.yml"));
 
 // Compiles the SASS files and moves them into the "assets/stylesheets" directory
 gulp.task("styles", function () {
@@ -52,6 +61,46 @@ gulp.task("styles", function () {
     .pipe($.size({title: "styles"}))
     // Injects the CSS changes to your browser since Jekyll doesn"t rebuild the CSS
     .pipe(reload({stream: true}));
+});
+
+// Inject bower dependencies into templates
+gulp.task("bower", ["bower:files"], function () {
+  return gulp.src("src/_includes/bower_{scripts,styles}.html")
+    .pipe(wiredep.stream({
+      exclude: bowerExcludes,
+      fileTypes: {
+        html: {
+          replace: {
+            js: function(filePath) {
+              return '<script src="' + '/assets/vendor/' + filePath.split('/').pop() + '"></script>'; //jshint ignore:line
+            },
+            css: function(filePath) {
+              return '<link rel="stylesheet" href="' + '/assets/vendor/' + filePath.split('/').pop() + '"/>'; //jshint ignore:line
+            }
+          }
+        }
+      }
+    }))
+    .pipe(gulp.dest("src/_includes/"));
+});
+
+// Copy bower files to vendor directory
+gulp.task("bower:files", function (cb) {
+  var bowerDependencies = wiredep({exclude: bowerExcludes}),
+      bowerFiles = [];
+  if (bowerDependencies.js) {
+    bowerFiles = bowerFiles.concat(bowerDependencies.js);
+  }
+  if (bowerDependencies.css) {
+    bowerFiles = bowerFiles.concat(bowerDependencies.css);
+  }
+
+  gulp.src(bowerFiles)
+    .pipe(gulp.dest("src/assets/vendor"))
+    .pipe(gulp.dest("serve/assets/vendor"))
+    .pipe($.size({title: "bower assets"}));
+
+  return cb(null); // returns immediately
 });
 
 // Optimizes the images that exists
@@ -79,7 +128,7 @@ gulp.task("fonts", function () {
 gulp.task("copy", function () {
   return gulp.src(["serve/*.txt", "serve/*.xml"])
     .pipe(gulp.dest("site"))
-    .pipe($.size({ title: "xml & txt" }))
+    .pipe($.size({ title: "xml & txt" }));
 });
 
 // Optimizes all the CSS, HTML and concats the JS etc
@@ -233,9 +282,24 @@ gulp.task("serve:dev", ["styles", "jekyll:dev"], function () {
 // These tasks will look for files that change while serving and will auto-regenerate or
 // reload the website accordingly. Update or add other files you need to be watched.
 gulp.task("watch", function () {
-  gulp.watch(["src/**/*.md", "src/**/*.html", "src/**/*.xml", "src/**/*.txt", "src/**/*.js"], ["jekyll-rebuild"]);
-  gulp.watch(["serve/assets/stylesheets/*.css"], reload);
-  gulp.watch(["src/assets/scss/**/*.scss"], ["styles"]);
+  gulp.watch([
+    "src/**/*.md",
+    "src/**/*.html",
+    "src/**/*.xml",
+    "src/**/*.txt",
+    "src/**/*.js",
+    "src/**/*.rb",
+    "*.yml"
+  ], ["jekyll-rebuild"]);
+  gulp.watch([
+    "serve/assets/stylesheets/*.css"
+  ], reload);
+  gulp.watch([
+    "src/assets/scss/**/*.scss"
+  ], ["styles"]);
+  gulp.watch([
+    "bower.json"
+  ], ["bower"]);
 });
 
 // Serve the site after optimizations to see that everything looks fine
@@ -250,7 +314,9 @@ gulp.task("serve:prod", function () {
 });
 
 // Default task, run when just writing "gulp" in the terminal
-gulp.task("default", ["serve:dev", "watch"]);
+gulp.task("default", ["serve:dev"], function () {
+  gulp.start("watch");
+});
 
 // Checks your CSS, JS and Jekyll for errors
 gulp.task("check", ["jslint", "doctor"], function () {

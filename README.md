@@ -117,7 +117,12 @@ repositories there are some things you need to do:
 
 ### Bower
 
-**Currently not implemented**
+Bower dependencies are injected into the 2 jekyll includes ``bower_scripts.html`` and ``bower_styles.html``. So install a bower dependency and yet you have it autowired in your jekyll site.
+
+You can define ``bowerExcludes`` in the gulpfile. 
+
+**TODO**
+- SCSS currently not supported
 
 ## Roadmap
 

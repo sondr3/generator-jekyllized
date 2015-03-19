@@ -59,7 +59,7 @@ test/
 *.sublime-workspace
 *.sublime-projectcompletions
 
-app/_bower_components
+src/_bower_components
 
 # Output folders
 serve
