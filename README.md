@@ -2,7 +2,12 @@
 
 [![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
 
-### Work in progress! Still unfinished.
+### Development is happening on the [beta][beta] branch!
+
+Waiting for Jekyll 3.0 and Gulp 4.0 to land, take a look if you want to! It's
+also published on NPM under a 0.8-beta branch so you can start using it today,
+however be warned that Gulp 3.x and Gulp 4.0 does not play nice together right
+now!
 
 **Stylized and opinionated Jekyll development**
 
@@ -127,6 +132,7 @@ repositories there are some things you need to do:
 
 ### [Changelog][changelog]
 
+[beta]: https://github.com/sondr3/generator-jekyllized/tree/beta
 [jekyll]: https://jekyllrb.com
 [yeoman]: http://yeoman.io
 [yo]: https://github.com/yeoman/yo

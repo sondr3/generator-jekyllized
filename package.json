@@ -1,6 +1,6 @@
 {
   "name": "generator-jekyllized",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "description": "Jekyll workflow with Gulp, SASS, AutoPrefixer, asset optimization and cache busting and much more. Can you really want more?",
   "keywords": [
     "yeoman-generator",
