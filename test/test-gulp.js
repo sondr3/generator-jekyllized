@@ -58,20 +58,28 @@ describe("Jekyllized generator test for Gulp tasks without any uploading", funct
     tasks.assertTaskExists(this.jekyllized, "clean:prod", [], done);
   });
 
-  it("should contain jekyll:dev task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "jekyll:dev", [], done);
+  it("should contain jekyll:pure task", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "jekyll:pure", [], done);
   });
 
-  it("should contain jekyll-rebuild task with jekyll:dev included", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "jekyll-rebuild", ["jekyll:dev"], done);
+  it("should contain jekyll:dev task with bower included", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "jekyll:dev", ["bower"], done);
   });
 
-  it("should contain jekyll:prod task", function (done) {
-    tasks.assertTaskExists(this.jekyllized, "jekyll:prod", [], done);
+  it("should contain jekyll-rebuild task with jekyll:pure included", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "jekyll-rebuild", ["jekyll:pure"], done);
+  });
+
+  it("should contain jekyll:prod task with bower included", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "jekyll:prod", ["bower"], done);
   });
 
   it("should contain styles task", function (done) {
     tasks.assertTaskExists(this.jekyllized, "styles", [], done);
+  });
+
+  it("should contain bower task with bower:files included", function (done) {
+    tasks.assertTaskExists(this.jekyllized, "bower", ["bower:files"], done);
   });
 
   it("should contain images task", function (done) {
