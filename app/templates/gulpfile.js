@@ -30,7 +30,7 @@ gulp.task("clean:prod", del.bind(null, ["site"]));
 // This will build the site with the production settings
 gulp.task("jekyll:dev", $.shell.task("jekyll build"));
 gulp.task("jekyll-rebuild", ["jekyll:dev"], function () {
-  reload;
+  reload();
 });
 
 // Almost identical to the above task, but instead we load in the build configuration
