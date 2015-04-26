@@ -53,6 +53,7 @@
     "jshint-stylish": "^1.0.0",
     "mocha": "^2.2.1",
     "mocha-lcov-reporter": "0.0.2",
+    "trash": "^1.4.1",
     "yo": ">=1.4"
   },
   "engines": {

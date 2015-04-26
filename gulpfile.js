@@ -7,6 +7,7 @@ var jshint = require('gulp-jshint');
 var istanbul = require('gulp-istanbul');
 var plumber = require('gulp-plumber');
 var mocha = require('gulp-mocha');
+var trash = require('trash');
 var coveralls = require('gulp-coveralls');
 
 var handleErr = function(err) {
@@ -32,7 +33,7 @@ gulp.task('check', function() {
   .on('error', handleErr);
 });
 
-gulp.task('test', function(done) {
+gulp.task('istanbul', function(done) {
   return gulp.src([
     'app/index.js',
     'gulpfile.js'
@@ -50,11 +51,16 @@ gulp.task('test', function(done) {
   });
 });
 
+gulp.task('clean', function(done) {
+  trash(['test/temp']);
+  done();
+});
+
 gulp.task('coveralls', function() {
   if (!process.env.CI) { return; }
   return gulp.src(path.join(__dirname, 'coverage/lcov.info'))
     .pipe(coveralls());
 });
 
+gulp.task('test', gulp.series('clean', 'istanbul'));
 gulp.task('default', gulp.series('check', 'coveralls'));
-gulp.task('help', gulp.series('test', 'check', 'coveralls'));
