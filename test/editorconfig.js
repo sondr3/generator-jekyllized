@@ -11,8 +11,6 @@ describe('jekyllized:editorconfig', function() {
   });
 
   it('created .editorconfig', function() {
-    assert.file([
-      '.editorconfig'
-    ]);
+    assert.file('.editorconfig');
   });
 });

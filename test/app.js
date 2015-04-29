@@ -14,7 +14,9 @@ describe('jekyllized:app', function() {
     assert.file([
       '.editorconfig',
       '.jshintrc',
-      '.jscsrc'
+      '.jscsrc',
+      '.gitignore',
+      '.gitattributes'
     ]);
   });
 });

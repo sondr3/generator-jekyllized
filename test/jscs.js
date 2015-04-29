@@ -11,8 +11,6 @@ describe('jekyllized:jscs', function() {
   });
 
   it('creates .jscsrc', function() {
-    assert.file([
-      '.jscsrc'
-    ]);
+    assert.file('.jscsrc');
   });
 });

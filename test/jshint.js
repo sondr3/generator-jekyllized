@@ -11,8 +11,6 @@ describe('jekyllized:jshint', function() {
   });
 
   it('creates .jshintrc', function() {
-    assert.file([
-      '.jshintrc'
-    ]);
+    assert.file('.jshintrc');
   });
 });
