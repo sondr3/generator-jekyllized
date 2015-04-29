@@ -20,5 +20,9 @@ module.exports = generators.Base.extend({
     this.composeWith('jekyllized:git', {}, {
       local: require.resolve('../git')
     });
+
+    this.composeWith('jekyllized:package', {}, {
+      local: require.resolve('../package')
+    });
   }
 });

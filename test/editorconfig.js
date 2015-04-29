@@ -10,7 +10,7 @@ describe('jekyllized:editorconfig', function() {
       .on('end', done);
   });
 
-  it('created .editorconfig', function() {
+  it('creates .editorconfig', function() {
     assert.file('.editorconfig');
   });
 });
