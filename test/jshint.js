@@ -4,13 +4,13 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-generator').test;
 
-describe('jekyllized:jshint', function () {
-  before(function (done) {
+describe('jekyllized:jshint', function() {
+  before(function(done) {
     helpers.run(path.join(__dirname, '../generators/jshint'))
       .on('end', done);
   });
 
-  it('creates .jshintrc', function () {
+  it('creates .jshintrc', function() {
     assert.file([
       '.jshintrc'
     ]);

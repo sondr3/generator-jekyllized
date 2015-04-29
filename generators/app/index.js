@@ -4,7 +4,7 @@ var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
 
-  initializing: function () {
+  initializing: function() {
     this.composeWith('jekyllized:editorconfig', {}, {
       local: require.resolve('../editorconfig')
     });
