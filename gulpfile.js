@@ -18,13 +18,8 @@ var handleErr = function(err) {
 gulp.task('check', function() {
   return gulp.src([
     'test/*.js',
-    'app/index.js',
-    'gulpfile.js',
-    'test/temp/test-gulp/gulpfile.js',
-    'test/temp/test-jekyll/gulpfile.js',
-    'test/temp/test-aws/gulpfile.js',
-    'test/temp/test-rsync/gulpfile.js',
-    'test/temp/test-pages/gulpfile.js'
+    'generators/app/index.js',
+    'gulpfile.js'
   ])
   .pipe(jscs())
   .pipe(jshint('.jshintrc'))
@@ -35,7 +30,7 @@ gulp.task('check', function() {
 
 gulp.task('istanbul', function(done) {
   return gulp.src([
-    'app/index.js',
+    'generators/app/index.js',
     'gulpfile.js'
   ])
  .pipe(istanbul())

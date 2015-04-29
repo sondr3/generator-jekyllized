@@ -1,8 +1,0 @@
-source "http://rubygems.org"
-
-gem 'jekyll'
-gem 'redcarpet'
-
-# jekyll plugins
-gem 'jekyll-archives', :git => 'https://github.com/jekyll/jekyll-archives'
-gem 'jekyll-sitemap'
