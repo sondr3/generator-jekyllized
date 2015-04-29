@@ -45,7 +45,6 @@ describe('jekyllized:package', function() {
       };
 
       helpers.run(path.join(__dirname, '../generators/package'))
-        .inDir(path.join(__dirname, 'tmp/package'))
         .withPrompts({
           projectName: 'jekyllized'
         })
