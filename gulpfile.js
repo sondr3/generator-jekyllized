@@ -18,7 +18,7 @@ var handleErr = function(err) {
 gulp.task('check', function() {
   return gulp.src([
     'test/*.js',
-    'generators/app/index.js',
+    'generators/**/index.js',
     'gulpfile.js'
   ])
   .pipe(jscs())
@@ -30,7 +30,7 @@ gulp.task('check', function() {
 
 gulp.task('istanbul', function(done) {
   return gulp.src([
-    'generators/app/index.js',
+    'generators/**/index.js',
     'gulpfile.js'
   ])
  .pipe(istanbul())
