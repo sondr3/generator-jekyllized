@@ -27,7 +27,7 @@
     "codeclimate-test-reporter": "0.0.4",
     "coveralls": "^2.11.2",
     "generator-mocha": ">=0.1.6",
-    "gulp": "git://github.com:gulpjs/gulp.git#4.0",
+    "gulp": "git://github.com/gulpjs/gulp#4.0",
     "gulp-coveralls": "^0.1.3",
     "gulp-istanbul": "^0.7.0",
     "gulp-jscs": "^1.4.0",
