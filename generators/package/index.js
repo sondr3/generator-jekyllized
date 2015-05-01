@@ -28,6 +28,7 @@ module.exports = generators.Base.extend({
 
       this.prompt(prompts, function(props) {
         this.props = _.extend(this.props, props);
+        this.config.set(this.props);
 
         done();
       }.bind(this));
@@ -52,6 +53,7 @@ module.exports = generators.Base.extend({
 
       this.prompt(prompts, function(props) {
         this.props = _.extend(this.props, props);
+        this.config.set(this.props);
 
         done();
       }.bind(this));
