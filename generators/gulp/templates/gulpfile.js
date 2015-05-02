@@ -1,0 +1,11 @@
+'use strict';
+
+// THIS IS A TEMPORARY FILE
+// BECAUSE THERE IS JUST SO MANY
+// WRONG VARIABLES IN THE OTHER ONE
+//
+// MAKES TESTING A GODDAMN NIGHTMARE
+
+function hello() {
+  console.log('Yay');
+}
