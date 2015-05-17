@@ -5,34 +5,31 @@ var chalk = require('chalk');
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
-  prompting: function() {
-    var done = this.async();
+  constructor: function() {
+    generators.Base.apply(this, arguments);
 
-    var prompts = [{
-      type: 'list',
-      name: 'uploading',
-      message: 'How would you like to host/upload your site?',
-      choices: [{
-        name: 'Amazon S3',
-        value: 'amazonS3'
-      }, {
-        name: 'Rsync',
-        value: 'rsync'
-      }, {
-        name: 'GitHub Pages',
-        value: 'ghpages'
-      }, {
-        name: 'None',
-        value: 'noUpload'
-      }]
-    }];
+    this.option('amazonS3', {
+      type: Boolean,
+      name: 'amazonS3',
+      desc: 'Do you want to upload to Amazon S3?'
+    });
 
-    this.prompt(prompts, function(props) {
-      this.props = _.extend(this.props, props);
-      this.config.set(this.props);
+    this.option('rsync', {
+      type: Boolean,
+      name: 'rsync',
+      desc: 'Do you want to upload to Rsync?'
+    });
 
-      done();
-    }.bind(this));
+    this.option('ghpages', {
+      type: Boolean,
+      name: 'ghPages',
+      desc: 'Do you want to upload to GitHub Pages?'
+    });
+    this.option('noUpload', {
+      type: Boolean,
+      name: 'noUpload',
+      desc: 'No uploading'
+    });
   },
 
   writing: {
@@ -72,15 +69,48 @@ module.exports = generators.Base.extend({
         'trash': '^1.4.0'
       });
 
+      if (this.options.amazonS3) {
+        pkg.devDependencies['gulp-awspublish'] = '^0.1.0';
+        pkg.devDependencies['gulp-awspublish-router'] = '^0.1.0';
+        pkg.devDependencies['concurrent-transform'] = '^1.0.0';
+      }
+
+      if (this.options.rsync) {
+        pkg.devDependencies['gulp-rsync'] = '^0.0.2';
+      }
+
+      if (this.options.ghPages) {
+        pkg.devDependencies['gulp-gh-pages'] = '^0.4.0';
+      }
+
       this.fs.writeJSON(this.destinationPath('package.json'), pkg);
     },
 
     gulpfile: function() {
-
       this.fs.copyTpl(
         this.templatePath('gulpfile.js'),
-        this.destinationPath('gulpfile.js')
+        this.destinationPath('gulpfile.js'),
+        {
+          amazonS3: this.options.amazonS3,
+          rsync: this.options.rsync,
+          ghPages: this.options.ghPages,
+          noUpload: this.options.noUpload
+        }
       );
+
+      if (this.options.amazonS3) {
+        this.fs.copyTpl(
+          this.templatePath('aws-credentials.json'),
+          this.destinationPath('aws-credentials.json')
+        );
+      }
+
+      if (this.options.rsync) {
+        this.fs.copyTpl(
+          this.templatePath('rsync-credentials.json'),
+          this.destinationPath('rsync-credentials.json')
+        );
+      }
     }
   }
 });

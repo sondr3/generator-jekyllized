@@ -1,11 +1,11 @@
 # .gitignore for jekyllized projects
 # Folders that shouldn't be tracked
 node_modules/
-temp/
 coverage/
 .envrc
 .coveralls.yml
-test/test-*/
+test/tmp/
+npm-shrinkwrap.json
 
 # Ignore hidden folders
 # This takes care of .tmp, .sass-cache, and many others

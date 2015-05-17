@@ -18,6 +18,7 @@ var handleErr = function(err) {
 gulp.task('check', function() {
   return gulp.src([
     'test/*.js',
+    'test/tmp/**/*.js',
     'generators/**/index.js',
     'gulpfile.js'
   ])
@@ -47,7 +48,7 @@ gulp.task('istanbul', function(done) {
 });
 
 gulp.task('clean', function(done) {
-  trash(['test/temp']);
+  trash(['test/tmp']);
   done();
 });
 
@@ -57,5 +58,4 @@ gulp.task('coveralls', function() {
     .pipe(coveralls());
 });
 
-gulp.task('test', gulp.series('clean', 'istanbul'));
 gulp.task('default', gulp.series('check', 'coveralls'));

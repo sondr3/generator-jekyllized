@@ -14,14 +14,14 @@
   "license": "MIT",
   "main": "app/index.js",
   "scripts": {
-    "test": "gulp test && gulp"
+    "test": "gulp istanbul && gulp"
   },
   "dependencies": {
     "chalk": "^1.0.0",
     "globule": "~0.2.0",
     "lodash": "^3.8.0",
     "shelljs": "^0.4.0",
-    "yeoman-generator": "^0.19.0",
+    "yeoman-generator": "^0.20.1",
     "yosay": "^1.0.2"
   },
   "devDependencies": {
