@@ -8,9 +8,10 @@ describe('jekyllized:gulp', function() {
   describe('without any uploading', function() {
     before(function(done) {
       this.answers = {
-        uploading: 'noUploadg'
+        uploading: 'noUpload'
       };
       helpers.run(path.join(__dirname, '../generators/gulp'))
+        .inDir(path.join(__dirname, 'tmp/gulp'))
         .withPrompts(this.answers)
         .on('end', done);
     });

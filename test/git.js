@@ -6,7 +6,7 @@ var helpers = require('yeoman-generator').test;
 
 describe('jekyllized:git', function() {
   before(function(done) {
-    helpers.run(path.join(__dirname, '../generators/git'))
+    helpers.run(path.join(__dirname, '../generators/boilerplate'))
       .on('end', done);
   });
 

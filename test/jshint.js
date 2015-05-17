@@ -6,7 +6,7 @@ var helpers = require('yeoman-generator').test;
 
 describe('jekyllized:jshint', function() {
   before(function(done) {
-    helpers.run(path.join(__dirname, '../generators/jshint'))
+    helpers.run(path.join(__dirname, '../generators/boilerplate'))
       .on('end', done);
   });
 

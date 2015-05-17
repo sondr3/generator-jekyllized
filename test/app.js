@@ -43,7 +43,8 @@ describe('jekyllized:app', function() {
         '.jscsrc',
         '.gitignore',
         '.gitattributes',
-        'package.json'
+        'package.json',
+        'gulpfile.js'
       ]);
     });
 

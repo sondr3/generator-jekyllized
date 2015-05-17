@@ -61,20 +61,8 @@ module.exports = generators.Base.extend({
   },
 
   default: function() {
-    this.composeWith('jekyllized:editorconfig', {}, {
-      local: require.resolve('../editorconfig')
-    });
-
-    this.composeWith('jekyllized:jshint', {}, {
-      local: require.resolve('../jshint')
-    });
-
-    this.composeWith('jekyllized:jscs', {}, {
-      local: require.resolve('../jscs')
-    });
-
-    this.composeWith('jekyllized:git', {}, {
-      local: require.resolve('../git')
+    this.composeWith('jekyllized:boilerplate', {}, {
+      local: require.resolve('../boilerplate')
     });
 
     this.composeWith('jekyllized:gulp', {}, {

@@ -6,7 +6,7 @@ var helpers = require('yeoman-generator').test;
 
 describe('jekyllized:editorconfig', function() {
   before(function(done) {
-    helpers.run(path.join(__dirname, '../generators/editorconfig'))
+    helpers.run(path.join(__dirname, '../generators/boilerplate'))
       .on('end', done);
   });
 
