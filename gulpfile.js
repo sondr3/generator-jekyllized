@@ -40,7 +40,7 @@ gulp.task('istanbul', function(done) {
     gulp.src(['test/*.js'])
       .pipe(mocha({reporter: 'spec'}))
       .pipe(istanbul.writeReports())
-      .pipe(istanbul.enforceThresholds({thresholds: {global: 90}}))
+      .pipe(istanbul.enforceThresholds({thresholds: {global: 70}}))
       .on('end', done);
   });
 });

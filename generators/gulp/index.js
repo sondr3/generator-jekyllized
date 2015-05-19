@@ -8,27 +8,12 @@ module.exports = generators.Base.extend({
   constructor: function() {
     generators.Base.apply(this, arguments);
 
-    this.option('amazonS3', {
-      type: Boolean,
-      name: 'amazonS3',
-      desc: 'Do you want to upload to Amazon S3?'
-    });
-
-    this.option('rsync', {
-      type: Boolean,
-      name: 'rsync',
-      desc: 'Do you want to upload to Rsync?'
-    });
-
-    this.option('ghpages', {
-      type: Boolean,
-      name: 'ghPages',
-      desc: 'Do you want to upload to GitHub Pages?'
-    });
-    this.option('noUpload', {
-      type: Boolean,
-      name: 'noUpload',
-      desc: 'No uploading'
+    this.option('uploading', {
+      required: true,
+      name: 'uploading',
+      type: 'list',
+      message: 'How do you want to upload your site?',
+      choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
     });
   },
 
@@ -69,17 +54,17 @@ module.exports = generators.Base.extend({
         'trash': '^1.4.0'
       });
 
-      if (this.options.amazonS3) {
+      if (this.options.uploading === 'Amazon S3') {
         pkg.devDependencies['gulp-awspublish'] = '^0.1.0';
         pkg.devDependencies['gulp-awspublish-router'] = '^0.1.0';
         pkg.devDependencies['concurrent-transform'] = '^1.0.0';
       }
 
-      if (this.options.rsync) {
+      if (this.options.uploading === 'Rsync') {
         pkg.devDependencies['gulp-rsync'] = '^0.0.2';
       }
 
-      if (this.options.ghPages) {
+      if (this.options.uploading === 'Github Pages') {
         pkg.devDependencies['gulp-gh-pages'] = '^0.4.0';
       }
 
@@ -91,21 +76,21 @@ module.exports = generators.Base.extend({
         this.templatePath('gulpfile.js'),
         this.destinationPath('gulpfile.js'),
         {
-          amazonS3: this.options.amazonS3,
-          rsync: this.options.rsync,
-          ghPages: this.options.ghPages,
-          noUpload: this.options.noUpload
+          amazonS3: this.options.uploading === 'Amazon S3',
+          rsync: this.options.uploading === 'Rsync',
+          ghpages: this.options.uploading === 'Github Pages',
+          noUpload: this.options.uploading === 'None'
         }
       );
 
-      if (this.options.amazonS3) {
+      if (this.options.uploading === 'Amazon S3') {
         this.fs.copyTpl(
           this.templatePath('aws-credentials.json'),
           this.destinationPath('aws-credentials.json')
         );
       }
 
-      if (this.options.rsync) {
+      if (this.options.uploading === 'Rsync') {
         this.fs.copyTpl(
           this.templatePath('rsync-credentials.json'),
           this.destinationPath('rsync-credentials.json')

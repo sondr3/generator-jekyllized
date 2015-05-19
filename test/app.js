@@ -29,9 +29,15 @@ describe('jekyllized:app', function() {
         projectDescription: 'Test site for Jekyllized',
         projectURL: 'www.test.com',
         authorName: 'Ola Nordmann',
-        authorEmail: 'ola.nordmann@gmail.com'
+        authorEmail: 'ola.nordmann@gmail.com',
+        authorBio: 'A norwegian dude',
+        authorTwitter: '0lanordmann',
+        uploading: 'None',
+        jekyllPermalinks: 'pretty',
+        jekyllPaginate: '10'
       };
       helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(__dirname, 'tmp/app'))
         .withPrompts(this.answers)
         .on('end', done);
     });
@@ -44,7 +50,10 @@ describe('jekyllized:app', function() {
         '.gitignore',
         '.gitattributes',
         'package.json',
-        'gulpfile.js'
+        'gulpfile.js',
+        '_config.yml',
+        '_config.build.yml',
+        'Gemfile'
       ]);
     });
 
@@ -82,7 +91,7 @@ describe('jekyllized:app', function() {
         .on('end', done);
     });
 
-    it('creates package.json', function() {
+    it('extends package.json', function() {
       var pkg = _.extend({name: 'jekyllized'}, this.pkg);
       assertJSONFileContains('package.json', pkg);
     });

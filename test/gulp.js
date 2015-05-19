@@ -9,7 +9,7 @@ describe('jekyllized:gulp', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/gulp'))
         .inDir(path.join(__dirname, 'tmp/gulp'))
-        .withOptions({noUpload: true})
+        .withOptions({uploading: 'None'})
         .on('end', done);
     });
 
@@ -89,7 +89,7 @@ describe('jekyllized:gulp', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/gulp'))
         .inDir(path.join(__dirname, 'tmp/gulp-aws'))
-        .withOptions({amazonS3: true})
+        .withOptions({uploading: 'Amazon S3'})
         .on('end', done);
     });
 
@@ -143,7 +143,7 @@ describe('jekyllized:gulp', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/gulp'))
         .inDir(path.join(__dirname, 'tmp/gulp-rsync'))
-        .withOptions({rsync: true})
+        .withOptions({uploading: 'Rsync'})
         .on('end', done);
     });
 
@@ -193,7 +193,7 @@ describe('jekyllized:gulp', function() {
     before(function(done) {
       helpers.run(path.join(__dirname, '../generators/gulp'))
         .inDir(path.join(__dirname, 'tmp/gulp-pages'))
-        .withOptions({ghPages: true})
+        .withOptions({uploading: 'Github Pages'})
         .on('end', done);
     });
 

@@ -11,35 +11,72 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function() {
+    var self = this;
     var done = this.async();
 
     var prompts = [{
       name: 'projectName',
-      message: 'What is the name of your project?'
+      message: 'What is the name of your project?',
+      store: true
     }, {
       name: 'projectDescription',
-      message: 'Describe your project'
+      message: 'Describe your project',
+      store: true
     }, {
       name: 'projectURL',
       message: chalk.red('If you are using GHPages use username.github.io') +
-        '\nWhat will the URL for your project be?'
+        '\nWhat will the URL for your project be?',
+      store: true
     }, {
       name: 'authorName',
-      message: 'What\'s your name?'
+      message: 'What\'s your name?',
+      store: true
     }, {
       name: 'authorEmail',
-      message: 'What\'s your email?'
+      message: 'What\'s your email?',
+      store: true
     }, {
       name: 'authorBio',
-      message: 'Write a short description about yourself'
+      message: 'Write a short description about yourself',
+      store: true
     }, {
       name: 'authorTwitter',
-      message: 'Your Twitter handle'
+      message: 'Your Twitter handle',
+      store: true,
+    }, {
+      name: 'uploading',
+      type: 'list',
+      message: 'How do you want to upload your site?',
+      choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
+      store: true
+    }, {
+      name: 'jekyllPermalinks',
+      type: 'list',
+      message: 'Permalink style' + (chalk.red(
+                     '\n  pretty: /:year/:month/:day/:title/' +
+                     '\n  date:   /:year/:month/:day/:title.html' +
+                     '\n  none:   /:categories/:title.html')) + '\n',
+      choices: ['pretty', 'date', 'none'],
+      store: true
+    }, {
+      name: 'jekyllPaginate',
+      message: 'How many posts do you want to show on your front page?' +
+        chalk.red('\nMust be a number or all'),
+      store: true,
+      default: 10,
+      validate: function(input) {
+        if (/^[0-9]*$/.test(input)) {
+          return true;
+        }
+        if (/^all*$/i.test(input)) {
+          return true;
+        }
+        return 'Must be a number or all';
+      }
     }];
 
     this.prompt(prompts, function(props) {
       this.props = _.extend(this.props, props);
-      this.config.set(this.props);
 
       done();
     }.bind(this));
@@ -65,8 +102,32 @@ module.exports = generators.Base.extend({
       local: require.resolve('../boilerplate')
     });
 
-    this.composeWith('jekyllized:gulp', {}, {
+    this.composeWith('jekyllized:gulp', {
+      options: {
+        uploading: this.props.uploading
+      }
+    }, {
       local: require.resolve('../gulp')
     });
+
+    this.composeWith('jekyllized:jekyll', {
+      options: {
+        projectName: this.props.projectName,
+        projectDescription: this.props.projectDescription,
+        projectURL: this.props.projectURL,
+        authorName: this.props.authorName,
+        authorEmail: this.props.authorEmail,
+        authorBio: this.props.authorBio,
+        authorTwitter: this.props.authorTwitter,
+        jekyllPermalinks: this.props.jekyllPermalinks,
+        jekyllPaginate: this.props.jekyllPaginate
+      }
+    }, {
+      local: require.resolve('../jekyll')
+    });
+  },
+
+  installing: function() {
+    this.npmInstall();
   }
 });

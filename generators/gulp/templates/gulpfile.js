@@ -220,7 +220,7 @@ function deploy() {
     }));
 }
 
-<% } -%><% if (ghPages) { -%>
+<% } -%><% if (ghpages) { -%>
 // Task to upload your site to your personal GH Pages repo
 function deploy() {
   // Deploys your optimized site, you can change the settings in the html task if you want to
