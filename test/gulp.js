@@ -122,10 +122,16 @@ describe('jekyllized:gulp', function() {
 
     it('contains deploy function', function() {
       assert.fileContent('gulpfile.js', 'function deploy');
+      assert.fileContent('gulpfile.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
     });
 
     it('contains deploy task', function() {
       assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+    });
+
+    it('does not contain wrong uploading tasks', function() {
+      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site via Rsync to your server/);
+      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
     it('creates credentials file', function() {
@@ -166,10 +172,16 @@ describe('jekyllized:gulp', function() {
 
     it('contains deploy function', function() {
       assert.fileContent('gulpfile.js', 'function deploy');
+      assert.fileContent('gulpfile.js', /\/\/ Task to upload your site via Rsync to your server/);
     });
 
     it('contains deploy task', function() {
       assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+    });
+
+    it('does not contain the wrong uploading task', function() {
+      assert.noFileContent('gulpfile.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
+      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
     it('creates credentials file', function() {
@@ -210,10 +222,16 @@ describe('jekyllized:gulp', function() {
 
     it('contains deploy function', function() {
       assert.fileContent('gulpfile.js', 'function deploy');
+      assert.fileContent('gulpfile.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
     it('contains deploy task', function() {
       assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+    });
+
+    it('does not contain the wrong uploadgin task', function() {
+      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site via Rsync to your server/);
+      assert.noFileContent('gulpfile.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
     });
   });
 });

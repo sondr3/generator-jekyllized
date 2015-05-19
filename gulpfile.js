@@ -34,15 +34,13 @@ gulp.task('istanbul', function(done) {
     'generators/**/index.js',
     'gulpfile.js'
   ])
- .pipe(istanbul())
+  .pipe(istanbul())
   .pipe(istanbul.hookRequire())
   .on('finish', function() {
     gulp.src(['test/*.js'])
-      .pipe(plumber())
-      .pipe(mocha({
-        reporter: 'spec'
-      }))
+      .pipe(mocha({reporter: 'spec'}))
       .pipe(istanbul.writeReports())
+      .pipe(istanbul.enforceThresholds({thresholds: {global: 90}}))
       .on('end', done);
   });
 });
