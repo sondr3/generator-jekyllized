@@ -20,7 +20,7 @@
     "chalk": "^1.0.0",
     "globule": "~0.2.0",
     "lodash": "^3.8.0",
-    "shelljs": "^0.4.0",
+    "shelljs": "^0.5.0",
     "yeoman-generator": "^0.20.1",
     "yosay": "^1.0.2"
   },
@@ -30,7 +30,7 @@
     "generator-mocha": "^0.1.7",
     "gulp": "git://github.com/gulpjs/gulp#4.0",
     "gulp-coveralls": "^0.1.4",
-    "gulp-istanbul": "^0.8.1",
+    "gulp-istanbul": "^0.9.0",
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.10.0",

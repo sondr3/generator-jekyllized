@@ -140,8 +140,8 @@ function optimize() {
     .pipe(gulp.dest(config.assets.dest))
     .pipe($.size({title: 'optimizations'}));
 }
-<% if (amazonS3) { -%>
 
+<% if (amazonS3) { -%>
 // Task to deploy your site to Amazon S3 and Cloudfront
 function deploy() {
   // Generate the needed credentials (bucket, secret key etc) from a 'hidden' JSON file
@@ -198,8 +198,8 @@ function deploy() {
     // And update the default root object
     .pipe($.cloudfront(credentials));
 }
-<% } -%><% if (rsync) { -%>
 
+<% } -%><% if (rsync) { -%>
 // Task to upload your site via Rsync to your server
 function deploy() {
   // Load in the variables needed for our Rsync synchronization
@@ -219,8 +219,8 @@ function deploy() {
       progress: true
     }));
 }
-<% } -%><% if (ghPages) { -%>
 
+<% } -%><% if (ghPages) { -%>
 // Task to upload your site to your personal GH Pages repo
 function deploy() {
   // Deploys your optimized site, you can change the settings in the html task if you want to
@@ -231,8 +231,9 @@ function deploy() {
       branch: 'master'
     }));
 }
-<% } -%>
 
+<% } -%>
+<% if (noUpload) { -%><% } -%>
 // Run JS Lint against your JS
 function jslint() {
   gulp.src(config.javascript.dest)

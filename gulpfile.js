@@ -58,4 +58,5 @@ gulp.task('coveralls', function() {
     .pipe(coveralls());
 });
 
+gulp.task('test', gulp.series('clean', 'istanbul'));
 gulp.task('default', gulp.series('check', 'coveralls'));
