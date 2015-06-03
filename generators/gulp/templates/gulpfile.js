@@ -259,7 +259,7 @@ function serve() {
   });
 
   // Watch various files for changes and do the needful
-  gulp.watch(config.watch.content, [jekyllDev, reload]);
+  gulp.watch(config.watch.content, gulp.series(jekyllDev, reload));
   gulp.watch(config.watch.javascript, javascript);
   gulp.watch(config.watch.scss, styles);
   gulp.watch(config.watch.images, reload);
