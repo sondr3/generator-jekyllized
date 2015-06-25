@@ -13,7 +13,6 @@
   "author": "Sondre Nilsen",
   "repository": "sondr3/generator-jekyllized",
   "license": "MIT",
-  "main": "app/index.js",
   "scripts": {
     "test": "gulp istanbul && gulp"
   },
@@ -23,31 +22,31 @@
   ],
   "dependencies": {
     "chalk": "^1.0.0",
-    "globule": "~0.2.0",
-    "lodash": "^3.8.0",
-    "shelljs": "^0.5.0",
+    "globule": "^0.2.0",
+    "lodash": "^3.9.3",
+    "shelljs": "^0.5.1",
     "yeoman-generator": "^0.20.1",
-    "yosay": "^1.0.2"
+    "yosay": "^1.0.4"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "0.0.4",
+    "codeclimate-test-reporter": "^0.0.4",
     "coveralls": "^2.11.2",
-    "generator-mocha": "^0.1.7",
-    "gulp": "git://github.com/gulpjs/gulp#4.0",
+    "generator-mocha": "^0.1.8",
+    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-coveralls": "^0.1.4",
-    "gulp-istanbul": "^0.9.0",
+    "gulp-istanbul": "^0.10.0",
     "gulp-jscs": "^1.6.0",
-    "gulp-jshint": "^1.10.0",
-    "gulp-load-plugins": "^0.10.0",
-    "gulp-mocha": "^2.0.1",
-    "gulp-plumber": "^1.0.0",
-    "istanbul": "^0.3.13",
-    "jshint": "^2.7.0",
-    "jshint-stylish": "^1.0.0",
-    "mocha": "^2.2.4",
-    "mocha-lcov-reporter": "0.0.2",
+    "gulp-jshint": "^1.11.0",
+    "gulp-load-plugins": "^1.0.0-rc.1",
+    "gulp-mocha": "^2.1.2",
+    "gulp-plumber": "^1.0.1",
+    "istanbul": "^0.3.16",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.0.1",
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "^0.0.2",
     "trash": "^1.4.1",
     "yeoman-assert": "^2.0.0",
-    "yo": ">=1.4"
+    "yo": "^1.4.7"
   }
 }

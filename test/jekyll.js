@@ -71,4 +71,54 @@ describe('jekyllized:jekyll', function() {
       assert.fileContent(expected);
     });
   });
+
+  describe('different permalink settings', function() {
+    describe('pretty permalinks', function() {
+      before(function(done) {
+        this.options = {
+          jekyllPermalinks: 'pretty'
+        };
+        helpers.run(path.join(__dirname, '../generators/jekyll'))
+          .inDir(path.join(__dirname, 'tmp/jekyll-pretty'))
+          .withOptions(this.options)
+          .on('end', done);
+      });
+
+      it('sets pretty permalinks', function() {
+        assert.fileContent('_config.yml', 'permalink: pretty');
+      });
+    });
+
+    describe('date permalinks', function() {
+      before(function(done) {
+        this.options = {
+          jekyllPermalinks: 'date'
+        };
+        helpers.run(path.join(__dirname, '../generators/jekyll'))
+          .inDir(path.join(__dirname, 'tmp/jekyll-date'))
+          .withOptions(this.options)
+          .on('end', done);
+      });
+
+      it('sets date permalinks', function() {
+        assert.fileContent('_config.yml', 'permalink: date');
+      });
+    });
+
+    describe('"none" permalinks', function() {
+      before(function(done) {
+        this.options = {
+          jekyllPermalinks: 'none'
+        };
+        helpers.run(path.join(__dirname, '../generators/jekyll'))
+          .inDir(path.join(__dirname, 'tmp/jekyll-none'))
+          .withOptions(this.options)
+          .on('end', done);
+      });
+
+      it('sets "none" permalinks', function() {
+        assert.fileContent('_config.yml', 'permalink: none');
+      });
+    });
+  });
 });
