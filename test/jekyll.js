@@ -14,9 +14,7 @@ describe('jekyllized:jekyll', function() {
         authorName: 'Ola Nordmann',
         authorEmail: 'ola.nordmann@email.com',
         authorBio: 'I am a tester for tests',
-        authorTwitter: '0lanordmann',
-        jekyllPermalinks: 'pretty',
-        jekyllPaginate: '10'
+        authorTwitter: '0lanordmann'
       };
       helpers.run(path.join(__dirname, '../generators/jekyll'))
         .inDir(path.join(__dirname, 'tmp/jekyll'))

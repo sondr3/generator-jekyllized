@@ -11,18 +11,6 @@ module.exports = generators.Base.extend({
   constructor: function() {
     generators.Base.apply(this, arguments);
 
-    var dependenciesInstalled = ['bundle', 'ruby'].every(function(depend) {
-      return shelljs.which(depend);
-    });
-
-    if (!dependenciesInstalled) {
-      this.log('MISSING DEPENDENCIES:' +
-        '\nEither ' + chalk.white('Ruby') + ' or ' + chalk.white('Bundler') +
-        ' is not installed or missing from $PATH.' +
-        '\nMake sure that they are either installed or added to $PATH.');
-      shelljs.exit(1);
-    }
-
     this.option('projectName', {
       type: String,
       required: true,
@@ -65,16 +53,10 @@ module.exports = generators.Base.extend({
       desc: 'Author twitter'
     });
 
-    this.option('jekyllPermalink', {
+    this.option('jekyllPermalinks', {
       type: String,
       required: true,
       desc: 'Jekyll permalinks'
-    });
-
-    this.option('jekyllPaginate', {
-      type: String,
-      required: true,
-      desc: 'Jekyll paginate'
     });
   },
 
@@ -95,8 +77,7 @@ module.exports = generators.Base.extend({
         authorEmail: this.options.authorEmail,
         authorBio: this.options.authorBio,
         authorTwitter: this.options.authorTwitter,
-        jekyllPermalinks: this.options.jekyllPermalinks,
-        jekyllPaginate: this.options.jekyllPaginate
+        jekyllPermalinks: this.options.jekyllPermalinks
       }
     );
 

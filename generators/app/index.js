@@ -58,21 +58,6 @@ module.exports = generators.Base.extend({
                      '\n  none:   /:categories/:title.html')) + '\n',
       choices: ['pretty', 'date', 'none'],
       store: true
-    }, {
-      name: 'jekyllPaginate',
-      message: 'How many posts do you want to show on your front page?' +
-        chalk.red('\nMust be a number or all'),
-      store: true,
-      default: 10,
-      validate: function(input) {
-        if (/^[0-9]*$/.test(input)) {
-          return true;
-        }
-        if (/^all*$/i.test(input)) {
-          return true;
-        }
-        return 'Must be a number or all';
-      }
     }];
 
     this.prompt(prompts, function(props) {
@@ -119,8 +104,7 @@ module.exports = generators.Base.extend({
         authorEmail: this.props.authorEmail,
         authorBio: this.props.authorBio,
         authorTwitter: this.props.authorTwitter,
-        jekyllPermalinks: this.props.jekyllPermalinks,
-        jekyllPaginate: this.props.jekyllPaginate
+        jekyllPermalinks: this.props.jekyllPermalinks
       }
     }, {
       local: require.resolve('../jekyll')
