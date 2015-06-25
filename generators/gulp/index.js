@@ -23,49 +23,49 @@ module.exports = generators.Base.extend({
 
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
-        'browser-sync': '^1.5.7',
+        'browser-sync': '^2.7.12',
         'del': '^1.1.1',
-        'gulp': 'git://github.com/gulpjs/gulp#4.0',
+        'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
         'gulp-autoprefixer': '^2.0.0',
         'gulp-cache': '~0.2.4',
         'gulp-cached': '^1.0.1',
         'gulp-changed': '^1.0.0',
         'gulp-filter': '^2.0.0',
         'gulp-group-concat': '^1.1.4',
-        'gulp-gzip': '0.0.8',
+        'gulp-gzip': '^1.1.0',
         'gulp-htmlmin': '^1.0.0',
         'gulp-if': '^1.2.4',
         'gulp-imagemin': '^2.1.0',
         'gulp-jshint': '^1.8.5',
-        'gulp-load-plugins': '^0.8.0',
-        'gulp-minify-css': '^0.4.4',
-        'gulp-rev-all': '^0.7.5',
-        'gulp-rev-replace': '^0.3.1',
-        'gulp-sass': '^1.0.0',
-        'gulp-shell': '^0.2.9',
+        'gulp-load-plugins': '^0.10.0',
+        'gulp-minify-css': '^1.2.0',
+        'gulp-rev-all': '^0.8.21',
+        'gulp-rev-replace': '^0.4.2',
+        'gulp-sass': '^2.0.2',
+        'gulp-shell': '^0.4.2',
         'gulp-size': '^1.1.0',
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^1.1.0',
         'gulp-uncss': '^1.0.0',
         'gulp-useref': '^1.0.2',
-        'jshint-stylish': '^1.0.0',
+        'jshint-stylish': '^2.0.1',
         'merge-stream': '^0.1.6',
-        'shelljs': '^0.3.0',
+        'shelljs': '^0.5.1',
         'trash': '^1.4.0'
       });
 
       if (this.options.uploading === 'Amazon S3') {
-        pkg.devDependencies['gulp-awspublish'] = '^0.1.0';
+        pkg.devDependencies['gulp-awspublish'] = '^2.0.0';
         pkg.devDependencies['gulp-awspublish-router'] = '^0.1.0';
         pkg.devDependencies['concurrent-transform'] = '^1.0.0';
       }
 
       if (this.options.uploading === 'Rsync') {
-        pkg.devDependencies['gulp-rsync'] = '^0.0.2';
+        pkg.devDependencies['gulp-rsync'] = '^0.0.5';
       }
 
       if (this.options.uploading === 'Github Pages') {
-        pkg.devDependencies['gulp-gh-pages'] = '^0.4.0';
+        pkg.devDependencies['gulp-gh-pages'] = '^0.5.2';
       }
 
       this.fs.writeJSON(this.destinationPath('package.json'), pkg);

@@ -5,7 +5,6 @@ var chalk = require('chalk');
 var generators = require('yeoman-generator');
 var path = require('path');
 var yosay = require('yosay');
-var shelljs = require('shelljs');
 
 module.exports = generators.Base.extend({
   constructor: function() {
