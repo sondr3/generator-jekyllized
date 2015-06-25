@@ -40,6 +40,12 @@ module.exports = generators.Base.extend({
       desc: 'Author email'
     });
 
+    this.option('authorURI', {
+      type: String,
+      required: true,
+      desc: 'Author URI'
+    });
+
     this.option('authorBio', {
       type: String,
       required: true,
@@ -74,6 +80,7 @@ module.exports = generators.Base.extend({
         projectURL: this.options.projectURL,
         authorName: this.options.authorName,
         authorEmail: this.options.authorEmail,
+        authorURI: this.options.authorURI,
         authorBio: this.options.authorBio,
         authorTwitter: this.options.authorTwitter,
         jekyllPermalinks: this.options.jekyllPermalinks

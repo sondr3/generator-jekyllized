@@ -36,6 +36,11 @@ module.exports = generators.Base.extend({
       message: 'What\'s your email?',
       store: true
     }, {
+      name: 'authorURI',
+      message: 'Can be the same as this site!' +
+        '\nWhat is your homepage?',
+      store: true
+    }, {
       name: 'authorBio',
       message: 'Write a short description about yourself',
       store: true
@@ -109,6 +114,7 @@ module.exports = generators.Base.extend({
         projectURL: this.props.projectURL,
         authorName: this.props.authorName,
         authorEmail: this.props.authorEmail,
+        authorURI: this.props.authorURI,
         authorBio: this.props.authorBio,
         authorTwitter: this.props.authorTwitter,
         jekyllPermalinks: this.props.jekyllPermalinks

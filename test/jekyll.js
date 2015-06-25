@@ -13,6 +13,7 @@ describe('jekyllized:jekyll', function() {
         projectURL: 'example.org',
         authorName: 'Ola Nordmann',
         authorEmail: 'ola.nordmann@email.com',
+        authorURI: 'homepage.com',
         authorBio: 'I am a tester for tests',
         authorTwitter: '0lanordmann'
       };
@@ -35,7 +36,6 @@ describe('jekyllized:jekyll', function() {
       var expected = [
         'src/404.html',
         'src/about.md',
-        'src/feed.xml',
         'src/crossdomain.xml',
         'src/humans.txt',
         'src/index.html',
@@ -47,10 +47,12 @@ describe('jekyllized:jekyll', function() {
 
     it('_config.yml contains the correct settings', function() {
       var expected = [
-        ['_config.yml', /title\: jekyllized/],
+        ['_config.yml', /name\: jekyllized/],
         ['_config.yml', /description\: Tests for Jekyllized/],
+        ['_config.yml', /url\: example.org/],
         ['_config.yml', /name\: Ola Nordmann/],
         ['_config.yml', /email\: ola\.nordmann\@email\.com/],
+        ['_config.yml', /uri\: homepage.com/],
         ['_config.yml', /bio\: I am a tester for tests/],
         ['_config.yml', /twitter\: 0lanordmann/]
       ];

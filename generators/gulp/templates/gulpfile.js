@@ -1,8 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-// Load in paths from a external config file for easier changing of paths
-var config = require('./gulp.config.json');
 // Loads the plugins without having to list all of them, but you need
 // to call them as $.pluginname
 var $ = require('gulp-load-plugins')();
@@ -42,7 +40,7 @@ function jekyllProd(done) {
 // Compiles the SASS files and moves them into the 'assets/stylesheets' directory
 function styles() {
   // Looks at the style.scss file for what to include and creates a style.css file
-  return gulp.src(config.scss.src)
+  return gulp.src('src/assets/scss/**/*.scss')
     // Start creation of sourcemaps
     .pipe($.sourcemaps.init())
       .pipe($.sass({errLogToconsole: true}))
@@ -51,7 +49,7 @@ function styles() {
     // Write the sourcemaps to the directory of the gulp.src stream
     .pipe($.sourcemaps.write('.'))
     // Directory your CSS file goes to
-    .pipe(gulp.dest(config.scss.dest))
+    .pipe(gulp.dest('.tmp/assets/stylesheets'))
     // Outputs the size of the CSS file
     .pipe($.size({title: 'styles'}))
     // Injects the CSS changes to your browser since Jekyll doesn't rebuild the CSS
@@ -60,21 +58,21 @@ function styles() {
 
 // Mostly used to create sourcemaps and live-reload JS
 function javascript() {
-  return gulp.src(config.javascript.src)
+  return gulp.src('src/assets/javascript/**/*.js')
     .pipe($.sourcemaps.init())
       .pipe($.uglify({compress: false, preserveComments: 'all'}))
       .pipe($.groupConcat({
-        'index.js': config.javascript.src
+        'index.js': 'src/assets/javascript/**/*.js'
       }))
     .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest(config.javascript.dest))
+    .pipe(gulp.dest('.tmp/assets/javascript'))
     .pipe($.size({title: 'javascript'}))
     .pipe(reload({stream: true}));
 }
 
 // Optimizes the images that exists
 function images() {
-  return gulp.src(config.images.src)
+  return gulp.src('src/assets/images/**/*')
     // Does not run on images that are already optimized
     .pipe($.cache($.imagemin({
       // Lossless conversion to progressive JPGs
@@ -82,25 +80,25 @@ function images() {
       // Interlace GIFs for progressive rendering
       interlaced: true
     })))
-    .pipe(gulp.dest(config.images.dest))
+    .pipe(gulp.dest('.tmp/assets/images'))
     .pipe($.size({title: 'images'}));
 }
 
 // Copy over fonts to the '.tmp' directory
 function fonts() {
-  return gulp.src(config.fonts.src)
-    .pipe(gulp.dest(config.fonts.dest))
+  return gulp.src('src/assets/fonts/**/*')
+    .pipe(gulp.dest('.tmp/assets/font'))
     .pipe($.size({title: 'fonts'}));
 }
 
 // Copy optimized images and (not optimized) fonts to the 'dist' folder
 function copy() {
-  var images = gulp.src(config.images.dest)
-    .pipe(gulp.dest(config.images.build))
+  var images = gulp.src('.tmp/assets/images/**/*')
+    .pipe(gulp.dest('dist/assets/images'))
     .pipe($.size({title: 'copied images'}));
 
-  var fonts = gulp.src(config.fonts.dest)
-    .pipe(gulp.dest(config.fonts.build))
+  var fonts = gulp.src('.tmp/assets/fonts/**/*')
+    .pipe(gulp.dest('dist/assets/fonts'))
     .pipe($.size({title: 'copied fonts'}));
 
   return merge(images, fonts);
@@ -108,9 +106,9 @@ function copy() {
 
 // Optimizes all the CSS, HTML and concats the JS etc
 function optimize() {
-  var assets = $.useref.assets({searchPath: config.assets.searchPath});
+  var assets = $.useref.assets({searchPath: ['dist', '.tmp']});
 
-  return gulp.src(config.assets.html)
+  return gulp.src('dist/**/*.html')
     .pipe(assets)
     // Concatenate JavaScript files and preserve important comments
     .pipe($.if('*.js', $.uglify({preserveComments: 'some'})))
@@ -137,7 +135,7 @@ function optimize() {
       removeRedundantAttributes: true
     })))
     // Send the output to the correct folder
-    .pipe(gulp.dest(config.assets.dest))
+    .pipe(gulp.dest('dist'))
     .pipe($.size({title: 'optimizations'}));
 }
 
@@ -236,7 +234,7 @@ function deploy() {
 <% if (noUpload) { -%><% } -%>
 // Run JS Lint against your JS
 function jslint() {
-  gulp.src(config.javascript.dest)
+  gulp.src('.tmp/assets/javascript/*.js')
     // Checks your JS code quality against your .jshintrc file
     .pipe($.jshint('.jshintrc'))
     .pipe($.jshint.reporter());
@@ -254,15 +252,20 @@ function serve() {
     notify: true,
     // tunnel: true,
     server: {
-      baseDir: config.watch.baseDir
+      baseDir: ['dist', '.tmp']
     }
   });
 
   // Watch various files for changes and do the needful
-  gulp.watch(config.watch.content, gulp.series(jekyllDev, reload));
-  gulp.watch(config.watch.javascript, javascript);
-  gulp.watch(config.watch.scss, styles);
-  gulp.watch(config.watch.images, reload);
+  gulp.watch(['src/**/*.md',
+              'src/**/*.html',
+              'src/**/*.xml',
+              'src/**/*.txt',
+              'src/**/*.yml'],
+              gulp.series(jekyllDev, reload));
+  gulp.watch('src/assets/javascript/**/*.js', javascript);
+  gulp.watch('src/assets/scss/**/*.scss', styles);
+  gulp.watch('src/assets/images/**/*', reload);
 }
 
 // Default task, run when just writing 'gulp' in the terminal

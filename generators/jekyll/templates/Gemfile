@@ -1,8 +1,14 @@
 source "http://rubygems.org"
 
-gem 'jekyll'
+gem 'jekyll', '~> 3.0.0.pre.beta7'
 gem 'redcarpet'
 
 # jekyll plugins
 gem 'jekyll-archives', :git => 'https://github.com/jekyll/jekyll-archives'
 gem 'jekyll-sitemap'
+gem 'jekyll-paginate'
+gem 'jekyll-feed'
+gem 'jekyll-gist'
+
+# octopress
+gem 'octopress', '~> 3.0'
