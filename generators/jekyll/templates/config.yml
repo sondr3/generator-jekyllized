@@ -18,9 +18,6 @@ author:
   bio: <%= authorBio %>
   twitter: <%= authorTwitter %>
 
-# general setting for Jekyll
-googleAnalytics: UA-XXXXX-X
-
 # _config.build.yml overwrites these options when you run `gulp build`
 # Enables future posts (posts with dates in the future) and drafts
 future: true

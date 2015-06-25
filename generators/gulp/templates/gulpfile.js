@@ -40,7 +40,7 @@ function jekyllProd(done) {
 // Compiles the SASS files and moves them into the 'assets/stylesheets' directory
 function styles() {
   // Looks at the style.scss file for what to include and creates a style.css file
-  return gulp.src('src/assets/scss/**/*.scss')
+  return gulp.src('src/assets/scss/style.scss')
     // Start creation of sourcemaps
     .pipe($.sourcemaps.init())
       .pipe($.sass({errLogToconsole: true}))

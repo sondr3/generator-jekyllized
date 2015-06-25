@@ -126,5 +126,6 @@ module.exports = generators.Base.extend({
 
   installing: function() {
     this.npmInstall();
+    this.spawnCommand('bundle', ['install']);
   }
 });
