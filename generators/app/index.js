@@ -83,7 +83,14 @@ module.exports = generators.Base.extend({
   },
 
   default: function() {
-    this.composeWith('jekyllized:boilerplate', {}, {
+    this.composeWith('jekyllized:boilerplate', {
+      options: {
+        projectName: this.props.projectName,
+        projectDescription: this.props.projectDescription,
+        projectURL: this.props.projectURL,
+        authorName: this.props.authorName
+      }
+    }, {
       local: require.resolve('../boilerplate')
     });
 
