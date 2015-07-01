@@ -20,19 +20,19 @@ import browserSync from 'browser-sync';
 const reload = browserSync.reload;
 // merge is used to merge the output from two different streams into the same stream
 import merge from 'merge-stream';
+// Wiredep is used to automatically wire up your Bower dependencies
+import wiredeps from 'wiredep';
+const wiredep = wiredeps.stream;
+import bowerFiles from 'main-bower-files';
 
 // Deletes the directory that the optimized site is output to
 gulp.task('clean:dist', done => { trash(['dist']); done(); });
 gulp.task('clean:assets', done => { trash(['.tmp']); done(); });
 gulp.task('clean:metadata', done => { trash(['src/.jekyll-metadata']); done(); });
 
-// Runs the build command for Jekyll to compile the site locally
-// This will build the site with the production settings
+// Tasks for building Jekyll, either with development settings (drafts etc) or
+// with production settings
 gulp.task('jekyll:dev', done => { shell.exec('jekyll build --quiet'); done(); });
-
-// Almost identical to the above task, but instead we load in the build configuration
-// that overwrites some of the settings in the regular configuration so that you
-// don't end up publishing your drafts or future posts
 gulp.task('jekyll:prod', done => {
   shell.exec('jekyll build --quiet --config _config.yml,_config.build.yml');
   done();
@@ -92,17 +92,55 @@ gulp.task('fonts', () => {
     .pipe($.size({title: 'fonts'}));
 });
 
-// Copy optimized images and (not optimized) fonts to the 'dist' folder
+// Copy optimized images, vendor assets and fonts to the 'dist' folder
 gulp.task('copy', () => {
-  var images = gulp.src('.tmp/assets/images/**/*')
+  const vendor = gulp.src('.tmp/assets/vendor/**/')
+    .pipe(gulp.dest('dist/assets/vendor'))
+    .pipe($.size({title: 'vendor assets'}));
+
+  const images = gulp.src('.tmp/assets/images/**/')
     .pipe(gulp.dest('dist/assets/images'))
     .pipe($.size({title: 'copied images'}));
 
-  var fonts = gulp.src('.tmp/assets/fonts/**/*')
+  const fonts = gulp.src('.tmp/assets/fonts/**/')
     .pipe(gulp.dest('dist/assets/fonts'))
     .pipe($.size({title: 'copied fonts'}));
 
-  return merge(images, fonts);
+  return merge(vendor, images, fonts);
+});
+
+// Wires your Bower dependencies into their own include file that are then
+// inserted into the default layout, automatically adding JS and CSS
+gulp.task('bower', () => {
+  // Bower dependencies to exlude, for example:
+  // const bowerExcludes = ['jquery'];
+  const bowerExcludes = [];
+
+  return gulp.src('src/_includes/bower_{scripts,styles}.html')
+    .pipe(wiredep({
+      exclude: bowerExcludes,
+      fileTypes: {
+        html: {
+          replace: {
+            js: filePath => {
+              return '<script src="' + '/assets/vendor/' + filePath.split('/').pop() + '"></script>';
+            },
+            css: filePath => {
+              return '<link rel="stylesheet" href="' + '/assets/vendor/' + filePath.split('/').pop() + '"/>';
+            }
+          }
+        }
+      }
+    }))
+    .pipe(gulp.dest('src/_includes'));
+});
+
+// Copies the Bower dependencies into the '.tmp' folder so they work with
+// BrowserSync
+gulp.task('bower:files', () => {
+  return gulp.src(bowerFiles())
+    .pipe(gulp.dest('.tmp/assets/vendor'))
+    .pipe($.size({title: 'Bower assets for development'}));
 });
 
 // Optimizes all the CSS, HTML and concats the JS etc
@@ -264,8 +302,8 @@ gulp.task('serve', () => {
               'src/**/*.txt',
               'src/**/*.yml'],
               gulp.series('jekyll:dev', reload));
-  gulp.watch('src/assets/javascript/**/*.js', 'javascript');
-  gulp.watch('src/assets/scss/**/*.scss', 'styles');
+  gulp.watch('src/assets/javascript/**/*.js', gulp.series('javascript'));
+  gulp.watch('src/assets/scss/**/*.scss', gulp.series('styles'));
   gulp.watch('src/assets/images/**/*', reload);
 });
 

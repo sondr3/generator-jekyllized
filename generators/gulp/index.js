@@ -51,8 +51,10 @@ module.exports = generators.Base.extend({
         'gulp-useref': '^1.0.2',
         'jshint-stylish': '^2.0.1',
         'merge-stream': '^0.1.6',
+        'main-bower-files': '^2.8.2',
         'shelljs': '^0.5.1',
-        'trash': '^1.4.0'
+        'trash': '^1.4.0',
+        'wiredep': '^3.0.0-beta'
       });
 
       if (this.options.uploading === 'Amazon S3') {

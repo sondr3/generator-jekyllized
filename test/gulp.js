@@ -21,6 +21,45 @@ describe('jekyllized:gulp', function() {
       assert.file('package.json');
     });
 
+    it('package.json contains correct packages and versions', function() {
+      var expected = [
+        ['package.json', '"babel": "^5.6.8"'],
+        ['package.json', '"browser-sync": "^2.7.12"'],
+        ['package.json', '"del": "^1.1.1"'],
+        ['package.json', '"gulp": "git://github.com/gulpjs/gulp.git#4.0"'],
+        ['package.json', '"gulp-autoprefixer": "^2.0.0"'],
+        ['package.json', '"gulp-cache": "~0.2.4"'],
+        ['package.json', '"gulp-cached": "^1.0.1"'],
+        ['package.json', '"gulp-changed": "^1.0.0"'],
+        ['package.json', '"gulp-filter": "^2.0.0"'],
+        ['package.json', '"gulp-group-concat": "^1.1.4"'],
+        ['package.json', '"gulp-gzip": "^1.1.0"'],
+        ['package.json', '"gulp-htmlmin": "^1.0.0"'],
+        ['package.json', '"gulp-if": "^1.2.4"'],
+        ['package.json', '"gulp-imagemin": "^2.1.0"'],
+        ['package.json', '"gulp-jshint": "^1.8.5"'],
+        ['package.json', '"gulp-load-plugins": "^0.10.0"'],
+        ['package.json', '"gulp-minify-css": "^1.2.0"'],
+        ['package.json', '"gulp-rev-all": "^0.8.21"'],
+        ['package.json', '"gulp-rev-replace": "^0.4.2"'],
+        ['package.json', '"gulp-sass": "^2.0.2"'],
+        ['package.json', '"gulp-shell": "^0.4.2"'],
+        ['package.json', '"gulp-size": "^1.1.0"'],
+        ['package.json', '"gulp-sourcemaps": "^1.3.0"'],
+        ['package.json', '"gulp-uglify": "^1.1.0"'],
+        ['package.json', '"gulp-uncss": "^1.0.0"'],
+        ['package.json', '"gulp-useref": "^1.0.2"'],
+        ['package.json', '"jshint-stylish": "^2.0.1"'],
+        ['package.json', '"merge-stream": "^0.1.6"'],
+        ['package.json', '"main-bower-files": "^2.8.2"'],
+        ['package.json', '"shelljs": "^0.5.1"'],
+        ['package.json', '"trash": "^1.4.0"'],
+        ['package.json', '"wiredep": "^3.0.0-beta"']
+      ];
+
+      assert.fileContent(expected);
+    });
+
     it('does not create credentials files', function() {
       assert.noFile('aws-credentials.json');
       assert.noFile('rsync-credentials.json');
