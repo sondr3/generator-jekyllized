@@ -58,8 +58,11 @@ describe('jekyllized:app', function() {
         '.jscsrc',
         '.gitignore',
         '.gitattributes',
+        '.bowerrc',
+        'bower.json',
         'package.json',
         'gulpfile.babel.js',
+        'README.md',
         '_config.yml',
         '_config.build.yml',
         'Gemfile'

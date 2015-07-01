@@ -24,6 +24,7 @@ module.exports = generators.Base.extend({
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
         'babel': '^5.6.8',
+        'bower': '^1.4.1',
         'browser-sync': '^2.7.12',
         'del': '^1.1.1',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',

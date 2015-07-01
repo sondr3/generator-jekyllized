@@ -126,6 +126,16 @@ module.exports = generators.Base.extend({
       local: require.resolve('../boilerplate')
     });
 
+    this.composeWith('jekyllized:bower', {
+      options: {
+        projectName: this.props.projectName,
+        authorName: this.props.authorName,
+        authorEmail: this.props.authorEmail
+      }
+    }, {
+      local: require.resolve('../bower')
+    });
+
     this.composeWith('jekyllized:gulp', {
       options: {
         uploading: this.props.uploading

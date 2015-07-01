@@ -25,6 +25,7 @@ describe('jekyllized:gulp', function() {
       var expected = [
         ['package.json', '"babel": "^5.6.8"'],
         ['package.json', '"browser-sync": "^2.7.12"'],
+        ['package.json', '"bower": "^1.4.1"'],
         ['package.json', '"del": "^1.1.1"'],
         ['package.json', '"gulp": "git://github.com/gulpjs/gulp.git#4.0"'],
         ['package.json', '"gulp-autoprefixer": "^2.0.0"'],
