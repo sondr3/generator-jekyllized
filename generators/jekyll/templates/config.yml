@@ -48,7 +48,6 @@ gems:
   - jekyll-paginate
   - jekyll-sitemap
 
-
 # Settings for archives
 jekyll-archives:
   enabled:

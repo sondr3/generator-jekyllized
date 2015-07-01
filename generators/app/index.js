@@ -3,8 +3,31 @@
 var _ = require('lodash');
 var chalk = require('chalk');
 var generators = require('yeoman-generator');
+var yosay = require('yosay');
 
 module.exports = generators.Base.extend({
+  constructor: function() {
+    generators.Base.apply(this, arguments);
+
+    this.option('skip-welcome-message', {
+      desc: 'Skips the welcome message',
+      type: Boolean
+    });
+
+    this.option('skip-install-message', {
+      desc: 'Skip the message after installation',
+      type: Boolean
+    });
+
+    this.composeWith('generator-mocha' + ':app', {
+      options: {
+        'skip-install': this.options['skip-install']
+      }
+    }, {
+      local: require.resolve('generator-mocha/generators/app/index.js')
+    });
+  },
+
   initializing: function() {
     this.props = {};
     this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
@@ -13,6 +36,10 @@ module.exports = generators.Base.extend({
   prompting: function() {
     var self = this;
     var done = this.async();
+
+    if (!this.options['skip-welcome-message']) {
+      this.log(yosay('\'Allo \'allo!'));
+    }
 
     var prompts = [{
       name: 'projectName',
@@ -125,7 +152,9 @@ module.exports = generators.Base.extend({
   },
 
   installing: function() {
-    this.npmInstall();
-    this.spawnCommand('bundle', ['install']);
+    if(!this.options['skip-install']) {
+      this.npmInstall();
+      this.spawnCommand('bundle', ['install']);
+    }
   }
 });

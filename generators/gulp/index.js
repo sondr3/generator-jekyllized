@@ -23,6 +23,7 @@ module.exports = generators.Base.extend({
 
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
+        'babel': '^5.6.8',
         'browser-sync': '^2.7.12',
         'del': '^1.1.1',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
@@ -73,8 +74,8 @@ module.exports = generators.Base.extend({
 
     gulpfile: function() {
       this.fs.copyTpl(
-        this.templatePath('gulpfile.js'),
-        this.destinationPath('gulpfile.js'),
+        this.templatePath('gulpfile.babel.js'),
+        this.destinationPath('gulpfile.babel.js'),
         {
           amazonS3: this.options.uploading === 'Amazon S3',
           rsync: this.options.uploading === 'Rsync',

@@ -50,7 +50,7 @@ tags
 *.zip
 
 # Packages
-node_modules/*
+node_modules/
 .tmp
 test/
 
@@ -59,11 +59,10 @@ test/
 *.sublime-workspace
 *.sublime-projectcompletions
 
-app/_bower_components
+bower_components
 
 # Output folders
-serve
-site
+dist
 
 # hide the AWS and Rsync credentials file
 aws-credentials.json

@@ -22,6 +22,8 @@ function assertJSONFileContains(filename, content) {
 }
 
 describe('jekyllized:app', function() {
+  this.timeout(Infinity);
+
   describe('running on new project', function() {
     before(function(done) {
       this.answers = {
@@ -38,8 +40,15 @@ describe('jekyllized:app', function() {
       };
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(__dirname, 'tmp/app'))
+        .withOptions({
+          'skip-install': true
+        })
         .withPrompts(this.answers)
         .on('end', done);
+    });
+
+    it('can be required without throwing', function() {
+      this.app = require('../generators/app');
     });
 
     it('creates files', function() {
@@ -50,7 +59,7 @@ describe('jekyllized:app', function() {
         '.gitignore',
         '.gitattributes',
         'package.json',
-        'gulpfile.js',
+        'gulpfile.babel.js',
         '_config.yml',
         '_config.build.yml',
         'Gemfile'
@@ -82,9 +91,15 @@ describe('jekyllized:app', function() {
       };
 
       helpers.run(path.join(__dirname, '../generators/app'))
+        .withOptions({
+          'skip-install': true
+        })
         .withPrompts({
           projectName: 'jekyllized'
         })
+        .withGenerators([
+            [helpers.createDummyGenerator(), 'mocha:app']
+        ])
         .on('ready', function(gen) {
           gen.fs.writeJSON(gen.destinationPath('package.json'), this.pkg);
         }.bind(this))
@@ -94,6 +109,34 @@ describe('jekyllized:app', function() {
     it('extends package.json', function() {
       var pkg = _.extend({name: 'jekyllized'}, this.pkg);
       assertJSONFileContains('package.json', pkg);
+    });
+  });
+
+  describe('can be installed', function() {
+    before(function(done) {
+      this.answers = {
+        projectName: 'jekyllized',
+        projectDescription: 'Test site for Jekyllized',
+        projectURL: 'www.test.com',
+        authorName: 'Ola Nordmann',
+        authorEmail: 'ola.nordmann@gmail.com',
+        authorBio: 'A norwegian dude',
+        authorTwitter: '0lanordmann',
+        uploading: 'None',
+        jekyllPermalinks: 'pretty',
+        jekyllPaginate: '10'
+      };
+      helpers.run(path.join(__dirname, '../generators/app'))
+        .inDir(path.join(__dirname, 'tmp/build'))
+        .withOptions({
+          'skip-install': false
+        })
+        .withPrompts(this.answers)
+        .on('end', done);
+    });
+
+    it('installs properly', function() {
+      assert.file('Gemfile.lock');
     });
   });
 });

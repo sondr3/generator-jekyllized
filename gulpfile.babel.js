@@ -1,42 +1,44 @@
 'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var jscs = require('gulp-jscs');
-var jshint = require('gulp-jshint');
-var istanbul = require('gulp-istanbul');
-var plumber = require('gulp-plumber');
-var mocha = require('gulp-mocha');
-var trash = require('trash');
-var coveralls = require('gulp-coveralls');
+import coveralls from 'gulp-coveralls';
+import gulp from 'gulp';
+import istanbul from 'gulp-istanbul';
+import jscs from 'gulp-jscs';
+import jshint from 'gulp-jshint';
+import mocha from 'gulp-mocha';
+import path from 'path';
+import plumber from 'gulp-plumber';
+import trash from 'trash';
 
-var handleErr = function(err) {
+const handleErr = err => {
   console.log(err.message);
   process.exit(1);
 };
 
-gulp.task('check', function() {
+gulp.task('check', () => {
   return gulp.src([
     'test/*.js',
     'test/tmp/**/*.js',
     'generators/**/index.js',
-    'gulpfile.js'
+    'gulpfile.babel.js'
   ])
-  .pipe(jscs())
+  .pipe(jscs({
+    esnext: true,
+    excludeFiles: ['app/test/*', 'build/test/*']
+  }))
   .pipe(jshint('.jshintrc'))
   .pipe(jshint.reporter('jshint-stylish'))
   .pipe(jshint.reporter('fail'))
   .on('error', handleErr);
 });
 
-gulp.task('istanbul', function(done) {
+gulp.task('istanbul', done => {
   return gulp.src([
-    'generators/**/index.js',
-    'gulpfile.js'
+    'generators/**/index.js'
   ])
   .pipe(istanbul())
   .pipe(istanbul.hookRequire())
-  .on('finish', function() {
+  .on('finish', () => {
     gulp.src(['test/*.js'])
       .pipe(mocha({reporter: 'spec'}))
       .pipe(istanbul.writeReports())
@@ -45,12 +47,12 @@ gulp.task('istanbul', function(done) {
   });
 });
 
-gulp.task('clean', function(done) {
+gulp.task('clean', done => {
   trash(['test/tmp']);
   done();
 });
 
-gulp.task('coveralls', function() {
+gulp.task('coveralls', () => {
   if (!process.env.CI) { return; }
   return gulp.src(path.join(__dirname, 'coverage/lcov.info'))
     .pipe(coveralls());

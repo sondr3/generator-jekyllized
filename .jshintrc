@@ -2,6 +2,7 @@
   "bitwise": true,
   "camelcase": true,
   "curly": true,
+  "esnext": true,
   "eqeqeq": true,
   "eqnull": true,
   "globalstrict": true,

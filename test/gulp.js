@@ -14,7 +14,7 @@ describe('jekyllized:gulp', function() {
     });
 
     it('creates gulpfile', function() {
-      assert.file('gulpfile.js');
+      assert.file('gulpfile.babel.js');
     });
 
     it('creates package.json file', function() {
@@ -38,50 +38,33 @@ describe('jekyllized:gulp', function() {
       assert.noFileContent(unexpected);
     });
 
-    it('contains default gulp functions', function() {
-      var expected = [
-        ['gulpfile.js', /function cleanDist/],
-        ['gulpfile.js', /function cleanAssets/],
-        ['gulpfile.js', /function rebuild/],
-        ['gulpfile.js', /function jekyllDev/],
-        ['gulpfile.js', /function jekyllProd/],
-        ['gulpfile.js', /function styles/],
-        ['gulpfile.js', /function javascript/],
-        ['gulpfile.js', /function images/],
-        ['gulpfile.js', /function fonts/],
-        ['gulpfile.js', /function copy/],
-        ['gulpfile.js', /function optimize/],
-        ['gulpfile.js', /function jslint/],
-        ['gulpfile.js', /function doctor/],
-        ['gulpfile.js', /function serve/]
-      ];
-
-      assert.fileContent(expected);
-    });
-
     it('contains default gulp tasks', function() {
       var expected = [
-        ['gulpfile.js', /gulp.task\(\'default\'/],
-        ['gulpfile.js', /gulp.task\(\'optimize\'/],
-        ['gulpfile.js', /gulp.task\(\'build\'/],
-        ['gulpfile.js', /gulp.task\(\'serve\'/],
-        ['gulpfile.js', /gulp.task\(\'clean\'/],
-        ['gulpfile.js', /gulp.task\(\'clean\:assets\'/],
-        ['gulpfile.js', /gulp.task\(\'rebuild\'/],
-        ['gulpfile.js', /gulp.task\(\'styles\'/],
-        ['gulpfile.js', /gulp.task\(\'javascript\'/],
-        ['gulpfile.js', /gulp.task\(\'check\'/]
+        ['gulpfile.babel.js', /gulp.task\(\'clean\:dist\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'clean\:assets\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'clean\:metadata\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'jekyll\:dev\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'jekyll\:prod\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'styles\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'javascript\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'images\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'fonts\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'copy\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'optimize\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'jslint\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'doctor\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'default\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'build\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'serve\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'rebuild\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'check\'/]
       ];
 
       assert.fileContent(expected);
-    });
-
-    it('does not contain deploy function', function() {
-      assert.noFileContent('gulpfile.js', 'function deploy');
     });
 
     it('does not contain deploy task', function() {
-      assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+      assert.noFileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
     });
   });
 
@@ -94,7 +77,7 @@ describe('jekyllized:gulp', function() {
     });
 
     it('creates gulpfile', function() {
-      assert.file('gulpfile.js');
+      assert.file('gulpfile.babel.js');
     });
 
     it('creates package.json file', function() {
@@ -120,18 +103,14 @@ describe('jekyllized:gulp', function() {
       assert.noFileContent(unexpected);
     });
 
-    it('contains deploy function', function() {
-      assert.fileContent('gulpfile.js', 'function deploy');
-      assert.fileContent('gulpfile.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
-    });
-
     it('contains deploy task', function() {
-      assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.babel.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
     });
 
     it('does not contain wrong uploading tasks', function() {
-      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site via Rsync to your server/);
-      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
+      assert.noFileContent('gulpfile.babel.js', /\/\/ Task to upload your site via Rsync to your server/);
+      assert.noFileContent('gulpfile.babel.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
     it('creates credentials file', function() {
@@ -148,7 +127,7 @@ describe('jekyllized:gulp', function() {
     });
 
     it('creates gulpfile', function() {
-      assert.file('gulpfile.js');
+      assert.file('gulpfile.babel.js');
     });
 
     it('creates package.json file', function() {
@@ -171,17 +150,13 @@ describe('jekyllized:gulp', function() {
     });
 
     it('contains deploy function', function() {
-      assert.fileContent('gulpfile.js', 'function deploy');
-      assert.fileContent('gulpfile.js', /\/\/ Task to upload your site via Rsync to your server/);
-    });
-
-    it('contains deploy task', function() {
-      assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.babel.js', /\/\/ Task to upload your site via Rsync to your server/);
     });
 
     it('does not contain the wrong uploading task', function() {
-      assert.noFileContent('gulpfile.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
-      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
+      assert.noFileContent('gulpfile.babel.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
+      assert.noFileContent('gulpfile.babel.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
     it('creates credentials file', function() {
@@ -198,7 +173,7 @@ describe('jekyllized:gulp', function() {
     });
 
     it('creates gulpfile', function() {
-      assert.file('gulpfile.js');
+      assert.file('gulpfile.babel.js');
     });
 
     it('creates package.json file', function() {
@@ -221,17 +196,13 @@ describe('jekyllized:gulp', function() {
     });
 
     it('contains deploy function', function() {
-      assert.fileContent('gulpfile.js', 'function deploy');
-      assert.fileContent('gulpfile.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
-    });
-
-    it('contains deploy task', function() {
-      assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.babel.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
     it('does not contain the wrong uploadgin task', function() {
-      assert.noFileContent('gulpfile.js', /\/\/ Task to upload your site via Rsync to your server/);
-      assert.noFileContent('gulpfile.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
+      assert.noFileContent('gulpfile.babel.js', /\/\/ Task to upload your site via Rsync to your server/);
+      assert.noFileContent('gulpfile.babel.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
     });
   });
 });

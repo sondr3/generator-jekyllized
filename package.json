@@ -29,6 +29,7 @@
     "yosay": "^1.0.4"
   },
   "devDependencies": {
+    "babel": "^5.6.8",
     "codeclimate-test-reporter": "^0.0.4",
     "coveralls": "^2.11.2",
     "generator-mocha": "^0.1.8",
