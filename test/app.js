@@ -111,32 +111,4 @@ describe('jekyllized:app', function() {
       assertJSONFileContains('package.json', pkg);
     });
   });
-
-  describe('can be installed', function() {
-    before(function(done) {
-      this.answers = {
-        projectName: 'jekyllized',
-        projectDescription: 'Test site for Jekyllized',
-        projectURL: 'www.test.com',
-        authorName: 'Ola Nordmann',
-        authorEmail: 'ola.nordmann@gmail.com',
-        authorBio: 'A norwegian dude',
-        authorTwitter: '0lanordmann',
-        uploading: 'None',
-        jekyllPermalinks: 'pretty',
-        jekyllPaginate: '10'
-      };
-      helpers.run(path.join(__dirname, '../generators/app'))
-        .inDir(path.join(__dirname, 'tmp/build'))
-        .withOptions({
-          'skip-install': false
-        })
-        .withPrompts(this.answers)
-        .on('end', done);
-    });
-
-    it('installs properly', function() {
-      assert.file('Gemfile.lock');
-    });
-  });
 });
