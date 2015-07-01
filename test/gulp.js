@@ -89,6 +89,8 @@ describe('jekyllized:gulp', function() {
         ['gulpfile.babel.js', /gulp.task\(\'images\'/],
         ['gulpfile.babel.js', /gulp.task\(\'fonts\'/],
         ['gulpfile.babel.js', /gulp.task\(\'copy\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'bower\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'bower:files\'/],
         ['gulpfile.babel.js', /gulp.task\(\'optimize\'/],
         ['gulpfile.babel.js', /gulp.task\(\'jslint\'/],
         ['gulpfile.babel.js', /gulp.task\(\'doctor\'/],
