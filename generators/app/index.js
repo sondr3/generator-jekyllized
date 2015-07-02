@@ -19,12 +19,9 @@ module.exports = generators.Base.extend({
       type: Boolean
     });
 
-    this.composeWith('generator-mocha' + ':app', {
-      options: {
-        'skip-install': this.options['skip-install']
-      }
-    }, {
-      local: require.resolve('generator-mocha/generators/app/index.js')
+    this.option('skip-install', {
+      desc: 'Skip installing dependencies',
+      type: Boolean
     });
   },
 
@@ -162,7 +159,7 @@ module.exports = generators.Base.extend({
   },
 
   installing: function() {
-    if(!this.options['skip-install']) {
+    if (!this.options['skip-install']) {
       this.npmInstall();
       this.spawnCommand('bundle', ['install']);
     }

@@ -14,7 +14,7 @@
   "repository": "sondr3/generator-jekyllized",
   "license": "MIT",
   "scripts": {
-    "test": "gulp istanbul && gulp"
+    "test": "gulp test && gulp"
   },
   "files": [
     "index.js",
@@ -23,7 +23,7 @@
   "dependencies": {
     "chalk": "^1.1.0",
     "globule": "^0.2.0",
-    "lodash": "^3.9.3",
+    "lodash": "^3.10.0",
     "shelljs": "^0.5.1",
     "yeoman-generator": "^0.20.1",
     "yosay": "^1.0.4"
@@ -44,7 +44,6 @@
     "istanbul": "^0.3.17",
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
-    "lodash": "^3.10.0",
     "mocha": "^2.2.5",
     "mocha-lcov-reporter": "^0.0.2",
     "trash": "^1.4.1",

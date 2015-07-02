@@ -18,14 +18,11 @@ const handleErr = err => {
 gulp.task('check', () => {
   return gulp.src([
     'test/*.js',
-    'test/tmp/**/*.js',
+    'test/tmp/**/gulpfile.babel.js',
     'generators/**/index.js',
     'gulpfile.babel.js'
   ])
-  .pipe(jscs({
-    esnext: true,
-    excludeFiles: ['app/test/*', 'build/test/*']
-  }))
+  .pipe(jscs())
   .pipe(jshint('.jshintrc'))
   .pipe(jshint.reporter('jshint-stylish'))
   .pipe(jshint.reporter('fail'))

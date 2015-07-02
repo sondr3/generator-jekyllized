@@ -26,16 +26,19 @@ const wiredep = wiredeps.stream;
 import bowerFiles from 'main-bower-files';
 
 // Deletes the directory that the optimized site is output to
-gulp.task('clean:dist', done => { trash(['dist']); done(); });
-gulp.task('clean:assets', done => { trash(['.tmp']); done(); });
-gulp.task('clean:metadata', done => { trash(['src/.jekyll-metadata']); done(); });
+gulp.task('clean:dist', cb => { trash(['dist']); cb(); });
+gulp.task('clean:assets', cb => { trash(['.tmp']); cb(); });
+gulp.task('clean:metadata', cb => { trash(['src/.jekyll-metadata']); cb(); });
 
 // Tasks for building Jekyll, either with development settings (drafts etc) or
 // with production settings
-gulp.task('jekyll:dev', done => { shell.exec('jekyll build --quiet'); done(); });
-gulp.task('jekyll:prod', done => {
+gulp.task('jekyll:dev', cb => {
+  shell.exec('jekyll build --quiet');
+  cb();
+});
+gulp.task('jekyll:prod', cb => {
   shell.exec('jekyll build --quiet --config _config.yml,_config.build.yml');
-  done();
+  cb();
 });
 
 // Compiles the SASS files and moves them into the 'assets/stylesheets' directory
@@ -123,10 +126,12 @@ gulp.task('bower', () => {
         html: {
           replace: {
             js: filePath => {
-              return '<script src="' + '/assets/vendor/' + filePath.split('/').pop() + '"></script>';
+              return '<script src="' + '/assets/vendor/' +
+                filePath.split('/').pop() + '"></script>';
             },
             css: filePath => {
-              return '<link rel="stylesheet" href="' + '/assets/vendor/' + filePath.split('/').pop() + '"/>';
+              return '<link rel="stylesheet" href="' + '/assets/vendor/' +
+                filePath.split('/').pop() + '"/>';
             }
           }
         }
@@ -281,7 +286,7 @@ gulp.task('jslint', () => {
 
 // Runs 'jekyll doctor' on your site to check for errors with your configuration
 // and will check for URL errors a well
-gulp.task('doctor', done => { shell.exec('jekyll doctor'); done(); });
+gulp.task('doctor', cb => { shell.exec('jekyll doctor'); cb(); });
 
 // BrowserSync will serve our site on a local server for us and other devices to use
 // It will also autoreload across all devices as well as keep the viewport synchronized
@@ -328,7 +333,8 @@ gulp.task('build', gulp.series(
 ));
 
 // Clean out your dist and .tmp folder and delete .jekyll-metadata
-gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:metadata'));
+gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets',
+                                 'clean:metadata'));
 
 // Checks your CSS, JS and Jekyll for errors
 gulp.task('check', gulp.series('doctor', 'jslint'));
