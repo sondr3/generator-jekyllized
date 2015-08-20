@@ -22,8 +22,6 @@ function assertJSONFileContains(filename, content) {
 }
 
 describe('jekyllized:app', function() {
-  this.timeout(Infinity);
-
   describe('running on new project', function() {
     before(function(done) {
       this.answers = {
@@ -38,12 +36,19 @@ describe('jekyllized:app', function() {
         jekyllPermalinks: 'pretty',
         jekyllPaginate: '10'
       };
+      this.deps = [
+        [helpers.createDummyGenerator(), 'jekyllized:boilerplate'],
+        [helpers.createDummyGenerator(), 'jekyllized:bower'],
+        [helpers.createDummyGenerator(), 'jekyllized:gulp'],
+        [helpers.createDummyGenerator(), 'jekyllized:jekyll'],
+      ];
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(__dirname, 'tmp/app'))
         .withOptions({
           'skip-install': true
         })
         .withPrompts(this.answers)
+        .withGenerators(this.deps)
         .on('end', done);
     });
 

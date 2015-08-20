@@ -1,35 +1,50 @@
 <a name="HEAD"></a>
 ## HEAD
 
-## BREAKING CHANGES
-Gulp was updated to version 4.0 and much of the Gulpfile was updated
-accordingly, hence a lot of old tasks were removed and a few new ones
-introduced.
+## BREAKING
+Moved the generator over to the beta for Gulp 4.0 and the beta for Jekyll 3.0
+because I like moving way too fast. The move to Gulp 4.0 was mostly because
+running tasks in series/parallel were a major pain and Gulp 4.0 makes it
+significantly easier.
 
 This isn't strictly breaking as it won't affect people who have installed and
-are running a site with Jekyllized nor will it change for people who are new but
-if you are updating or coming from a previous install some things might not be
-as it was.
+are running a site with Jekyllized nor will it change for people who are new,
+however you are required to use the Gulp 4.0 beta as it doesn't work with Gulp
+3.0.
 
 #### Changes
 * **Gulp:** Updated to Gulp 4.0 and changed the majority of the Gulpfile and
   most of the tasks there as well, this should be considered a breaking
-  change.
+  change. No functionality was lost however, merely just updated. Also ES6ified
+  the gulpfile so it now uses Babel and uses a few fun features.
 * **Jekyll:** Updated to Jekyll 3.0-beta since both Jekyll and Gulp is currently
   moving towards a new major version, with one of the biggest changes being
   incremental regeneration. Also moved back to the default theme for Jekyll with
-  some minor tweaks to suit this project better.
+  some minor tweaks to suit this project better. Added a URI field in the
+  `_config.yml` so `jekyll-feed` works properly.
+* **Yeoman**: Updated the backend to use the latest Yeoman generator and moved
+  to having several smaller subgenerators instead, so you can now for example
+  only update your Gulp to be the latest version instead of having to
+  reinstall everything. Just beware that it overwrites what you have currently
+  set up.
+* **Bower**: Added support for Bower! Yay. It automatically injects your JS and
+  CSS dependencies into the layout.
+* **Pagination**: Removed the questions for pagination because having 10 as a
+  default is more than good enough and I like being very opinionated.
 * **Archives:** Added yearly and monthly archives and archives for tags and
   categories.
 * **Sitemap:** Removed the `sitemap.xml` file and now use the `jekyll-sitemap`
   gem instead.
+* **Feed**: Removed the feed file and moved to `jekyll-feed`
 * **Jekyll directory:** Everything is now output to a `dist` folder instead of a
-  `site` folder to be more in line with most other tools.
-* **Asset directories:** Moved most of the assets to live in a .tmp while working on
-  them because Jekyll would regenrate itself and not include the assets folder
-  when you changed something while BrowserSync was active.
+  `site` and `serve` folder to be more in line with most other tools.
+* **Asset directories:** Moved most of the assets to live in a `.tmp` while
+  working on them because Jekyll would regenrate itself and not include the
+  assets folder when you changed something while BrowserSync was active.
 
 #### Fixes
+* **Packages**: Updated all the packages to the latest version as of writing
+  this.
 * **Gulp:** In general the gulpfile has seen most of it changes or added upon, both the SCSS
   and JS files will now have sourcemaps generated, both Jekyll and the
   asset-revitalizer now runs quietly to not clog the command line. All the JS
@@ -37,12 +52,12 @@ as it was.
 * **Jekyll:** Removed the URL setting from the `_config.build.yml` file into the
   `_config.yml` file so getting the site ready for production doesn't involve
   a full rebuild to better support incremental regeneration.
-* **Feed:** Updated the feed to be more up to par and completely valid
-* **Packages:** Updated the packages to be more up to date on NPM
+* **Git**: Fixed the gitignore for the new paths
 
 #### Behind the scenes
 * **Tests:** Continued working on tests to make errors even less likely. Yay
-  tests.
+  tests. Also fixed timeouts thanks to @gjeck.
+* **Moar**: Made everything more awesome.
 
 <a name="0.7.1"></a>
 ## 0.7.1 - Bugfix
