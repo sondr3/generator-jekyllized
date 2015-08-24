@@ -3,34 +3,25 @@
 import coveralls from 'gulp-coveralls';
 import gulp from 'gulp';
 import istanbul from 'gulp-istanbul';
-import jscs from 'gulp-jscs';
-import jshint from 'gulp-jshint';
+import eslint from 'gulp-eslint';
 import mocha from 'gulp-mocha';
 import path from 'path';
-import plumber from 'gulp-plumber';
-import trash from 'trash';
+import del from 'del';
 
-const handleErr = err => {
-  console.log(err.message);
-  process.exit(1);
-};
-
-gulp.task('check', () => {
-  return gulp.src([
+gulp.task('check', () =>
+  gulp.src([
+    'gulpfile.babel.js',
     'test/*.js',
     'test/tmp/**/gulpfile.babel.js',
-    'generators/**/index.js',
-    'gulpfile.babel.js'
+    'generators/**/index.js'
   ])
-  .pipe(jscs())
-  .pipe(jshint('.jshintrc'))
-  .pipe(jshint.reporter('jshint-stylish'))
-  .pipe(jshint.reporter('fail'))
-  .on('error', handleErr);
-});
+  .pipe(eslint())
+  .pipe(eslint.formatEach())
+  .pipe(eslint.failOnError())
+);
 
-gulp.task('istanbul', done => {
-  return gulp.src([
+gulp.task('istanbul', done =>
+  gulp.src([
     'generators/**/index.js'
   ])
   .pipe(istanbul())
@@ -41,17 +32,16 @@ gulp.task('istanbul', done => {
       .pipe(istanbul.writeReports())
       .pipe(istanbul.enforceThresholds({thresholds: {global: 70}}))
       .on('end', done);
-  });
-});
+  })
+);
 
-gulp.task('clean', done => {
-  trash(['test/tmp']);
-  done();
-});
+gulp.task('clean', done =>
+  del(['test/tmp'], {dot: true}, done)
+);
 
 gulp.task('coveralls', () => {
-  if (!process.env.CI) { return; }
-  return gulp.src(path.join(__dirname, 'coverage/lcov.info'))
+  if (!process.env.CI) { return; } //eslint-disable-line
+  return gulp.src(path.join(__dirname, 'coverage/lcov.info')) //eslint-disable-line
     .pipe(coveralls());
 });
 

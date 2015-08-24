@@ -1,7 +1,6 @@
 'use strict';
 
 var _ = require('lodash');
-var chalk = require('chalk');
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
@@ -13,7 +12,7 @@ module.exports = generators.Base.extend({
       name: 'uploading',
       type: 'list',
       message: 'How do you want to upload your site?',
-      choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
+      choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None']
     });
   },
 
@@ -23,10 +22,13 @@ module.exports = generators.Base.extend({
 
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
-        'babel': '^5.6.8',
+        'babel-core': '^5.8.22',
+        'babel-eslint': '^4.0.10',
         'bower': '^1.4.1',
         'browser-sync': '^2.7.12',
         'del': '^1.1.1',
+        'eslint': '^1.2.1',
+        'eslint-config-xo': '^0.4.0',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
         'gulp-autoprefixer': '^2.0.0',
         'gulp-cache': '~0.2.4',
@@ -38,6 +40,7 @@ module.exports = generators.Base.extend({
         'gulp-htmlmin': '^1.0.0',
         'gulp-if': '^1.2.4',
         'gulp-imagemin': '^2.1.0',
+        'gulp-eslint': '^1.0.0',
         'gulp-jshint': '^1.8.5',
         'gulp-load-plugins': '^0.10.0',
         'gulp-minify-css': '^1.2.0',

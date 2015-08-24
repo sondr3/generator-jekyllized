@@ -31,7 +31,6 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function() {
-    var self = this;
     var done = this.async();
 
     if (!this.options['skip-welcome-message']) {
@@ -71,7 +70,7 @@ module.exports = generators.Base.extend({
     }, {
       name: 'authorTwitter',
       message: 'Your Twitter handle',
-      store: true,
+      store: true
     }, {
       name: 'uploading',
       type: 'list',

@@ -1,10 +1,6 @@
 'use strict';
 
-var _ = require('lodash');
-var chalk = require('chalk');
 var generators = require('yeoman-generator');
-var path = require('path');
-var yosay = require('yosay');
 
 module.exports = generators.Base.extend({
   constructor: function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require ('path');
+var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-generator').test;
 
@@ -14,12 +14,8 @@ describe('jekyllized:boilerplate', function() {
     assert.file('.editorconfig');
   });
 
-  it('creates .jshintrc', function() {
-    assert.file('.jshintrc');
-  });
-
-  it('creates .jscsrc', function() {
-    assert.file('.jscsrc');
+  it('creates .eslintrc', function() {
+    assert.file('.eslintrc');
   });
 
   it('creates .gitignore', function() {

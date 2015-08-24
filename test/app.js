@@ -40,7 +40,7 @@ describe('jekyllized:app', function() {
         [helpers.createDummyGenerator(), 'jekyllized:boilerplate'],
         [helpers.createDummyGenerator(), 'jekyllized:bower'],
         [helpers.createDummyGenerator(), 'jekyllized:gulp'],
-        [helpers.createDummyGenerator(), 'jekyllized:jekyll'],
+        [helpers.createDummyGenerator(), 'jekyllized:jekyll']
       ];
       helpers.run(path.join(__dirname, '../generators/app'))
         .inDir(path.join(__dirname, 'tmp/app'))
@@ -59,8 +59,7 @@ describe('jekyllized:app', function() {
     it('creates files', function() {
       assert.file([
         '.editorconfig',
-        '.jshintrc',
-        '.jscsrc',
+        '.eslintrc',
         '.gitignore',
         '.gitattributes',
         '.bowerrc',
@@ -84,7 +83,7 @@ describe('jekyllized:app', function() {
         author: {
           name: this.answers.authorName,
           email: this.answers.authorEmail
-        },
+        }
       });
     });
   });

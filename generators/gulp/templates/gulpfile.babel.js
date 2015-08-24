@@ -26,9 +26,9 @@ const wiredep = wiredeps.stream;
 import bowerFiles from 'main-bower-files';
 
 // Deletes the directory that the optimized site is output to
-gulp.task('clean:dist', cb => { trash(['dist']); cb(); });
-gulp.task('clean:assets', cb => { trash(['.tmp']); cb(); });
-gulp.task('clean:metadata', cb => { trash(['src/.jekyll-metadata']); cb(); });
+gulp.task('clean:dist', cb => { trash(['dist']); cb(); }); //eslint-disable-line
+gulp.task('clean:assets', cb => { trash(['.tmp']); cb(); }); //eslint-disable-line
+gulp.task('clean:metadata', cb => { trash(['src/.jekyll-metadata']); cb(); }); //eslint-disable-line
 
 // Tasks for building Jekyll, either with development settings (drafts etc) or
 // with production settings
@@ -286,7 +286,7 @@ gulp.task('jslint', () => {
 
 // Runs 'jekyll doctor' on your site to check for errors with your configuration
 // and will check for URL errors a well
-gulp.task('doctor', cb => { shell.exec('jekyll doctor'); cb(); });
+gulp.task('doctor', cb => { shell.exec('jekyll doctor'); cb(); }); //eslint-disable-line
 
 // BrowserSync will serve our site on a local server for us and other devices to use
 // It will also autoreload across all devices as well as keep the viewport synchronized

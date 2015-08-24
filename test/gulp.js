@@ -72,7 +72,7 @@ describe('jekyllized:gulp', function() {
         ['package.json', /\"gulp-awspublish-router/],
         ['package.json', /\"concurrent-transform/],
         ['package.json', /\"gulp-rsync/],
-        ['package.json', /\"gulp-gh-pages/],
+        ['package.json', /\"gulp-gh-pages/]
       ];
 
       assert.noFileContent(unexpected);
