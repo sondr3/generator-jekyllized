@@ -23,10 +23,13 @@ describe('jekyllized:gulp', function() {
 
     it('package.json contains correct packages and versions', function() {
       var expected = [
-        ['package.json', '"babel": "^5.6.8"'],
-        ['package.json', '"browser-sync": "^2.7.12"'],
+        ['package.json', '"babel-core": "^5.8.22"'],
+        ['package.json', '"babel-eslint": "^4.0.10"'],
         ['package.json', '"bower": "^1.4.1"'],
+        ['package.json', '"browser-sync": "^2.7.12"'],
         ['package.json', '"del": "^1.1.1"'],
+        ['package.json', '"eslint": "^1.2.1"'],
+        ['package.json', '"eslint-config-xo": "^0.4.0"'],
         ['package.json', '"gulp": "git://github.com/gulpjs/gulp.git#4.0"'],
         ['package.json', '"gulp-autoprefixer": "^2.0.0"'],
         ['package.json', '"gulp-cache": "~0.2.4"'],
@@ -38,6 +41,7 @@ describe('jekyllized:gulp', function() {
         ['package.json', '"gulp-htmlmin": "^1.0.0"'],
         ['package.json', '"gulp-if": "^1.2.4"'],
         ['package.json', '"gulp-imagemin": "^2.1.0"'],
+        ['package.json', '"gulp-eslint": "^1.0.0"'],
         ['package.json', '"gulp-jshint": "^1.8.5"'],
         ['package.json', '"gulp-load-plugins": "^0.10.0"'],
         ['package.json', '"gulp-minify-css": "^1.2.0"'],
