@@ -91,13 +91,14 @@ describe('jekyllized:gulp', function() {
         ['gulpfile.babel.js', /gulp.task\(\'jekyll\:prod\'/],
         ['gulpfile.babel.js', /gulp.task\(\'styles\'/],
         ['gulpfile.babel.js', /gulp.task\(\'javascript\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'html\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'inject\:head\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'inject\:footer\'/],
         ['gulpfile.babel.js', /gulp.task\(\'images\'/],
         ['gulpfile.babel.js', /gulp.task\(\'fonts\'/],
-        ['gulpfile.babel.js', /gulp.task\(\'copy\'/],
         ['gulpfile.babel.js', /gulp.task\(\'bower\'/],
         ['gulpfile.babel.js', /gulp.task\(\'bower:files\'/],
-        ['gulpfile.babel.js', /gulp.task\(\'optimize\'/],
-        ['gulpfile.babel.js', /gulp.task\(\'jslint\'/],
+        ['gulpfile.babel.js', /gulp.task\(\'lint\'/],
         ['gulpfile.babel.js', /gulp.task\(\'doctor\'/],
         ['gulpfile.babel.js', /gulp.task\(\'default\'/],
         ['gulpfile.babel.js', /gulp.task\(\'build\'/],
@@ -246,7 +247,7 @@ describe('jekyllized:gulp', function() {
       assert.fileContent('gulpfile.babel.js', /\/\/ Task to upload your site to your personal GH Pages repo/);
     });
 
-    it('does not contain the wrong uploadgin task', function() {
+    it('does not contain the wrong uploading task', function() {
       assert.noFileContent('gulpfile.babel.js', /\/\/ Task to upload your site via Rsync to your server/);
       assert.noFileContent('gulpfile.babel.js', /\/\/ Task to deploy your site to Amazon S3 and Cloudfront/);
     });

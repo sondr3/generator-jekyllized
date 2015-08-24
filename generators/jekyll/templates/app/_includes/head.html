@@ -8,10 +8,10 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
   <!-- CSS -->
-  <!-- build:css /assets/stylesheets/style.min.css -->
-  <link rel="stylesheet" href="/assets/stylesheets/style.css">
+  <!-- inject:css -->
+  <!-- endinject -->
+
   {% include bower_styles.html %}
-  <!-- endbuild -->
 
   <!-- Icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/touch/apple-touch-icon-144-precomposed.png">
