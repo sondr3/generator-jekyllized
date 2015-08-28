@@ -7,7 +7,7 @@ var helpers = require('yeoman-generator').test;
 var fs = require('fs');
 
 function assertObjectContains(obj, content) {
-  Object.keys(content).forEach(function(key) {
+  Object.keys(content).forEach(function (key) {
     if (typeof content[key] === 'object') {
       assertObjectContains(content[key], obj[key]);
     } else {
@@ -21,9 +21,9 @@ function assertJSONFileContains(filename, content) {
   assertObjectContains(obj, content);
 }
 
-describe('jekyllized:app', function() {
-  describe('running on new project', function() {
-    before(function(done) {
+describe('jekyllized:app', function () {
+  describe('running on new project', function () {
+    before(function (done) {
       this.answers = {
         projectName: 'jekyllized',
         projectDescription: 'Test site for Jekyllized',
@@ -52,11 +52,11 @@ describe('jekyllized:app', function() {
         .on('end', done);
     });
 
-    it('can be required without throwing', function() {
+    it('can be required without throwing', function () {
       this.app = require('../generators/app');
     });
 
-    it('creates files', function() {
+    it('creates files', function () {
       assert.file([
         '.editorconfig',
         '.eslintrc',
@@ -73,7 +73,7 @@ describe('jekyllized:app', function() {
       ]);
     });
 
-    it('creates package.json', function() {
+    it('creates package.json', function () {
       assert.file('package.json');
       assertJSONFileContains('package.json', {
         name: this.answers.projectName,
@@ -88,8 +88,8 @@ describe('jekyllized:app', function() {
     });
   });
 
-  describe('running on existing project', function() {
-    before(function(done) {
+  describe('running on existing project', function () {
+    before(function (done) {
       this.pkg = {
         version: '3.1.4',
         description: '404 not found',
@@ -107,13 +107,13 @@ describe('jekyllized:app', function() {
         .withGenerators([
             [helpers.createDummyGenerator(), 'mocha:app']
         ])
-        .on('ready', function(gen) {
+        .on('ready', function (gen) {
           gen.fs.writeJSON(gen.destinationPath('package.json'), this.pkg);
         }.bind(this))
         .on('end', done);
     });
 
-    it('extends package.json', function() {
+    it('extends package.json', function () {
       var pkg = _.extend({name: 'jekyllized'}, this.pkg);
       assertJSONFileContains('package.json', pkg);
     });

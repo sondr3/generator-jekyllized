@@ -4,7 +4,7 @@ var _ = require('lodash');
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
-  constructor: function() {
+  constructor: function () {
     generators.Base.apply(this, arguments);
 
     this.option('uploading', {
@@ -17,47 +17,37 @@ module.exports = generators.Base.extend({
   },
 
   writing: {
-    package: function() {
+    package: function () {
       var pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
 
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
+        'autoprefixer-core': '^5.2.1',
         'babel-core': '^5.8.22',
-        'babel-eslint': '^4.0.10',
-        'bower': '^1.4.1',
         'browser-sync': '^2.7.12',
         'del': '^1.1.1',
-        'eslint': '^1.2.1',
-        'eslint-config-xo': '^0.4.0',
         'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
-        'gulp-autoprefixer': '^2.0.0',
         'gulp-cache': '~0.2.4',
-        'gulp-cached': '^1.0.1',
         'gulp-changed': '^1.0.0',
-        'gulp-filter': '^2.0.0',
+        'gulp-concat': '^2.6.0',
         'gulp-group-concat': '^1.1.4',
         'gulp-gzip': '^1.1.0',
         'gulp-htmlmin': '^1.0.0',
         'gulp-if': '^1.2.4',
         'gulp-imagemin': '^2.1.0',
-        'gulp-eslint': '^1.0.0',
-        'gulp-jshint': '^1.8.5',
+        'gulp-inject': '^1.5.0',
         'gulp-load-plugins': '^0.10.0',
         'gulp-minify-css': '^1.2.0',
-        'gulp-rev-all': '^0.8.21',
-        'gulp-rev-replace': '^0.4.2',
+        'gulp-postcss': '^6.0.0',
+        'gulp-rename': '^1.2.2',
+        'gulp-rev': '^6.0.0',
         'gulp-sass': '^2.0.2',
-        'gulp-shell': '^0.4.2',
         'gulp-size': '^1.1.0',
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^1.1.0',
         'gulp-uncss': '^1.0.0',
-        'gulp-useref': '^1.0.2',
-        'jshint-stylish': '^2.0.1',
-        'merge-stream': '^0.1.6',
         'main-bower-files': '^2.8.2',
         'shelljs': '^0.5.1',
-        'trash': '^1.4.0',
         'wiredep': '^3.0.0-beta'
       });
 
@@ -78,7 +68,7 @@ module.exports = generators.Base.extend({
       this.fs.writeJSON(this.destinationPath('package.json'), pkg);
     },
 
-    gulpfile: function() {
+    gulpfile: function () {
       this.fs.copyTpl(
         this.templatePath('gulpfile.babel.js'),
         this.destinationPath('gulpfile.babel.js'),

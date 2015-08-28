@@ -6,7 +6,7 @@ var generators = require('yeoman-generator');
 var yosay = require('yosay');
 
 module.exports = generators.Base.extend({
-  constructor: function() {
+  constructor: function () {
     generators.Base.apply(this, arguments);
 
     this.option('skip-welcome-message', {
@@ -25,12 +25,12 @@ module.exports = generators.Base.extend({
     });
   },
 
-  initializing: function() {
+  initializing: function () {
     this.props = {};
     this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
   },
 
-  prompting: function() {
+  prompting: function () {
     var done = this.async();
 
     if (!this.options['skip-welcome-message']) {
@@ -88,14 +88,14 @@ module.exports = generators.Base.extend({
       store: true
     }];
 
-    this.prompt(prompts, function(props) {
+    this.prompt(prompts, function (props) {
       this.props = _.extend(this.props, props);
 
       done();
     }.bind(this));
   },
 
-  writing: function() {
+  writing: function () {
     var pkgJSONFields = {
       name: _.kebabCase(this.props.projectName),
       version: '0.0.0',
@@ -110,7 +110,7 @@ module.exports = generators.Base.extend({
     this.fs.writeJSON('package.json', _.extend(pkgJSONFields, this.pkg));
   },
 
-  default: function() {
+  default: function () {
     this.composeWith('jekyllized:boilerplate', {
       options: {
         projectName: this.props.projectName,
@@ -157,7 +157,7 @@ module.exports = generators.Base.extend({
     });
   },
 
-  installing: function() {
+  installing: function () {
     if (!this.options['skip-install']) {
       this.npmInstall();
       this.spawnCommand('bundle', ['install']);

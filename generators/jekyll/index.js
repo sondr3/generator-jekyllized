@@ -3,7 +3,7 @@
 var generators = require('yeoman-generator');
 
 module.exports = generators.Base.extend({
-  constructor: function() {
+  constructor: function () {
     generators.Base.apply(this, arguments);
 
     this.option('projectName', {
@@ -61,7 +61,7 @@ module.exports = generators.Base.extend({
     });
   },
 
-  writing: function() {
+  writing: function () {
     this.fs.copy(
       this.templatePath('Gemfile'),
       this.destinationPath('Gemfile')

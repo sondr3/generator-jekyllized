@@ -4,9 +4,9 @@ var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-generator').test;
 
-describe('jekyllized:jekyll', function() {
-  describe('default settings', function() {
-    before(function(done) {
+describe('jekyllized:jekyll', function () {
+  describe('default settings', function () {
+    before(function (done) {
       this.options = {
         projectName: 'jekyllized',
         projectDescription: 'Tests for Jekyllized',
@@ -23,16 +23,16 @@ describe('jekyllized:jekyll', function() {
         .on('end', done);
     });
 
-    it('creates Gemfile', function() {
+    it('creates Gemfile', function () {
       assert.file('Gemfile');
     });
 
-    it('creates _config.yml files', function() {
+    it('creates _config.yml files', function () {
       assert.file('_config.yml');
       assert.file('_config.build.yml');
     });
 
-    it('creates src directory', function() {
+    it('creates src directory', function () {
       var expected = [
         'src/404.html',
         'src/about.md',
@@ -45,7 +45,7 @@ describe('jekyllized:jekyll', function() {
       assert.file(expected);
     });
 
-    it('_config.yml contains the correct settings', function() {
+    it('_config.yml contains the correct settings', function () {
       var expected = [
         ['_config.yml', /name\: jekyllized/],
         ['_config.yml', /description\: Tests for Jekyllized/],
@@ -60,7 +60,7 @@ describe('jekyllized:jekyll', function() {
       assert.fileContent(expected);
     });
 
-    it('_config.build.yml contains the correct settings', function() {
+    it('_config.build.yml contains the correct settings', function () {
       var expected = [
         ['_config.build.yml', /future\: false/],
         ['_config.build.yml', /show_drafts\: false/],
@@ -74,9 +74,9 @@ describe('jekyllized:jekyll', function() {
     });
   });
 
-  describe('different permalink settings', function() {
-    describe('pretty permalinks', function() {
-      before(function(done) {
+  describe('different permalink settings', function () {
+    describe('pretty permalinks', function () {
+      before(function (done) {
         this.options = {
           jekyllPermalinks: 'pretty'
         };
@@ -86,13 +86,13 @@ describe('jekyllized:jekyll', function() {
           .on('end', done);
       });
 
-      it('sets pretty permalinks', function() {
+      it('sets pretty permalinks', function () {
         assert.fileContent('_config.yml', 'permalink: pretty');
       });
     });
 
-    describe('date permalinks', function() {
-      before(function(done) {
+    describe('date permalinks', function () {
+      before(function (done) {
         this.options = {
           jekyllPermalinks: 'date'
         };
@@ -102,13 +102,13 @@ describe('jekyllized:jekyll', function() {
           .on('end', done);
       });
 
-      it('sets date permalinks', function() {
+      it('sets date permalinks', function () {
         assert.fileContent('_config.yml', 'permalink: date');
       });
     });
 
-    describe('"none" permalinks', function() {
-      before(function(done) {
+    describe('"none" permalinks', function () {
+      before(function (done) {
         this.options = {
           jekyllPermalinks: 'none'
         };
@@ -118,7 +118,7 @@ describe('jekyllized:jekyll', function() {
           .on('end', done);
       });
 
-      it('sets "none" permalinks', function() {
+      it('sets "none" permalinks', function () {
         assert.fileContent('_config.yml', 'permalink: none');
       });
     });

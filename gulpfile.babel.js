@@ -40,7 +40,9 @@ gulp.task('clean', done =>
 );
 
 gulp.task('coveralls', () => {
-  if (!process.env.CI) { return; } //eslint-disable-line
+  if (!process.env.CI) {
+    return;
+  }
   return gulp.src(path.join(__dirname, 'coverage/lcov.info')) //eslint-disable-line
     .pipe(coveralls());
 });
