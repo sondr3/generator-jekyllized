@@ -29,22 +29,29 @@ import autoprefixer from 'autoprefixer-core';
 /*
  * ORGANIZATION OF GULPFILE:
  *
- * 1. Cleaning assets etc
+ * 1. Cleaning assets and such
  * 2. Jekyll related tasks
  * 3. Development tasks
- * 4. Production tasks
- * 5 .Deployment tasks
- * 6. Various
- * 7. Main tasks
+ * 4. Production and development tasks
+ * 5. Development tasks
+ * 6. Bower tasks
+ * 7. Deployment tasks (if any)
+ * 8. Various
+ * 9. Serve tasks
+ * 10. Main tasks
  *
  */
 
+//
 // 1. Cleaning tasks
+//
 gulp.task('clean:dist', del.bind(null, ['dist']));
 gulp.task('clean:assets', del.bind(null, ['.tmp', 'dist/assets']));
 gulp.task('clean:metadata', del.bind(null, ['src/.jekyll-metadata'], {dot: true}));
 
+//
 // 2. Jekyll tasks
+//
 // Build Jekyll without production settings
 gulp.task('jekyll:dev', done => {
   shell.exec('jekyll build --quiet');
@@ -63,7 +70,9 @@ gulp.task('jekyll:doctor', done => {
   done();
 });
 
+//
 // 3. Development tasks
+//
 // Dev task for styles so they can be automatically injected into the browser
 gulp.task('styles:dev', () =>
   // Don't use partials for best performance
@@ -116,8 +125,11 @@ gulp.task('script:dev', () =>
     .pipe(browserSync.stream())
 );
 
+//
+// 4. Production and development tasks
+//
 // Dev task for injecting the CSS into the HTML
-gulp.task('inject:head:dev', () =>
+gulp.task('inject:head', () =>
   // Change the include file instead of all the HTML files
   gulp.src('src/_includes/head.html')
     // Look for any CSS files in the 'stylesheets' directory
@@ -129,7 +141,7 @@ gulp.task('inject:head:dev', () =>
 );
 
 // Dev task for injecting the JS into the HTML
-gulp.task('inject:footer:dev', () =>
+gulp.task('inject:footer', () =>
   // Change the default layout file instead of all the HTML files
   gulp.src('src/_layouts/default.html')
     // Look for any JS files in the 'javascript' directory
@@ -140,13 +152,49 @@ gulp.task('inject:footer:dev', () =>
     .pipe(gulp.dest('src/_layouts'))
 );
 
-// 4. Production tasks
+// Production (and dev) task for images
+gulp.task('images', () =>
+  // Look for any kind of file in the images folder and subfolders
+  // I hope you only put images here...
+  gulp.src('src/assets/images/**/*')
+    // Cache them so you don't repeatedly optimize them
+    .pipe($.cache($.imagemin({
+      // Progressively enhance JPEGs
+      progressive: true,
+      // Interlace PNGs
+      interlaced: true
+    })))
+    // Output to both temporary and dist folders
+    .pipe(gulp.dest('.tmp/assets/images'))
+    // And display the size of the images
+    .pipe($.size({title: 'images'}))
+);
+
+// Production (and dev) task for fonts
+gulp.task('fonts', () =>
+  // Look for any kind of file in the fonts folder and subfolders
+  // You get the drift
+  gulp.src('src/assets/fonts/**/*')
+    // Copy them to the temporary and dist folder
+    .pipe(gulp.dest('.tmp/assets/images'))
+    // And display the size
+    .pipe($.size({title: 'fonts'}))
+);
+
+// Copy the production assets into the dist folder, needs to be done this way
+// because Jekyll overwrites the whole folder otherwise
+gulp.task('copy:assets', () =>
+  gulp.src('.tmp/assets/**/*')
+    .pipe(gulp.dest('dist/assets'))
+);
+
+//
+// 5. Production tasks
+//
 // Production task for styles
 gulp.task('styles', () =>
   // Don't include partials for performance
   gulp.src('src/assets/scss/style.scss')
-    // Skip rebuilding CSS if nothing has changed
-    .pipe($.changed('.tmp/assets/stylesheets', {extension: '.css'}))
     // Initiate sourcemaps
     .pipe($.sourcemaps.init())
     // Run it through libsass
@@ -169,11 +217,11 @@ gulp.task('styles', () =>
     // Cache bust the files
     .pipe($.rev())
     // Write to asset folder
-    .pipe(gulp.dest('dist/assets/stylesheets'))
+    .pipe(gulp.dest('.tmp/assets/stylesheets'))
     // Write the sourcemap into it's own file
     .pipe($.sourcemaps.write('.'))
     // Write even more to the asset folder
-    .pipe(gulp.dest('dist/assets/stylesheets'))
+    .pipe(gulp.dest('.tmp/assets/stylesheets'))
     // Gzip the CSS file and append .gz
     .pipe($.if('*.css', $.gzip({append: true})))
     // Display the size of the gzipped file
@@ -183,7 +231,7 @@ gulp.task('styles', () =>
       showFiles: true
     }))
     // And put that too into the asset directory
-    .pipe(gulp.dest('dist/assets/stylesheets'))
+    .pipe(gulp.dest('.tmp/assets/stylesheets'))
 );
 
 // Production task for JavaScript
@@ -194,8 +242,6 @@ gulp.task('script', () =>
     'src/assets/javascript/vendor.js',
     'src/assets/javascript/main.js'
   ])
-    // Skip rebuilding JS if nothing has changed
-    .pipe($.changed('.tmp/assets/javascript', {extension: '.js'}))
     // Initiate sourcemaps
     .pipe($.sourcemaps.init())
     // Concat all the JS files into a single file
@@ -214,7 +260,7 @@ gulp.task('script', () =>
       showFiles: true
     }))
     // Write to asset folder
-    .pipe(gulp.dest('dist/assets/javascript'))
+    .pipe(gulp.dest('.tmp/assets/javascript'))
     // Gzip the JS file and append .gz
     .pipe($.if('*.js', $.gzip({append: true})))
     // Display the size of the gzipped file
@@ -224,7 +270,7 @@ gulp.task('script', () =>
       showFiles: true
     }))
     // And put that too into the asset directory
-    .pipe(gulp.dest('dist/assets/javascript'))
+    .pipe(gulp.dest('.tmp/assets/javascript'))
 );
 
 // Production task for HTML
@@ -257,61 +303,9 @@ gulp.task('html', () =>
     .pipe(gulp.dest('dist'))
 );
 
-// Production task for injecting CSS into the HTML
-gulp.task('inject:head', () =>
-  // Change the include file instead of all the HTML files
-  gulp.src('src/_includes/head.html')
-    // Look for any CSS files in the 'stylesheets' directory
-    // Don't read the files for performance and ignore the base directory
-    .pipe($.inject(gulp.src('dist/assets/stylesheets/*.css',
-                            {read: false}), {ignorePath: 'dist'}))
-    // Output the file back into it's directory
-    .pipe(gulp.dest('src/_includes'))
-);
-
-// Production task for injecting the JS into the HTML
-gulp.task('inject:footer', () =>
-  // Change the default layout file instead of all the HTML files
-  gulp.src('src/_layouts/default.html')
-    // Look for any JS files in the 'javascript' directory
-    // Don't read the files for performance and ignore the base directory
-    .pipe($.inject(gulp.src('dist/assets/javascript/*.js',
-                            {read: false}), {ignorePath: 'dist'}))
-    // Output the file back into it's directory
-    .pipe(gulp.dest('src/_layouts'))
-);
-
-// Production (and dev) task for images
-gulp.task('images', () =>
-  // Look for any kind of file in the images folder and subfolders
-  // I hope you only put images here...
-  gulp.src('src/assets/images/**/*')
-    // Cache them so you don't repeatedly optimize them
-    .pipe($.cache($.imagemin({
-      // Progressively enhance JPEGs
-      progressive: true,
-      // Interlace PNGs
-      interlaced: true
-    })))
-    // Output to both temporary and dist folders
-    .pipe(gulp.dest('.tmp/assets/images'))
-    .pipe(gulp.dest('dist/assets/images'))
-    // And display the size of the images
-    .pipe($.size({title: 'images'}))
-);
-
-// Production (and dev) task for fonts
-gulp.task('fonts', () =>
-  // Look for any kind of file in the fonts folder and subfolders
-  // You get the drift
-  gulp.src('src/assets/fonts/**/*')
-    // Copy them to the temporary and dist folder
-    .pipe(gulp.dest('.tmp/assets/images'))
-    .pipe(gulp.dest('dist/assets/fonts'))
-    // And display the size
-    .pipe($.size({title: 'fonts'}))
-);
-
+//
+// 6. Bower tasks
+//
 // Wires your Bower dependencies into their own include file that are then
 // inserted into the default layout, automatically adding JS and CSS
 gulp.task('bower', () => {
@@ -326,10 +320,10 @@ gulp.task('bower', () => {
         html: {
           replace: {
             js: filePath => {
-              return '<script src="' + '/assets/vendor/' + filePath.split('/').pop() + '"></script>';
+              return '<script src="' + '/assets/vendor/' + filePath.split('/').pop() + '"></script>'; //eslint-disable-line
             },
             css: filePath => {
-              return '<link rel="stylesheet" href="' + '/assets/vendor/' + filePath.split('/').pop() + '"/>';
+              return '<link rel="stylesheet" href="' + '/assets/vendor/' + filePath.split('/').pop() + '"/>'; //eslint-disable-line
             }
           }
         }
@@ -439,24 +433,33 @@ gulp.task('deploy', () => {
 
 <% } -%>
 <% if (noUpload) { -%><% } -%>
+//
+// 8. Various tasks
+//
+// Lint your JavaScript to look for errors and style errors
 gulp.task('lint', () =>
+  // Only look in the relevant JS files
   gulp.src([
     'gulpfile.babel.js',
-    '.tmp/assets/javascript/*.js'
+    '.tmp/assets/javascript/*.js',
+    '!.tmp/assets/javascript/*.min.js'
   ])
+  // Run through ESlint with XO settings
   .pipe($.eslint())
+  // Format it nicely
   .pipe($.eslint.formatEach())
+  // And fail if need be
   .pipe($.eslint.failOnError())
 );
 
 // BrowserSync will serve our site on a local server for us and other devices to use
 // It will also autoreload across all devices as well as keep the viewport synchronized
 // between them.
-
 gulp.task('serve', () => {
   browserSync({
     // tunnel: true,
     server: {
+      // Serve assets from '.tmp' instead of 'dist'
       baseDir: ['.tmp', 'dist']
     }
   });
@@ -469,36 +472,37 @@ gulp.task('serve', () => {
   gulp.watch('src/assets/images/**/*', reload);
 });
 
+// Serve the finished site for final review
 gulp.task('serve:dist', () => {
   browserSync({
-    notify: true,
     server: {
       baseDir: ['dist']
     }
   });
 });
 
+// Asset tasks for development and production
+gulp.task('assets:dev', gulp.series('clean:assets', 'styles:dev', 'script:dev', 'fonts', 'images'));
+gulp.task('assets', gulp.series('clean:assets', 'styles', 'script', 'fonts', 'images'));
+
 // Default task, run when just writing 'gulp' in the terminal
+// Wires up your assets and such with the development settings etc
 gulp.task('default', gulp.series(
-      gulp.series('jekyll:dev'),
-      gulp.parallel('styles:dev', 'script:dev', 'fonts', 'images'),
-      gulp.series('serve')
+  gulp.series('assets:dev', 'inject:head', 'inject:footer'),
+  gulp.series('jekyll:dev', 'copy:assets'),
+  gulp.series('serve')
 ));
 
-// Builds your site with the 'build' command and then runs all the optimizations on
-// it and outputs it to './dist'
-gulp.task('optimize', gulp.series(
-      gulp.series('jekyll:prod'),
-      gulp.parallel('styles', 'script', 'fonts', 'images')
-));
-
+// Builds your site with production settings and such
+// Optimizes all your assets as well
 gulp.task('build', gulp.series(
-      gulp.series('jekyll:dev'),
-      gulp.parallel('styles', 'script', 'fonts', 'images')
+  gulp.series('assets', 'inject:head', 'inject:footer'),
+  gulp.series('jekyll:prod', 'copy:assets'),
+  gulp.series('html')
 ));
 
 // Clean out your dist and .tmp folder and delete .jekyll-metadata
 gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:metadata'));
 
-// Checks your CSS, JS and Jekyll for errors
+// Checks your JS and Jekyll for errors
 gulp.task('check', gulp.series('jekyll:doctor', 'lint'));
