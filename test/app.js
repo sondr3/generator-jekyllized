@@ -6,21 +6,6 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-generator').test;
 var fs = require('fs');
 
-function assertObjectContains(obj, content) {
-  Object.keys(content).forEach(function (key) {
-    if (typeof content[key] === 'object') {
-      assertObjectContains(content[key], obj[key]);
-    } else {
-      assert.equal(content[key], obj[key]);
-    }
-  });
-}
-
-function assertJSONFileContains(filename, content) {
-  var obj = JSON.parse(fs.readFileSync(filename, 'utf8'));
-  assertObjectContains(obj, content);
-}
-
 describe('jekyllized:app', function () {
   describe('running on new project', function () {
     before(function (done) {
@@ -75,7 +60,7 @@ describe('jekyllized:app', function () {
 
     it('creates package.json', function () {
       assert.file('package.json');
-      assertJSONFileContains('package.json', {
+      assert.JSONFileContent('package.json', {
         name: this.answers.projectName,
         version: '0.0.0',
         description: this.answers.projectDescription,
@@ -115,7 +100,7 @@ describe('jekyllized:app', function () {
 
     it('extends package.json', function () {
       var pkg = _.extend({name: 'jekyllized'}, this.pkg);
-      assertJSONFileContains('package.json', pkg);
+      assert.JSONFileContent('package.json', pkg);
     });
   });
 });
