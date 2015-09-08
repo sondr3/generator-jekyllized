@@ -4,7 +4,6 @@ var _ = require('lodash');
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-generator').test;
-var fs = require('fs');
 
 describe('jekyllized:app', function () {
   describe('running on new project', function () {
@@ -60,7 +59,7 @@ describe('jekyllized:app', function () {
 
     it('creates package.json', function () {
       assert.file('package.json');
-      assert.JSONFileContent('package.json', {
+      assert.JSONFileContent('package.json', { //eslint-disable-line
         name: this.answers.projectName,
         version: '0.0.0',
         description: this.answers.projectDescription,
@@ -81,7 +80,6 @@ describe('jekyllized:app', function () {
         homepage: 'ulv.no',
         author: 'Kari Nordmann'
       };
-
       helpers.run(path.join(__dirname, '../generators/app'))
         .withOptions({
           'skip-install': true
@@ -89,9 +87,6 @@ describe('jekyllized:app', function () {
         .withPrompts({
           projectName: 'jekyllized'
         })
-        .withGenerators([
-            [helpers.createDummyGenerator(), 'mocha:app']
-        ])
         .on('ready', function (gen) {
           gen.fs.writeJSON(gen.destinationPath('package.json'), this.pkg);
         }.bind(this))
@@ -100,7 +95,7 @@ describe('jekyllized:app', function () {
 
     it('extends package.json', function () {
       var pkg = _.extend({name: 'jekyllized'}, this.pkg);
-      assert.JSONFileContent('package.json', pkg);
+      assert.JSONFileContent('package.json', pkg); //eslint-disable-line
     });
   });
 });

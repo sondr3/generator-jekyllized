@@ -9,16 +9,6 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
 
-    this.option('skip-welcome-message', {
-      desc: 'Skips the welcome message',
-      type: Boolean
-    });
-
-    this.option('skip-install-message', {
-      desc: 'Skip the message after installation',
-      type: Boolean
-    });
-
     this.option('skip-install', {
       desc: 'Skip installing dependencies',
       type: Boolean
@@ -158,7 +148,9 @@ module.exports = generators.Base.extend({
   },
 
   installing: function () {
-    if (!this.options['skip-install']) {
+    if (this.options['skip-install']) {
+      this.log('Please run `npm install` and `bundle install`');
+    } else {
       this.npmInstall();
       this.spawnCommand('bundle', ['install']);
     }
