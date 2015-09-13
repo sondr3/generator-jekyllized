@@ -54,13 +54,13 @@ gulp.task('clean:metadata', del.bind(null, ['src/.jekyll-metadata'], {dot: true}
 //
 // Build Jekyll without production settings
 gulp.task('jekyll:dev', done => {
-  shell.exec('jekyll build --quiet');
+  shell.exec('jekyll build');
   done();
 });
 
 // Build Jekyll with production settings
 gulp.task('jekyll:prod', done => {
-  shell.exec('jekyll build --quiet --config _config.yml,_config.build.yml');
+  shell.exec('jekyll build --config _config.yml,_config.build.yml');
   done();
 });
 
@@ -465,8 +465,8 @@ gulp.task('serve', () => {
   });
 
   // Watch various files for changes and do the needful
-  gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.xml', //eslint-disable-line
-              'src/**/*.txt', 'src/**/*.yml']), gulp.series('jekyll:dev', reload);
+  gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.yml'], gulp.series('jekyll:dev', reload));
+  gulp.watch(['src/**/*.xml', 'src/**/*.txt'], gulp.series('jekyll:dev'));
   gulp.watch('src/assets/javascript/**/*.js', gulp.series('script:dev'));
   gulp.watch('src/assets/scss/**/*.scss', gulp.series('styles:dev'));
   gulp.watch('src/assets/images/**/*', reload);
@@ -488,6 +488,7 @@ gulp.task('assets', gulp.series('clean:assets', 'styles', 'script', 'fonts', 'im
 // Default task, run when just writing 'gulp' in the terminal
 // Wires up your assets and such with the development settings etc
 gulp.task('default', gulp.series(
+  gulp.series('clean:assets'),
   gulp.series('assets:dev', 'inject:head', 'inject:footer'),
   gulp.series('jekyll:dev', 'copy:assets'),
   gulp.series('serve')
