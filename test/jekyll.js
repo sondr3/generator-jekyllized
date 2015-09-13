@@ -72,6 +72,15 @@ describe('jekyllized:jekyll', function () {
 
       assert.fileContent(expected);
     });
+
+    it('fills out humans.txt correctly', function () {
+      var expected = [
+        ['src/humans.txt', /Ola Nordmann/],
+        ['src/humans.txt', /\@0lanordmann/]
+      ];
+
+      assert.fileContent(expected);
+    });
   });
 
   describe('different permalink settings', function () {

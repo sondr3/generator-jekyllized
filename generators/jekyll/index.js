@@ -84,6 +84,15 @@ module.exports = generators.Base.extend({
     );
 
     this.fs.copyTpl(
+      this.templatePath('humans.txt'),
+      this.destinationPath('src/humans.txt'),
+      {
+        authorName: this.options.authorName,
+        authorTwitter: this.options.authorTwitter
+      }
+    );
+
+    this.fs.copyTpl(
       this.templatePath('config.build.yml'),
       this.destinationPath('_config.build.yml')
     );
