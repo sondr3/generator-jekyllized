@@ -59,20 +59,22 @@ describe('jekyllized:gulp', function () {
     });
 
     it('does not create credentials files', function () {
-      assert.noFile('aws-credentials.json');
-      assert.noFile('rsync-credentials.json');
+      assert.noFile([
+        'aws-credentials.json',
+        'rsync-credentials.json'
+      ]);
     });
 
     it('does not contain uploading packages', function () {
-      var unexpected = [
-        ['package.json', /\"gulp-awspublish/],
-        ['package.json', /\"gulp-awspublish-router/],
-        ['package.json', /\"concurrent-transform/],
-        ['package.json', /\"gulp-rsync/],
-        ['package.json', /\"gulp-gh-pages/]
-      ];
-
-      assert.noFileContent(unexpected);
+      [
+        '"gulp-awspublish"',
+        '"gulp-awspublish-router"',
+        '"concurrent-transform"',
+        '"gulp-rsync"',
+        '"gulp-gh-pages"'
+      ].forEach(function (pack) {
+        assert.noFileContent('package.json', pack);
+      });
     });
 
     it('contains default gulp tasks', function () {
@@ -131,22 +133,22 @@ describe('jekyllized:gulp', function () {
     });
 
     it('contain correct uploading packages', function () {
-      var expected = [
-        ['package.json', /\"gulp-awspublish/],
-        ['package.json', /\"gulp-awspublish-router/],
-        ['package.json', /\"concurrent-transform/]
-      ];
-
-      assert.fileContent(expected);
+      [
+        '"gulp-awspublish"',
+        '"gulp-awspublish-router"',
+        '"concurrent-transform"'
+      ].forEach(function (pack) {
+        assert.fileContent('package.json', pack);
+      });
     });
 
     it('does not contain wrong uploading packages', function () {
-      var unexpected = [
-        ['package.json', /\"gulp-rsync/],
-        ['package.json', /\"gulp-gh-pages/]
-      ];
-
-      assert.noFileContent(unexpected);
+      [
+        '"gulp-rsync"',
+        '"gulp-gh-pages"'
+      ].forEach(function (pack) {
+        assert.noFileContent('package.json', pack);
+      });
     });
 
     it('contains deploy task', function () {
@@ -185,14 +187,14 @@ describe('jekyllized:gulp', function () {
     });
 
     it('does not contain wrong uploading packages', function () {
-      var unexpected = [
-        ['package.json', /\"gulp-awspublish/],
-        ['package.json', /\"gulp-awspublish-router/],
-        ['package.json', /\"concurrent-transform/],
-        ['package.json', /\"gulp-gh-pages/]
-      ];
-
-      assert.noFileContent(unexpected);
+      [
+        '"gulp-awspublish"',
+        '"gulp-awspublish-router"',
+        '"concurrent-transform"',
+        '"gulp-gh-pages"'
+      ].forEach(function (pack) {
+        assert.noFileContent('package.json', pack);
+      });
     });
 
     it('contains deploy function', function () {
@@ -231,14 +233,14 @@ describe('jekyllized:gulp', function () {
     });
 
     it('does not contain wrong uploading packages', function () {
-      var unexpected = [
-        ['package.json', /\"gulp-awspublish/],
-        ['package.json', /\"gulp-awspublish-router/],
-        ['package.json', /\"concurrent-transform/],
-        ['package.json', /\"gulp-rsync/]
-      ];
-
-      assert.noFileContent(unexpected);
+      [
+        '"gulp-awspublish"',
+        '"gulp-awspublish-router"',
+        '"concurrent-transform"',
+        '"gulp-rsync"'
+      ].forEach(function (pack) {
+        assert.noFileContent('package.json', pack);
+      });
     });
 
     it('contains deploy function', function () {

@@ -45,13 +45,13 @@ describe('jekyllized:boilerplate', function () {
     });
 
     it('contains correct info', function () {
-      var expected = [
-        ['README.md', /\# README/],
-        ['README.md', /\> This is a great README/],
-        ['README.md', /\[Ola Nordmann\]\(hello-world.com\)/]
-      ];
-
-      assert.fileContent(expected);
+      [
+        '# README',
+        '> This is a great README',
+        '[Ola Nordmann](hello-world.com)'
+      ].forEach(function (text) {
+        assert.fileContent('README.md', text);
+      });
     });
   });
 });

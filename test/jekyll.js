@@ -28,58 +28,53 @@ describe('jekyllized:jekyll', function () {
     });
 
     it('creates _config.yml files', function () {
-      assert.file('_config.yml');
-      assert.file('_config.build.yml');
+      assert.file([
+        '_config.yml',
+        '_config.build.yml'
+      ]);
     });
 
     it('creates src directory', function () {
-      var expected = [
+      assert.file([
         'src/404.html',
         'src/about.md',
         'src/crossdomain.xml',
         'src/humans.txt',
         'src/index.html',
         'src/robots.txt'
-      ];
-
-      assert.file(expected);
+      ]);
     });
 
     it('_config.yml contains the correct settings', function () {
-      var expected = [
-        ['_config.yml', /name\: jekyllized/],
-        ['_config.yml', /description\: Tests for Jekyllized/],
-        ['_config.yml', /url\: example.org/],
-        ['_config.yml', /name\: Ola Nordmann/],
-        ['_config.yml', /email\: ola\.nordmann\@email\.com/],
-        ['_config.yml', /uri\: homepage.com/],
-        ['_config.yml', /bio\: I am a tester for tests/],
-        ['_config.yml', /twitter\: 0lanordmann/]
-      ];
-
-      assert.fileContent(expected);
+      [
+        'name: jekyllized',
+        'description: Tests for Jekyllized',
+        'url: example.org',
+        'name: Ola Nordmann',
+        'email: ola.nordmann@email.com',
+        'uri: homepage.com',
+        'bio: I am a tester for tests',
+        'twitter: 0lanordmann'
+      ].forEach(function (config) {
+        assert.fileContent('_config.yml', config);
+      });
     });
 
     it('_config.build.yml contains the correct settings', function () {
-      var expected = [
-        ['_config.build.yml', /future\: false/],
-        ['_config.build.yml', /show_drafts\: false/],
-        ['_config.build.yml', /lsi\: true/],
-        ['_config.build.yml', /limit_posts\: 0/],
-        ['_config.build.yml', /source\: src/],
-        ['_config.build.yml', /destination\: dist/]
-      ];
-
-      assert.fileContent(expected);
+      [
+        'future: false',
+        'show_drafts: false',
+        'lsi: true',
+        'limit_posts: 0',
+        'source: src',
+        'destination: dist'
+      ].forEach(function (config) {
+        assert.fileContent('_config.build.yml', config);
+      });
     });
 
     it('fills out humans.txt correctly', function () {
-      var expected = [
-        ['src/humans.txt', /Ola Nordmann/],
-        ['src/humans.txt', /\@0lanordmann/]
-      ];
-
-      assert.fileContent(expected);
+      assert.fileContent('src/humans.txt', 'Ola Nordmann -- <role> -- @0lanordmann');
     });
   });
 

@@ -26,11 +26,11 @@ describe('jekyllized:bower', function () {
   });
 
   it('bower.json contains correct info', function () {
-    var expected = [
-      ['bower.json', '"name": "jekyllized"'],
-      ['bower.json', '"Ola Nordmann <ola.nordmann@gmail.com>"']
-    ];
-
-    assert.fileContent(expected);
+    [
+      '"name": "jekyllized"',
+      '"Ola Nordmann <ola.nordmann@gmail.com>"'
+    ].forEach(function (text) {
+      assert.fileContent('bower.json', text);
+    });
   });
 });
