@@ -50,9 +50,7 @@ describe('jekyllized:gulp', function () {
         '"gulp-sourcemaps": "^1.3.0"',
         '"gulp-uglify": "^1.1.0"',
         '"gulp-uncss": "^1.0.0"',
-        '"main-bower-files": "^2.8.2"',
-        '"shelljs": "^0.5.1"',
-        '"wiredep": "^3.0.0-beta"'
+        '"shelljs": "^0.5.1"'
       ].forEach(function (pack) {
         assert.fileContent('package.json', pack);
       });
@@ -95,8 +93,6 @@ describe('jekyllized:gulp', function () {
         'styles',
         'script',
         'html',
-        'bower',
-        'bower:files',
         'lint',
         'serve',
         'serve:dist',

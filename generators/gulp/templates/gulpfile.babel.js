@@ -18,11 +18,6 @@ import parallelize from 'concurrent-transform';
 // BrowserSync is used to live-reload your website
 import browserSync from 'browser-sync';
 const reload = browserSync.reload;
-// Wiredep is used to automatically wire up your Bower dependencies and
-// main-bower-files is used to move the files to the 'assets/vendor folder
-import wiredeps from 'wiredep';
-const wiredep = wiredeps.stream;
-import bowerFiles from 'main-bower-files';
 // AutoPrefixer
 import autoprefixer from 'autoprefixer-core';
 
@@ -34,11 +29,10 @@ import autoprefixer from 'autoprefixer-core';
  * 3. Development tasks
  * 4. Production and development tasks
  * 5. Development tasks
- * 6. Bower tasks
- * 7. Deployment tasks (if any)
- * 8. Various
- * 9. Serve tasks
- * 10. Main tasks
+ * 6. Deployment tasks (if any)
+ * 7. Various
+ * 8. Serve tasks
+ * 9. Main tasks
  *
  */
 
@@ -303,43 +297,10 @@ gulp.task('html', () =>
     .pipe(gulp.dest('dist'))
 );
 
+<% if (!noUpload) { %>//
+// 6. Deployment tasks
 //
-// 6. Bower tasks
-//
-// Wires your Bower dependencies into their own include file that are then
-// inserted into the default layout, automatically adding JS and CSS
-gulp.task('bower', () => {
-  // Bower dependencies to exlude, for example:
-  // const bowerExcludes = ['jquery'];
-  const bowerExcludes = [];
-
-  return gulp.src('src/_includes/bower_{scripts,styles}.html')
-    .pipe(wiredep({
-      exclude: bowerExcludes,
-      fileTypes: {
-        html: {
-          replace: {
-            js: filePath => {
-              return '<script src="' + '/assets/vendor/' + filePath.split('/').pop() + '"></script>'; //eslint-disable-line
-            },
-            css: filePath => {
-              return '<link rel="stylesheet" href="' + '/assets/vendor/' + filePath.split('/').pop() + '"/>'; //eslint-disable-line
-            }
-          }
-        }
-      }
-    }))
-    .pipe(gulp.dest('src/_includes'));
-});
-
-// Copies the Bower dependencies into the '.tmp' folder so they work with
-// BrowserSync
-gulp.task('bower:files', () => {
-  return gulp.src(bowerFiles())
-    .pipe(gulp.dest('.tmp/assets/vendor'))
-    .pipe($.size({title: 'Bower assets for development'}));
-});
-
+<% } -%>
 <% if (amazonS3) { -%>
 // Task to deploy your site to Amazon S3 and Cloudfront
 gulp.task('deploy', () => {
@@ -434,7 +395,7 @@ gulp.task('deploy', () => {
 <% } -%>
 <% if (noUpload) { -%><% } -%>
 //
-// 8. Various tasks
+// 7. Various tasks
 //
 // Lint your JavaScript to look for errors and style errors
 gulp.task('lint', () =>
@@ -452,6 +413,9 @@ gulp.task('lint', () =>
   .pipe($.eslint.failOnError())
 );
 
+//
+// 8. Serve tasks
+//
 // BrowserSync will serve our site on a local server for us and other devices to use
 // It will also autoreload across all devices as well as keep the viewport synchronized
 // between them.
@@ -481,6 +445,9 @@ gulp.task('serve:dist', () => {
   });
 });
 
+//
+// 9. Main tasks
+//
 // Asset tasks for development and production
 gulp.task('assets:dev', gulp.series('clean:assets', 'styles:dev', 'script:dev', 'fonts', 'images'));
 gulp.task('assets', gulp.series('clean:assets', 'styles', 'script', 'fonts', 'images'));

@@ -49,9 +49,7 @@ module.exports = generators.Base.extend({
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^1.1.0',
         'gulp-uncss': '^1.0.0',
-        'main-bower-files': '^2.8.2',
-        'shelljs': '^0.5.1',
-        'wiredep': '^3.0.0-beta'
+        'shelljs': '^0.5.1'
       });
 
       if (this.options.uploading === 'Amazon S3') {
