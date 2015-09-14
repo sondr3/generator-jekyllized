@@ -37,7 +37,7 @@ describe('jekyllized:app', function () {
     });
 
     it('can be required without throwing', function () {
-      this.app = require('../generators/app');
+      this.app = require('../generators/app'); //eslint-disable-line
     });
 
     it('creates files', function () {

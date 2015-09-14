@@ -9,10 +9,12 @@ const $ = gulpLoadPlugins();
 import del from 'del';
 // Used to run shell commands
 import shell from 'shelljs';
+<%  if (amazonS3 || rsync) { -%>
+// 'fs' is used to read files from the system (used for uploading)
+import fs from 'fs';
+<% } -%>
 <%  if (amazonS3) { -%>
 // Parallelize the uploads when uploading to Amazon S3
-// 'fs' is used to read files from the system (used for AWS uploading)
-import fs from 'fs';
 import parallelize from 'concurrent-transform';
 <% } -%>
 // BrowserSync is used to live-reload your website
@@ -363,16 +365,16 @@ gulp.task('deploy', () => {
 // Task to upload your site via Rsync to your server
 gulp.task('deploy', () => {
   // Load in the variables needed for our Rsync synchronization
-  var secret = require('./rsync-credentials.json');
+  var credentials = JSON.parse(fs.readFileSync('rsync-credentials.json', 'utf8'));
 
   return gulp.src('dist/**')
     .pipe($.rsync({
       // This uploads the contenst of 'root', instead of the folder
       root: 'dist',
       // Find your username, hostname and destination from your rsync-credentials.json
-      hostname: secret.hostname,
-      username: secret.username,
-      destination: secret.destination,
+      hostname: credentials.hostname,
+      username: credentials.username,
+      destination: credentials.destination,
       // Incremental uploading, adds a small delay but minimizes the amount of files transferred
       incremental: true,
       // Shows the progress on your files while uploading
