@@ -40,7 +40,7 @@ module.exports = generators.Base.extend({
         'gulp-if': '^1.2.4',
         'gulp-imagemin': '^2.1.0',
         'gulp-inject': '^1.5.0',
-        'gulp-load-plugins': '^1.0.0-rc1',
+        'gulp-load-plugins': '^1.0.0-rc.1',
         'gulp-minify-css': '^1.2.0',
         'gulp-postcss': '^6.0.0',
         'gulp-rename': '^1.2.2',
