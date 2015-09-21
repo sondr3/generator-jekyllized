@@ -21,7 +21,7 @@ import parallelize from 'concurrent-transform';
 import browserSync from 'browser-sync';
 const reload = browserSync.reload;
 // AutoPrefixer
-import autoprefixer from 'autoprefixer-core';
+import autoprefixer from 'autoprefixer';
 
 /*
  * ORGANIZATION OF GULPFILE:
@@ -41,9 +41,18 @@ import autoprefixer from 'autoprefixer-core';
 //
 // 1. Cleaning tasks
 //
-gulp.task('clean:dist', del.bind(null, ['dist']));
-gulp.task('clean:assets', del.bind(null, ['.tmp', 'dist/assets']));
-gulp.task('clean:metadata', del.bind(null, ['src/.jekyll-metadata'], {dot: true}));
+gulp.task('clean:dist', () => {
+  return del(['dist/']);
+});
+gulp.task('clean:assets', () => {
+  return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
+});
+gulp.task('clean:gzip', () => {
+  return del(['dist/**/*.gz']);
+});
+gulp.task('clean:metadata', () => {
+  return del(['src/.jekyll-metadata']);
+});
 
 //
 // 2. Jekyll tasks
@@ -73,6 +82,8 @@ gulp.task('jekyll:doctor', done => {
 gulp.task('styles:dev', () =>
   // Don't use partials for best performance
   gulp.src('src/assets/scss/style.scss')
+    // Don't run if no changes have been made
+    .pipe($.newer({dest: '.tmp/assets/stylesheets', ext: '.css'}))
     // Initiate sourcemaps
     .pipe($.sourcemaps.init())
     // Run it through libsass
@@ -104,6 +115,8 @@ gulp.task('script:dev', () =>
     'src/assets/javascript/vendor.js',
     'src/assets/javascript/main.js'
   ])
+    // Don't run if no changes have been made
+    .pipe($.newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
     // Initiate sourcemaps
     .pipe($.sourcemaps.init())
     // Concat all the JS files into a single file
@@ -424,6 +437,7 @@ gulp.task('lint', () =>
 gulp.task('serve', () => {
   browserSync({
     // tunnel: true,
+    // open: false,
     server: {
       // Serve assets from '.tmp' instead of 'dist'
       baseDir: ['.tmp', 'dist']
@@ -451,13 +465,19 @@ gulp.task('serve:dist', () => {
 // 9. Main tasks
 //
 // Asset tasks for development and production
-gulp.task('assets:dev', gulp.series('clean:assets', 'styles:dev', 'script:dev', 'fonts', 'images'));
-gulp.task('assets', gulp.series('clean:assets', 'styles', 'script', 'fonts', 'images'));
+gulp.task('assets:dev', gulp.series(
+  gulp.series('clean:assets'),
+  gulp.parallel('styles:dev', 'script:dev', 'fonts', 'images')
+));
+gulp.task('assets', gulp.series(
+  gulp.series('clean:assets'),
+  gulp.parallel('styles', 'script', 'fonts', 'images')
+));
 
 // Default task, run when just writing 'gulp' in the terminal
 // Wires up your assets and such with the development settings etc
 gulp.task('default', gulp.series(
-  gulp.series('clean:assets'),
+  gulp.series('clean:assets', 'clean:gzip'),
   gulp.series('assets:dev', 'inject:head', 'inject:footer'),
   gulp.series('jekyll:dev', 'copy:assets'),
   gulp.series('serve')
@@ -466,6 +486,7 @@ gulp.task('default', gulp.series(
 // Builds your site with production settings and such
 // Optimizes all your assets as well
 gulp.task('build', gulp.series(
+  gulp.series('clean:assets', 'clean:gzip'),
   gulp.series('assets', 'inject:head', 'inject:footer'),
   gulp.series('jekyll:prod', 'copy:assets'),
   gulp.series('html')

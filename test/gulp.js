@@ -23,7 +23,7 @@ describe('jekyllized:gulp', function () {
 
     it('package.json contains correct packages', function () {
       [
-        '"autoprefixer-core": "^6.0.1"',
+        '"autoprefixer": "^6.0.3"',
         '"babel-core": "^5.8.24"',
         '"babel-eslint": "^4.1.1"',
         '"browser-sync": "^2.9.3"',
@@ -40,7 +40,7 @@ describe('jekyllized:gulp', function () {
         '"gulp-htmlmin": "^1.0.0"',
         '"gulp-if": "^1.2.4"',
         '"gulp-imagemin": "^2.1.0"',
-        '"gulp-inject": "^1.5.0"',
+        '"gulp-inject": "^2.2.0"',
         '"gulp-load-plugins": "^1.0.0-rc.1"',
         '"gulp-minify-css": "^1.2.0"',
         '"gulp-postcss": "^6.0.0"',
