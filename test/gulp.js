@@ -43,6 +43,7 @@ describe('jekyllized:gulp', function () {
         '"gulp-inject": "^2.2.0"',
         '"gulp-load-plugins": "^1.0.0-rc.1"',
         '"gulp-minify-css": "^1.2.0"',
+        '"gulp-newer": "^1.0.0"',
         '"gulp-postcss": "^6.0.0"',
         '"gulp-rename": "^1.2.2"',
         '"gulp-rev": "^6.0.0"',
