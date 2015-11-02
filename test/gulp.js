@@ -33,7 +33,6 @@ describe('jekyllized:gulp', function () {
         '"eslint-config-xo-space": "^0.5.0"',
         '"gulp": "git://github.com/gulpjs/gulp.git#4.0"',
         '"gulp-cache": "~0.3.0"',
-        '"gulp-changed": "^1.0.0"',
         '"gulp-concat": "^2.6.0"',
         '"gulp-eslint": "^1.0.0"',
         '"gulp-gzip": "^1.1.0"',
