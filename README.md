@@ -56,10 +56,16 @@ optimize your CSS, JS, HTML and images, automatic vendor prefixing with
 
 ## Getting started
 
+## Requirements
+- [Node.js][nodejs] (`>0.10.0`)
+- [Yeoman](yo) (`>0.9.6`)
+- [Ruby][rubylang] (`>1.9`)
+- [Bundler](bundler) (`>1.10`)
+
 ## Installation
 
 To install you need [Node.js][nodejs] (`>0.10.0`), the latest version of `yo`
-(`npm install -g yo`) and [Ruby][rubylang] (`> 1.9`) for Jekyll. Install
+(`npm install -g yo`), [Ruby][rubylang] (`> 1.9`) and [Bundler](bundler) for Jekyll. Install
 Jekyllized via NPM: `npm install -g generator-jekyllized` and finally run `yo
 jekyllized` in the directory you want to install in.
 
@@ -153,25 +159,26 @@ repositories there are some things you need to do:
 
 ### [Changelog][changelog]
 
+[autoprefixer]: https://github.com/ai/autoprefixer
+[aws]: http://aws.amazon.com/s3/
 [beta]: https://github.com/sondr3/generator-jekyllized/tree/beta
+[bower]: http://bower.io/
+[browsersync]: https://github.com/shakyShane/browser-sync
+[bundler]: http://bundler.io
+[changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
+[ghpages]: https://pages.github.com/
+[gulp]: http://gulpjs.com/
+[gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/master/app/templates/gulpfile.js
+[jekyll-pages]: http://jekyllrb.com/docs/github-pages/
 [jekyll]: https://jekyllrb.com
+[jshint]: http://www.jshint.com/
+[lanyon]: https://github.com/poole/lanyon
+[libsass]: https://github.com/hcatlin/libsass
+[localtunnel]: http://localtunnel.me/
+[mdo]: https://github.com/mdo
+[nodejs]: http://nodejs.org/
+[poole]: https://github.com/poole
+[redcarpet]: https://github.com/vmg/redcarpet
+[rubylang]: http://www.ruby-lang.org/
 [yeoman]: http://yeoman.io
 [yo]: https://github.com/yeoman/yo
-[bower]: http://bower.io/
-[gulp]: http://gulpjs.com/
-[aws]: http://aws.amazon.com/s3/
-[ghpages]: https://pages.github.com/
-[libsass]: https://github.com/hcatlin/libsass
-[redcarpet]: https://github.com/vmg/redcarpet
-[autoprefixer]: https://github.com/ai/autoprefixer
-[poole]: https://github.com/poole
-[lanyon]: https://github.com/poole/lanyon
-[mdo]: https://github.com/mdo
-[jshint]: http://www.jshint.com/
-[nodejs]: http://nodejs.org/
-[rubylang]: http://www.ruby-lang.org/
-[localtunnel]: http://localtunnel.me/
-[gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/master/app/templates/gulpfile.js
-[changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
-[browsersync]: https://github.com/shakyShane/browser-sync
-[jekyll-pages]: http://jekyllrb.com/docs/github-pages/
