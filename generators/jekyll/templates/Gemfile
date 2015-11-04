@@ -1,11 +1,11 @@
 source "http://rubygems.org"
 
-gem 'jekyll', '~> 3.0.0.pre.beta8'
+gem 'jekyll', '~> 3.0.0'
 gem 'redcarpet'
 gem 'classifier-reborn'
 
 # jekyll plugins
-gem 'jekyll-archives', :git => 'https://github.com/jekyll/jekyll-archives'
+gem 'jekyll-archives'
 gem 'jekyll-sitemap'
 gem 'jekyll-paginate'
 gem 'jekyll-feed'

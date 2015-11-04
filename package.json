@@ -24,18 +24,19 @@
     "globule": "^0.2.0",
     "lodash": "^3.10.0",
     "shelljs": "^0.5.1",
-    "yeoman-generator": "^0.20.1",
+    "yeoman-generator": "^0.21.1",
     "yosay": "^1.0.4"
   },
   "devDependencies": {
-    "babel-core": "^5.8.22",
-    "babel-eslint": "^4.1.1",
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^4.1.4",
+    "babel-preset-es2015": "^6.0.15",
     "codeclimate-test-reporter": "^0.1.1",
     "coveralls": "^2.11.2",
     "del": "^2.0.0",
     "eslint": "^1.4.1",
-    "eslint-config-xo": "^0.6.0",
-    "eslint-config-xo-space": "^0.5.0",
+    "eslint-config-xo": "^0.7.1",
+    "eslint-config-xo-space": "^0.6.1",
     "generator-mocha": "^0.2.0",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-coveralls": "^0.1.4",
@@ -43,10 +44,11 @@
     "gulp-istanbul": "^0.10.0",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-mocha": "^2.1.2",
-    "istanbul": "^0.3.20",
+    "istanbul": "^0.4.0",
     "mocha": "^2.3.2",
-    "mocha-lcov-reporter": "^0.0.2",
+    "mocha-lcov-reporter": "^1.0.0",
     "yeoman-assert": "^2.1.0",
-    "yo": "^1.4.8"
+    "yeoman-generator": "^0.21.1",
+    "yo": "^1.5.0"
   }
 }
