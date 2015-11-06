@@ -52,7 +52,8 @@ describe('jekyllized:gulp', function () {
         '"gulp-sourcemaps": "^1.3.0"',
         '"gulp-uglify": "^1.4.1"',
         '"gulp-uncss": "^1.0.0"',
-        '"shelljs": "^0.5.1"'
+        '"shelljs": "^0.5.1"',
+        '"yargs": "^3.29.0"'
       ].forEach(function (pack) {
         assert.fileContent('package.json', pack);
       });
@@ -82,23 +83,18 @@ describe('jekyllized:gulp', function () {
         'clean:dist',
         'clean:assets',
         'clean:metadata',
-        'jekyll:dev',
-        'jekyll:prod',
+        'jekyll',
         'jekyll:doctor',
-        'styles:dev',
-        'script:dev',
+        'styles',
+        'script',
         'inject:head',
         'inject:footer',
         'images',
         'fonts',
         'copy:assets',
-        'styles',
-        'script',
         'html',
         'lint',
         'serve',
-        'serve:dist',
-        'assets:dev',
         'assets',
         'default',
         'build',
