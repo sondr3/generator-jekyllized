@@ -4,6 +4,7 @@ node_js:
 - "0.12"
 - "0.10"
 - "4"
+- "stable"
 after_script:
 - CODECLIMATE_REPO_TOKEN=7b0cbee1382c968a036868d26ec04d0ddc7b7aeef25ceead5ff9ff50a3c2ae8b codeclimate < coverage/lcov.info
 - rm -rf ./coverage
