@@ -48,7 +48,6 @@
     "mocha": "^2.3.2",
     "mocha-lcov-reporter": "^1.0.0",
     "yeoman-assert": "^2.1.0",
-    "yeoman-generator": "^0.21.1",
     "yo": "^1.5.0"
   }
 }
