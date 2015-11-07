@@ -25,29 +25,15 @@ import autoprefixer from 'autoprefixer';
 // Yargs for command line arguments
 import {argv} from 'yargs';
 
-/*
- * ORGANIZATION OF GULPFILE:
- *
- * 1. Cleaning assets and such
- * 2. Jekyll related tasks
- * 3. Development tasks
- * 4. Production and development tasks
- * 5. Development tasks
- * 6. Deployment tasks (if any)
- * 7. Various
- * 8. Serve tasks
- * 9. Main tasks
- *
- */
-
-//
-// 1. Cleaning tasks
-//
-gulp.task('clean:dist', () => {
-  return del(['dist/']);
-});
+// 'gulp clean:assets' -- deletes all assets except for images
+// 'gulp clean:dist' -- erases the dist folder
+// 'gulp clean:gzip' -- erases all the gzipped files
+// 'gulp clean:metadata' -- deletes the metadata file for Jekyll
 gulp.task('clean:assets', () => {
   return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
+});
+gulp.task('clean:dist', () => {
+  return del(['dist/']);
 });
 gulp.task('clean:gzip', () => {
   return del(['dist/**/*.gz']);
@@ -56,10 +42,8 @@ gulp.task('clean:metadata', () => {
   return del(['src/.jekyll-metadata']);
 });
 
-//
-// 2. Jekyll tasks
-//
-// Build Jekyll without production settings
+// 'gulp jekyll' -- builds your site with development settings
+// 'gulp jekyll --prod' -- builds your site with production settings
 gulp.task('jekyll', done => {
   if (!argv.prod) {
     shell.exec('jekyll build');
@@ -70,19 +54,16 @@ gulp.task('jekyll', done => {
   }
 });
 
-// Check Jekyll for configuration errors
+// 'gulp doctor' -- literally just runs jekyll doctor
 gulp.task('jekyll:doctor', done => {
   shell.exec('jekyll doctor');
   done();
 });
 
-//
-// 3. Development tasks
-//
-// Default: Creates a CSS file from your SCSS file and prefixes it with
-// AutoPrefixer and creates a SourceMap and injects it into BrowserSync
-// --prod: Same as above but it doesn't create a SourceMap and it minifies,
-// gzips and cache busts it
+// 'gulp styles' -- creates a CSS file from your SASS, adds prefixes and
+// creates a Sourcemap
+// 'gulp styles --prod' -- creates a CSS file from your SASS, adds prefixes and
+// then minifies, gzips and cache busts it. Does not create a Sourcemap
 gulp.task('styles', () =>
   gulp.src('src/assets/scss/style.scss')
     .pipe($.if(!argv.prod, $.sourcemaps.init()))
@@ -115,7 +96,10 @@ gulp.task('styles', () =>
     .pipe($.if(!argv.prod, browserSync.stream()))
 );
 
-// Dev task for scrips so they can be automatically injected into the browser
+// 'gulp scripts' -- creates a index.js file from your JavaScript files and
+// creates a Sourcemap for it
+// 'gulp scripts --prod' -- creates a index.js file from your JavaScript files,
+// minifies, gzips and cache busts it. Does not create a Sourcemap
 gulp.task('scripts', () =>
   // NOTE: The order here is important since it's concatenated in order from
   // top to bottom, so you want vendor scripts etc on top
@@ -132,127 +116,84 @@ gulp.task('scripts', () =>
     }))
     .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
     .pipe($.if(argv.prod, $.if('*.js', $.uglify({preserveComments: 'some'}))))
-    .pipe($.if(argv.prod, $.rev()))
     .pipe($.if(argv.prod, $.size({
-      title: 'optimized scripts',
+      title: 'minified scripts',
       showFiles: true
     })))
+    .pipe($.if(argv.prod, $.rev()))
+    .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
     .pipe($.if(argv.prod, gulp.dest('.tmp/assets/javascript')))
     .pipe($.if(argv.prod, $.if('*.js', $.gzip({append: true}))))
     .pipe($.if(argv.prod, $.size({
-      title: 'gzipped script',
+      title: 'gzipped scripts',
       gzip: true,
       showFiles: true
     })))
-    .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
     .pipe(gulp.dest('.tmp/assets/javascript'))
     .pipe($.if(!argv.prod, browserSync.stream()))
 );
 
-//
-// 4. Production and development tasks
-//
-// Dev task for injecting the CSS into the HTML
+// 'gulp inject:head' -- injects our style.css file into the head of our HTML
 gulp.task('inject:head', () =>
-  // Change the include file instead of all the HTML files
   gulp.src('src/_includes/head.html')
-    // Look for any CSS files in the 'stylesheets' directory
-    // Don't read the files for performance and ignore the base directory
     .pipe($.inject(gulp.src('.tmp/assets/stylesheets/*.css',
                             {read: false}), {ignorePath: '.tmp'}))
-    // Output the file back into it's directory
     .pipe(gulp.dest('src/_includes'))
 );
 
-// Dev task for injecting the JS into the HTML
+// 'gulp inject:footer' -- injects our index.js file into the end of our HTML
 gulp.task('inject:footer', () =>
-  // Change the default layout file instead of all the HTML files
   gulp.src('src/_layouts/default.html')
-    // Look for any JS files in the 'javascript' directory
-    // Don't read the files for performance and ignore the base directory
     .pipe($.inject(gulp.src('.tmp/assets/javascript/*.js',
                             {read: false}), {ignorePath: '.tmp'}))
-    // Output the file back into it's directory
     .pipe(gulp.dest('src/_layouts'))
 );
 
-// Production (and dev) task for images
+// 'gulp images' -- optimizes and caches your images
 gulp.task('images', () =>
-  // Look for any kind of file in the images folder and subfolders
-  // I hope you only put images here...
   gulp.src('src/assets/images/**/*')
-    // Cache them so you don't repeatedly optimize them
     .pipe($.cache($.imagemin({
-      // Progressively enhance JPEGs
       progressive: true,
-      // Interlace PNGs
       interlaced: true
     })))
-    // Output to both temporary and dist folders
     .pipe(gulp.dest('.tmp/assets/images'))
-    // And display the size of the images
     .pipe($.size({title: 'images'}))
 );
 
-// Production (and dev) task for fonts
+// 'gulp fonts' -- copies your fonts to the temporary assets folder
 gulp.task('fonts', () =>
-  // Look for any kind of file in the fonts folder and subfolders
-  // You get the drift
   gulp.src('src/assets/fonts/**/*')
-    // Copy them to the temporary and dist folder
     .pipe(gulp.dest('.tmp/assets/images'))
-    // And display the size
     .pipe($.size({title: 'fonts'}))
 );
 
-// Copy the production assets into the dist folder, needs to be done this way
-// because Jekyll overwrites the whole folder otherwise
-gulp.task('copy:assets', () =>
-  gulp.src('.tmp/assets/**/*')
-    .pipe(gulp.dest('dist/assets'))
-);
-
-// Production task for HTML
+// 'gulp html' -- does nothing
+// 'gulp html --prod' -- minifies and gzips our HTML files
 gulp.task('html', () =>
-  // We're going to minify all the HTML
   gulp.src('dist/**/*.html')
-    // Through HTMLmin
     .pipe($.if(argv.prod, $.htmlmin({
-      // Removing comments
       removeComments: true,
-      // Removing white space
       collapseWhitespace: true,
-      // And other minor optimizations
       collapseBooleanAttributes: true,
       removeAttributeQuotes: true,
       removeRedundantAttributes: true
     })))
-    // Display the size of the minified HTML
     .pipe($.if(argv.prod, $.size({title: 'optimized HTML'})))
-    // Output the minified HTML before gzipping it
     .pipe($.if(argv.prod, gulp.dest('dist')))
-    // Gzip all the HTML files and append .gz
     .pipe($.if(argv.prod, $.gzip({append: true})))
-    // Display the size of the gzipped file
     .pipe($.if(argv.prod, $.size({
       title: 'gzipped script',
       gzip: true
     })))
-    // Write them back to the 'dist' folder
     .pipe($.if(argv.prod, gulp.dest('dist')))
 );
 
-<% if (!noUpload) { %>//
-// 6. Deployment tasks
-//
-<% } -%>
 <% if (amazonS3) { -%>
-// Task to deploy your site to Amazon S3 and Cloudfront
+// 'gulp deploy' -- reads from your AWS Credentials file, creates the correct
+// headers for your files and uploads them to S3
 gulp.task('deploy', () => {
-  // Generate the needed credentials (bucket, secret key etc) from a 'hidden' JSON file
   var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
   var publisher = $.awspublish.create(credentials);
-  // Give your files the proper headers
 
   gulp.src('dist/**/*')
     .pipe($.awspublishRouter({
@@ -290,86 +231,59 @@ gulp.task('deploy', () => {
         '^.+$': '$&'
       }
     }))
-    // Gzip the files for moar speed
     .pipe($.awspublish.gzip())
-    // Parallelize the number of concurrent uploads, in this case 30
     .pipe(parallelize(publisher.publish(), 30))
-    // Have your files in the system cache so you don't have to recheck all the files every time
     .pipe(publisher.cache())
-    // Synchronize the contents of the bucket and local (this deletes everything that isn't in local!)
     .pipe(publisher.sync())
-    // And print the ouput, glorious
     .pipe($.awspublish.reporter())
-    // And update the default root object
     .pipe($.cloudfront(credentials));
 });
 
 <% } -%><% if (rsync) { -%>
-// Task to upload your site via Rsync to your server
+// 'gulp deploy' -- reads from your Rsync credentials file and incrementally
+// uploads your site to your server
 gulp.task('deploy', () => {
-  // Load in the variables needed for our Rsync synchronization
   var credentials = JSON.parse(fs.readFileSync('rsync-credentials.json', 'utf8'));
 
   return gulp.src('dist/**')
     .pipe($.rsync({
-      // This uploads the contenst of 'root', instead of the folder
       root: 'dist',
-      // Find your username, hostname and destination from your rsync-credentials.json
       hostname: credentials.hostname,
       username: credentials.username,
       destination: credentials.destination,
-      // Incremental uploading, adds a small delay but minimizes the amount of files transferred
       incremental: true,
-      // Shows the progress on your files while uploading
       progress: true
     }));
 });
 
 <% } -%><% if (ghpages) { -%>
-// Task to upload your site to your personal GH Pages repo
+// 'gulp deploy' -- pushes your dist folder to Github
 gulp.task('deploy', () => {
-  // Deploys your optimized site, you can change the settings in the html task if you want to
   return gulp.src('dist/**/*')
-    .pipe($.ghPages({
-      // Currently only personal GitHub Pages are supported so it will upload to the master
-      // branch and automatically overwrite anything that is in the directory
-      branch: 'master'
-    }));
+    .pipe($.ghPages());
 });
 
 <% } -%>
 <% if (noUpload) { -%><% } -%>
-//
-// 7. Various tasks
-//
-// Lint your JavaScript to look for errors and style errors
+// 'gulp lint' -- check your JS for formatting errors using XO Space
 gulp.task('lint', () =>
-  // Only look in the relevant JS files
   gulp.src([
     'gulpfile.babel.js',
     '.tmp/assets/javascript/*.js',
     '!.tmp/assets/javascript/*.min.js'
   ])
-  // Run through ESlint with XO settings
   .pipe($.eslint())
-  // Format it nicely
   .pipe($.eslint.formatEach())
-  // And fail if need be
   .pipe($.eslint.failOnError())
 );
 
-//
-// 8. Serve tasks
-//
-// BrowserSync will serve our site on a local server for us and other devices to use
-// It will also autoreload across all devices as well as keep the viewport synchronized
-// between them.
+// 'gulp serve' -- open up your website in your browser and watch for changes
+// in all your files and update them when needed
 gulp.task('serve', () => {
   browserSync({
     // tunnel: true,
     // open: false,
     server: {
-      // Serve assets from '.tmp' instead of 'dist'
       baseDir: ['.tmp', 'dist']
     }
   });
@@ -382,34 +296,47 @@ gulp.task('serve', () => {
   gulp.watch('src/assets/images/**/*', reload);
 });
 
-//
-// 9. Main tasks
-//
-// Asset tasks for development and production
+// 'gulp assets' -- cleans out your assets and rebuilds them
+// 'gulp assets --prod' -- cleans out your assets and rebuilds them with
+// production settings
 gulp.task('assets', gulp.series(
   gulp.series('clean:assets'),
   gulp.parallel('styles', 'scripts', 'fonts', 'images')
 ));
 
-// Default task, run when just writing 'gulp' in the terminal
-// Wires up your assets and such with the development settings etc
+// 'gulp assets:copy' -- copes the assets into the dist folder, needs to be
+// done this way because Jekyll overwrites the whole folder otherwise
+gulp.task('assets:copy', () =>
+  gulp.src('.tmp/assets/**/*')
+    .pipe(gulp.dest('dist/assets'))
+);
+
+// 'gulp' -- cleans your assets and gzipped files, creates your assets and
+// injects them into the templates, then builds your site, copied the assets
+// into their directory and serves the site
+// 'gulp --prod' -- same as above but with production settings
 gulp.task('default', gulp.series(
   gulp.series('clean:assets', 'clean:gzip'),
   gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'copy:assets', 'html'),
+  gulp.series('jekyll', 'assets:copy', 'html'),
   gulp.series('serve')
 ));
 
-// Builds your site with production settings and such
-// Optimizes all your assets as well
+// 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
+// 'gulp build --prod' -- same as above but with production settings
 gulp.task('build', gulp.series(
   gulp.series('clean:assets', 'clean:gzip'),
   gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'copy:assets', 'html')
+  gulp.series('jekyll', 'assets:copy', 'html')
 ));
 
-// Clean out your dist and .tmp folder and delete .jekyll-metadata
-gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:metadata'));
+// 'gulp clean' -- erases your assets and gzipped files
+gulp.task('clean', gulp.series('clean:assets', 'clean:gzip'));
 
-// Checks your JS and Jekyll for errors
+// 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
+// you need to do a complete rebuild
+gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets',
+'clean:metadata'));
+
+// 'gulp check' -- checks your Jekyll configuration for errors and lint your JS
 gulp.task('check', gulp.series('jekyll:doctor', 'lint'));
