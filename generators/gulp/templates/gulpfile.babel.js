@@ -195,48 +195,16 @@ gulp.task('deploy', () => {
   var credentials = JSON.parse(fs.readFileSync('aws-credentials.json', 'utf8'));
   var publisher = $.awspublish.create(credentials);
 
+  var headers = {
+    'Cache-Control': 'max-axe=315360000, no-transform, public'
+  };
+
   gulp.src('dist/**/*')
-    .pipe($.awspublishRouter({
-      routes: {
-        '^assets/(?:.+)\\.(?:js|css)$': {
-          key: '$&',
-          headers: {
-            'Cache-Control': 'max-age=315360000, no-transform, public',
-            'Content-Encoding': 'gzip'
-          }
-        },
-
-        '^assets/(?:.+)\\.(?:jpg|png|gif)$': {
-          key: '$&',
-          headers: {
-            'Cache-Control': 'max-age=315360000, no-transform, public',
-            'Content-Encoding': 'gzip'
-          }
-        },
-
-        '^assets/fonts/(?:.+)\\.(?:eot|svg|ttf|woff)$': {
-          key: '$&',
-          headers: {
-            'Cache-Control': 'max-age=315360000, no-transform, public'
-          }
-        },
-
-        '^.+\\.html': {
-          key: '$&',
-          headers: {
-            'Cache-Control': 'max-age=0, no-transform, public',
-            'Content-Encoding': 'gzip'
-          }
-        },
-        '^.+$': '$&'
-      }
-    }))
     .pipe($.awspublish.gzip())
-    .pipe(parallelize(publisher.publish(), 30))
+    .pipe(parallelize(publisher.publish(headers), 30))
     .pipe(publisher.cache())
     .pipe(publisher.sync())
-    .pipe($.awspublish.reporter())
-    .pipe($.cloudfront(credentials));
+    .pipe($.awspublish.reporter());
 });
 
 <% } -%><% if (rsync) { -%>
@@ -251,8 +219,7 @@ gulp.task('deploy', () => {
       hostname: credentials.hostname,
       username: credentials.username,
       destination: credentials.destination,
-      incremental: true,
-      progress: true
+      incremental: true
     }));
 });
 

@@ -130,7 +130,6 @@ describe('jekyllized:gulp', function () {
     it('contain correct uploading packages', function () {
       [
         '"gulp-awspublish"',
-        '"gulp-awspublish-router"',
         '"concurrent-transform"'
       ].forEach(function (pack) {
         assert.fileContent('package.json', pack);
@@ -186,7 +185,6 @@ describe('jekyllized:gulp', function () {
     it('does not contain wrong uploading packages', function () {
       [
         '"gulp-awspublish"',
-        '"gulp-awspublish-router"',
         '"concurrent-transform"',
         '"gulp-gh-pages"'
       ].forEach(function (pack) {
@@ -234,7 +232,6 @@ describe('jekyllized:gulp', function () {
     it('does not contain wrong uploading packages', function () {
       [
         '"gulp-awspublish"',
-        '"gulp-awspublish-router"',
         '"concurrent-transform"',
         '"gulp-rsync"'
       ].forEach(function (pack) {
