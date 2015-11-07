@@ -2,61 +2,68 @@
 ## HEAD
 
 ## BREAKING
-Moved the generator over to the beta for Gulp 4.0 and the beta for Jekyll 3.0
-because I like moving way too fast. The move to Gulp 4.0 was mostly because
-running tasks in series/parallel were a major pain and Gulp 4.0 makes it
-significantly easier.
+EVERYTHING. Not really, but pretty much every part of the generator has been
+touched and fixed. Moved the generator over to Gulp 4.0 and Jekyll 3.0,
+because moving too fast is fun. The main change here was Gulp 4.0 makes running
+tasks in series/parallel a lot, and I mean a lot, easier.
 
-This isn't strictly breaking as it won't affect people who have installed and
-are running a site with Jekyllized nor will it change for people who are new,
-however you are required to use the Gulp 4.0 beta as it doesn't work with Gulp
-3.0.
+Technically this isn't breaking as it won't affect people who have previously
+installed and are running a previous version but hey. Thanks to @nilsborchers,
+@snrbrnjna, @SeanSith, @gjeck, @pope410211, @lvnilesh and @dcalhoun for finding
+errors, fixing bugs, helping write new features and being cool people.
 
-#### Changes
-* **Gulp:** Updated to Gulp 4.0 and changed the majority of the Gulpfile and
-  most of the tasks there as well, this should be considered a breaking
-  change. No functionality was lost however, merely just updated. Also ES6ified
-  the gulpfile so it now uses Babel and uses a few fun features.
-* **Jekyll:** Updated to Jekyll 3.0-beta since both Jekyll and Gulp is currently
-  moving towards a new major version, with one of the biggest changes being
-  incremental regeneration. Also moved back to the default theme for Jekyll with
-  some minor tweaks to suit this project better. Added a URI field in the
-  `_config.yml` so `jekyll-feed` works properly.
-* **Yeoman**: Updated the backend to use the latest Yeoman generator and moved
-  to having several smaller subgenerators instead, so you can now for example
-  only update your Gulp to be the latest version instead of having to
-  reinstall everything. Just beware that it overwrites what you have currently
-  set up.
-* **Bower**: Added support for Bower! Yay. It automatically injects your JS and
-  CSS dependencies into the layout.
-* **Pagination**: Removed the questions for pagination because having 10 as a
-  default is more than good enough and I like being very opinionated.
-* **Archives:** Added yearly and monthly archives and archives for tags and
-  categories.
-* **Sitemap:** Removed the `sitemap.xml` file and now use the `jekyll-sitemap`
-  gem instead.
-* **Feed**: Removed the feed file and moved to `jekyll-feed`
-* **Jekyll directory:** Everything is now output to a `dist` folder instead of a
-  `site` and `serve` folder to be more in line with most other tools.
-* **Asset directories:** Moved most of the assets to live in a `.tmp` while
-  working on them because Jekyll would regenrate itself and not include the
-  assets folder when you changed something while BrowserSync was active.
+#### Major changes
+* **Gulp:** Upgraded to Gulp 4.0 and rewrote the whole Gulpfile in ES2015, no
+  line was spared the onslaught. No functions were lost but a whole lot was
+  updated and made better. Progress!
+* **Command line arguments:** Instead of having lots of duplicated gulp tasks
+  and commands that you needed to run to build your site for either local
+  development and production, you now only add `--prod` to the commands and
+  voila, you are now building with production settings. Progress!
+* **Jekyll:** Upgraded to Jekyll 3 with all the bells and whistles that come
+  with it. Added `jekyll-archives`, `jekyll-sitemap`, `jekyll-feed` and
+  `jekyll-gist` and kept `jekyll-paginate`. It will automatically create fully
+  compliant sitemaps and ATOM feeds for your site as well as automatic archive
+  pages for your tags and categories. Updated the `config.yml` accordingly.
+* **Yeoman:** Updated to the latest version of Yeoman and split the generator
+  into several smaller subgenerators, so you can update only select components
+  instead of the whole thing at once. Progress!
+* **Bower:** Kinda added support for Bower. Read the README for how it works.
+* **Misc:** The built site now lives in `dist`, the assets live in `.tmp` while
+  being built, moved from Useref to `gulp-inject`, but that change should be
+  invisible unless you care about it.
 
-#### Fixes
-* **Packages**: Updated all the packages to the latest version as of writing
-  this.
-* **Gulp:** In general the gulpfile has seen most of it changes or added upon, both the SCSS
-  and JS files will now have sourcemaps generated, both Jekyll and the
-  asset-revitalizer now runs quietly to not clog the command line. All the JS
-  files are concated into a `index.js` file as well.
-* **Jekyll:** Removed the URL setting from the `_config.build.yml` file into the
-  `_config.yml` file so getting the site ready for production doesn't involve
-  a full rebuild to better support incremental regeneration.
-* **Git**: Fixed the gitignore for the new paths
+#### Minor changes
+* **Packages**: Updated all the packages.
+* **Assets:** Fixed how most of the assets are generated:
+    * **SCSS/CSS:** Now creates sourcemaps when you're not running it with
+      production settings, and uses PostCSS to run AutoPrefixer. When using
+      production settings it won't create sourcemaps, but will minify, gzip
+      and cache bust your `style.css`.
+    * **JS:** Same as with your SCSS/CSS, although it's concatenated into a
+      `index.js` file.
+    * **Injecting:** Moved from Useref to `gulp-inject`, this doesn't affect
+      much but it changes how your assets are injected into the HTML. This is
+      a background change for the most part and doesn't change the behaviour
+      in any way.
+    * **HTML:** Your HTML is automatically minified and has separate gzipped
+      files created when you run it with production settings.
+* **Jekyll:** Updated to Jekyll 3.0:
+    * **`jekyll-archives`:** This gem automatically creates archive pages for
+      your tags and categories. Included in this generator are templates for
+      these.
+    * **`jekyll-sitemap`/`jekyll-feed`:** Moved from having to maintain these
+      myself to the official Jekyll gems for better support and such
+    * **`jekyll-gist`:** Added to support including Gists
+    * **`jekyll-paginate`:** Jekyll 3.0 doesn't include this by default, but
+      it's nice to have
+* **Octopress:** Included Octopress into the gem, you should read up on what it
+    does because it's pretty swell!
 
 #### Behind the scenes
 * **Tests:** Continued working on tests to make errors even less likely. Yay
   tests. Also fixed timeouts thanks to @gjeck.
+* **Git**: Fixed the gitignore for the new paths
 * **Moar**: Made everything more awesome.
 
 <a name="0.7.1"></a>
