@@ -2,12 +2,13 @@
 
 [![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
 
-### Development is happening on the [beta][beta] branch!
+## Development is happening in the [beta][beta] version!
 
-Waiting for Jekyll 3.0 and Gulp 4.0 to land, take a look if you want to! It's
-also published on NPM under a 0.8-beta branch so you can start using it today,
-however be warned that Gulp 3.x and Gulp 4.0 does not play nice together right
-now!
+If you want to try the newest version of Jekyllized running on Gulp 4.0 and
+Jekyll 3.0 you should take a look at it on [Github][beta]. Should you want to
+try it just follow the [installation instructions][installation] there and read
+the README on how to use it. I promise you it's going to be worth it. Just
+beware Gulp 4.0 is currently in beta.
 
 **Stylized and opinionated Jekyll development**
 
@@ -150,3 +151,4 @@ repositories there are some things you need to do:
 [changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
 [browsersync]: https://github.com/shakyShane/browser-sync
 [jekyll-pages]: http://jekyllrb.com/docs/github-pages/
+[installation]: https://github.com/sondr3/generator-jekyllized#installation
