@@ -26,6 +26,10 @@ describe('jekyllized:boilerplate', function () {
     assert.file('.gitattributes');
   });
 
+  it('creates .babelrc', function () {
+    assert.file('.babelrc');
+  });
+
   describe('README', function () {
     before(function (done) {
       this.options = {

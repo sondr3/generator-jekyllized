@@ -47,6 +47,7 @@ describe('jekyllized:app', function () {
         '.gitignore',
         '.gitattributes',
         '.bowerrc',
+        '.babelrc',
         'bower.json',
         'package.json',
         'gulpfile.babel.js',

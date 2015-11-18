@@ -62,5 +62,10 @@ module.exports = generators.Base.extend({
       this.templatePath('eslintrc'),
       this.destinationPath('.eslintrc')
     );
+
+    this.fs.copy(
+      this.templatePath('babelrc'),
+      this.destinationPath('.babelrc')
+    );
   }
 });
