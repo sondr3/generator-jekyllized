@@ -6,7 +6,7 @@
 
 *Waiting on Gulp 4.0 to be released for the beta to go back to being the main
 version of Jekyllized. If you want to try it as it is right now you can install
-it from NPM under a `1.0.0-beta.2` version. Just read the installation
+it from NPM under a `1.0.0-beta.3` version. Just read the installation
 instructions!*
 
 ## Overview
@@ -56,7 +56,7 @@ choice of platform.
 * **Gulp:** Since the beta is running Gulp 4.0 you need to install `gulp-cli`:
   `npm install gulpjs/gulp-cli#4.0 -g`
 * **Jekyllized:** Then install Jekyllized: `npm install
-    generator-jekyllized@1.0.0-beta.2 -g`
+    generator-jekyllized@1.0.0-beta.3 -g`
 * **Scaffold:** Run `yo jekyllized` in the directory you want your site to
   scaffold in
 * **Start:** Run `gulp` and watch the magic unfold and/or look at the [FAQ][faq]

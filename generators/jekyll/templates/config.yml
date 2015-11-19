@@ -11,6 +11,7 @@ exclude: ['assets']
 
 # Same as the title etc for your site but can instead be
 # called by using 'site.author.name' and so on
+# NOTE: Don't use @ in front of your Twitter username
 author:
   name: <%= authorName %>
   email: <%= authorEmail %>

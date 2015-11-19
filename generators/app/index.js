@@ -59,7 +59,8 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'authorTwitter',
-      message: 'Your Twitter handle',
+      message: chalk.red('Don\'t include @ in front of your username') +
+        'Your Twitter handle',
       store: true
     }, {
       name: 'uploading',
