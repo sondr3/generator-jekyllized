@@ -182,7 +182,7 @@ gulp.task('html', () =>
     .pipe($.if(argv.prod, gulp.dest('dist')))
     .pipe($.if(argv.prod, $.gzip({append: true})))
     .pipe($.if(argv.prod, $.size({
-      title: 'gzipped script',
+      title: 'gzipped HTML',
       gzip: true
     })))
     .pipe($.if(argv.prod, gulp.dest('dist')))
@@ -271,7 +271,7 @@ gulp.task('assets', gulp.series(
   gulp.parallel('styles', 'scripts', 'fonts', 'images')
 ));
 
-// 'gulp assets:copy' -- copes the assets into the dist folder, needs to be
+// 'gulp assets:copy' -- copies the assets into the dist folder, needs to be
 // done this way because Jekyll overwrites the whole folder otherwise
 gulp.task('assets:copy', () =>
   gulp.src('.tmp/assets/**/*')
