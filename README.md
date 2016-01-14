@@ -56,10 +56,11 @@ choice of platform.
 * **Gulp:** Since the beta is running Gulp 4.0 you need to install `gulp-cli`:
   `npm install gulpjs/gulp-cli#4.0 -g`
 * **Jekyllized:** Then install Jekyllized: `npm install
-    generator-jekyllized@1.0.0-beta.6 -g`
+  generator-jekyllized@1.0.0-beta.6 -g`
 * **Scaffold:** Run `yo jekyllized` in the directory you want your site to
   scaffold in
-* **Start:** Run `gulp` and watch the magic unfold and/or look at the [FAQ][faq]
+* **Start:** Run `gulp` and watch the magic unfold and/or look at the
+  [FAQ][frequentlyasked]
   for more options.
 
 ## Usage
@@ -101,8 +102,8 @@ repo for help.
 
 If you chose to upload to Github Pages there's no configuration besides starting
 a git repo in your folder, setting an `origin` remote repo and run `gulp
-deploy`. Your site will be automatically pushed to Github. See the [FAQ][faq] for
-configuring personal repos vs project repos.
+deploy`. Your site will be automatically pushed to Github. See the
+[FAQ][frequentlyasked] for configuring personal repos vs project repos.
 
 #### `gulp check`
 
@@ -126,7 +127,7 @@ other smaller commands that have a small job that they do. You can find all the
 command by running `gulp --tasks`, and look in the [gulpfile][gulpfile] for what they do.
 All are commented about what they do.
 
-## FAQ
+## Frequently Asked Questions
 
 > Inject more than one JavaScript file
 
@@ -206,7 +207,7 @@ MIT © Sondre Nilsen (https://github.com/sondr3)
 [bundler]: http://bundler.io
 [contribute]: https://github.com/sondr3/generator-jekyllized/blob/beta/CONTRIBUTING.md
 [changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
-[fag]: https://github.com/sondr3/generator-jekyllized#faq
+[frequentlyasked]: https://github.com/sondr3/generator-jekyllized#frequently-asked-questions
 [gulp]: http://gulpjs.com/
 [gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/beta/generators/gulp/templates/gulpfile.babel.js
 [inject]: https://github.com/klei/gulp-inject
