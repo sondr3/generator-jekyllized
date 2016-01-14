@@ -78,7 +78,7 @@ gulp.task('styles', () =>
       showFiles: true
     }))
     .pipe($.if(argv.prod, $.rename({suffix: '.min'})))
-    .pipe($.if(argv.prod, $.if('*.css', $.minifyCss())))
+    .pipe($.if(argv.prod, $.if('*.css', $.cssnano())))
     .pipe($.if(argv.prod, $.size({
       title: 'minified styles',
       showFiles: true
