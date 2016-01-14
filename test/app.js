@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var path = require('path');
 var assert = require('yeoman-assert');
-var helpers = require('yeoman-generator').test;
+var helpers = require('yeoman-test');
 
 describe('jekyllized:app', function () {
   describe('running on new project', function () {
