@@ -23,9 +23,9 @@ module.exports = generators.Base.extend({
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
         'autoprefixer': '^6.2.3',
-        'babel-core': '^6.4.0',
-        'babel-eslint': '^5.0.0-beta6',
-        'babel-preset-es2015': '^6.3.13',
+        'babel-core': '^6.5.0',
+        'babel-eslint': '^5.0.0-beta9',
+        'babel-preset-es2015': '^6.5.0',
         'browser-sync': '^2.11.0',
         'del': '^2.2.0',
         'eslint': '^1.10.3',
@@ -51,12 +51,12 @@ module.exports = generators.Base.extend({
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^1.5.1',
         'gulp-uncss': '^1.0.0',
-        'shelljs': '^0.5.1',
+        'shelljs': '^0.6.0',
         'yargs': '^3.31.0'
       });
 
       if (this.options.uploading === 'Amazon S3') {
-        pkg.devDependencies['gulp-awspublish'] = '^2.0.0';
+        pkg.devDependencies['gulp-awspublish'] = '^3.0.1';
         pkg.devDependencies['concurrent-transform'] = '^1.0.0';
       }
 

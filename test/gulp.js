@@ -24,9 +24,9 @@ describe('jekyllized:gulp', function () {
     it('package.json contains correct packages', function () {
       [
         '"autoprefixer": "^6.2.3"',
-        '"babel-core": "^6.4.0"',
-        '"babel-eslint": "^5.0.0-beta6"',
-        '"babel-preset-es2015": "^6.3.13"',
+        '"babel-core": "^6.5.0"',
+        '"babel-eslint": "^5.0.0-beta9"',
+        '"babel-preset-es2015": "^6.5.0"',
         '"browser-sync": "^2.11.0"',
         '"del": "^2.2.0"',
         '"eslint": "^1.10.3"',
@@ -52,7 +52,7 @@ describe('jekyllized:gulp', function () {
         '"gulp-sourcemaps": "^1.3.0"',
         '"gulp-uglify": "^1.5.1"',
         '"gulp-uncss": "^1.0.0"',
-        '"shelljs": "^0.5.1"',
+        '"shelljs": "^0.6.0"',
         '"yargs": "^3.31.0"'
       ].forEach(function (pack) {
         assert.fileContent('package.json', pack);
@@ -69,7 +69,6 @@ describe('jekyllized:gulp', function () {
     it('does not contain uploading packages', function () {
       [
         '"gulp-awspublish"',
-        '"gulp-awspublish-router"',
         '"concurrent-transform"',
         '"gulp-rsync"',
         '"gulp-gh-pages"'
@@ -130,8 +129,8 @@ describe('jekyllized:gulp', function () {
 
     it('contain correct uploading packages', function () {
       [
-        '"gulp-awspublish"',
-        '"concurrent-transform"'
+        '"gulp-awspublish": "^3.0.1"',
+        '"concurrent-transform": "^1.0.0"'
       ].forEach(function (pack) {
         assert.fileContent('package.json', pack);
       });
@@ -180,7 +179,7 @@ describe('jekyllized:gulp', function () {
     });
 
     it('contain correct uploading packages', function () {
-      assert.fileContent('package.json', '\"gulp-rsync');
+      assert.fileContent('package.json', '"gulp-rsync": "^0.0.5"');
     });
 
     it('does not contain wrong uploading packages', function () {
@@ -227,7 +226,7 @@ describe('jekyllized:gulp', function () {
     });
 
     it('contain correct uploading packages', function () {
-      assert.fileContent('package.json', '\"gulp-gh-pages');
+      assert.fileContent('package.json', '"gulp-gh-pages": "^0.5.2"');
     });
 
     it('does not contain wrong uploading packages', function () {
