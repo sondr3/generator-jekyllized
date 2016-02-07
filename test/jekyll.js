@@ -79,6 +79,22 @@ describe('jekyllized:jekyll', function () {
   });
 
   describe('different permalink settings', function () {
+    describe('date permalinks', function () {
+      before(function (done) {
+        this.options = {
+          jekyllPermalinks: 'date'
+        };
+        helpers.run(path.join(__dirname, '../generators/jekyll'))
+          .inDir(path.join(__dirname, 'tmp/jekyll-date'))
+          .withOptions(this.options)
+          .on('end', done);
+      });
+
+      it('sets date permalinks', function () {
+        assert.fileContent('_config.yml', 'permalink: date');
+      });
+    });
+
     describe('pretty permalinks', function () {
       before(function (done) {
         this.options = {
@@ -95,19 +111,19 @@ describe('jekyllized:jekyll', function () {
       });
     });
 
-    describe('date permalinks', function () {
+    describe('ordinal permalinks', function () {
       before(function (done) {
         this.options = {
-          jekyllPermalinks: 'date'
+          jekyllPermalinks: 'ordinal'
         };
         helpers.run(path.join(__dirname, '../generators/jekyll'))
-          .inDir(path.join(__dirname, 'tmp/jekyll-date'))
+          .inDir(path.join(__dirname, 'tmp/jekyll-ordinal'))
           .withOptions(this.options)
           .on('end', done);
       });
 
-      it('sets date permalinks', function () {
-        assert.fileContent('_config.yml', 'permalink: date');
+      it('sets ordinal permalinks', function () {
+        assert.fileContent('_config.yml', 'permalink: ordinal');
       });
     });
 

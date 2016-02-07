@@ -37,8 +37,8 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'projectURL',
-      message: chalk.red('If you are using GHPages use username.github.io') +
-        '\nWhat will the URL for your project be?',
+      message: chalk.yellow('If you are using GHPages use username.github.io\n') +
+        chalk.yellow('? ') + 'What will the URL for your project be?',
       store: true
     }, {
       name: 'authorName',
@@ -50,8 +50,8 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'authorURI',
-      message: 'Can be the same as this site!' +
-        '\nWhat is your homepage?',
+      message: chalk.yellow('Can be the same as this site!\n') +
+        chalk.yellow('? ') + 'What is your homepage?',
       store: true
     }, {
       name: 'authorBio',
@@ -59,8 +59,8 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'authorTwitter',
-      message: chalk.red('Don\'t include @ in front of your username') +
-        'Your Twitter handle',
+      message: chalk.yellow('Don\'t include @ in front of your username\n') +
+        chalk.yellow('? ') + 'Your Twitter handle:',
       store: true
     }, {
       name: 'uploading',
@@ -71,11 +71,12 @@ module.exports = generators.Base.extend({
     }, {
       name: 'jekyllPermalinks',
       type: 'list',
-      message: 'Permalink style' + (chalk.red(
-                     '\n  pretty: /:year/:month/:day/:title/' +
-                     '\n  date:   /:year/:month/:day/:title.html' +
-                     '\n  none:   /:categories/:title.html')) + '\n',
-      choices: ['pretty', 'date', 'none'],
+      message: 'Permalink style' + (chalk.yellow(
+                    '\n   date:     /:categories/:year/:month/:day/:title.html' +
+                    '\n   pretty:   /:categories/:year/:month/:day/:title/' +
+                    '\n   ordinal:  /:categories/:year/:y_day/:title.html' +
+                    '\n   none:     /:categories/:title.html\n')),
+      choices: ['date', 'pretty', 'ordinal', 'none'],
       store: true
     }];
 
