@@ -26,11 +26,15 @@ import autoprefixer from 'autoprefixer';
 import {argv} from 'yargs';
 
 // 'gulp clean:assets' -- deletes all assets except for images
+// 'gulp clean:images' -- deletes your images
 // 'gulp clean:dist' -- erases the dist folder
 // 'gulp clean:gzip' -- erases all the gzipped files
 // 'gulp clean:metadata' -- deletes the metadata file for Jekyll
 gulp.task('clean:assets', () => {
   return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
+});
+gulp.task('clean:images', () => {
+  return del(['.tmp/assets/images', 'dist/assets/images']);
 });
 gulp.task('clean:dist', () => {
   return del(['dist/']);
@@ -303,7 +307,7 @@ gulp.task('clean', gulp.series('clean:assets', 'clean:gzip'));
 // 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
 // you need to do a complete rebuild
 gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets',
-'clean:metadata'));
+'gulp clean:images', 'clean:metadata'));
 
 // 'gulp check' -- checks your Jekyll configuration for errors and lint your JS
 gulp.task('check', gulp.series('jekyll:doctor', 'lint'));

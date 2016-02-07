@@ -84,6 +84,30 @@ broken and that everything works.
 This command is identical to the `gulp` command, the only difference is that it
 doesn't create a BrowserSync session in your browser.
 
+#### `gulp (build) [--prod]` main subtasks
+When run without `--prod` both `styles` and `scripts` will create a sourcemap
+and will not optimize/minify etc any of your assets. With `--prod` it will not
+create sourcemaps.
+
+> `gulp jekyll [--prod]`
+Builds your site with either development settings or production settings,
+depending on whether `--prod` is true or not.
+
+> `gulp styles [--prod]`
+Creates a `style.css` file from your SASS via `libsass` and uses AutoPrefixer to
+add prefixes automatically. If you are working on your site it will inject the
+updated CSS into your website. When run with `--prod` it will also minify, gzip
+and cache bust it.
+
+> `gulp scripts [--prod]`
+Essentially the same as with your styles, only with your JavaScript.
+
+> `gulp images`
+Optimizes and caches your images.
+
+> `gulp html --prod`
+**Does nothing with `--prod`.** Minifies and gzips your HTML files.
+
 #### `gulp deploy`
 
 When you're done developing and have built your site with either `gulp --prod`
@@ -113,7 +137,26 @@ doctor` to look for potential errors.
 #### `gulp clean`
 
 Deletes your assets from their `.tmp` directory as well as in `dist` and deletes
-any gzipped files.
+any gzipped files. **NOTE:** Does not delete your images from `.tmp` to reduce
+the time to build your site due to image optimizations. Note that `gulp clean`
+is built on top of a few other commands that you can run individually if that is
+more to your liking.
+
+> `gulp clean:assets`
+Erases out your assets from `.tmp` and `dist` but does not remove images.
+
+> `gulp clean:images`
+Erases your images from `.tmp` and `dist`.
+
+> `gulp clean:dist`
+Erases your `dist` folder.
+
+> `gulp clean:gzip`
+Erases any gzipped files in your `dist` folder.
+
+> `gulp clean:metadata`
+Deletes the `.jekyll-metadata` file, this will force Jekyll to completely
+rebuild your site.
 
 #### `gulp rebuild`
 

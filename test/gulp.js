@@ -81,6 +81,7 @@ describe('jekyllized:gulp', function () {
     it('contains default gulp tasks', function () {
       [
         'clean:assets',
+        'clean:images',
         'clean:dist',
         'clean:gzip',
         'clean:metadata',
