@@ -1,5 +1,93 @@
-<a name="HEAD"></a>
-## HEAD
+<a name="1.0.0-beta.7"></a>
+## 1.0.0-beta.7
+> 2016-02-07
+
+Updated the packages, fixed some spacing and color issues when running the
+generator and removed the Bower subgenerator as it did absolutely nothing
+anymore. Also stopped supporting ancient versions of Node and such.
+
+#### Changelog:
+
+* [[`c5852fa`](https://github.com/sondr3/generator-jekyllized/commit/c5852fa7e286fc646934183064ab5980c28e8abc)]:
+Add command to clean images and update docs.
+* [[`1a20f35`](https://github.com/sondr3/generator-jekyllized/commit/1a20f356a5350502e2ff1acd6045cbc2bc7f61ee)]:
+Update permalink settings and fix spacing/color on questions.
+* [[`dd749de`](https://github.com/sondr3/generator-jekyllized/commit/dd749de4c00f910329325ddf439b630a8226e04d)]:
+Remove bower subgenerator.
+* [[`00598f8`](https://github.com/sondr3/generator-jekyllized/commit/00598f868c45957a129e37418e0a89fc3297f1e6)]:
+Update packages.
+* [[`0632d9f`](https://github.com/sondr3/generator-jekyllized/commit/0632d9fcc936ae138d4e865e0ee25dea7ae07070)]:
+Move away from ancient Node versions.
+
+<a name="1.0.0-beta.6"></a>
+## 1.0.0-beta.6
+
+> 2016-01-14
+
+Fixed a typo in the `aws-configuration.json` file.
+
+#### Changelog:
+
+* [[`cfa66e8`](https://github.com/sondr3/generator-jekyllized/commit/f8a1cb5757400f5505bf4733d0f0db31e4d05256)]:
+Fix typo in AWS config file.
+
+<a name="1.0.0-beta.5"></a>
+## 1.0.0-beta.5
+
+> 2016-01-14
+
+Updated the packages and applied some of the changes that were required from
+them and moved from a deprecated gulp-plugin to the not deprecated one.
+
+#### Changelog:
+
+* [[`ccd7718`](https://github.com/sondr3/generator-jekyllized/commit/a5a1a92cfdc3863cec55fee93d96482aec14c0de)]:
+Update packages and apply the needed changes.
+* [[`a5a1a92`](https://github.com/sondr3/generator-jekyllized/commit/887dab1cd011c35c24053a7d263fa31119505cd3)]:
+Move from deprecated gulp-plugin.
+
+<a name="1.0.0-beta.4"></a>
+## 1.0.0-beta.4
+
+> 2015-12-04
+
+Fix a couple of typos and the output path for fonts. Huge thanks to @S1SYPHOS
+for spotting them and sending a pull request.
+
+#### Changelog:
+
+* [[`833f9b6`](https://github.com/sondr3/generator-jekyllized/commit/833f9b6e5ff9d85c62455852bf6ccdb76c10d36d)]:
+Fix typos and the output folder for fonts
+
+<a name="1.0.0-beta.3"></a>
+## 1.0.0-beta.3
+
+> 2015-11-19
+
+Add documentation when running the generator and a line in `config.yml` about how
+to format your Twitter handle.
+
+#### Changelog:
+
+* [[`055685a`](https://github.com/sondr3/generator-jekyllized/commit/055685a93935dd100056ad443e9b7ed3723e9ad9)]:
+Twitter documentation and new beta
+
+<a name="1.0.0-beta.2"></a>
+## 1.0.0-beta.2
+
+> 2015-11-18
+
+Fixed an error with Babel not properly working since it now needs a `.babelrc` file.
+
+#### Changelog:
+
+* [[`9472305`](https://github.com/sondr3/generator-jekyllized/commit/947230546c5fad2bfaf001680299d189c24f7b66)]:
+Fix Babel 6.0 not working
+
+<a name="1.0.0-beta.1"></a>
+## 1.0.0-beta.1
+
+> 2015-11-07
 
 ## BREAKING
 EVERYTHING. Not really, but pretty much every part of the generator has been
@@ -65,6 +153,85 @@ errors, fixing bugs, helping write new features and being cool people.
   tests. Also fixed timeouts thanks to @gjeck.
 * **Git**: Fixed the gitignore for the new paths
 * **Moar**: Made everything more awesome.
+
+#### CHANGELOG
+* [[`ea4d58504a`](https://github.com/sondr3/generator-jekyllized/commit/ea4d58504a)]: Update documentation, changelog \[ci skip\]
+* [[`5ff23edd71`](https://github.com/sondr3/generator-jekyllized/commit/5ff23edd71)]: Updated deployment configuration for AWS
+* [[`92b2048206`](https://github.com/sondr3/generator-jekyllized/commit/92b2048206)]: Updated comments and style in gulpfile
+* [[`9df2a7d8ee`](https://github.com/sondr3/generator-jekyllized/commit/9df2a7d8ee)]: Merge branches 'command-line-arguments', 'travis' and 'yeoman-generator' into beta
+* [[`34b5b16dac`](https://github.com/sondr3/generator-jekyllized/commit/34b5b16dac)]: Add support for command line flags
+* [[`ae185e5821`](https://github.com/sondr3/generator-jekyllized/commit/ae185e5821)]: Remove yeoman-generator from dev-deps and keep it in deps
+* [[`d570b46900`](https://github.com/sondr3/generator-jekyllized/commit/d570b46900)]: Update Travis configuration
+* [[`25350c90ee`](https://github.com/sondr3/generator-jekyllized/commit/25350c90ee)]: Update dependencies
+* [[`eb6dd1d850`](https://github.com/sondr3/generator-jekyllized/commit/eb6dd1d850)]: Merge pull request #102 from dcalhoun/bug/remove-gulp-changed
+* [[`74afd24932`](https://github.com/sondr3/generator-jekyllized/commit/74afd24932)]: Merge pull request #101 from dcalhoun/bug/missing-gulp-newer
+* [[`f4471ec004`](https://github.com/sondr3/generator-jekyllized/commit/f4471ec004)]: Remove unused dependency: gulp-changed (David Calhoun)
+* [[`2139e7321b`](https://github.com/sondr3/generator-jekyllized/commit/2139e7321b)]: Add missing dependency: gulp-newer (David Calhoun)
+* [[`9a8a91fb36`](https://github.com/sondr3/generator-jekyllized/commit/9a8a91fb36)]: Merge pull request #100 from dcalhoun/bundler-dependency
+* [[`70fb46ae19`](https://github.com/sondr3/generator-jekyllized/commit/70fb46ae19)]: List Bundler as a dependency, alphabetize footnotes (David Calhoun)
+* [[`f462a883af`](https://github.com/sondr3/generator-jekyllized/commit/f462a883af)]: Updated gulpfile, fixed autoprefixer, gulp-inject
+* [[`88153c102e`](https://github.com/sondr3/generator-jekyllized/commit/88153c102e)]: Typo in package version \[ci-skip\]
+* [[`a377d46472`](https://github.com/sondr3/generator-jekyllized/commit/a377d46472)]: Update packages and tests, and update Rsync logic
+* [[`e7f2c8b5a5`](https://github.com/sondr3/generator-jekyllized/commit/e7f2c8b5a5)]: Forgot to include removal of Bower files etc
+* [[`428c827d53`](https://github.com/sondr3/generator-jekyllized/commit/428c827d53)]: Removed Wiredep etc because it's not needed
+* [[`8dd8f858a4`](https://github.com/sondr3/generator-jekyllized/commit/8dd8f858a4)]: Minor updates to the gulpfile
+* [[`d72df97c92`](https://github.com/sondr3/generator-jekyllized/commit/d72df97c92)]: Update tests with new syntax
+* [[`9ee6dbab6f`](https://github.com/sondr3/generator-jekyllized/commit/9ee6dbab6f)]: Fixed generation of humans.txt
+* [[`8dda8792bc`](https://github.com/sondr3/generator-jekyllized/commit/8dda8792bc)]: Change to default AWS location
+* [[`117cfd03d4`](https://github.com/sondr3/generator-jekyllized/commit/117cfd03d4)]: Update to test node stable and remove pre-install
+* [[`ad026ccb42`](https://github.com/sondr3/generator-jekyllized/commit/ad026ccb42)]: Updated skip-install
+* [[`66e686e9d5`](https://github.com/sondr3/generator-jekyllized/commit/66e686e9d5)]: Updated to latest yeoman-assert
+* [[`684a734739`](https://github.com/sondr3/generator-jekyllized/commit/684a734739)]: Remove execute permissions from files
+* [[`b8c4d986ef`](https://github.com/sondr3/generator-jekyllized/commit/b8c4d986ef)]: Further updates to the Gulpfile
+* [[`b5de5c755e`](https://github.com/sondr3/generator-jekyllized/commit/b5de5c755e)]: Update code style, continue overhaul of gulpfile
+* [[`c9a1339efb`](https://github.com/sondr3/generator-jekyllized/commit/c9a1339efb)]: Overhauled the Gulpfile
+* [[`1c314fe8e4`](https://github.com/sondr3/generator-jekyllized/commit/1c314fe8e4)]: Forgot to update packages in tests, whoops
+* [[`ee8f2f13b0`](https://github.com/sondr3/generator-jekyllized/commit/ee8f2f13b0)]: Moved from JShint/JSCS to ESlint, updated Travis
+* [[`6c32fcebb3`](https://github.com/sondr3/generator-jekyllized/commit/6c32fcebb3)]: Updated tests, changelog and packages/description
+* [[`f945311174`](https://github.com/sondr3/generator-jekyllized/commit/f945311174)]: Various bugfixes and style improvements
+* [[`6b5f70c5a6`](https://github.com/sondr3/generator-jekyllized/commit/6b5f70c5a6)]: Add classifier-reborn gem so related posts work
+* [[`9278f73f0a`](https://github.com/sondr3/generator-jekyllized/commit/9278f73f0a)]: Add subgenerator for Bower
+* [[`9b99b28be8`](https://github.com/sondr3/generator-jekyllized/commit/9b99b28be8)]: Forgot parts of the tests \[ci skip\]
+* [[`2b9660b9d5`](https://github.com/sondr3/generator-jekyllized/commit/2b9660b9d5)]: Beginning of Bower
+* [[`55785b530e`](https://github.com/sondr3/generator-jekyllized/commit/55785b530e)]: Updated packages
+* [[`9ded303d4a`](https://github.com/sondr3/generator-jekyllized/commit/9ded303d4a)]: Reverting the test that installs dependencies
+* [[`f3595118bb`](https://github.com/sondr3/generator-jekyllized/commit/f3595118bb)]: ES6, tests now test installation, updated JS checks
+* [[`9f451dd548`](https://github.com/sondr3/generator-jekyllized/commit/9f451dd548)]: Fixed SCSS generation and updated Jekyll templates
+* [[`0f075c8d82`](https://github.com/sondr3/generator-jekyllized/commit/0f075c8d82)]: Updated Gulpfile, packages, JShint and Jekyll
+* [[`e772f0da28`](https://github.com/sondr3/generator-jekyllized/commit/e772f0da28)]: Updated packages for jekyllized and removed unused line
+* [[`752f5979dd`](https://github.com/sondr3/generator-jekyllized/commit/752f5979dd)]: The boilerplate generator now creates a README
+* [[`c787ca5ea5`](https://github.com/sondr3/generator-jekyllized/commit/c787ca5ea5)]: Fix errors with install and watching for changes
+* [[`3256f72415`](https://github.com/sondr3/generator-jekyllized/commit/3256f72415)]: Updated packages and Jekyll tests
+* [[`391f5f1d0e`](https://github.com/sondr3/generator-jekyllized/commit/391f5f1d0e)]: Updated Jekyll generator and removed some settings
+* [[`b74a88b72d`](https://github.com/sondr3/generator-jekyllized/commit/b74a88b72d)]: Added subgenerator for jekyll
+* [[`66e580dded`](https://github.com/sondr3/generator-jekyllized/commit/66e580dded)]: Updated tests and the test runner task
+* [[`bf65d66542`](https://github.com/sondr3/generator-jekyllized/commit/bf65d66542)]: Updated packages, fixed errors on tests
+* [[`24ad2df30d`](https://github.com/sondr3/generator-jekyllized/commit/24ad2df30d)]: More updates to the gulp subgenerator and tests
+* [[`d314bebe12`](https://github.com/sondr3/generator-jekyllized/commit/d314bebe12)]: Probably a good idea to include the new directory
+* [[`420aac0c02`](https://github.com/sondr3/generator-jekyllized/commit/420aac0c02)]: Move some subgenerators to a boilerplate generator
+* [[`06677501c2`](https://github.com/sondr3/generator-jekyllized/commit/06677501c2)]: Initial commit for jekyllized:gulp
+* [[`336e2693bc`](https://github.com/sondr3/generator-jekyllized/commit/336e2693bc)]: Merged package subgen with app generator
+* [[`8cc242fd37`](https://github.com/sondr3/generator-jekyllized/commit/8cc242fd37)]: Updated ordering of importance, added config file
+* [[`ee0b2b3a4a`](https://github.com/sondr3/generator-jekyllized/commit/ee0b2b3a4a)]: Somehow lodash vanished
+* [[`dd974a2157`](https://github.com/sondr3/generator-jekyllized/commit/dd974a2157)]: Don't create a test directory \[ci-skip\]
+* [[`21e356fee1`](https://github.com/sondr3/generator-jekyllized/commit/21e356fee1)]: Added subgenerator for packages and fixed a typo
+* [[`729ec19acb`](https://github.com/sondr3/generator-jekyllized/commit/729ec19acb)]: Added git submodule and minor formatting changes
+* [[`70eb5105bd`](https://github.com/sondr3/generator-jekyllized/commit/70eb5105bd)]: Updated code style
+* [[`6b74b18e91`](https://github.com/sondr3/generator-jekyllized/commit/6b74b18e91)]: Update link to Gulp 4.0
+* [[`fe9b959b86`](https://github.com/sondr3/generator-jekyllized/commit/fe9b959b86)]: Added subgenerators for jshint/jscs/editorconfig
+* [[`bf0f1902fa`](https://github.com/sondr3/generator-jekyllized/commit/bf0f1902fa)]: Towards Yeoman 0.19
+* [[`a083587c7c`](https://github.com/sondr3/generator-jekyllized/commit/a083587c7c)]: Updated the gulpfile and added trash to clean dirs
+* [[`dff2a895e4`](https://github.com/sondr3/generator-jekyllized/commit/dff2a895e4)]: Updated tests, packages and Travis settings
+* [[`d0de17a18c`](https://github.com/sondr3/generator-jekyllized/commit/d0de17a18c)]: Moved path settings to a JSON file, updated tests
+* [[`a98227710b`](https://github.com/sondr3/generator-jekyllized/commit/a98227710b)]: Moved from Atom to RSS2.0 feed
+* [[`953a8be7bd`](https://github.com/sondr3/generator-jekyllized/commit/953a8be7bd)]: Removed the welcome message, updated gulp-istanbul
+* [[`f69533d3f2`](https://github.com/sondr3/generator-jekyllized/commit/f69533d3f2)]: Moved to jekyll-sitemaps and tweaks to the theme
+* [[`67eaa12b67`](https://github.com/sondr3/generator-jekyllized/commit/67eaa12b67)]: Moved back to the default Jekyll theme
+* [[`d577a8b3bb`](https://github.com/sondr3/generator-jekyllized/commit/d577a8b3bb)]: Updated all the tests and fixed the deploy task
+* [[`caf91fc0b2`](https://github.com/sondr3/generator-jekyllized/commit/caf91fc0b2)]: Archives, improved generation and more
+* [[`464733e700`](https://github.com/sondr3/generator-jekyllized/commit/464733e700)]: Updated documentation, directories and tests
+* [[`ca13446e31`](https://github.com/sondr3/generator-jekyllized/commit/ca13446e31)]: More changes for the Gulpfile and moved JS to body
+* [[`35dfe47120`](https://github.com/sondr3/generator-jekyllized/commit/35dfe47120)]: Started work on Gulp 4.0 and Jekyll 3.0
 
 <a name="0.7.1"></a>
 ## 0.7.1 - Bugfix
