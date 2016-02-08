@@ -1,3 +1,17 @@
+<a name="1.0.0-beta.8"></a>
+## 1.0.0-beta.8
+> 2016-02-08
+
+Managed to write the syntax wrong in one of the gulptasks which broke everything
+and I made the gems listed in the Gemfile line up alphabetically because I like
+it that way. Also updated the README that gets generated with your project for
+the new commands.
+
+#### Changelog:
+
+* [[`cae8478`](https://github.com/sondr3/generator-jekyllized/commit/cae847815cdc0050e4cf9aeb8526180116a2dcc1)]:
+Fix syntax error, alphabetize Gemfile, update docs
+
 <a name="1.0.0-beta.7"></a>
 ## 1.0.0-beta.7
 > 2016-02-07
