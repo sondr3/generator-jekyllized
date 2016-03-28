@@ -97,7 +97,7 @@ gulp.task('styles', () =>
       showFiles: true
     })))
     .pipe(gulp.dest('.tmp/assets/stylesheets'))
-    .pipe($.if(!argv.prod, browserSync.stream()))
+    .pipe($.if(!argv.prod, browserSync.stream({match: '**/*.css'})))
 );
 
 // 'gulp scripts' -- creates a index.js file from your JavaScript files and
