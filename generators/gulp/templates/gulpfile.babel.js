@@ -134,7 +134,7 @@ gulp.task('scripts', () =>
       showFiles: true
     })))
     .pipe(gulp.dest('.tmp/assets/javascript'))
-    .pipe($.if(!argv.prod, browserSync.stream()))
+    .pipe($.if(!argv.prod, browserSync.stream({match: '**/*.js'})))
 );
 
 // 'gulp inject:head' -- injects our style.css file into the head of our HTML
