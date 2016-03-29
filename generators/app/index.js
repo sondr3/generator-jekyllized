@@ -4,6 +4,7 @@ var _ = require('lodash');
 var chalk = require('chalk');
 var generators = require('yeoman-generator');
 var yosay = require('yosay');
+var shelljs = require('shelljs');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -13,6 +14,16 @@ module.exports = generators.Base.extend({
       desc: 'Skip installing dependencies',
       type: Boolean
     });
+
+    var dependencies = ['ruby', 'bundle', 'yo', 'gulp', 'node'].every(function (depend) {
+      return shelljs.which(depend);
+    });
+
+    if (!dependencies) {
+      this.log(chalk.red('You are missing one or more dependencies!'));
+      this.log(chalk.yellow('Make sure you have the required dependencies, or that they are in $PATH'));
+      shelljs.exit(1);
+    }
   },
 
   initializing: function () {
