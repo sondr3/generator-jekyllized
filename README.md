@@ -52,11 +52,16 @@ choice of platform.
 ## Getting started
 
 ### Installation
-* **Install dependencies:** Bundler `>1.10`, Node.js `>4.2`, Gulp `>4.0`, Ruby `>1.9` and Yo `>1.5.0`
+
+#### Dependencies
+* **Ruby**: `>2.0` with Bundler `>1.10`
+* **Node**: `>4.2`, Gulp `>4.0` and Yo `>1.7.0`
 * **Gulp:** Since the beta is running Gulp 4.0 you need to install `gulp-cli`:
   `npm install gulpjs/gulp-cli#4.0 -g`
 * **Jekyllized:** Then install Jekyllized: `npm install
   generator-jekyllized@1.0.0-beta.8 -g`
+
+#### Install
 * **Scaffold:** Run `yo jekyllized` in the directory you want your site to
   scaffold in
 * **Start:** Run `gulp` and watch the magic unfold and/or look at the
