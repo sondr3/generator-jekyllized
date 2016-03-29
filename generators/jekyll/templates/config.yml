@@ -48,6 +48,7 @@ gems:
   - jekyll-gist
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Settings for archives
 jekyll-archives:
