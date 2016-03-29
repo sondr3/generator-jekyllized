@@ -6,14 +6,14 @@ Fixes a couple of bugs and updates packages and documentation, nothing major.
 
 #### Changelog:
 
-* [[`13e74ebf04`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/13e74ebf04)]: New beta release
-* [[`92dc47368b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/92dc47368b)]: Update packages
-* [[`2db01cec21`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/2db01cec21)]: Verify that dependencies are installed
-* [[`3c6bc46569`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/3c6bc46569)]: Update README on dependencies, closes #116
-* [[`f8399d6cf3`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/f8399d6cf3)]: Add jekyll-seo-tag and update accordingly
-* [[`a9ca289ff7`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a9ca289ff7)]: Merge pull request #117 from chbachman/beta
-* [[`1fbc5a21b5`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/1fbc5a21b5)]: Fix CSS Reloading
-* [[`3ae95eabc7`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/3ae95eabc7)]: Prevent CSSNano from AutoPrefixing so as to not overwrite your own settings
+* [[`13e74ebf04`](https://github.com/sondr3/generator-jekyllized/commit/13e74ebf04)]: New beta release
+* [[`92dc47368b`](https://github.com/sondr3/generator-jekyllized/commit/92dc47368b)]: Update packages
+* [[`2db01cec21`](https://github.com/sondr3/generator-jekyllized/commit/2db01cec21)]: Verify that dependencies are installed
+* [[`3c6bc46569`](https://github.com/sondr3/generator-jekyllized/commit/3c6bc46569)]: Update README on dependencies, closes #116
+* [[`f8399d6cf3`](https://github.com/sondr3/generator-jekyllized/commit/f8399d6cf3)]: Add jekyll-seo-tag and update accordingly
+* [[`a9ca289ff7`](https://github.com/sondr3/generator-jekyllized/commit/a9ca289ff7)]: Merge pull request #117 from chbachman/beta
+* [[`1fbc5a21b5`](https://github.com/sondr3/generator-jekyllized/commit/1fbc5a21b5)]: Fix CSS Reloading
+* [[`3ae95eabc7`](https://github.com/sondr3/generator-jekyllized/commit/3ae95eabc7)]: Prevent CSSNano from AutoPrefixing so as to not overwrite your own settings
 
 <a name="1.0.0-beta.8"></a>
 ## 1.0.0-beta.8
