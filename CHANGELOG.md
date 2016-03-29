@@ -1,3 +1,21 @@
+<a name="1.0.0-beta.11"></a>
+## 1.0.0-beta.11
+> 2016-03-30
+
+Fix injecting JS as well, forgot that JS as well is injected into the browser.
+
+#### Changelog:
+* [[`a60aa79ed2`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a60aa79ed2)]: Fix injecting for JS as well
+* [[`7bdf3908b5`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/7bdf3908b5)]: Update how versions works
+
+<a name="1.0.0-beta.10"></a>
+## 1.0.0-beta.10
+> 2016-03-30
+
+This was a test release to figure out how to use tags instead of specific
+versions when publishing to NPM. `generator-jekyllized` is now available under
+the `generator-jekyllized@next` version instead of various `beta.xx` releases.
+
 <a name="1.0.0-beta.9"></a>
 ## 1.0.0-beta.9
 > 2016-03-29
