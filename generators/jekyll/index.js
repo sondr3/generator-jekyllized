@@ -51,7 +51,13 @@ module.exports = generators.Base.extend({
     this.option('authorTwitter', {
       type: String,
       required: true,
-      desc: 'Author twitter'
+      desc: 'Author Twitter'
+    });
+
+    this.option('authorGithub', {
+      type: String,
+      required: true,
+      desc: 'Author Github'
     });
 
     this.option('jekyllPermalinks', {
@@ -79,6 +85,7 @@ module.exports = generators.Base.extend({
         authorURI: this.options.authorURI,
         authorBio: this.options.authorBio,
         authorTwitter: this.options.authorTwitter,
+        authorGithub: this.options.authorGithub,
         jekyllPermalinks: this.options.jekyllPermalinks
       }
     );

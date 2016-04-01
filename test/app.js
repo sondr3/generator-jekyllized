@@ -16,13 +16,13 @@ describe('jekyllized:app', function () {
         authorEmail: 'ola.nordmann@gmail.com',
         authorBio: 'A norwegian dude',
         authorTwitter: '0lanordmann',
+        authorGithub: '0lanordmann',
         uploading: 'None',
         jekyllPermalinks: 'pretty',
         jekyllPaginate: '10'
       };
       this.deps = [
         [helpers.createDummyGenerator(), 'jekyllized:boilerplate'],
-        [helpers.createDummyGenerator(), 'jekyllized:bower'],
         [helpers.createDummyGenerator(), 'jekyllized:gulp'],
         [helpers.createDummyGenerator(), 'jekyllized:jekyll']
       ];

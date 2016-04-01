@@ -48,7 +48,7 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'projectURL',
-      message: chalk.yellow('If you are using GHPages use username.github.io\n') +
+      message: chalk.yellow('If you will be using Github Pages, use username.github.io\n') +
         chalk.yellow('? ') + 'What will the URL for your project be?',
       store: true
     }, {
@@ -61,7 +61,7 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'authorURI',
-      message: chalk.yellow('Can be the same as this site!\n') +
+      message: chalk.yellow('Can be the same as this site\n') +
         chalk.yellow('? ') + 'What is your homepage?',
       store: true
     }, {
@@ -70,8 +70,12 @@ module.exports = generators.Base.extend({
       store: true
     }, {
       name: 'authorTwitter',
-      message: chalk.yellow('Don\'t include @ in front of your username\n') +
-        chalk.yellow('? ') + 'Your Twitter handle:',
+      message: chalk.blue('You can leave these blank if they are not going to be used\n') +
+        chalk.yellow('? ') + 'Your Twitter handle ' + chalk.yellow('(without the @):'),
+      store: true
+    }, {
+      name: 'authorGithub',
+      message: 'Your Github username:',
       store: true
     }, {
       name: 'uploading',
@@ -143,6 +147,7 @@ module.exports = generators.Base.extend({
         authorURI: this.props.authorURI,
         authorBio: this.props.authorBio,
         authorTwitter: this.props.authorTwitter,
+        authorGithub: this.props.authorGithub,
         jekyllPermalinks: this.props.jekyllPermalinks
       }
     }, {

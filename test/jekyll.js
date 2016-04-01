@@ -15,7 +15,8 @@ describe('jekyllized:jekyll', function () {
         authorEmail: 'ola.nordmann@email.com',
         authorURI: 'homepage.com',
         authorBio: 'I am a tester for tests',
-        authorTwitter: '0lanordmann'
+        authorTwitter: '0lanordmann',
+        authorGithub: '0lanordmann'
       };
       helpers.run(path.join(__dirname, '../generators/jekyll'))
         .inDir(path.join(__dirname, 'tmp/jekyll'))
@@ -47,14 +48,15 @@ describe('jekyllized:jekyll', function () {
 
     it('_config.yml contains the correct settings', function () {
       [
-        'name: jekyllized',
+        'title: jekyllized',
         'description: Tests for Jekyllized',
         'url: example.org',
         'name: Ola Nordmann',
         'email: ola.nordmann@email.com',
         'uri: homepage.com',
         'bio: I am a tester for tests',
-        'twitter: 0lanordmann'
+        'twitter: 0lanordmann',
+        'github: 0lanordmann'
       ].forEach(function (config) {
         assert.fileContent('_config.yml', config);
       });
