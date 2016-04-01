@@ -2,7 +2,7 @@
 
   <div class="wrapper">
 
-    <a class="site-title" href="/">{{ site.name }}</a>
+    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -14,8 +14,11 @@
       </a>
 
       <div class="trigger">
-          <a class="page-link" href="/about/">About</a>
-          <a class="page-link" href="/">Home</a>
+        {% for my_page in site.pages %}
+          {% if my_page.title != "404: Page not found" %}
+          <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
+          {% endif %}
+        {% endfor %}
       </div>
     </nav>
 

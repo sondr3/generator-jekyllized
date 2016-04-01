@@ -1,6 +1,6 @@
 # Title, decription, tagline and URL for your site
 # Can be used in your theme by calling 'site.title' and so on
-name: <%= projectName %>
+title: <%= projectName %>
 description: <%= projectDescription %>
 url: <%= projectURL %>
 
@@ -18,6 +18,7 @@ author:
   uri: <%= authorURI %>
   bio: <%= authorBio %>
   twitter: <%= authorTwitter %>
+  github: <%= authorGithub %>
 
 # _config.build.yml overwrites these options when you run `gulp build`
 # Enables future posts (posts with dates in the future) and drafts
