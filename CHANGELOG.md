@@ -1,3 +1,20 @@
+<a name="1.0.0-beta.12"></a>
+## 1.0.0-beta.12
+> 2016-04-01
+
+Updated to the latest theme of Jekyll and it's CSS and removed Octopress as it
+wasn't used at all. Added support for the Github field in Jekyll as well and
+rewrote parts of the REAMEs for the project. Mostly cosmetic changes.
+
+#### Changelog:
+* [[`605026a5d2`](https://github.com/sondr3/generator-jekyllized/commit/605026a5d2)] - New beta release, update README and settings
+* [[`c770bd97a8`](https://github.com/sondr3/generator-jekyllized/commit/c770bd97a8)] - Remove Octopress
+* [[`a332153118`](https://github.com/sondr3/generator-jekyllized/commit/a332153118)] - Add Github information, minor fixes to generator
+* [[`ca98d6b0df`](https://github.com/sondr3/generator-jekyllized/commit/ca98d6b0df)] - Forgot to add the new Github/Twitter files. Whoops
+* [[`5f2f19dd43`](https://github.com/sondr3/generator-jekyllized/commit/5f2f19dd43)] - Update to latest Jekyll theme and settings
+* [[`c1a9e25193`](https://github.com/sondr3/generator-jekyllized/commit/c1a9e25193)] - Installation instructions
+* [[`dd314da58f`](https://github.com/sondr3/generator-jekyllized/commit/dd314da58f)] - New beta release
+
 <a name="1.0.0-beta.11"></a>
 ## 1.0.0-beta.11
 > 2016-03-30
@@ -5,8 +22,8 @@
 Fix injecting JS as well, forgot that JS as well is injected into the browser.
 
 #### Changelog:
-* [[`a60aa79ed2`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a60aa79ed2)]: Fix injecting for JS as well
-* [[`7bdf3908b5`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/7bdf3908b5)]: Update how versions works
+* [[`a60aa79ed2`](https://github.com/sondr3/generator-jekyllized/commit/a60aa79ed2)]: Fix injecting for JS as well
+* [[`7bdf3908b5`](https://github.com/sondr3/generator-jekyllized/commit/7bdf3908b5)]: Update how versions works
 
 <a name="1.0.0-beta.10"></a>
 ## 1.0.0-beta.10
