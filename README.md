@@ -2,51 +2,45 @@
 
 [![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
 
-### Development is happening on the [beta][beta] branch!
-
 *Waiting on Gulp 4.0 to be released for the beta to go back to being the main
 version of Jekyllized. If you want to try it as it is right now you can install
 it from NPM under the `next` tag. Just read the installation instructions!*
 
-## Overview
+## Introduction
 
-Jekyllized is a very opinionated [Yeoman][yeoman] generator for very quickly and
-effortlessly allowing you to build [Jekyll][jekyll] based sites with
-[Gulp][gulp]. Get started using [Yo][yo] to scaffold your site and start
-developing. Your assets are automatically updated when developing and injected
-into your browser with [BrowserSync][browsersync] and are also optimized when
-you're ready to publish.
+`generator-jekyllized` is a very opinionated [Yeoman][yeoman] generator built
+with [Jekyll][jekyll] and [gulp][gulp]. You will be able to quickly scaffold
+your site and start developing. As you are working on your site your assets will
+automatically be updated and injected into your browser as well as your posts.
+When you are done developing and want to publish it you are two commands away
+from having everything optimized and published.
 
 ## Features
 > Rapidly prototype
 
-When developing locally all your changes are automatically injected into your
-browser. Change the background color of your website in SCSS and it will
-automatically be built by [libsass][libsass], prefixed with
-[AutoPrefixer][autoprefixer] and have source maps included. JavaScript is the
-same, the changes are automatically injected and source maps are included.
-Jekyll is also automatically reloaded when you change something in a post, and
-the browser updates accordingly. Simple and rapid prototyping.
+While developing locally everything you change will automatically be updated and
+injected into your browser. Changing your SCSS or JavaScript files will
+automatically updated them, create sourcemaps and inject them. Writing or
+editing posts and pages for your website will do the same. Simple and effective.
 
 > Jekyll
 
-Built on top of a modern and mature base, you get the full power of Jekyll to
-power your site. Automatically have a sitemap and Atom feed generated, archives
-for your tags and categories and more.
+Built on top of Jekyll 3, you get a mature and stable base with the full power
+that Jekyll brings you. You'll have sitemaps and Atom feeds generated, archives
+for your posts created and SEO meta data tags added to your posts and pages.
 
 > Optimize your assets
 
-Done with developing and ready for publishing? Jekyllized has you covered there
-as well, running the generator with `--prod` makes everything run with
-production settings: optimize, minify, gzip and cache bust your CSS and JS. Gzip
-and minify your HTML. Optimize your images.
+When you are done developing you can have your assets optimized and injected
+correctly into your HTML. Your assets will be minified, compressed with gzip,
+cache busted and otherwise optimized. Your images will be run through
+compressors to save space and even your HTML will be minified.
 
 > Deploying
 
-Support for deploying to either Amazon S3, Github Pages or via Rsync, you're
-covered when everything is ready. Run a single command after your site is build
-with production settings (`gulp deploy`) and your site is uploaded to your
-choice of platform.
+Finally, once everything is done and you are ready to publish your site, you can
+do it via either Amazon S3, Github Pages or Rsync. With a single command your
+new/updated site is uploaded to your platform of choice.
 
 ## Getting started
 
@@ -61,61 +55,73 @@ choice of platform.
   generator-jekyllized@next -g`
 
 #### Install
-* **Scaffold:** Run `yo jekyllized` in the directory you want your site to
-  scaffold in
-* **Start:** Run `gulp` and watch the magic unfold and/or look at the
-  [FAQ][frequentlyasked]
-  for more options.
+* **Scaffold:** Run `yo jekyllized` in the directory you want scaffold your site
+    in
+* **Start:** Run `gulp` and watch the magic unfold
 
 ## Usage
 
 #### `gulp [--prod]`
 
-Running this will build your assets, copy your images and fonts, build your site
-and start a BrowserSync session in your browser. Any change you make to (pretty
-much) any file in the `src` directory will have the associated change be
-automatically updated, built and pushed to your browser. By default all
-optimizations are disabled, and source maps are enabled for easy debugging.
+This is the default command, and probably the one you'll use the most. This
+command will build your assets and site with development settings. You'll get
+sourcemaps, your drafts will be generated and you'll only generate the last 10
+posts (for speed). As you are changing your posts, pages and assets they will
+automatically update and inject into your browser via
+[BrowserSync][browsersync].
 
-When you run the command with `--prod` you are changing into production
-settings. It's mostly the same as the default, however all your CSS and JS are
-minifed, gzipped, cache busted and your HTML is minified as well and source maps
-are disabled. Use when you're done developing locally to verify that nothing is
-broken and that everything works.
+> `--prod`
+
+Once you are done and want to verify that everything works with production
+settings you add the flag `--prod` and your assets will be optimized. Your CSS,
+JS and HTML will be minified and gzipped, plus the CSS and JS will be cache
+busted. The images will be compressed and Jekyll will generate a site with all
+your posts and no drafts.
 
 #### `gulp build [--prod]`
 
-This command is identical to the `gulp` command, the only difference is that it
-doesn't create a BrowserSync session in your browser.
+This command is identical to the normal `gulp [--prod]` however it will not
+create a BrowserSync session in your browser.
 
 #### `gulp (build) [--prod]` main subtasks
-When run without `--prod` both `styles` and `scripts` will create a sourcemap
-and will not optimize/minify etc any of your assets. With `--prod` it will not
-create sourcemaps.
-
 > `gulp jekyll [--prod]`
 
-Builds your site with either development settings or production settings,
-depending on whether `--prod` is true or not.
+Without production settings Jekyll will only create the 10 latest posts and will
+create both future posts and drafts. With `--prod` none of that is true and it
+will generate all your posts.
 
-> `gulp styles [--prod]`
+> `gulp styles|scripts [--prod]`
 
-Creates a `style.css` file from your SASS via `libsass` and uses AutoPrefixer to
-add prefixes automatically. If you are working on your site it will inject the
-updated CSS into your website. When run with `--prod` it will also minify, gzip
-and cache bust it.
-
-> `gulp scripts [--prod]`
-
-Essentially the same as with your styles, only with your JavaScript.
+Both your CSS and JS will have sourcemaps generated for them under development
+settings. Once you generate them with production settings sourcemap generation
+is disabled. Both will be minified, gzipped and cache busted with production
+settings.
 
 > `gulp images`
 
-Optimizes and caches your images.
+Optimizes and caches your images. This is a set it and forget it command for the
+most part.
 
 > `gulp html --prod`
 
 **Does nothing without `--prod`.** Minifies and gzips your HTML files.
+
+> `gulp serve`
+
+If you just want to watch your site you can run this command. If wanted you can
+also edit the `serve` task to allow it to tunnel via [localtunnel][localtunnel]
+so people outside your local network can view it as well:
+
+```js
+    // tunnel: true,
+```
+
+You can also change the behaviour for how it opens the URL when you run `gulp
+[--prod]`, you can see the options [here][browsersync-open]:
+
+```js
+    // open: false,
+```
 
 #### `gulp deploy`
 
@@ -242,9 +248,9 @@ Pages. Luckily the Jekyll documentation [has you covered][jekyll-url].
 
 > Why don't you support Stylus/LESS/Angular/etc
 
-Because I've never used them nor do I have any plans to use them. If you want to
-you can create a pull request for them and I'll have a look and see whether
-it'll work or not.
+Because I've never used them nor do I have any plans of using them. Furthermore,
+they're a bit outside what I want with this generator anyways. I want a lean,
+simple and opinionated generator, not a big complicated one.
 
 ## Contributing
 
@@ -256,12 +262,9 @@ See the [contribution][contribute] docs.
 
 MIT © Sondre Nilsen (https://github.com/sondr3)
 
-[autoprefixer]: https://github.com/ai/autoprefixer
 [awspublish]: https://github.com/pgherveou/gulp-awspublish
-[beta]: https://github.com/sondr3/generator-jekyllized/tree/beta
-[bower]: http://bower.io/
 [browsersync]: https://github.com/shakyShane/browser-sync
-[bundler]: http://bundler.io
+[browsersync-open]: https://browsersync.io/docs/options/#option-open
 [contribute]: https://github.com/sondr3/generator-jekyllized/blob/beta/CONTRIBUTING.md
 [changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
 [frequentlyasked]: https://github.com/sondr3/generator-jekyllized#frequently-asked-questions
@@ -271,9 +274,6 @@ MIT © Sondre Nilsen (https://github.com/sondr3)
 [jekyll-url]: http://jekyllrb.com/docs/github-pages/#project-page-url-structure
 [jekyll]: https://jekyllrb.com
 [libsass]: https://github.com/hcatlin/libsass
-[nodejs]: http://nodejs.org/
-[redcarpet]: https://github.com/vmg/redcarpet
+[localtunnel]: http://localtunnel.me/
 [rsync]: https://github.com/jerrysu/gulp-rsync
-[rubylang]: http://www.ruby-lang.org/
 [yeoman]: http://yeoman.io
-[yo]: https://github.com/yeoman/yo
