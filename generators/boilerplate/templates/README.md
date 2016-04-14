@@ -28,9 +28,9 @@ If you have cloned this repo or want to reinstall, make sure there's no
 `bundle install`.
 
 #### Update
-To update: `npm update generator-jekyllized -g`, then run `yo jekyllized:gulp`
-in this directory. Note that this will overwrite any local changes, so back it
-up.
+To update: `npm update generator-jekyllized -g`, then run `yo jekyllized:gulp
+[--rsync|amazon|pages]` in this directory. Note that this will overwrite any
+local changes, so back it up.
 
 ## Github
 For more information on how to use your new project, please refer to the [README

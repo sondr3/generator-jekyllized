@@ -1,0 +1,12 @@
+Updating:
+  When updating your gulpfile and packages you need to include a command line
+  flag specifying how you want to upload your site, if no flag is specified it
+  will generate a gulpfile without any uploading task. For example:
+
+    yo jekyllized:gulp
+    yo jekyllized:gulp --rsync
+
+  Options:
+    --amazon
+    --rsync
+    --pages

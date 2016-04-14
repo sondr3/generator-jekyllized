@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var generators = require('yeoman-generator');
+var argv = require('yargs').argv;
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -14,6 +15,18 @@ module.exports = generators.Base.extend({
       message: 'How do you want to upload your site?',
       choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None']
     });
+
+    if (argv.amazon) {
+      this.options.uploading = 'Amazon S3';
+    }
+
+    if (argv.rsync) {
+      this.options.uploading = 'Rsync';
+    }
+
+    if (argv.pages) {
+      this.options.uploading = 'Github Pages';
+    }
   },
 
   writing: {
