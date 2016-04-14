@@ -24,6 +24,7 @@
     "globule": "^0.2.0",
     "lodash": "^4.6.1",
     "shelljs": "^0.6.0",
+    "yargs": "^4.6.0",
     "yeoman-generator": "^0.22.5",
     "yosay": "^1.1.0"
   },
@@ -47,7 +48,6 @@
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "mocha-lcov-reporter": "^1.2.0",
-    "yargs": "^4.6.0",
     "yeoman-assert": "^2.1.1",
     "yeoman-test": "^1.1.0",
     "yo": "^1.7.0"
