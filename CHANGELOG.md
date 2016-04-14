@@ -1,3 +1,12 @@
+<a name="1.0.0-beta.14"></a>
+## 1.0.0-beta.14
+> 2016-04-14
+
+Fixed a typo in the cache-headers for Amazon S3, thanks @xHN35RQ.
+
+#### Changelog:
+* [[`8ca22fe71c`](https://github.com/sondr3/generator-jekyllized/commit/8ca22fe71c)] - max-age, not max-axe... sadly
+
 <a name="1.0.0-beta.13"></a>
 ## 1.0.0-beta.13
 > 2016-04-14
