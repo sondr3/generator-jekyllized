@@ -1,3 +1,14 @@
+<a name="1.0.0-beta.16"></a>
+## 1.0.0-beta.16
+> 2016-04-15
+
+Fixed the issue where the generator would refuse to install because it couldn't
+resolve the dependency on `yargs` because I didn't add it as a dependency but
+added it as a devdependency instead. Whoops.
+
+#### Changelog:
+* [[`94d0c54b42`](https://github.com/sondr3/generator-jekyllized/commit/94d0c54b42)] - Fix not installing properly
+
 <a name="1.0.0-beta.15"></a>
 ## 1.0.0-beta.15
 > 2016-04-15
