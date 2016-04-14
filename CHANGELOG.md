@@ -1,3 +1,15 @@
+<a name="1.0.0-beta.13"></a>
+## 1.0.0-beta.13
+> 2016-04-14
+
+Fixed a issue where Jekyll wouldn't generate when run with LSI turned on, so
+this was disabled as it isn't used for anything. And fixed the uploading for
+AWS.
+
+#### Changelog:
+* [[`a67e69c083`](https://github.com/sondre/generator-jekyllized/commit/a67e69c083)] - Fix uploading for AWS
+* [[`d16c4944ef`](https://github.com/sondre/generator-jekyllized/commit/d16c4944ef)] - Remove LSI
+
 <a name="1.0.0-beta.12"></a>
 ## 1.0.0-beta.12
 > 2016-04-01

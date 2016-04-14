@@ -59,6 +59,12 @@ new/updated site is uploaded to your platform of choice.
     in
 * **Start:** Run `gulp` and watch the magic unfold
 
+#### Update
+It's recommended that you keep your `gulpfile` up to date with the generator.
+First, update `generator-jekyllized`: `npm update generator-jekyllized -g`, then
+run `yo jekyllized:gulp` in the directory you want to update. Note that this
+will overwrite any local changes you've made, so make sure to make a backup.
+
 ## Usage
 
 #### `gulp [--prod]`
