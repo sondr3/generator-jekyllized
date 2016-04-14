@@ -200,7 +200,7 @@ gulp.task('deploy', () => {
   var publisher = $.awspublish.create(credentials);
 
   var headers = {
-    'Cache-Control': 'max-axe=315360000, no-transform, public'
+    'Cache-Control': 'max-age=315360000, no-transform, public'
   };
 
   return gulp.src('dist/**/*')
