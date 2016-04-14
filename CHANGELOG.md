@@ -1,3 +1,13 @@
+<a name="1.0.0-beta.15"></a>
+## 1.0.0-beta.15
+> 2016-04-15
+
+Added support for updating your gulpfile and package.json with your specified
+uploading settings, so you can now stay up to date pretty easily! Neat.
+
+#### Changelog:
+* [[`dc32d51696`](https://github.com/sondr3/generator-jekyllized/commit/dc32d51696)] - Add support for updating your gulpfile
+
 <a name="1.0.0-beta.14"></a>
 ## 1.0.0-beta.14
 > 2016-04-14
