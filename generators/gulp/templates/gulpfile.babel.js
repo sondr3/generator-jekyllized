@@ -203,7 +203,7 @@ gulp.task('deploy', () => {
     'Cache-Control': 'max-axe=315360000, no-transform, public'
   };
 
-  gulp.src('dist/**/*')
+  return gulp.src('dist/**/*')
     .pipe($.awspublish.gzip())
     .pipe(parallelize(publisher.publish(headers), 30))
     .pipe(publisher.cache())
