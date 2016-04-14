@@ -270,6 +270,7 @@ See the [contribution][contribute] docs.
 MIT © Sondre Nilsen (https://github.com/sondr3)
 
 [awspublish]: https://github.com/pgherveou/gulp-awspublish
+[bower]: http://bower.io
 [browsersync]: https://github.com/shakyShane/browser-sync
 [browsersync-open]: https://browsersync.io/docs/options/#option-open
 [contribute]: https://github.com/sondr3/generator-jekyllized/blob/beta/CONTRIBUTING.md
