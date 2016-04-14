@@ -4,7 +4,5 @@
 # Hides your drafts and future posts
 future: false
 show_drafts: false
-# Gives you more accurate related posts
-lsi: true
 # Removes the upper limit for posts generated
 limit_posts: 0

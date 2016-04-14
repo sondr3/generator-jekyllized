@@ -66,7 +66,6 @@ describe('jekyllized:jekyll', function () {
       [
         'future: false',
         'show_drafts: false',
-        'lsi: true',
         'limit_posts: 0'
       ].forEach(function (config) {
         assert.fileContent('_config.build.yml', config);
