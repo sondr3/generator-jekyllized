@@ -18,7 +18,7 @@ import fs from 'fs';
 import parallelize from 'concurrent-transform';
 <% } -%>
 // BrowserSync is used to live-reload your website
-import browserSync from 'browser-sync';
+const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 // AutoPrefixer
 import autoprefixer from 'autoprefixer';
@@ -251,12 +251,10 @@ gulp.task('lint', () =>
 // 'gulp serve' -- open up your website in your browser and watch for changes
 // in all your files and update them when needed
 gulp.task('serve', () => {
-  browserSync({
+  browserSync.init({
     // tunnel: true,
     // open: false,
-    server: {
-      baseDir: ['.tmp', 'dist']
-    }
+    server: ['.tmp', 'dist']
   });
 
   // Watch various files for changes and do the needful
