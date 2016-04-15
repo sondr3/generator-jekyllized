@@ -1,3 +1,12 @@
+<a name="1.0.0-beta.17"></a>
+## 1.0.0-beta.17
+> 2016-04-15
+
+Updated the BrowserSync config in the gulpfile to the newer syntax.
+
+#### Changelog:
+* [[`6365af1330`](https://github.com/sondre/generator-jekyllized/commit/6365af1330)] - Update to latest BrowserSync config
+
 <a name="1.0.0-beta.16"></a>
 ## 1.0.0-beta.16
 > 2016-04-15
