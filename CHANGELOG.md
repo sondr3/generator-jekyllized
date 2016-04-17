@@ -1,3 +1,15 @@
+<a name="1.0.0-beta.18"></a>
+## 1.0.0-beta.18
+> 2016-04-17
+
+Downgrade the version of `jekyll-feed`. Needed because Jekyll has changed how it
+requires URLs to be written in `_config.yml` and doesn't support URLs without
+`http://`. I'm going on vacation and don't have the time to fix it before my
+flight leaves :D
+
+#### Changelog:
+* [[`62c4255b0a`](https://github.com/sondr3/generator-jekyllized/commit/62c4255b0a)] - Fix error with jekyll-feed for now
+
 <a name="1.0.0-beta.17"></a>
 ## 1.0.0-beta.17
 > 2016-04-15
