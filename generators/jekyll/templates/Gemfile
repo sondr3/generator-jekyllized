@@ -5,7 +5,7 @@ gem 'redcarpet'
 
 # jekyll plugins
 gem 'jekyll-archives'
-gem 'jekyll-feed', '0.4.0'
+gem 'jekyll-feed'
 gem 'jekyll-gist'
 gem 'jekyll-paginate'
 gem 'jekyll-sitemap'
