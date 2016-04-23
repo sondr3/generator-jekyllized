@@ -1,3 +1,14 @@
+<a name="1.0.0-beta.19"></a>
+## 1.0.0-beta.19
+> 2016-04-23
+
+Added validation to the URL because Jekyll requires them to at least include
+`//`, so now URLs must include either `HTTP` or `HTTPS`.
+
+#### Changelog:
+* [[`ee3264d1b5`](https://github.com/sondr3/generator-jekyllized/commit/ee3264d1b5)] - Fix URLs needing HTTP(s)
+
+
 <a name="1.0.0-beta.18"></a>
 ## 1.0.0-beta.18
 > 2016-04-17
