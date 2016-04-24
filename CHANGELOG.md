@@ -1,3 +1,10 @@
+## HEAD
+
+Updated the packages for the generator.
+
+#### Changelog:
+* [[`5892ae79e9`](https://github.com/sondr3/generator-jekyllized/commit/5892ae79e9)] - Update packages
+
 <a name="1.0.0-beta.19"></a>
 ## 1.0.0-beta.19
 > 2016-04-23
@@ -7,7 +14,6 @@ Added validation to the URL because Jekyll requires them to at least include
 
 #### Changelog:
 * [[`ee3264d1b5`](https://github.com/sondr3/generator-jekyllized/commit/ee3264d1b5)] - Fix URLs needing HTTP(s)
-
 
 <a name="1.0.0-beta.18"></a>
 ## 1.0.0-beta.18
