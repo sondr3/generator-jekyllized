@@ -67,4 +67,4 @@ jekyll-archives:
     year: '/archive/:year/'
     month: '/archive/:year/:month/'
     category: '/category/:name/'
-    tags: '/tag/:name/'
+    tag: '/tag/:name/'
