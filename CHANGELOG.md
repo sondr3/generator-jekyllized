@@ -1,3 +1,12 @@
+<a name="1.0.0-beta.21"></a>
+## 1.0.0-beta.21
+> 2016-05-22
+
+Forgot to remove a mention of a old gulp task.
+
+#### Changelog:
+* [[`b46b1e57f8`](https://github.com/sondr3/generator-jekyllized/commit/b46b1e57f8)] - Remove mention of clean:metadata
+
 <a name="1.0.0-beta.20"></a>
 ## 1.0.0-beta.20
 > 2016-05-22
