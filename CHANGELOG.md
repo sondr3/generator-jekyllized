@@ -1,8 +1,22 @@
-## HEAD
+<a name="1.0.0-beta.20"></a>
+## 1.0.0-beta.20
+> 2016-05-22
 
-Updated the packages for the generator.
+Big bugfix release, fixed how `jekyllized` processes the Jekyll site. It now
+copies the `src` of your Jekyll site to `.tmp` and does it's processing there so
+it doesn't infect your git history. It will also now properly reload your site
+when changing your posts.
+
+Also removed the `jekyll-archives` gem because it wasn't being used for anything
+nor is it being updated. And, finally, updated the packages for the generator.
 
 #### Changelog:
+* [[`f27129fa5b`](https://github.com/sondr3/generator-jekyllized/commit/f27129fa5b)] - Remove asking for Github and Twitter
+* [[`a28a5eaf30`](https://github.com/sondr3/generator-jekyllized/commit/a28a5eaf30)] - Fix regeneration of sites
+* [[`cfc3eb17f1`](https://github.com/sondr3/generator-jekyllized/commit/cfc3eb17f1)] - Make it properly skip install when testing
+* [[`3a2cc26659`](https://github.com/sondr3/generator-jekyllized/commit/3a2cc26659)] - ES2015, Travis and Syntax changes
+* [[`96374df57f`](https://github.com/sondr3/generator-jekyllized/commit/96374df57f)] - Copy to a temporary directory, ES2015 updates
+* [[`4a6b983d64`](https://github.com/sondr3/generator-jekyllized/commit/4a6b983d64)] - Remove jekyll-archives
 * [[`5892ae79e9`](https://github.com/sondr3/generator-jekyllized/commit/5892ae79e9)] - Update packages
 
 <a name="1.0.0-beta.19"></a>
