@@ -25,26 +25,67 @@ import autoprefixer from 'autoprefixer';
 // Yargs for command line arguments
 import {argv} from 'yargs';
 
-// 'gulp clean:assets' -- deletes all assets except for images
+var basePaths = {
+  dest: 'dist/',
+  tmp: '.tmp/'
+};
+
+var paths = {
+  assetsBuilt: basePaths.tmp + 'assets-built/',
+  jekyllBuilt: basePaths.tmp + 'jekyll-built/',
+  jekyllPreprocessedSrc: basePaths.tmp + 'jekyll-preprocessed-src/',
+  destAssets: basePaths.dest + 'assets/'
+};
+
+// 'gulp clean:assets' -- deletes all assets except for images and favicon
 // 'gulp clean:images' -- deletes your images
-// 'gulp clean:dist' -- erases the dist folder
-// 'gulp clean:gzip' -- erases all the gzipped files
+// 'gulp clean:favicon' -- deletes favicon
+// 'gulp clean:dist' -- erases the dist directory
+// 'gulp clean:jekyll-built' -- deletes the jekyll-built directory
 // 'gulp clean:metadata' -- deletes the metadata file for Jekyll
+// 'gulp clean:jekyll-preprocessed-src' -- deletes the jekyll build source
 gulp.task('clean:assets', () => {
-  return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
+  return del([paths.assetsBuilt + 'assets/**/*', '!' + paths.assetsBuilt + 'assets/favicon.ico', '!' + paths.assetsBuilt + 'assets/images', '!' + paths.assetsBuilt + 'assets/images/**/*']);
 });
 gulp.task('clean:images', () => {
-  return del(['.tmp/assets/images', 'dist/assets/images']);
+  return del([paths.assetsBuilt + 'assets/images']);
 });
-gulp.task('clean:dist', () => {
-  return del(['dist/']);
+gulp.task('clean:favicon', () => {
+  return del([paths.assetsBuilt + 'assets/favicon.ico']);
 });
-gulp.task('clean:gzip', () => {
-  return del(['dist/**/*.gz']);
+gulp.task('clean:dist-assets', () => {
+  return del([paths.destAssets]);
+});
+gulp.task('clean:dist-jekyll', () => {
+  return del(['!' + basePaths.dest, basePaths.dest + '**/*', '!' + paths.destAssets, '!' + paths.destAssets + '**/*']);
+});
+gulp.task('clean:dist', gulp.series(
+  gulp.parallel('clean:dist-assets', 'clean:dist-jekyll')
+));
+gulp.task('clean:jekyll-built', () => {
+  return del([paths.jekyllBuilt]);
 });
 gulp.task('clean:metadata', () => {
   return del(['src/.jekyll-metadata']);
 });
+gulp.task('clean:jekyll-preprocessed-src', () => {
+  return del([paths.jekyllPreprocessedSrc]);
+});
+gulp.task('clean:assets-built', () => {
+  return del([paths.assetsBuilt]);
+});
+
+// 'gulp clean' -- cleans the project
+gulp.task('clean', gulp.parallel('clean:images', 'clean:assets', 'clean:dist', 'clean:jekyll-built', 'clean:metadata', 'clean:jekyll-preprocessed-src', 'clean:assets-built'));
+
+// 'gulp jekyll-preprocessed-src' -- copies Jekyll data to temporary
+// jekyll-preprocessed-src directory before running the source pre-processing
+// tasks like inject:*
+gulp.task('jekyll-preprocessed-src', () =>
+  gulp.src(['src/**/*', '!src/assets/**/*', '!src/assets'])
+    .pipe(gulp.dest(paths.jekyllPreprocessedSrc))
+    .pipe($.size({title: 'jekyll-preprocessed-src'}))
+);
 
 // 'gulp jekyll' -- builds your site with development settings
 // 'gulp jekyll --prod' -- builds your site with production settings
@@ -89,14 +130,14 @@ gulp.task('styles', () =>
     })))
     .pipe($.if(argv.prod, $.rev()))
     .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
-    .pipe($.if(argv.prod, gulp.dest('.tmp/assets/stylesheets')))
+    .pipe($.if(argv.prod, gulp.dest(paths.assetsBuilt + 'assets/stylesheets')))
     .pipe($.if(argv.prod, $.if('*.css', $.gzip({append: true}))))
     .pipe($.if(argv.prod, $.size({
       title: 'gzipped styles',
       gzip: true,
       showFiles: true
     })))
-    .pipe(gulp.dest('.tmp/assets/stylesheets'))
+    .pipe(gulp.dest(paths.assetsBuilt + 'assets/stylesheets'))
     .pipe($.if(!argv.prod, browserSync.stream({match: '**/*.css'})))
 );
 
@@ -111,7 +152,7 @@ gulp.task('scripts', () =>
     'src/assets/javascript/vendor.js',
     'src/assets/javascript/main.js'
   ])
-    .pipe($.newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
+    .pipe($.newer(paths.assetsBuilt + 'assets/javascript/index.js', {dest: paths.assetsBuilt + 'assets/javascript', ext: '.js'}))
     .pipe($.if(!argv.prod, $.sourcemaps.init()))
     .pipe($.concat('index.js'))
     .pipe($.size({
@@ -126,31 +167,31 @@ gulp.task('scripts', () =>
     })))
     .pipe($.if(argv.prod, $.rev()))
     .pipe($.if(!argv.prod, $.sourcemaps.write('.')))
-    .pipe($.if(argv.prod, gulp.dest('.tmp/assets/javascript')))
+    .pipe($.if(argv.prod, gulp.dest(paths.assetsBuilt + 'assets/javascript')))
     .pipe($.if(argv.prod, $.if('*.js', $.gzip({append: true}))))
     .pipe($.if(argv.prod, $.size({
       title: 'gzipped scripts',
       gzip: true,
       showFiles: true
     })))
-    .pipe(gulp.dest('.tmp/assets/javascript'))
+    .pipe(gulp.dest(paths.assetsBuilt + 'assets/javascript'))
     .pipe($.if(!argv.prod, browserSync.stream({match: '**/*.js'})))
 );
 
 // 'gulp inject:head' -- injects our style.css file into the head of our HTML
 gulp.task('inject:head', () =>
-  gulp.src('src/_includes/head.html')
-    .pipe($.inject(gulp.src('.tmp/assets/stylesheets/*.css',
-                            {read: false}), {ignorePath: '.tmp'}))
-    .pipe(gulp.dest('src/_includes'))
+  gulp.src(paths.jekyllPreprocessedSrc + '_includes/head.html')
+    .pipe($.inject(gulp.src(paths.assetsBuilt + 'assets/stylesheets/*.css',
+                            {read: false}), {ignorePath: paths.assetsBuilt}))
+    .pipe(gulp.dest(paths.jekyllPreprocessedSrc + '_includes'))
 );
 
 // 'gulp inject:footer' -- injects our index.js file into the end of our HTML
 gulp.task('inject:footer', () =>
-  gulp.src('src/_layouts/default.html')
-    .pipe($.inject(gulp.src('.tmp/assets/javascript/*.js',
-                            {read: false}), {ignorePath: '.tmp'}))
-    .pipe(gulp.dest('src/_layouts'))
+  gulp.src(paths.jekyllPreprocessedSrc + '_layouts/default.html')
+    .pipe($.inject(gulp.src(paths.assetsBuilt + 'assets/javascript/*.js',
+                            {read: false}), {ignorePath: paths.assetsBuilt}))
+    .pipe(gulp.dest(paths.jekyllPreprocessedSrc + '_layouts'))
 );
 
 // 'gulp images' -- optimizes and caches your images
@@ -160,21 +201,28 @@ gulp.task('images', () =>
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('.tmp/assets/images'))
+    .pipe(gulp.dest(paths.assetsBuilt + 'assets/images'))
     .pipe($.size({title: 'images'}))
 );
 
-// 'gulp fonts' -- copies your fonts to the temporary assets folder
+// 'gulp fonts' -- copies your fonts to the temporary assets directory
 gulp.task('fonts', () =>
   gulp.src('src/assets/fonts/**/*')
-    .pipe(gulp.dest('.tmp/assets/fonts'))
+    .pipe(gulp.dest(paths.assetsBuilt + 'assets/fonts'))
     .pipe($.size({title: 'fonts'}))
+);
+
+// 'gulp favicon' -- copies your favicon to the temporary assets directory
+gulp.task('favicon', () =>
+  gulp.src('src/assets/favicon.ico')
+    .pipe(gulp.dest(paths.assetsBuilt))
+    .pipe($.size({title: 'favicon'}))
 );
 
 // 'gulp html' -- does nothing
 // 'gulp html --prod' -- minifies and gzips our HTML files
 gulp.task('html', () =>
-  gulp.src('dist/**/*.html')
+  gulp.src(basePaths.dest + '**/*.html')
     .pipe($.if(argv.prod, $.htmlmin({
       removeComments: true,
       collapseWhitespace: true,
@@ -183,13 +231,13 @@ gulp.task('html', () =>
       removeRedundantAttributes: true
     })))
     .pipe($.if(argv.prod, $.size({title: 'optimized HTML'})))
-    .pipe($.if(argv.prod, gulp.dest('dist')))
+    .pipe($.if(argv.prod, gulp.dest(basePaths.dest)))
     .pipe($.if(argv.prod, $.gzip({append: true})))
     .pipe($.if(argv.prod, $.size({
       title: 'gzipped HTML',
       gzip: true
     })))
-    .pipe($.if(argv.prod, gulp.dest('dist')))
+    .pipe($.if(argv.prod, gulp.dest(basePaths.dest)))
 );
 
 <% if (amazonS3) { -%>
@@ -229,9 +277,11 @@ gulp.task('deploy', () => {
 
 <% } -%><% if (ghpages) { -%>
 // 'gulp deploy' -- pushes your dist folder to Github
+// 'gulp deploy' -- pushes your dist directory to Github
 gulp.task('deploy', () => {
-  return gulp.src('dist/**/*')
-    .pipe($.ghPages());
+  return gulp.src(basePaths.dest + '**/*')
+    .pipe($.ghPages({
+    }));
 });
 
 <% } -%>
@@ -240,8 +290,8 @@ gulp.task('deploy', () => {
 gulp.task('lint', () =>
   gulp.src([
     'gulpfile.babel.js',
-    '.tmp/assets/javascript/*.js',
-    '!.tmp/assets/javascript/*.min.js'
+    paths.assetsBuilt + 'assets/javascript/*.js',
+    '!' + paths.assetsBuilt + 'assets/javascript/*.min.js'
   ])
   .pipe($.eslint())
   .pipe($.eslint.formatEach())
@@ -251,61 +301,57 @@ gulp.task('lint', () =>
 // 'gulp serve' -- open up your website in your browser and watch for changes
 // in all your files and update them when needed
 gulp.task('serve', () => {
-  browserSync.init({
+  browserSync({
     // tunnel: true,
     // open: false,
-    server: ['.tmp', 'dist']
+    server: {
+      baseDir: [paths.assetsBuilt, paths.jekyllBuilt]
+    }
   });
 
   // Watch various files for changes and do the needful
-  gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.yml'], gulp.series('jekyll', reload));
-  gulp.watch(['src/**/*.xml', 'src/**/*.txt'], gulp.series('jekyll'));
-  gulp.watch('src/assets/javascript/**/*.js', gulp.series('scripts'));
-  gulp.watch('src/assets/scss/**/*.scss', gulp.series('styles'));
-  gulp.watch('src/assets/images/**/*', reload);
+  gulp.watch(['src/**/*.md', 'src/**/*.html', 'src/**/*.yml'], {usePolling: true}, gulp.series('jekyll-preprocessed-src', 'inject:head', 'inject:footer', 'jekyll', reload));
+  gulp.watch(['src/**/*.xml', 'src/**/*.txt'], {usePolling: true}, gulp.series('jekyll-preprocessed-src', 'inject:head', 'inject:footer', 'jekyll'));
+  gulp.watch('src/assets/javascript/**/*.js', {usePolling: true}, gulp.series('scripts'));
+  gulp.watch('src/assets/scss/**/*.scss', {usePolling: true}, gulp.series('styles'));
+  gulp.watch('src/assets/images/**/*', {usePolling: true}, gulp.series('clean:images', 'images'), reload);
+  gulp.watch('src/assets/favicon.ico', {usePolling: true}, gulp.series('clean:favicon', 'favicon'));
 });
 
 // 'gulp assets' -- cleans out your assets and rebuilds them
 // 'gulp assets --prod' -- cleans out your assets and rebuilds them with
 // production settings
 gulp.task('assets', gulp.series(
-  gulp.series('clean:assets'),
-  gulp.parallel('styles', 'scripts', 'fonts', 'images')
+  gulp.parallel('clean:assets', 'clean:favicon', 'clean:images'),
+  gulp.parallel('styles', 'scripts', 'fonts', 'images', 'favicon')
 ));
 
-// 'gulp assets:copy' -- copies the assets into the dist folder, needs to be
-// done this way because Jekyll overwrites the whole folder otherwise
-gulp.task('assets:copy', () =>
-  gulp.src('.tmp/assets/**/*')
-    .pipe(gulp.dest('dist/assets'))
+// 'gulp copy:assets' -- copies the assets into the dist directory
+gulp.task('copy:assets', () =>
+  gulp.src(paths.assetsBuilt + '**/*')
+    .pipe(gulp.dest(basePaths.dest))
 );
 
-// 'gulp' -- cleans your assets and gzipped files, creates your assets and
-// injects them into the templates, then builds your site, copied the assets
-// into their directory and serves the site
-// 'gulp --prod' -- same as above but with production settings
-gulp.task('default', gulp.series(
-  gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'assets:copy', 'html'),
-  gulp.series('serve')
-));
-
-// 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
-// 'gulp build --prod' -- same as above but with production settings
-gulp.task('build', gulp.series(
-  gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'assets:copy', 'html')
-));
-
-// 'gulp clean' -- erases your assets and gzipped files
-gulp.task('clean', gulp.series('clean:assets', 'clean:gzip'));
-
-// 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
-// you need to do a complete rebuild
-gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets',
-'clean:images', 'clean:metadata'));
+// 'gulp copy:jekyll' -- copies jekyll site into the dist directory
+gulp.task('copy:jekyll', () =>
+  gulp.src(paths.jekyllBuilt + '**/*')
+    .pipe(gulp.dest(basePaths.dest))
+);
 
 // 'gulp check' -- checks your Jekyll configuration for errors and lint your JS
 gulp.task('check', gulp.series('jekyll:doctor', 'lint'));
+
+// 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
+// 'gulp build --prod' -- same as above but with production settings
+gulp.task('build',
+  gulp.series(
+    gulp.series('check', 'clean', 'assets', 'jekyll-preprocessed-src', 'inject:head', 'inject:footer', 'jekyll'),
+    gulp.parallel('copy:assets', 'copy:jekyll'),
+    gulp.series('html')
+  )
+);
+
+// 'gulp' -- cleans your assets, gzipped files and temp files, creates your assets and
+// injects them into the templates, builds the site with Jekyll and serves it
+// 'gulp --prod' -- same as above but with production settings
+gulp.task('default', gulp.series('build', 'serve'));
