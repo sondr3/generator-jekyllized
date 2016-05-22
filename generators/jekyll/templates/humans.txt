@@ -3,7 +3,7 @@
 
 # TEAM
 
-    <%= authorName %> -- <role> -- @<%= authorTwitter %>
+    <%= authorName %> -- <role> -- @
 
 # THANKS
 

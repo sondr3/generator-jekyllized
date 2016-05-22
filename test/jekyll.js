@@ -14,9 +14,7 @@ describe('jekyllized:jekyll', function () {
         authorName: 'Ola Nordmann',
         authorEmail: 'ola.nordmann@email.com',
         authorURI: 'homepage.com',
-        authorBio: 'I am a tester for tests',
-        authorTwitter: '0lanordmann',
-        authorGithub: '0lanordmann'
+        authorBio: 'I am a tester for tests'
       };
       helpers.run(path.join(__dirname, '../generators/jekyll'))
         .inDir(path.join(__dirname, 'tmp/jekyll'))
@@ -54,9 +52,7 @@ describe('jekyllized:jekyll', function () {
         'name: Ola Nordmann',
         'email: ola.nordmann@email.com',
         'uri: homepage.com',
-        'bio: I am a tester for tests',
-        'twitter: 0lanordmann',
-        'github: 0lanordmann'
+        'bio: I am a tester for tests'
       ].forEach(function (config) {
         assert.fileContent('_config.yml', config);
       });
@@ -73,7 +69,7 @@ describe('jekyllized:jekyll', function () {
     });
 
     it('fills out humans.txt correctly', function () {
-      assert.fileContent('src/humans.txt', 'Ola Nordmann -- <role> -- @0lanordmann');
+      assert.fileContent('src/humans.txt', 'Ola Nordmann -- <role> -- @');
     });
   });
 

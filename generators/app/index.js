@@ -71,15 +71,6 @@ module.exports = generators.Base.extend({
       message: 'Write a short description about yourself',
       store: true
     }, {
-      name: 'authorTwitter',
-      message: chalk.blue('You can leave these blank if they are not going to be used\n') +
-        chalk.yellow('? ') + 'Your Twitter handle ' + chalk.yellow('(without the @):'),
-      store: true
-    }, {
-      name: 'authorGithub',
-      message: 'Your Github username:',
-      store: true
-    }, {
       name: 'uploading',
       type: 'list',
       message: 'How do you want to upload your site?',
@@ -148,8 +139,6 @@ module.exports = generators.Base.extend({
         authorEmail: this.props.authorEmail,
         authorURI: this.props.authorURI,
         authorBio: this.props.authorBio,
-        authorTwitter: this.props.authorTwitter,
-        authorGithub: this.props.authorGithub,
         jekyllPermalinks: this.props.jekyllPermalinks
       }
     }, {

@@ -12,6 +12,10 @@ And you'll have a new Jekyll site generated for you and displayed in your
 browser. Neato. If you want to run it with production settings, just add
 `--prod`.
 
+#### Settings
+In your `_config.yml` and `humans.txt` you should add your Github and Twitter
+profile if you want to.
+
 ## Usage
 
 ```sh

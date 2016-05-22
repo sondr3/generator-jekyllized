@@ -17,8 +17,8 @@ author:
   email: <%= authorEmail %>
   uri: <%= authorURI %>
   bio: <%= authorBio %>
-  twitter: <%= authorTwitter %>
-  github: <%= authorGithub %>
+  twitter:
+  github:
 
 # _config.build.yml overwrites these options when you run `gulp build`
 # Enables future posts (posts with dates in the future) and drafts
