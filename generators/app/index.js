@@ -10,11 +10,6 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
 
-    this.option('skip-install', {
-      desc: 'Skip installing dependencies',
-      type: Boolean
-    });
-
     var dependencies = ['ruby', 'bundle', 'yo', 'gulp', 'node'].every(function (depend) {
       return shelljs.which(depend);
     });
@@ -163,11 +158,7 @@ module.exports = generators.Base.extend({
   },
 
   installing: function () {
-    if (this.options['skip-install']) {
-      this.log('Please run `npm install` and `bundle install`');
-    } else {
-      this.npmInstall();
-      this.spawnCommand('bundle', ['install']);
-    }
+    this.installDependencies({bower: false});
+    this.spawnCommand('bundle', ['install', '--quiet']);
   }
 });

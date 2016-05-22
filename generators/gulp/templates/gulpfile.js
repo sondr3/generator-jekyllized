@@ -1,35 +1,35 @@
 'use strict';
 
-import gulp from 'gulp';
+const gulp = require('gulp');
 // Loads the plugins without having to list all of them, but you need
 // to call them as $.pluginname
-import gulpLoadPlugins from 'gulp-load-plugins';
+const gulpLoadPlugins = require('gulp-load-plugins');
 const $ = gulpLoadPlugins();
 // Delete stuff
-import del from 'del';
+const del = require('del');
 // Used to run shell commands
-import shell from 'shelljs';
+const shell = require('shelljs');
 <%  if (amazonS3 || rsync) { -%>
 // 'fs' is used to read files from the system (used for uploading)
-import fs from 'fs';
+const fs = require('fs');
 <% } -%>
 <%  if (amazonS3) { -%>
 // Parallelize the uploads when uploading to Amazon S3
-import parallelize from 'concurrent-transform';
+const parallelize = require('concurrent-transform');
 <% } -%>
 // BrowserSync is used to live-reload your website
 const browserSync = require('browser-sync').create();
 const reload = browserSync.reload;
 // AutoPrefixer
-import autoprefixer from 'autoprefixer';
+const autoprefixer = require('autoprefixer');
 // Yargs for command line arguments
-import {argv} from 'yargs';
+const argv = require('yargs').argv;
 
 // 'gulp clean:assets' -- deletes all assets except for images
 // 'gulp clean:images' -- deletes your images
-// 'gulp clean:dist' -- erases the dist folder
+// 'gulp clean:dist' -- erases the dist directory
 // 'gulp clean:gzip' -- erases all the gzipped files
-// 'gulp clean:metadata' -- deletes the metadata file for Jekyll
+// 'gulp clean:jekyll' -- deletes the temporary Jekyll site
 gulp.task('clean:assets', () => {
   return del(['.tmp/**/*', '!.tmp/assets', '!.tmp/assets/images', '!.tmp/assets/images/**/*', 'dist/assets']);
 });
@@ -37,14 +37,22 @@ gulp.task('clean:images', () => {
   return del(['.tmp/assets/images', 'dist/assets/images']);
 });
 gulp.task('clean:dist', () => {
-  return del(['dist/']);
+  return del(['dist/', '.tmp/dist']);
 });
 gulp.task('clean:gzip', () => {
   return del(['dist/**/*.gz']);
 });
-gulp.task('clean:metadata', () => {
-  return del(['src/.jekyll-metadata']);
+gulp.task('clean:jekyll', () => {
+  return del(['.tmp/jekyll']);
 });
+
+// 'gulp jekyll:tmp' -- copies your Jekyll site to a temporary directory
+// to be processed
+gulp.task('jekyll:tmp', () =>
+  gulp.src(['src/**/*', '!src/assets/**/*', '!src/assets'])
+    .pipe(gulp.dest('.tmp/jekyll'))
+    .pipe($.size({title: 'Jekyll'}))
+);
 
 // 'gulp jekyll' -- builds your site with development settings
 // 'gulp jekyll --prod' -- builds your site with production settings
@@ -139,18 +147,18 @@ gulp.task('scripts', () =>
 
 // 'gulp inject:head' -- injects our style.css file into the head of our HTML
 gulp.task('inject:head', () =>
-  gulp.src('src/_includes/head.html')
+  gulp.src('.tmp/jekyll/_includes/head.html')
     .pipe($.inject(gulp.src('.tmp/assets/stylesheets/*.css',
                             {read: false}), {ignorePath: '.tmp'}))
-    .pipe(gulp.dest('src/_includes'))
+    .pipe(gulp.dest('.tmp/jekyll/_includes'))
 );
 
 // 'gulp inject:footer' -- injects our index.js file into the end of our HTML
 gulp.task('inject:footer', () =>
-  gulp.src('src/_layouts/default.html')
+  gulp.src('.tmp/jekyll/_layouts/default.html')
     .pipe($.inject(gulp.src('.tmp/assets/javascript/*.js',
                             {read: false}), {ignorePath: '.tmp'}))
-    .pipe(gulp.dest('src/_layouts'))
+    .pipe(gulp.dest('.tmp/jekyll/_layouts'))
 );
 
 // 'gulp images' -- optimizes and caches your images
@@ -164,7 +172,7 @@ gulp.task('images', () =>
     .pipe($.size({title: 'images'}))
 );
 
-// 'gulp fonts' -- copies your fonts to the temporary assets folder
+// 'gulp fonts' -- copies your fonts to the temporary assets directory
 gulp.task('fonts', () =>
   gulp.src('src/assets/fonts/**/*')
     .pipe(gulp.dest('.tmp/assets/fonts'))
@@ -273,39 +281,35 @@ gulp.task('assets', gulp.series(
   gulp.parallel('styles', 'scripts', 'fonts', 'images')
 ));
 
-// 'gulp assets:copy' -- copies the assets into the dist folder, needs to be
-// done this way because Jekyll overwrites the whole folder otherwise
-gulp.task('assets:copy', () =>
+// 'gulp assets:copy' -- copies the assets into the dist directory, needs to be
+// done this way because Jekyll overwrites the whole directory otherwise
+gulp.task('copy:assets', () =>
   gulp.src('.tmp/assets/**/*')
     .pipe(gulp.dest('dist/assets'))
 );
 
-// 'gulp' -- cleans your assets and gzipped files, creates your assets and
-// injects them into the templates, then builds your site, copied the assets
-// into their directory and serves the site
-// 'gulp --prod' -- same as above but with production settings
-gulp.task('default', gulp.series(
-  gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'assets:copy', 'html'),
-  gulp.series('serve')
-));
-
-// 'gulp build' -- same as 'gulp' but doesn't serve your site in your browser
-// 'gulp build --prod' -- same as above but with production settings
-gulp.task('build', gulp.series(
-  gulp.series('clean:assets', 'clean:gzip'),
-  gulp.series('assets', 'inject:head', 'inject:footer'),
-  gulp.series('jekyll', 'assets:copy', 'html')
-));
+// gulp jekyll:copy' -- copies your processed Jekyll site to the dist directory
+gulp.task('copy:jekyll', () =>
+  gulp.src('.tmp/dist/**/*')
+    .pipe(gulp.dest('dist'))
+);
 
 // 'gulp clean' -- erases your assets and gzipped files
-gulp.task('clean', gulp.series('clean:assets', 'clean:gzip'));
-
-// 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
-// you need to do a complete rebuild
-gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets',
-'clean:images', 'clean:metadata'));
+gulp.task('clean', gulp.series('clean:assets', 'clean:dist', 'clean:jekyll'));
 
 // 'gulp check' -- checks your Jekyll configuration for errors and lint your JS
 gulp.task('check', gulp.series('jekyll:doctor', 'lint'));
+
+// 'gulp build' -- cleans out temporary files, injects your JS and CSS and generates your site, and then your assets
+// 'gulp build --prod' -- same as above, but with production settings
+gulp.task('build', gulp.series(
+  gulp.series('clean', 'assets', 'jekyll:tmp', 'inject:head', 'inject:footer', 'jekyll'),
+  gulp.parallel('copy:assets', 'copy:jekyll'),
+  gulp.series('html')
+));
+
+// 'gulp' -- runs the 'build' task and then serves your site
+gulp.task('default', gulp.series(
+  gulp.series('build', 'serve')
+));
+

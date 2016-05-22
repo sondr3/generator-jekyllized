@@ -48,7 +48,7 @@ describe('jekyllized:app', function () {
         '.gitattributes',
         '.babelrc',
         'package.json',
-        'gulpfile.babel.js',
+        'gulpfile.js',
         'README.md',
         '_config.yml',
         '_config.build.yml',

@@ -14,7 +14,7 @@ describe('jekyllized:gulp', function () {
     });
 
     it('creates gulpfile', function () {
-      assert.file('gulpfile.babel.js');
+      assert.file('gulpfile.js');
     });
 
     it('creates package.json file', function () {
@@ -24,9 +24,6 @@ describe('jekyllized:gulp', function () {
     it('package.json contains correct packages', function () {
       [
         '"autoprefixer": "^6.2.3"',
-        '"babel-core": "^6.5.0"',
-        '"babel-eslint": "^6.0.0"',
-        '"babel-preset-es2015": "^6.5.0"',
         '"browser-sync": "^2.11.0"',
         '"del": "^2.2.0"',
         '"eslint": "^2.5.3"',
@@ -83,7 +80,8 @@ describe('jekyllized:gulp', function () {
         'clean:images',
         'clean:dist',
         'clean:gzip',
-        'clean:metadata',
+        'clean:jekyll',
+        'jekyll:tmp',
         'jekyll',
         'jekyll:doctor',
         'styles',
@@ -96,18 +94,19 @@ describe('jekyllized:gulp', function () {
         'lint',
         'serve',
         'assets',
-        'assets:copy',
-        'default',
+        'copy:assets',
+        'copy:jekyll',
+        'clean',
+        'check',
         'build',
-        'rebuild',
-        'check'
+        'default'
       ].forEach(function (task) {
-        assert.fileContent('gulpfile.babel.js', 'gulp.task(\'' + task);
+        assert.fileContent('gulpfile.js', 'gulp.task(\'' + task);
       });
     });
 
     it('does not contain deploy task', function () {
-      assert.noFileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy\'');
     });
   });
 
@@ -120,7 +119,7 @@ describe('jekyllized:gulp', function () {
     });
 
     it('creates gulpfile', function () {
-      assert.file('gulpfile.babel.js');
+      assert.file('gulpfile.js');
     });
 
     it('creates package.json file', function () {
@@ -146,15 +145,15 @@ describe('jekyllized:gulp', function () {
     });
 
     it('contains deploy task', function () {
-      assert.fileContent('gulpfile.babel.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
-      assert.fileContent('gulpfile.babel.js', '// headers for your files and uploads them to S3');
-      assert.fileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
+      assert.fileContent('gulpfile.js', '// headers for your files and uploads them to S3');
+      assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
     });
 
     it('does not contain wrong uploading tasks', function () {
-      assert.noFileContent('gulpfile.babel.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
-      assert.noFileContent('gulpfile.babel.js', '// uploads your site to your server');
-      assert.noFileContent('gulpfile.babel.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
+      assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
+      assert.noFileContent('gulpfile.js', '// uploads your site to your server');
+      assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
     });
 
     it('creates credentials file', function () {
@@ -171,7 +170,7 @@ describe('jekyllized:gulp', function () {
     });
 
     it('creates gulpfile', function () {
-      assert.file('gulpfile.babel.js');
+      assert.file('gulpfile.js');
     });
 
     it('creates package.json file', function () {
@@ -193,15 +192,15 @@ describe('jekyllized:gulp', function () {
     });
 
     it('contains deploy function', function () {
-      assert.fileContent('gulpfile.babel.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
-      assert.fileContent('gulpfile.babel.js', '// uploads your site to your server');
-      assert.fileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
+      assert.fileContent('gulpfile.js', '// uploads your site to your server');
+      assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
     });
 
     it('does not contain the wrong uploading task', function () {
-      assert.noFileContent('gulpfile.babel.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
-      assert.noFileContent('gulpfile.babel.js', '// headers for your files and uploads them to S3');
-      assert.noFileContent('gulpfile.babel.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
+      assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
+      assert.noFileContent('gulpfile.js', '// headers for your files and uploads them to S3');
+      assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
     });
 
     it('creates credentials file', function () {
@@ -218,7 +217,7 @@ describe('jekyllized:gulp', function () {
     });
 
     it('creates gulpfile', function () {
-      assert.file('gulpfile.babel.js');
+      assert.file('gulpfile.js');
     });
 
     it('creates package.json file', function () {
@@ -240,15 +239,15 @@ describe('jekyllized:gulp', function () {
     });
 
     it('contains deploy function', function () {
-      assert.fileContent('gulpfile.babel.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
-      assert.fileContent('gulpfile.babel.js', 'gulp.task(\'deploy\'');
+      assert.fileContent('gulpfile.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
+      assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
     });
 
     it('does not contain the wrong uploading task', function () {
-      assert.noFileContent('gulpfile.babel.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
-      assert.noFileContent('gulpfile.babel.js', '// headers for your files and uploads them to S3');
-      assert.noFileContent('gulpfile.babel.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
-      assert.noFileContent('gulpfile.babel.js', '// uploads your site to your server');
+      assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
+      assert.noFileContent('gulpfile.js', '// headers for your files and uploads them to S3');
+      assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
+      assert.noFileContent('gulpfile.js', '// uploads your site to your server');
     });
   });
 });

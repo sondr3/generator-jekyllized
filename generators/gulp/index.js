@@ -36,9 +36,6 @@ module.exports = generators.Base.extend({
       pkg.devDependencies = pkg.devDependencies || {};
       _.extend(pkg.devDependencies, {
         'autoprefixer': '^6.2.3',
-        'babel-core': '^6.5.0',
-        'babel-eslint': '^6.0.0',
-        'babel-preset-es2015': '^6.5.0',
         'browser-sync': '^2.11.0',
         'del': '^2.2.0',
         'eslint': '^2.5.3',
@@ -86,8 +83,8 @@ module.exports = generators.Base.extend({
 
     gulpfile: function () {
       this.fs.copyTpl(
-        this.templatePath('gulpfile.babel.js'),
-        this.destinationPath('gulpfile.babel.js'),
+        this.templatePath('gulpfile.js'),
+        this.destinationPath('gulpfile.js'),
         {
           amazonS3: this.options.uploading === 'Amazon S3',
           rsync: this.options.uploading === 'Rsync',
