@@ -158,7 +158,10 @@ module.exports = generators.Base.extend({
   },
 
   installing: function () {
-    this.installDependencies({bower: false});
+    this.installDependencies({
+      bower: false,
+      skipInstall: this.options['skip-install']
+    });
     this.spawnCommand('bundle', ['install', '--quiet']);
   }
 });
