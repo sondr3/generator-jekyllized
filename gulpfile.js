@@ -1,24 +1,11 @@
 'use strict';
 
-import coveralls from 'gulp-coveralls';
-import gulp from 'gulp';
-import istanbul from 'gulp-istanbul';
-import eslint from 'gulp-eslint';
-import mocha from 'gulp-mocha';
-import path from 'path';
-import del from 'del';
-
-gulp.task('check', () =>
-  gulp.src([
-    'gulpfile.babel.js',
-    'test/*.js',
-    'test/tmp/**/gulpfile.babel.js',
-    'generators/**/index.js'
-  ])
-  .pipe(eslint())
-  .pipe(eslint.formatEach())
-  .pipe(eslint.failOnError())
-);
+const path = require('path');
+const gulp = require('gulp');
+const coveralls = require('gulp-coveralls');
+const istanbul = require('gulp-istanbul');
+const mocha = require('gulp-mocha');
+const del = require('del');
 
 gulp.task('istanbul', done =>
   gulp.src([
@@ -48,4 +35,4 @@ gulp.task('coveralls', () => {
 });
 
 gulp.task('test', gulp.series('clean', 'istanbul'));
-gulp.task('default', gulp.series('check', 'coveralls'));
+gulp.task('default', gulp.series('coveralls'));

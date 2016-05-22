@@ -1,7 +1,7 @@
 'use strict';
 
-var _ = require('lodash');
 var path = require('path');
+var _ = require('lodash');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 

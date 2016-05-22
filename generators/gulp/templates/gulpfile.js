@@ -1,5 +1,9 @@
 'use strict';
 
+<%  if (amazonS3 || rsync) { -%>
+// 'fs' is used to read files from the system (used for uploading)
+const fs = require('fs');
+<% } -%>
 const gulp = require('gulp');
 // Loads the plugins without having to list all of them, but you need
 // to call them as $.pluginname
@@ -9,10 +13,6 @@ const $ = gulpLoadPlugins();
 const del = require('del');
 // Used to run shell commands
 const shell = require('shelljs');
-<%  if (amazonS3 || rsync) { -%>
-// 'fs' is used to read files from the system (used for uploading)
-const fs = require('fs');
-<% } -%>
 <%  if (amazonS3) { -%>
 // Parallelize the uploads when uploading to Amazon S3
 const parallelize = require('concurrent-transform');
