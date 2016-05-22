@@ -44,27 +44,8 @@ highlighter: true
 
 # Extending Jekyll
 gems:
-  - jekyll-archives
   - jekyll-feed
   - jekyll-gist
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
-
-# Settings for archives
-jekyll-archives:
-  enabled:
-    - year
-    - month
-    - categories
-    - tags
-  layouts:
-    year: 'year-archive'
-    month: 'month-archive'
-    category: 'category-archive'
-    tag: 'tag-archive'
-  permalinks:
-    year: '/archive/:year/'
-    month: '/archive/:year/:month/'
-    category: '/category/:name/'
-    tags: '/tag/:name/'

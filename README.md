@@ -26,8 +26,8 @@ editing posts and pages for your website will do the same. Simple and effective.
 > Jekyll
 
 Built on top of Jekyll 3, you get a mature and stable base with the full power
-that Jekyll brings you. You'll have sitemaps and Atom feeds generated, archives
-for your posts created and SEO meta data tags added to your posts and pages.
+that Jekyll brings you. You'll have sitemaps, Atom feeds generated and SEO meta
+data tags added to your posts and pages.
 
 > Optimize your assets
 
