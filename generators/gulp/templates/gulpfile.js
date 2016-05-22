@@ -306,8 +306,7 @@ gulp.task('build', gulp.series(
 
 // 'gulp rebuild' -- WARNING: Erases your assets and built site, use only when
 // you need to do a complete rebuild
-gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets',
-'clean:images', 'clean:metadata'));
+gulp.task('rebuild', gulp.series('clean:dist', 'clean:assets', 'clean:images'));
 
 // 'gulp check' -- checks your Jekyll configuration for errors and lint your JS
 gulp.task('check', gulp.series('jekyll:doctor'));
