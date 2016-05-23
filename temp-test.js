@@ -1,4 +1,11 @@
 'use strict';
+
+var oldExit = process.exit;
+process.exit = function () {
+  console.error(new Error(‘OH NO!!!’));
+  oldExit.apply(process, arguments);
+}
+
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
