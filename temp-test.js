@@ -2,7 +2,7 @@
 
 var oldExit = process.exit;
 process.exit = function () {
-  console.error(new Error(‘OH NO!!!’));
+  console.error(new Error('OH NO!!!'));
   oldExit.apply(process, arguments);
 }
 
