@@ -4,6 +4,8 @@ node_js:
   - "6"
   - "5"
   - "4"
+install:
+  - gem install bundler
 after_success:
     - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
 notifications:
