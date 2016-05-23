@@ -10,6 +10,6 @@ test.before(() => {
     .toPromise();
 });
 
-test('sets none permalinks', () => {
+test.serial('sets none permalinks', () => {
   assert.fileContent('_config.yml', 'permalink: none');
 });

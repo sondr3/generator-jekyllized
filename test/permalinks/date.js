@@ -10,6 +10,6 @@ test.before(() => {
     .toPromise();
 });
 
-test('sets date permalinks', () => {
+test.serial('sets date permalinks', () => {
   assert.fileContent('_config.yml', 'permalink: date');
 });
