@@ -5,7 +5,7 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 test.before(() => {
-  return helpers.run(path.join(__dirname, '../generators/gulp'))
+  return helpers.run(path.join(__dirname, '../../generators/gulp'))
     .withOptions({uploading: 'Amazon S3'})
     .toPromise();
 });
