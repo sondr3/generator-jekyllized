@@ -6,3 +6,11 @@ node_js:
   - "4"
 after_success:
     - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
+notifications:
+  email: false
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/82537018be323f7b8a08
+    on_success: change
+    on_failure: always
+    on_start: never
