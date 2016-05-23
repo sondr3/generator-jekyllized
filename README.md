@@ -1,6 +1,6 @@
 # generator-jekyllized [![Build Status](https://travis-ci.org/sondr3/generator-jekyllized.png?branch=master)](https://travis-ci.org/sondr3/generator-jekyllized)
 
-[![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
+[![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Gitter](https://badges.gitter.im/sondr3/generator-jekyllized.svg)](https://gitter.im/sondr3/generator-jekyllized?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 *Waiting on Gulp 4.0 to be released for the beta to go back to being the main
 version of Jekyllized. If you want to try it as it is right now you can install
