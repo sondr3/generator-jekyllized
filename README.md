@@ -1,5 +1,7 @@
 # generator-jekyllized [![Build Status](https://travis-ci.org/sondr3/generator-jekyllized.png?branch=master)](https://travis-ci.org/sondr3/generator-jekyllized)
 
+[![Join the chat at https://gitter.im/sondr3/generator-jekyllized](https://badges.gitter.im/sondr3/generator-jekyllized.svg)](https://gitter.im/sondr3/generator-jekyllized?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
 
 *Waiting on Gulp 4.0 to be released for the beta to go back to being the main
