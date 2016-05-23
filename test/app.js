@@ -1,100 +1,47 @@
 'use strict';
-
 var path = require('path');
-var _ = require('lodash');
+var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('jekyllized:app', function () {
-  describe('running on new project', function () {
-    before(function (done) {
-      this.answers = {
-        projectName: 'jekyllized',
-        projectDescription: 'Test site for Jekyllized',
-        projectURL: 'www.test.com',
-        authorName: 'Ola Nordmann',
-        authorEmail: 'ola.nordmann@gmail.com',
-        authorBio: 'A norwegian dude',
-        authorTwitter: '0lanordmann',
-        authorGithub: '0lanordmann',
-        uploading: 'None',
-        jekyllPermalinks: 'pretty',
-        jekyllPaginate: '10'
-      };
-      this.deps = [
-        [helpers.createDummyGenerator(), 'jekyllized:boilerplate'],
-        [helpers.createDummyGenerator(), 'jekyllized:gulp'],
-        [helpers.createDummyGenerator(), 'jekyllized:jekyll']
-      ];
-      helpers.run(path.join(__dirname, '../generators/app'))
-        .inDir(path.join(__dirname, 'tmp/app'))
-        .withOptions({
-          'skip-install': true
-        })
-        .withPrompts(this.answers)
-        .withGenerators(this.deps)
-        .on('end', done);
-    });
+test.before(() => {
+  return helpers.run(path.join(__dirname, '../generators/app'))
+    .withPrompts({
+      projectName: 'jekyllized',
+      projectDescription: 'Test site for Jekyllized',
+      projectURL: 'www.test.com',
+      authorName: 'Ola Nordmann',
+      authorEmail: 'ola.nordmann@gmail.com',
+      authorBio: 'A norwegian dude',
+      uploading: 'None',
+      jekyllPermalinks: 'pretty'
+    })
+    .toPromise();
+});
 
-    it('can be required without throwing', function () {
-      this.app = require('../generators/app'); //eslint-disable-line
-    });
+test('generates expected files', () => {
+  assert.file([
+    '.editorconfig',
+    '.gitignore',
+    '.gitattributes',
+    'package.json',
+    'gulpfile.js',
+    'README.md',
+    '_config.yml',
+    '_config.build.yml',
+    'Gemfile'
+  ]);
+});
 
-    it('creates files', function () {
-      assert.file([
-        '.editorconfig',
-        '.eslintrc',
-        '.gitignore',
-        '.gitattributes',
-        '.babelrc',
-        'package.json',
-        'gulpfile.js',
-        'README.md',
-        '_config.yml',
-        '_config.build.yml',
-        'Gemfile'
-      ]);
-    });
-
-    it('creates package.json', function () {
-      assert.file('package.json');
-      assert.JSONFileContent('package.json', { //eslint-disable-line
-        name: this.answers.projectName,
-        version: '0.0.0',
-        description: this.answers.projectDescription,
-        homepage: this.answers.projectURL,
-        author: {
-          name: this.answers.authorName,
-          email: this.answers.authorEmail
-        }
-      });
-    });
-  });
-
-  describe('running on existing project', function () {
-    before(function (done) {
-      this.pkg = {
-        version: '3.1.4',
-        description: '404 not found',
-        homepage: 'ulv.no',
-        author: 'Kari Nordmann'
-      };
-      helpers.run(path.join(__dirname, '../generators/app'))
-        .withOptions({
-          'skip-install': true
-        })
-        .withPrompts({
-          projectName: 'jekyllized'
-        })
-        .on('ready', function (gen) {
-          gen.fs.writeJSON(gen.destinationPath('package.json'), this.pkg);
-        }.bind(this))
-        .on('end', done);
-    });
-
-    it('extends package.json', function () {
-      var pkg = _.extend({name: 'jekyllized'}, this.pkg);
-      assert.JSONFileContent('package.json', pkg); //eslint-disable-line
-    });
+test('creates package.json correctly', () => {
+  assert.file('package.json');
+  [
+    '"name": "jekyllized"',
+    '"description": "Test site for Jekyllized"',
+    '"homepage": "www.test.com',
+    '"name": "Ola Nordmann"',
+    '"email": "ola.nordmann@gmail.com"'
+  ].forEach(field => {
+    assert.fileContent('package.json', field);
   });
 });

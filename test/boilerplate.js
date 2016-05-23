@@ -1,61 +1,46 @@
 'use strict';
-
 var path = require('path');
+var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-describe('jekyllized:boilerplate', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../generators/boilerplate'))
-      .on('end', done);
-  });
+test.before(() => {
+  return helpers.run(path.join(__dirname, '../generators/boilerplate'))
+    .withOptions({
+      projectName: 'README',
+      projectDescription: 'This is a great README',
+      projectURL: 'hello-world.com',
+      authorName: 'Ola Nordmann'
+    })
+    .toPromise();
+});
 
-  it('creates .editorconfig', function () {
-    assert.file('.editorconfig');
-  });
+test('creates .editorconfig', () => {
+  assert.file('.editorconfig');
+});
 
-  it('creates .eslintrc', function () {
-    assert.file('.eslintrc');
-  });
+test('creates .gitignore', () => {
+  assert.file('.gitignore');
+});
 
-  it('creates .gitignore', function () {
-    assert.file('.gitignore');
-  });
+test('creates .gitattributes', () => {
+  assert.file('.gitattributes');
+});
 
-  it('creates .gitattributes', function () {
-    assert.file('.gitattributes');
-  });
+test('creates .babelrc', () => {
+  assert.file('.babelrc');
+});
 
-  it('creates .babelrc', function () {
-    assert.file('.babelrc');
-  });
+test('creates README.md', () => {
+  assert.file('README.md');
+});
 
-  describe('README', function () {
-    before(function (done) {
-      this.options = {
-        projectName: 'README',
-        projectDescription: 'This is a great README',
-        projectURL: 'hello-world.com',
-        authorName: 'Ola Nordmann'
-      };
-      helpers.run(path.join(__dirname, '../generators/boilerplate'))
-        .inDir(path.join(__dirname, 'tmp/readme'))
-        .withOptions(this.options)
-        .on('end', done);
-    });
-
-    it('creates README.md', function () {
-      assert.file('README.md');
-    });
-
-    it('contains correct info', function () {
-      [
-        '# README',
-        '> This is a great README',
-        '[Ola Nordmann](hello-world.com)'
-      ].forEach(function (text) {
-        assert.fileContent('README.md', text);
-      });
-    });
+test('README is correct', () => {
+  [
+    '# README',
+    '> This is a great README',
+    '[Ola Nordmann](hello-world.com)'
+  ].forEach(field => {
+    assert.fileContent('README.md', field);
   });
 });

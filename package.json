@@ -13,7 +13,7 @@
   "repository": "sondr3/generator-jekyllized",
   "license": "MIT",
   "scripts": {
-    "test": "xo && gulp test && gulp"
+    "test": "xo && nyc ava"
   },
   "files": [
     "index.js",
@@ -29,18 +29,9 @@
     "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.3.1",
-    "coveralls": "^2.11.6",
-    "del": "^2.2.0",
-    "generator-mocha": "^0.3.0",
-    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-istanbul": "^0.10.4",
-    "gulp-load-plugins": "^1.2.2",
-    "gulp-mocha": "^2.2.0",
-    "istanbul": "^0.4.3",
-    "mocha": "^2.4.5",
-    "mocha-lcov-reporter": "^1.2.0",
+    "ava": "^0.14.0",
+    "coveralls": "^2.11.9",
+    "nyc": "^6.4.4",
     "xo": "^0.15.1",
     "yeoman-assert": "^2.2.1",
     "yeoman-test": "^1.1.0",
