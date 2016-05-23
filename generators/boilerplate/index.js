@@ -57,15 +57,5 @@ module.exports = generators.Base.extend({
       this.templatePath('gitignore'),
       this.destinationPath('.gitignore')
     );
-
-    this.fs.copy(
-      this.templatePath('eslintrc'),
-      this.destinationPath('.eslintrc')
-    );
-
-    this.fs.copy(
-      this.templatePath('babelrc'),
-      this.destinationPath('.babelrc')
-    );
   }
 });

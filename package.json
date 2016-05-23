@@ -39,11 +39,6 @@
   },
   "xo": {
     "space": true,
-    "globals": [
-      "describe",
-      "before",
-      "it"
-    ],
     "ignores": [
       "generators/app/templates/**",
       "generators/boilerplate/templates/**",

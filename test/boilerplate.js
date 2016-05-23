@@ -27,10 +27,6 @@ test('creates .gitattributes', () => {
   assert.file('.gitattributes');
 });
 
-test('creates .babelrc', () => {
-  assert.file('.babelrc');
-});
-
 test('creates README.md', () => {
   assert.file('README.md');
 });
