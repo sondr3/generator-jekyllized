@@ -18,18 +18,18 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('creates Gemfile', () => {
+test('creates Gemfile', () => {
   assert.file('Gemfile');
 });
 
-test.serial('creates _config.yml files', () => {
+test('creates _config.yml files', () => {
   assert.file([
     '_config.yml',
     '_config.build.yml'
   ]);
 });
 
-test.serial('creates src directory', () => {
+test('creates src directory', () => {
   assert.file([
     'src/404.html',
     'src/about.md',
@@ -40,7 +40,7 @@ test.serial('creates src directory', () => {
   ]);
 });
 
-test.serial('_config.yml contains the correct settings', () => {
+test('_config.yml contains the correct settings', () => {
   [
     'title: jekyllized',
     'description: Tests for Jekyllized',
@@ -54,7 +54,7 @@ test.serial('_config.yml contains the correct settings', () => {
   });
 });
 
-test.serial('_config.build.yml contains the correct settings', () => {
+test('_config.build.yml contains the correct settings', () => {
   [
     'future: false',
     'show_drafts: false',
@@ -64,6 +64,6 @@ test.serial('_config.build.yml contains the correct settings', () => {
   });
 });
 
-test.serial('fills out humans.txt correctly', () => {
+test('fills out humans.txt correctly', () => {
   assert.fileContent('src/humans.txt', 'Ola Nordmann -- <role> -- @');
 });

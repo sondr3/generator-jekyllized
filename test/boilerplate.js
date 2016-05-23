@@ -15,23 +15,23 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('creates .editorconfig', () => {
+test('creates .editorconfig', () => {
   assert.file('.editorconfig');
 });
 
-test.serial('creates .gitignore', () => {
+test('creates .gitignore', () => {
   assert.file('.gitignore');
 });
 
-test.serial('creates .gitattributes', () => {
+test('creates .gitattributes', () => {
   assert.file('.gitattributes');
 });
 
-test.serial('creates README.md', () => {
+test('creates README.md', () => {
   assert.file('README.md');
 });
 
-test.serial('README is correct', () => {
+test('README is correct', () => {
   [
     '# README',
     '> This is a great README',

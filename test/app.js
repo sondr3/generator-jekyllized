@@ -19,7 +19,7 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('generates expected files', () => {
+test('generates expected files', () => {
   assert.file([
     '.editorconfig',
     '.gitignore',
@@ -33,7 +33,7 @@ test.serial('generates expected files', () => {
   ]);
 });
 
-test.serial('creates package.json correctly', () => {
+test('creates package.json correctly', () => {
   assert.file('package.json');
   [
     '"name": "jekyllized"',

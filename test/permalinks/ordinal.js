@@ -10,7 +10,7 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('sets ordinal permalinks', () => {
+test('sets ordinal permalinks', () => {
   assert.fileContent('_config.yml', 'permalink: ordinal');
 });
 

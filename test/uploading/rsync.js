@@ -10,19 +10,19 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('creates gulpfile', () => {
+test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test.serial('creates package.json file', () => {
+test('creates package.json file', () => {
   assert.file('package.json');
 });
 
-test.serial('contain correct uploading packages', () => {
+test('contain correct uploading packages', () => {
   assert.fileContent('package.json', '"gulp-rsync": "^0.0.5"');
 });
 
-test.serial('does not contain wrong uploading packages', () => {
+test('does not contain wrong uploading packages', () => {
   [
     '"gulp-awspublish"',
     '"concurrent-transform"',
@@ -32,18 +32,18 @@ test.serial('does not contain wrong uploading packages', () => {
   });
 });
 
-test.serial('contains deploy function', () => {
+test('contains deploy function', () => {
   assert.fileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your Rsync credentials file and incrementally');
   assert.fileContent('gulpfile.js', '// uploads your site to your server');
   assert.fileContent('gulpfile.js', 'gulp.task(\'deploy\'');
 });
 
-test.serial('does not contain the wrong uploading task', () => {
+test('does not contain the wrong uploading task', () => {
   assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- reads from your AWS Credentials file, creates the correct');
   assert.noFileContent('gulpfile.js', '// headers for your files and uploads them to S3');
   assert.noFileContent('gulpfile.js', '// \'gulp deploy\' -- pushes your dist folder to Github');
 });
 
-test.serial('creates credentials file', () => {
+test('creates credentials file', () => {
   assert.file('rsync-credentials.json');
 });

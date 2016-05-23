@@ -10,6 +10,6 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('sets pretty permalinks', () => {
+test('sets pretty permalinks', () => {
   assert.fileContent('_config.yml', 'permalink: pretty');
 });

@@ -10,22 +10,22 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('creates gulpfile', () => {
+test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test.serial('creates package.json file', () => {
+test('creates package.json file', () => {
   assert.file('package.json');
 });
 
-test.serial('does not create credentials files', () => {
+test('does not create credentials files', () => {
   assert.noFile([
     'aws-credentials.json',
     'rsync-credentials.json'
   ]);
 });
 
-test.serial('does not contain uploading packages', () => {
+test('does not contain uploading packages', () => {
   [
     '"gulp-awspublish"',
     '"concurrent-transform"',
@@ -36,6 +36,6 @@ test.serial('does not contain uploading packages', () => {
   });
 });
 
-test.serial('does not contain deploy task', () => {
+test('does not contain deploy task', () => {
   assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy\'');
 });

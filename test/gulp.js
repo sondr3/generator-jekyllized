@@ -10,15 +10,15 @@ test.before(() => {
     .toPromise();
 });
 
-test.serial('creates gulpfile', () => {
+test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test.serial('creates package.json', () => {
+test('creates package.json', () => {
   assert.file('package.json');
 });
 
-test.serial('package.json contains correct packages', () => {
+test('package.json contains correct packages', () => {
   [
     '"autoprefixer": "^6.2.3"',
     '"browser-sync": "^2.11.0"',
@@ -50,7 +50,25 @@ test.serial('package.json contains correct packages', () => {
   });
 });
 
-test.serial('contains default gulp tasks', () => {
+test('does not create credentials files', () => {
+  assert.noFile([
+    'aws-credentials.json',
+    'rsync-credentials.json'
+  ]);
+});
+
+test('does not contain uploading packages', () => {
+  [
+    '"gulp-awspublish"',
+    '"concurrent-transform"',
+    '"gulp-rsync"',
+    '"gulp-gh-pages"'
+  ].forEach(pack => {
+    assert.noFileContent('package.json', pack);
+  });
+});
+
+test('contains default gulp tasks', () => {
   [
     'clean:assets',
     'clean:images',
@@ -82,3 +100,8 @@ test.serial('contains default gulp tasks', () => {
     assert.fileContent('gulpfile.js', 'gulp.task(\'' + task);
   });
 });
+
+test('does not contain deploy task', () => {
+  assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy\'');
+});
+
