@@ -16,6 +16,7 @@ test.before(() => {
       uploading: 'None',
       jekyllPermalinks: 'pretty'
     })
+    .withOptions({'skip-install': true})
     .toPromise();
 });
 
