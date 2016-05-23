@@ -13,7 +13,7 @@
   "repository": "sondr3/generator-jekyllized",
   "license": "MIT",
   "scripts": {
-    "test": "xo && nyc ava --serial"
+    "test": "node temp-test.js"
   },
   "files": [
     "index.js",
