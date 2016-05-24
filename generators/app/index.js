@@ -22,7 +22,6 @@ module.exports = generators.Base.extend({
     if (!dependencies) {
       this.log(chalk.red('You are missing one or more dependencies!'));
       this.log(chalk.yellow('Make sure you have the required dependencies, or that they are in $PATH'));
-      shelljs.exit(1);
     }
   },
 
