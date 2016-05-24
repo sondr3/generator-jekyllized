@@ -5,6 +5,12 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 test.before(() => {
+  var deps = [
+    [helpers.createDummyGenerator(), 'jekyllized:boilerplate'],
+    [helpers.createDummyGenerator(), 'jekyllized:jekyll'],
+    [helpers.createDummyGenerator(), 'jekyllized:gulp']
+  ];
+
   return helpers.run(path.join(__dirname, '../generators/app'))
     .withPrompts({
       projectName: 'jekyllized',
@@ -17,6 +23,7 @@ test.before(() => {
       jekyllPermalinks: 'pretty'
     })
     .withOptions({'skip-install': true})
+    .withGenerators(deps)
     .toPromise();
 });
 
