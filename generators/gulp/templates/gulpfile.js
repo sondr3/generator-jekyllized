@@ -164,8 +164,8 @@ gulp.task('inject:footer', () =>
 gulp.task('images', () =>
   gulp.src('src/assets/images/**/*')
     .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true
+      imagemin.gifsicle({interlaced: true}),
+      imagemin.mozjpeg({progressive: true})
     })))
     .pipe(gulp.dest('.tmp/assets/images'))
     .pipe($.size({title: 'images'}))

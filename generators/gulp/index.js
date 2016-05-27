@@ -44,9 +44,9 @@ module.exports = generators.Base.extend({
         'gulp-cssnano': '^2.1.0',
         'gulp-eslint': '^2.0.0',
         'gulp-gzip': '^1.1.0',
-        'gulp-htmlmin': '^1.3.0',
+        'gulp-htmlmin': '^2.0.0',
         'gulp-if': '^2.0.0',
-        'gulp-imagemin': '^2.1.0',
+        'gulp-imagemin': '^3.0.0',
         'gulp-inject': '^4.0.0',
         'gulp-load-plugins': '^1.2.0',
         'gulp-newer': '^1.1.0',
@@ -58,17 +58,17 @@ module.exports = generators.Base.extend({
         'gulp-sourcemaps': '^1.3.0',
         'gulp-uglify': '^1.5.1',
         'gulp-uncss': '^1.0.0',
-        'shelljs': '^0.6.0',
-        'yargs': '^4.3.2'
+        'shelljs': '^0.7.0',
+        'yargs': '^4.7.0'
       });
 
       if (this.options.uploading === 'Amazon S3') {
-        pkg.devDependencies['gulp-awspublish'] = '^3.0.1';
+        pkg.devDependencies['gulp-awspublish'] = '^3.2.0';
         pkg.devDependencies['concurrent-transform'] = '^1.0.0';
       }
 
       if (this.options.uploading === 'Rsync') {
-        pkg.devDependencies['gulp-rsync'] = '^0.0.5';
+        pkg.devDependencies['gulp-rsync'] = '^0.0.6';
       }
 
       if (this.options.uploading === 'Github Pages') {

@@ -29,9 +29,9 @@ test('contain correct uploading packages', () => {
 test('does not contain wrong uploading packages', () => {
   assert.noJSONFileContent('package.json', {
     devDependencies: {
-      'gulp-awspublish': '^3.0.1',
-      'concurrent-transform': '^1.0.0',
-      'gulp-rsync': '^0.0.5'
+      'gulp-awspublish': '',
+      'concurrent-transform': '',
+      'gulp-rsync': ''
     }
   });
 });
