@@ -19,7 +19,7 @@ test('creates package.json', () => {
 });
 
 test('package.json contains correct packages', () => {
-  assert.JSONFileContent('package.json', {
+  assert.JSONFileContent('package.json', { // eslint-disable-line
     devDependencies: {
       'autoprefixer': '^6.2.3',
       'browser-sync': '^2.11.0',

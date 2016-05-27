@@ -19,7 +19,7 @@ test('creates package.json file', () => {
 });
 
 test('contain correct uploading packages', () => {
-  assert.JSONFileContent('package.json', {
+  assert.JSONFileContent('package.json', { // eslint-disable-line
     devDependencies: {
       'gulp-awspublish': '^3.2.0',
       'concurrent-transform': '^1.0.0'

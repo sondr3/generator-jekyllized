@@ -37,9 +37,6 @@
   },
   "xo": {
     "space": true,
-    "rules": {
-      "new-cap": 0
-    },
     "ignores": [
       "generators/app/templates/**",
       "generators/boilerplate/templates/**",

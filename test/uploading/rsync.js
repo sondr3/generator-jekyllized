@@ -19,7 +19,7 @@ test('creates package.json file', () => {
 });
 
 test('contain correct uploading packages', () => {
-  assert.JSONFileContent('package.json', {
+  assert.JSONFileContent('package.json', { // eslint-disable-line
     devDependencies: {
       'gulp-rsync': '^0.0.6'
     }
