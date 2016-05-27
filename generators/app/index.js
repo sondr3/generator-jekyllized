@@ -3,7 +3,6 @@
 var _ = require('lodash');
 var chalk = require('chalk');
 var generators = require('yeoman-generator');
-var yosay = require('yosay');
 var shelljs = require('shelljs');
 
 module.exports = generators.Base.extend({
@@ -32,13 +31,7 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function () {
-    var done = this.async();
-
-    if (!this.options['skip-welcome-message']) {
-      this.log(yosay('\'Allo \'allo!'));
-    }
-
-    var prompts = [{
+    var questions = [{
       name: 'projectName',
       message: 'What is the name of your project?',
       store: true
@@ -93,10 +86,8 @@ module.exports = generators.Base.extend({
       store: true
     }];
 
-    this.prompt(prompts, function (props) {
-      this.props = _.extend(this.props, props);
-
-      done();
+    return this.prompt(questions).then(function (props) {
+      this.props = props;
     }.bind(this));
   },
 

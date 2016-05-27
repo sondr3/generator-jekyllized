@@ -19,16 +19,20 @@ test('creates package.json file', () => {
 });
 
 test('contain correct uploading packages', () => {
-  assert.fileContent('package.json', '"gulp-rsync": "^0.0.5"');
+  assert.JSONFileContent('package.json', {
+    devDependencies: {
+      'gulp-rsync': '^0.0.5'
+    }
+  });
 });
 
 test('does not contain wrong uploading packages', () => {
-  [
-    '"gulp-awspublish"',
-    '"concurrent-transform"',
-    '"gulp-gh-pages"'
-  ].forEach(pack => {
-    assert.noFileContent('package.json', pack);
+  assert.noJSONFileContent('package.json', {
+    devDependencies: {
+      'gulp-awspublish': '^3.0.1',
+      'concurrent-transform': '^1.0.0',
+      'gulp-gh-pages': '^0.5.2'
+    }
   });
 });
 

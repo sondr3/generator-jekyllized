@@ -24,8 +24,7 @@
     "lodash": "^4.11.1",
     "shelljs": "^0.7.0",
     "yargs": "^4.6.0",
-    "yeoman-generator": "^0.23.3",
-    "yosay": "^1.1.1"
+    "yeoman-generator": "^0.23.3"
   },
   "devDependencies": {
     "ava": "^0.14.0",
@@ -38,6 +37,9 @@
   },
   "xo": {
     "space": true,
+    "rules": {
+      "new-cap": 0
+    },
     "ignores": [
       "generators/app/templates/**",
       "generators/boilerplate/templates/**",

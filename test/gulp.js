@@ -19,34 +19,34 @@ test('creates package.json', () => {
 });
 
 test('package.json contains correct packages', () => {
-  [
-    '"autoprefixer": "^6.2.3"',
-    '"browser-sync": "^2.11.0"',
-    '"del": "^2.2.0"',
-    '"gulp": "git://github.com/gulpjs/gulp.git#4.0"',
-    '"gulp-cache": "^0.4.1"',
-    '"gulp-concat": "^2.6.0"',
-    '"gulp-cssnano": "^2.1.0"',
-    '"gulp-eslint": "^2.0.0"',
-    '"gulp-gzip": "^1.1.0"',
-    '"gulp-htmlmin": "^1.3.0"',
-    '"gulp-if": "^2.0.0"',
-    '"gulp-imagemin": "^2.1.0"',
-    '"gulp-inject": "^4.0.0"',
-    '"gulp-load-plugins": "^1.2.0"',
-    '"gulp-newer": "^1.1.0"',
-    '"gulp-postcss": "^6.0.0"',
-    '"gulp-rename": "^1.2.2"',
-    '"gulp-rev": "^7.0.0"',
-    '"gulp-sass": "^2.1.1"',
-    '"gulp-size": "^2.0.0"',
-    '"gulp-sourcemaps": "^1.3.0"',
-    '"gulp-uglify": "^1.5.1"',
-    '"gulp-uncss": "^1.0.0"',
-    '"shelljs": "^0.6.0"',
-    '"yargs": "^4.3.2"'
-  ].forEach(pack => {
-    assert.fileContent('package.json', pack);
+  assert.JSONFileContent('package.json', {
+    devDependencies: {
+      'autoprefixer': '^6.2.3',
+      'browser-sync': '^2.11.0',
+      'del': '^2.2.0',
+      'gulp': 'git://github.com/gulpjs/gulp.git#4.0',
+      'gulp-cache': '^0.4.1',
+      'gulp-concat': '^2.6.0',
+      'gulp-cssnano': '^2.1.0',
+      'gulp-eslint': '^2.0.0',
+      'gulp-gzip': '^1.1.0',
+      'gulp-htmlmin': '^1.3.0',
+      'gulp-if': '^2.0.0',
+      'gulp-imagemin': '^2.1.0',
+      'gulp-inject': '^4.0.0',
+      'gulp-load-plugins': '^1.2.0',
+      'gulp-newer': '^1.1.0',
+      'gulp-postcss': '^6.0.0',
+      'gulp-rename': '^1.2.2',
+      'gulp-rev': '^7.0.0',
+      'gulp-sass': '^2.1.1',
+      'gulp-size': '^2.0.0',
+      'gulp-sourcemaps': '^1.3.0',
+      'gulp-uglify': '^1.5.1',
+      'gulp-uncss': '^1.0.0',
+      'shelljs': '^0.6.0',
+      'yargs': '^4.3.2'
+    }
   });
 });
 
@@ -58,13 +58,13 @@ test('does not create credentials files', () => {
 });
 
 test('does not contain uploading packages', () => {
-  [
-    '"gulp-awspublish"',
-    '"concurrent-transform"',
-    '"gulp-rsync"',
-    '"gulp-gh-pages"'
-  ].forEach(pack => {
-    assert.noFileContent('package.json', pack);
+  assert.noJSONFileContent('package.json', {
+    devDependencies: {
+      'gulp-awspublish': '^3.0.1',
+      'concurrent-transform': '^1.0.0',
+      'gulp-rsync': '^0.0.5',
+      'gulp-gh-pages': '^0.5.2'
+    }
   });
 });
 
