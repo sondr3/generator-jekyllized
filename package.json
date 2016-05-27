@@ -27,7 +27,7 @@
     "yeoman-generator": "^0.23.3"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.1",
     "coveralls": "^2.11.9",
     "nyc": "^6.4.4",
     "xo": "^0.15.1",
