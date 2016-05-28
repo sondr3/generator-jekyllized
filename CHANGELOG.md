@@ -1,3 +1,45 @@
+<a name="1.0.0-beta.22"></a>
+## 1.0.0-beta.22
+> 2016-05-28
+
+This is for the most part a pure backend update release and nothing too major
+happened to the generator itself besides updating a few packages. Other than
+that I moved to using AVA instead of Mocha for testing and had a heyday trying
+to get that to work, it was quite the party. But it all works well, and quite a
+lot faster as well.
+
+#### Changelog:
+* [[`65a05d6050`](https://github.com/sondr3/generator-jekyllized/commit/65a05d6050)] - Update license year \[ci skip\]
+* [[`d2479127ea`](https://github.com/sondr3/generator-jekyllized/commit/d2479127ea)] - Didn't read the documentation...
+* [[`ca13406b2d`](https://github.com/sondr3/generator-jekyllized/commit/ca13406b2d)] - Readd welcome message, update skip-install message
+* [[`63f97fbadc`](https://github.com/sondr3/generator-jekyllized/commit/63f97fbadc)] - Ignore some assert functions
+* [[`5acea649c9`](https://github.com/sondr3/generator-jekyllized/commit/5acea649c9)] - Update packages, fix testing for versions
+* [[`0415f99ef5`](https://github.com/sondr3/generator-jekyllized/commit/0415f99ef5)] - Fix checking dependencies, update AVA
+* [[`19ea9665c3`](https://github.com/sondr3/generator-jekyllized/commit/19ea9665c3)] - Fix tests, update yeoman-generator
+* [[`fa9e6b166a`](https://github.com/sondr3/generator-jekyllized/commit/fa9e6b166a)] - Nope, not working still...
+* [[`07658812f4`](https://github.com/sondr3/generator-jekyllized/commit/07658812f4)] - Third time's the charm
+* [[`c3eab364a5`](https://github.com/sondr3/generator-jekyllized/commit/c3eab364a5)] - Second try
+* [[`8b03cea0e3`](https://github.com/sondr3/generator-jekyllized/commit/8b03cea0e3)] - Apparently you must tell it to install node packages as well
+* [[`3c201a7f45`](https://github.com/sondr3/generator-jekyllized/commit/3c201a7f45)] - Install bundler when testing
+* [[`deac0babc5`](https://github.com/sondr3/generator-jekyllized/commit/deac0babc5)] - Don't install dependencies
+* [[`7e5b80a8f1`](https://github.com/sondr3/generator-jekyllized/commit/7e5b80a8f1)] - ***Revert*** "back from all the testing of the tests"
+* [[`abe1489574`](https://github.com/sondr3/generator-jekyllized/commit/abe1489574)] - ***Revert*** "Try using --serial for AVA on Travis"
+* [[`a3c1dd3ce4`](https://github.com/sondr3/generator-jekyllized/commit/a3c1dd3ce4)] - Fix syntax error
+* [[`0971a893c8`](https://github.com/sondr3/generator-jekyllized/commit/0971a893c8)] - Even more testing the tests
+* [[`64425a1497`](https://github.com/sondr3/generator-jekyllized/commit/64425a1497)] - Test testing
+* [[`9b180fa433`](https://github.com/sondr3/generator-jekyllized/commit/9b180fa433)] - Try using --serial for AVA on Travis
+* [[`069ba32849`](https://github.com/sondr3/generator-jekyllized/commit/069ba32849)] - Rename a test because having two of them got confusing
+* [[`e5463ac2d6`](https://github.com/sondr3/generator-jekyllized/commit/e5463ac2d6)] - Try running AVA in serial
+* [[`4a85a4f7e7`](https://github.com/sondr3/generator-jekyllized/commit/4a85a4f7e7)] - Update packages
+* [[`b8db04b189`](https://github.com/sondr3/generator-jekyllized/commit/b8db04b189)] - Give me Travis updates on Gitter
+* [[`6c9b516adb`](https://github.com/sondr3/generator-jekyllized/commit/6c9b516adb)] - Refactor testing of uploading a bit
+* [[`fa3b95c818`](https://github.com/sondr3/generator-jekyllized/commit/fa3b95c818)] - Add gitter badge, remove some other badges
+* [[`1ac45b380f`](https://github.com/sondr3/generator-jekyllized/commit/1ac45b380f)] - Remove gulpfile and unused files from root as well
+* [[`a78b9cc6a1`](https://github.com/sondr3/generator-jekyllized/commit/a78b9cc6a1)] - Remove unused files
+* [[`830b5dfee6`](https://github.com/sondr3/generator-jekyllized/commit/830b5dfee6)] - I dun goofed
+* [[`b710300749`](https://github.com/sondr3/generator-jekyllized/commit/b710300749)] - Removed node v4 by accident
+* [[`e77a1e5d50`](https://github.com/sondr3/generator-jekyllized/commit/e77a1e5d50)] - Move to using AVA for tests
+
 <a name="1.0.0-beta.21"></a>
 ## 1.0.0-beta.21
 > 2016-05-22
