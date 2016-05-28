@@ -26,7 +26,7 @@ test('does not create credentials files', () => {
 });
 
 test('does not contain uploading packages', () => {
-  assert.noJSONFileContent('package.json', {
+  assert.noJsonFileContent('package.json', {
     devDependencies: {
       'gulp-awspublish': '',
       'concurrent-transform': '',

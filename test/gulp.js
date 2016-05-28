@@ -19,7 +19,7 @@ test('creates package.json', () => {
 });
 
 test('package.json contains correct packages', () => {
-  assert.JSONFileContent('package.json', { // eslint-disable-line
+  assert.jsonFileContent('package.json', {
     devDependencies: {
       'autoprefixer': '^6.2.3',
       'browser-sync': '^2.11.0',
@@ -58,7 +58,7 @@ test('does not create credentials files', () => {
 });
 
 test('does not contain uploading packages', () => {
-  assert.noJSONFileContent('package.json', {
+  assert.noJsonFileContent('package.json', {
     devDependencies: {
       'gulp-awspublish': '',
       'concurrent-transform': '',

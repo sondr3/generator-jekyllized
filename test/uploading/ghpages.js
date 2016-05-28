@@ -19,7 +19,7 @@ test('creates package.json file', () => {
 });
 
 test('contain correct uploading packages', () => {
-  assert.JSONFileContent('package.json', { // eslint-disable-line
+  assert.jsonFileContent('package.json', {
     devDependencies: {
       'gulp-gh-pages': '^0.5.2'
     }
@@ -27,7 +27,7 @@ test('contain correct uploading packages', () => {
 });
 
 test('does not contain wrong uploading packages', () => {
-  assert.noJSONFileContent('package.json', {
+  assert.noJsonFileContent('package.json', {
     devDependencies: {
       'gulp-awspublish': '',
       'concurrent-transform': '',
