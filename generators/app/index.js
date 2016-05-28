@@ -4,6 +4,7 @@ var _ = require('lodash');
 var chalk = require('chalk');
 var generators = require('yeoman-generator');
 var shelljs = require('shelljs');
+var yosay = require('yosay');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -11,6 +12,11 @@ module.exports = generators.Base.extend({
 
     this.option('skip-install', {
       desc: 'Skip installing dependencies',
+      type: Boolean
+    });
+
+    this.option('skip-welcome-message', {
+      desc: 'Skips the welcome message',
       type: Boolean
     });
 
@@ -33,6 +39,10 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function () {
+    if (!this.options['skip-welcome-message']) {
+      this.log(yosay(`'Allo 'allo`));
+    }
+
     var questions = [{
       name: 'projectName',
       message: 'What is the name of your project?',
@@ -145,11 +155,24 @@ module.exports = generators.Base.extend({
   },
 
   installing: function () {
+    this.installDependencies({
+      skipInstall: this.options['skip-install']
+    });
     if (this.options['skip-install']) {
-      this.log('Please run "npm install" and "bundle install" to install dependencies');
+      this.log('Please run bundle install to ');
     } else {
-      this.npmInstall();
       this.spawnCommand('bundle', ['install', '--quiet']);
+    }
+  },
+
+  end: function () {
+    var skipInstallMessage =
+      '\nPlease run ' + chalk.blue('npm install') + ' and ' +
+      chalk.blue('bundle install') + ' to install dependencies';
+
+    if (this.options['skip-install']) {
+      this.log(skipInstallMessage);
+      return;
     }
   }
 });
