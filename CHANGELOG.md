@@ -1,3 +1,16 @@
+<a name="1.0.0-rc.1"></a>
+## 1.0.0-rc.1
+> 2016-05-29
+
+Release the first release candidate for `generator-jekyllized` that isn't hidden
+behind a tag, so it will be listed as the latest release. Also did a minor fix
+for the `rebuild` task in the gulpfile.
+
+#### Changelog:
+* [[`497e716c18`](https://github.com/sondr3/generator-jekyllized/commit/497e716c18)] - Update README, release candidate and minor gulp fix
+* [[`15116be9d0`](https://github.com/sondr3/generator-jekyllized/commit/15116be9d0)] - Overlooked something during the merge
+* [[`6e851d078f`](https://github.com/sondr3/generator-jekyllized/commit/6e851d078f)] - Merge branch 'beta'
+
 <a name="1.0.0-beta.23"></a>
 ## 1.0.0-beta.23
 > 2016-05-29
