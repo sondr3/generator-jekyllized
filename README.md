@@ -174,13 +174,6 @@ Erases your images from `.tmp` and `dist`.
 
 > `gulp clean:dist`
 
-<<<<<<< HEAD
-[beta]: https://github.com/sondr3/generator-jekyllized/tree/beta
-[jekyll]: https://jekyllrb.com
-[yeoman]: http://yeoman.io
-[yo]: https://github.com/yeoman/yo
-[bower]: http://bower.io/
-=======
 Erases your `dist` folder.
 
 > `gulp clean:gzip`
