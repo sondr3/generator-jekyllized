@@ -1,3 +1,14 @@
+<a name="1.0.0-beta.23"></a>
+## 1.0.0-beta.23
+> 2016-05-29
+
+Fixed the syntax for gulp-imagemin as it made the gulpfile error out, and also
+updated the function to validate the URL to be smaller.
+
+#### Changelog:
+* [[`3a142ef021`](https://github.com/sondr3/generator-jekyllized/commit/3a142ef021)] - Fix syntax for gulp-imagemin
+* [[`3a39933bcc`](https://github.com/sondr3/generator-jekyllized/commit/3a39933bcc)] - Simplify validate function
+
 <a name="1.0.0-beta.22"></a>
 ## 1.0.0-beta.22
 > 2016-05-28
