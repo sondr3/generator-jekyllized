@@ -55,13 +55,7 @@ module.exports = generators.Base.extend({
       name: 'projectURL',
       message: chalk.yellow('If you will be using Github Pages, use username.github.io\n') +
         chalk.yellow('? ') + 'What will the URL for your project be?',
-      validate: function (input) {
-        if (input.startsWith('http')) {
-          return true;
-        }
-
-        return 'URL must contain either HTTP or HTTPs';
-      },
+      validate: i => i.startsWith('http') ? true : 'URL must contain either HTTP or HTTPs',
       store: true
     }, {
       name: 'authorName',
