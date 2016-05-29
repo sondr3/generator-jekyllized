@@ -1,154 +1,294 @@
 # generator-jekyllized [![Build Status](https://travis-ci.org/sondr3/generator-jekyllized.png?branch=master)](https://travis-ci.org/sondr3/generator-jekyllized)
 
-[![NPM version](https://badge.fury.io/js/generator-jekyllized.png)](http://badge.fury.io/js/generator-jekyllized) [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Code Climate](https://codeclimate.com/github/sondr3/generator-jekyllized/badges/gpa.svg)](https://codeclimate.com/github/sondr3/generator-jekyllized)
+[![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Gitter](https://badges.gitter.im/sondr3/generator-jekyllized.svg)](https://gitter.im/sondr3/generator-jekyllized?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-## Development is happening in the [beta][beta] version!
+*Waiting on Gulp 4.0 to be released for the beta to go back to being the main
+version of Jekyllized. If you want to try it as it is right now you can install
+it from NPM under the `next` tag. Just read the installation instructions!*
 
-If you want to try the newest version of Jekyllized running on Gulp 4.0 and
-Jekyll 3.0 you should take a look at it on [Github][beta]. Should you want to
-try it just follow the [installation instructions][installation] there and read
-the README on how to use it. I promise you it's going to be worth it. Just
-beware Gulp 4.0 is currently in beta.
+## Introduction
 
-**Stylized and opinionated Jekyll development**
-
-Jekyllized is an opinionated [Yeoman][yeoman] generator for building
-[Jekyll][jekyll] based websites. Easy scaffolding via [Yo][yo] to get started
-quickly, [Bower][bower] for managing frontend packages and [Gulp][gulp] to
-automate and optimize developing your site.
-
-Based on [Jekyll][jekyll], Jekyllized is ideal for building highly optimized
-static sites and prototyping sites. Quickly review changes with LiveReload,
-optimize your stylesheets and images automatically and detect errors and unused
-code in your project.
+`generator-jekyllized` is a very opinionated [Yeoman][yeoman] generator built
+with [Jekyll][jekyll] and [gulp][gulp]. You will be able to quickly scaffold
+your site and start developing. As you are working on your site your assets will
+automatically be updated and injected into your browser as well as your posts.
+When you are done developing and want to publish it you are two commands away
+from having everything optimized and published.
 
 ## Features
+> Rapidly prototype
 
-### Tools
+While developing locally everything you change will automatically be updated and
+injected into your browser. Changing your SCSS or JavaScript files will
+automatically updated them, create sourcemaps and inject them. Writing or
+editing posts and pages for your website will do the same. Simple and effective.
 
-- SASS using [libsass][libsass]
-- [AutoPrefixer][autoprefixer] for automatic vendor prefixing
-- Upload your site to either Amazon S3 or to your server with Rsync
-- [Lanyon][lanyon] theme based on [Poole][poole] from [mdo][mdo]
-- Jekyll with sane configurations and lots of extras
+> Jekyll
 
-### Developing
+Built on top of Jekyll 3, you get a mature and stable base with the full power
+that Jekyll brings you. You'll have sitemaps, Atom feeds generated and SEO meta
+data tags added to your posts and pages.
 
-- Have your sites automatically refreshed across multiple devices with
-  [BrowserSync](browsersync)
-- Detect errors and potential issues with your code using `jekyll doctor` and
-  [JShint][jshint]
-- Optimize your assets and site: your CSS and JS is automatically concatenated,
-  both your CSS, JS and HTMl is minifiyed and all your text files are gzipped
-  for optimal performance. Your images are run through imagemin to optimize
-  them as well
-- Cachebusting for your assets
+> Optimize your assets
+
+When you are done developing you can have your assets optimized and injected
+correctly into your HTML. Your assets will be minified, compressed with gzip,
+cache busted and otherwise optimized. Your images will be run through
+compressors to save space and even your HTML will be minified.
+
+> Deploying
+
+Finally, once everything is done and you are ready to publish your site, you can
+do it via either Amazon S3, Github Pages or Rsync. With a single command your
+new/updated site is uploaded to your platform of choice.
 
 ## Getting started
 
-## Installation
+### Installation
 
-To install you need [Node.js][nodejs] (`>0.10.0`) and [Ruby][rubylang] (`> 1.9`)
-for Jekyll. Install Jekyllized via NPM: `npm install -g generator-jekyllized`
-and finally run `yo jekyllized` in the directory you want to install in.
+#### Dependencies
+* **Ruby**: `>2.0` with Bundler `>1.10`
+* **Node**: `>4.2`, Gulp `>4.0` and Yo `>1.7.0`
+* **Gulp:** Since the beta is running Gulp 4.0 you need to install `gulp-cli`:
+  `npm install gulpjs/gulp-cli#4.0 -g`
+* **Jekyllized:** Then install Jekyllized: `npm install
+  generator-jekyllized@next -g`
+
+#### Install
+* **Scaffold:** Run `yo jekyllized` in the directory you want scaffold your site
+    in
+* **Start:** Run `gulp` and watch the magic unfold
+
+#### Update
+It's recommended that you keep your `gulpfile` up to date with the generator.
+First, update `generator-jekyllized`: `npm update generator-jekyllized -g` and
+then run `yo jekyllized:gulp [--rsync|amazon|pages]`, or see the help: `yo
+jekyllized:gulp --help`. Note that this will overwrite any local changes you've
+made, so make sure to make a backup.
 
 ## Usage
 
-#### `gulp`
+#### `gulp [--prod]`
 
-The default task, this will automatically compile and open the site in your
-browser. A watch task runs in the background and detects when any files change,
-recompiles them if nessecary and updates your browser with BrowserSync.
+This is the default command, and probably the one you'll use the most. This
+command will build your assets and site with development settings. You'll get
+sourcemaps, your drafts will be generated and you'll only generate the last 10
+posts (for speed). As you are changing your posts, pages and assets they will
+automatically update and inject into your browser via
+[BrowserSync][browsersync].
 
-#### `gulp check`
+> `--prod`
 
-Check the health of your JavaScript, CSS and Jekyll. You can change the settings
-for what it looks for in `.jshintrc`.
+Once you are done and want to verify that everything works with production
+settings you add the flag `--prod` and your assets will be optimized. Your CSS,
+JS and HTML will be minified and gzipped, plus the CSS and JS will be cache
+busted. The images will be compressed and Jekyll will generate a site with all
+your posts and no drafts.
 
-#### `gulp build`
+#### `gulp build [--prod]`
 
-Almost the same as the default `gulp` task, but this won't start up a
-preview/LiveReload server and open the browser, it will only build your site.
+This command is identical to the normal `gulp [--prod]` however it will not
+create a BrowserSync session in your browser.
 
-#### `gulp publish`
+#### `gulp (build) [--prod]` main subtasks
+> `gulp jekyll [--prod]`
 
-This will first run `gulp build` to make sure the changes you've made to your
-site are included and then optimize all your assets (images, HTML, CSS, JS++).
-If you want to display your optimized site to make sure everything is working
-run `gulp serve:prod` to see the changes.
+Without production settings Jekyll will only create the 10 latest posts and will
+create both future posts and drafts. With `--prod` none of that is true and it
+will generate all your posts.
+
+> `gulp styles|scripts [--prod]`
+
+Both your CSS and JS will have sourcemaps generated for them under development
+settings. Once you generate them with production settings sourcemap generation
+is disabled. Both will be minified, gzipped and cache busted with production
+settings.
+
+> `gulp images`
+
+Optimizes and caches your images. This is a set it and forget it command for the
+most part.
+
+> `gulp html --prod`
+
+**Does nothing without `--prod`.** Minifies and gzips your HTML files.
+
+> `gulp serve`
+
+If you just want to watch your site you can run this command. If wanted you can
+also edit the `serve` task to allow it to tunnel via [localtunnel][localtunnel]
+so people outside your local network can view it as well:
+
+```js
+    // tunnel: true,
+```
+
+You can also change the behaviour for how it opens the URL when you run `gulp
+[--prod]`, you can see the options [here][browsersync-open]:
+
+```js
+    // open: false,
+```
 
 #### `gulp deploy`
 
-This will either upload your site to Amazon S3, Rsync your files to your server
-or push them to GitHub Pages.
+When you're done developing and have built your site with either `gulp --prod`
+or `gulp build --prod` you can deploy your site to either Amazon S3, Github
+Pages or with Rsync.
 
-### Individual tasks
+> Amazon S3 and Rsync
 
-A lot of the tasks are built up of smaller tasks that can be run individually.
-For example, the `gulp publish` task first runs `gulp build` (that also runs
-`jekyll:prod`, `styles` and `images`) and `clean:prod` and then runs the `html`
-and `copy` commands (`html` to optimize your site and `copy` to copy over some
-files that `html` misses). If you want to you can run any of these tasks without
-invoking their "parent" task. If you only wanted to optimize your assets and
-such, run `gulp html` and it won't run any of the tasks used with `gulp
-publish`.
+If you chose either of these two, you'll have a `[rsync/aws]-credentials.json`
+file in your root folder that you have to fill out. It should be pretty self
+explanatory, however, if you need any help with configuring it, you should check
+out either the [`gulp-awspublish`][awspublish] repo or [`gulp-rsync`][rsync]
+repo for help.
 
-For all the different tasks that can be run, see the [gulpfile][gulpfile] and
-look through the code. Everything is commented and you can edit, change or
-remove what you want/need.
+> Github Pages
 
-## Deploying
+If you chose to upload to Github Pages there's no configuration besides starting
+a git repo in your folder, setting an `origin` remote repo and run `gulp
+deploy`. Your site will be automatically pushed to Github. See the
+[FAQ][frequentlyasked] for configuring personal repos vs project repos.
 
-#### Amazon AWS
-If you are using Amazon S3 make sure you change the region you want to use in
-the aws-credentials.json and have created a bucket already. If you don't want to
-use Cloudfront you'll have to uncommend the last line in the `gulp deploy` task.
-For Rsync it should be automatic as long as your details are correct.
+#### `gulp check`
 
-#### Rsync
-If you are using Rsync make sure the credentials are filled out in the
-rsync-credentials.json file, otherwise all you have to do is to run `gulp
-deploy` and your site will be synced to your server. NOTE: For the moment your
-site is not gzipped while uploading, this is going to be fixed in the future.
+Lints your JavaScript files using ESLint with XO Space settings and run `jekyll
+doctor` to look for potential errors.
 
-#### GitHub Pages
-If you are using GitHub Pages note that currently only personal repositories are
-supported (`username.github.io`), however if you want to use it for project
-repositories there are some things you need to do:
+#### `gulp clean`
 
-* Change the branch that the `gulp deploy` pushes to
-* Change the [URL settings][jekyll-pages] for Jekyll. Note that the fourth step
-  isn't required as Jekyllized will automatically serve your local site on
-  `localhost:4000`
+Deletes your assets from their `.tmp` directory as well as in `dist` and deletes
+any gzipped files. **NOTE:** Does not delete your images from `.tmp` to reduce
+the time to build your site due to image optimizations. Note that `gulp clean`
+is built on top of a few other commands that you can run individually if that is
+more to your liking.
 
-### Bower
+> `gulp clean:assets`
 
-**Currently not implemented**
+Erases out your assets from `.tmp` and `dist` but does not remove images.
 
-## Roadmap
+> `gulp clean:images`
 
-- Write more documentation
-- Implement Bower functionality
-- And more things
+Erases your images from `.tmp` and `dist`.
 
-### [Changelog][changelog]
+> `gulp clean:dist`
 
+<<<<<<< HEAD
 [beta]: https://github.com/sondr3/generator-jekyllized/tree/beta
 [jekyll]: https://jekyllrb.com
 [yeoman]: http://yeoman.io
 [yo]: https://github.com/yeoman/yo
 [bower]: http://bower.io/
-[gulp]: http://gulpjs.com/
-[libsass]: https://github.com/hcatlin/libsass
-[autoprefixer]: https://github.com/ai/autoprefixer
-[poole]: https://github.com/poole
-[lanyon]: https://github.com/poole/lanyon
-[mdo]: https://github.com/mdo
-[jshint]: http://www.jshint.com/
-[nodejs]: http://nodejs.org/
-[rubylang]: http://www.ruby-lang.org/
-[gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/master/app/templates/gulpfile.js
-[changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
+=======
+Erases your `dist` folder.
+
+> `gulp clean:gzip`
+
+Erases any gzipped files in your `dist` folder.
+
+> `gulp clean:metadata`
+
+Deletes the `.jekyll-metadata` file, this will force Jekyll to completely
+rebuild your site.
+
+#### `gulp rebuild`
+
+Only run when you need to do a full rebuild! This will delete your built site
+and all the assets with it.
+
+### Subtasks
+
+All of the commands listed above are the main commands, and are composed of
+other smaller commands that have a small job that they do. You can find all the
+command by running `gulp --tasks`, and look in the [gulpfile][gulpfile] for what they do.
+All are commented about what they do.
+
+## Frequently Asked Questions
+
+> Inject more than one JavaScript file
+
+If you want to split up your JavaScript files into say a `index.js` and a
+`vendor.js` file with files from [Bower][bower] you can do this quite easily. Create a
+copy of the `scripts` gulp task and rename it to `scripts:vendor` and change the
+`gulp.src` files you need:
+
+```js
+  gulp.src([
+    'bower_components/somelibrary.js/dist/somelibrary.js',
+    'bower_components/otherthing.js/dist/otherthing.js'
+  ])
+```
+
+and then change `.pipe($.concat('index.js'))` into
+`.pipe($.concat('vendor.js'))`. Then you go to the bottom of the gulpfile and
+change the `assets` task:
+
+```js
+gulp.task('assets', gulp.series(
+  gulp.series('clean:assets'),
+  gulp.parallel('styles', 'scripts:vendor', 'scripts', 'fonts', 'images')
+));
+```
+
+Notice the `scripts:vendor` task that has been added. Also be ware that things
+are injected in alphabetical order, so if you need your vendor scripts before
+the `index.js` file you have to either rename the `index.js` file or rename the
+`vendor.js` file. When you now run `gulp` or `gulp build` it will create a
+`vendor.js` file and automatically inject it at the bottom of your HTML. When
+running with `--prod` it'll automatically optimize and such as well.
+
+For more advanced uses, refer to the [`gulp-inject`][inject] documentation on
+how to create individual inject tags and inject specific files into them.
+
+> Github Pages configuration
+
+By default if you select Github Pages as your deployment option your site will
+be pushed to a `gh-pages` branch, this works fine for any project pages but
+won't work for your personal repo. If you want to use a `username.github.io`
+site you'll have to change it to this:
+
+```js
+gulp.task('deploy', () => {
+  return gulp.src('dist/**/*')
+    .pipe($.ghPages({
+      branch: "master"
+    }));
+});
+```
+
+You might also have to configure the URL for your site if you want to use Github
+Pages. Luckily the Jekyll documentation [has you covered][jekyll-url].
+
+> Why don't you support Stylus/LESS/Angular/etc
+
+Because I've never used them nor do I have any plans of using them. Furthermore,
+they're a bit outside what I want with this generator anyways. I want a lean,
+simple and opinionated generator, not a big complicated one.
+
+## Contributing
+
+See the [contribution][contribute] docs.
+
+## [Changelog][changelog]
+
+## License
+
+MIT © Sondre Nilsen (https://github.com/sondr3)
+
+[awspublish]: https://github.com/pgherveou/gulp-awspublish
+[bower]: http://bower.io
 [browsersync]: https://github.com/shakyShane/browser-sync
-[jekyll-pages]: http://jekyllrb.com/docs/github-pages/
-[installation]: https://github.com/sondr3/generator-jekyllized#installation
+[browsersync-open]: https://browsersync.io/docs/options/#option-open
+[contribute]: https://github.com/sondr3/generator-jekyllized/blob/beta/CONTRIBUTING.md
+[changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
+[frequentlyasked]: https://github.com/sondr3/generator-jekyllized#frequently-asked-questions
+[gulp]: http://gulpjs.com/
+[gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/beta/generators/gulp/templates/gulpfile.babel.js
+[inject]: https://github.com/klei/gulp-inject
+[jekyll-url]: http://jekyllrb.com/docs/github-pages/#project-page-url-structure
+[jekyll]: https://jekyllrb.com
+[libsass]: https://github.com/hcatlin/libsass
+[localtunnel]: http://localtunnel.me/
+[rsync]: https://github.com/jerrysu/gulp-rsync
+[yeoman]: http://yeoman.io

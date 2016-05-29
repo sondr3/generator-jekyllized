@@ -1,12 +1,4 @@
 # .gitignore for jekyllized projects
-# Folders that shouldn't be tracked
-node_modules/
-coverage/
-.envrc
-.coveralls.yml
-test/tmp/
-npm-shrinkwrap.json
-.nyc_output
 
 # Ignore hidden folders
 # This takes care of .tmp, .sass-cache, and many others
@@ -56,3 +48,22 @@ tags
 *.rar
 *.tar
 *.zip
+
+# Packages
+node_modules/
+.tmp
+test/
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+*.sublime-projectcompletions
+
+bower_components
+
+# Output folders
+dist
+
+# hide the AWS and Rsync credentials file
+aws-credentials.json
+rsync-credentials.json
