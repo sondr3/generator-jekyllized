@@ -2,9 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Gitter](https://badges.gitter.im/sondr3/generator-jekyllized.svg)](https://gitter.im/sondr3/generator-jekyllized?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-*Waiting on Gulp 4.0 to be released for the beta to go back to being the main
-version of Jekyllized. If you want to try it as it is right now you can install
-it from NPM under the `next` tag. Just read the installation instructions!*
+***NOTE: Currently using gulp 4.0 which is in beta!***
 
 ## Introduction
 
@@ -48,11 +46,10 @@ new/updated site is uploaded to your platform of choice.
 
 #### Dependencies
 * **Ruby**: `>2.0` with Bundler `>1.10`
-* **Node**: `>4.2`, Gulp `>4.0` and Yo `>1.7.0`
-* **Gulp:** Since the beta is running Gulp 4.0 you need to install `gulp-cli`:
-  `npm install gulpjs/gulp-cli#4.0 -g`
-* **Jekyllized:** Then install Jekyllized: `npm install
-  generator-jekyllized@next -g`
+* **Node**: `>4.2` and Yo `>1.7.0`
+* **Gulp:** Since the release candidate is running Gulp 4.0 you need to install
+  `gulp-cli`: `npm install gulp-cli -g`
+* **Jekyllized:** Then install Jekyllized: `npm install generator-jekyllized -g`
 
 #### Install
 * **Scaffold:** Run `yo jekyllized` in the directory you want scaffold your site
@@ -160,35 +157,13 @@ doctor` to look for potential errors.
 
 Deletes your assets from their `.tmp` directory as well as in `dist` and deletes
 any gzipped files. **NOTE:** Does not delete your images from `.tmp` to reduce
-the time to build your site due to image optimizations. Note that `gulp clean`
-is built on top of a few other commands that you can run individually if that is
-more to your liking.
-
-> `gulp clean:assets`
-
-Erases out your assets from `.tmp` and `dist` but does not remove images.
-
-> `gulp clean:images`
-
-Erases your images from `.tmp` and `dist`.
-
-> `gulp clean:dist`
-
-Erases your `dist` folder.
-
-> `gulp clean:gzip`
-
-Erases any gzipped files in your `dist` folder.
-
-> `gulp clean:metadata`
-
-Deletes the `.jekyll-metadata` file, this will force Jekyll to completely
-rebuild your site.
+the time to build your site due to image optimizations.
 
 #### `gulp rebuild`
 
-Only run when you need to do a full rebuild! This will delete your built site
-and all the assets with it.
+Only use this if you want to regenerate everything, this will delete everything
+generated. Images, assets, your Jekyll site. You really shouldn't need to do
+this.
 
 ### Subtasks
 
@@ -270,14 +245,13 @@ See the [contribution][contribute] docs.
 MIT © Sondre Nilsen (https://github.com/sondr3)
 
 [awspublish]: https://github.com/pgherveou/gulp-awspublish
-[bower]: http://bower.io
 [browsersync]: https://github.com/shakyShane/browser-sync
 [browsersync-open]: https://browsersync.io/docs/options/#option-open
-[contribute]: https://github.com/sondr3/generator-jekyllized/blob/beta/CONTRIBUTING.md
+[contribute]: https://github.com/sondr3/generator-jekyllized/blob/master/CONTRIBUTING.md
 [changelog]: https://github.com/sondr3/generator-jekyllized/blob/master/CHANGELOG.md
 [frequentlyasked]: https://github.com/sondr3/generator-jekyllized#frequently-asked-questions
 [gulp]: http://gulpjs.com/
-[gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/beta/generators/gulp/templates/gulpfile.babel.js
+[gulpfile]: https://github.com/sondr3/generator-jekyllized/blob/master/generators/gulp/templates/gulpfile.js
 [inject]: https://github.com/klei/gulp-inject
 [jekyll-url]: http://jekyllrb.com/docs/github-pages/#project-page-url-structure
 [jekyll]: https://jekyllrb.com
