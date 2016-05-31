@@ -43,13 +43,13 @@ test('generates expected files', () => {
 
 test('creates package.json correctly', () => {
   assert.file('package.json');
-  [
-    '"name": "jekyllized"',
-    '"description": "Test site for Jekyllized"',
-    '"homepage": "www.test.com',
-    '"name": "Ola Nordmann"',
-    '"email": "ola.nordmann@gmail.com"'
-  ].forEach(field => {
-    assert.fileContent('package.json', field);
+  assert.jsonFileContent('package.json', {
+    name: 'jekyllized',
+    description: 'Test site for Jekyllized',
+    homepage: 'www.test.com',
+    author: {
+      name: 'Ola Nordmann',
+      email: 'ola.nordmann@gmail.com'
+    }
   });
 });
