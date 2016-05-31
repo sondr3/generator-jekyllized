@@ -2,7 +2,7 @@
   "name": "generator-jekyllized",
   "version": "1.0.0-rc.1",
   "main": "index.js",
-  "description": "Use Jekyll with Gulp: Sass, sourcemaps, AutoPrefixer, asset optimization and cache busting and much, much more. Can you really want more?",
+  "description": "A Yeoman generator for Jekyll to rapidly build sites using Gulp",
   "keywords": [
     "yeoman-generator",
     "jekyll",
