@@ -33,8 +33,7 @@
     "nyc": "^6.4.4",
     "xo": "^0.15.1",
     "yeoman-assert": "^2.2.1",
-    "yeoman-test": "^1.1.0",
-    "yo": "^1.7.0"
+    "yeoman-test": "^1.1.0"
   },
   "xo": {
     "space": true,
