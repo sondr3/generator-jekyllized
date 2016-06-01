@@ -28,6 +28,10 @@ test('README is correct', () => {
   [
     '# README',
     '> This is a great README',
+    '#### Settings',
+    '## Install',
+    '#### Update',
+    'https://github.com/sondr3/generator-jekyllized',
     '[Ola Nordmann](http://hello-world.com)'
   ].forEach(field => {
     assert.fileContent('README.md', field);
