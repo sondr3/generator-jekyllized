@@ -113,7 +113,15 @@ module.exports = generators.Base.extend({
   },
 
   default: function () {
-    this.composeWith('jekyllized:boilerplate', {
+    this.composeWith('statisk:editorconfig', {}, {
+      local: require.resolve('generator-statisk/generators/editorconfig')
+    });
+
+    this.composeWith('statisk:git', {}, {
+      local: require.resolve('generator-statisk/generators/git')
+    });
+
+    this.composeWith('statisk:readme', {
       options: {
         projectName: this.props.projectName,
         projectDescription: this.props.projectDescription,
@@ -121,7 +129,7 @@ module.exports = generators.Base.extend({
         authorName: this.props.authorName
       }
     }, {
-      local: require.resolve('../boilerplate')
+      local: require.resolve('generator-statisk/generators/readme')
     });
 
     this.composeWith('jekyllized:gulp', {

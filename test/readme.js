@@ -5,26 +5,19 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
 test.before(() => {
-  return helpers.run(path.join(__dirname, '../generators/boilerplate'))
-    .withOptions({
+  var deps = [
+    [helpers.createDummyGenerator(), 'statisk:readme']
+  ];
+
+  return helpers.run(path.join(__dirname, '../generators/app'))
+    .withPrompts({
       projectName: 'README',
       projectDescription: 'This is a great README',
-      projectURL: 'hello-world.com',
+      projectURL: 'http://hello-world.com',
       authorName: 'Ola Nordmann'
     })
+    .withGenerators(deps)
     .toPromise();
-});
-
-test('creates .editorconfig', () => {
-  assert.file('.editorconfig');
-});
-
-test('creates .gitignore', () => {
-  assert.file('.gitignore');
-});
-
-test('creates .gitattributes', () => {
-  assert.file('.gitattributes');
 });
 
 test('creates README.md', () => {
@@ -35,7 +28,7 @@ test('README is correct', () => {
   [
     '# README',
     '> This is a great README',
-    '[Ola Nordmann](hello-world.com)'
+    '[Ola Nordmann](http://hello-world.com)'
   ].forEach(field => {
     assert.fileContent('README.md', field);
   });
