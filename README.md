@@ -168,10 +168,9 @@ this.
 
 ### Subtasks
 
-All of the commands listed above are the main commands, and are composed of
-other smaller commands that have a small job that they do. You can find all the
-command by running `gulp --tasks`, and look in the [gulpfile][gulpfile] for what they do.
-All are commented about what they do.
+All of the subtasks lives in their own files in the `gulp` directory and are
+named after what they do. You can edit or look at any of them to see how they
+actually work. They're all commented.
 
 ## Frequently Asked Questions
 
