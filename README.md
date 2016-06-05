@@ -57,11 +57,12 @@ new/updated site is uploaded to your platform of choice.
 * **Start:** Run `gulp` and watch the magic unfold
 
 #### Update
-It's recommended that you keep your `gulpfile` up to date with the generator.
-First, update `generator-jekyllized`: `npm update generator-jekyllized -g` and
-then run `yo jekyllized:gulp [--rsync|amazon|pages]`, or see the help: `yo
-jekyllized:gulp --help`. Note that this will overwrite any local changes you've
-made, so make sure to make a backup.
+It's recommended that you keep your gulp tasks and packages up to date, luckily
+this is very easy with `genertor-jekyllized`! All you need to do is run `yo
+jekyllized:update` and you'll be up to date. If you want to skip the
+installation and only update you can run it with `--skip-install`. **NOTE:**
+Running `yo jekyllized:update` will overwrite any changes made to `package.json`
+and your gulp files, so back them up!
 
 ## Usage
 
