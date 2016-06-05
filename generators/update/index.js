@@ -67,5 +67,5 @@ module.exports = generators.Base.extend({
       this.log(skipInstallMessage);
       return;
     }
-   }
+  }
 });
