@@ -1,6 +1,4 @@
-# generator-jekyllized [![Build Status](https://travis-ci.org/sondr3/generator-jekyllized.png?branch=master)](https://travis-ci.org/sondr3/generator-jekyllized)
-
-[![Coverage Status](https://coveralls.io/repos/sondr3/generator-jekyllized/badge.png)](https://coveralls.io/r/sondr3/generator-jekyllized) [![Gitter](https://badges.gitter.im/sondr3/generator-jekyllized.svg)](https://gitter.im/sondr3/generator-jekyllized?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+# generator-jekyllized [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
 ***NOTE: Currently using gulp 4.0 which is in beta!***
 
@@ -259,3 +257,9 @@ MIT © Sondre Nilsen (https://github.com/sondr3)
 [localtunnel]: http://localtunnel.me/
 [rsync]: https://github.com/jerrysu/gulp-rsync
 [yeoman]: http://yeoman.io
+[npm-image]: https://badge.fury.io/js/generator-jekyllized.svg
+[npm-url]: https://npmjs.org/package/generator-jekyllized
+[travis-image]: https://travis-ci.org/sondr3/generator-jekyllized.svg?branch=master
+[travis-url]: https://travis-ci.org/sondr3/generator-jekyllized
+[coveralls-image]: https://coveralls.io/repos/sondr3/generator-jekyllized/badge.svg
+[coveralls-url]: https://coveralls.io/r/sondr3/generator-jekyllized

@@ -9,19 +9,19 @@ other than that it's all just moving logic out of this generator and into
 `generator-statisk`.
 
 #### Changelog:
-* [[`a374327244`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a374327244)] - Update the README some more (Sondre Nilsen)
-* [[`ca041273ed`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/ca041273ed)] - Update readme \[ci skip\] (Sondre Nilsen)
-* [[`f7602c10cc`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/f7602c10cc)] - Fix a super tiny spacing error (Sondre Nilsen)
-* [[`e9f4f3738b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/e9f4f3738b)] - Add skip install message (Sondre Nilsen)
-* [[`7f6ea43b9e`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/7f6ea43b9e)] - Add command to update your generator (Sondre Nilsen)
-* [[`df8f278373`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/df8f278373)] - Use generator-statisk's gulp generator (Sondre Nilsen)
-* [[`dd4a89ef0e`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/dd4a89ef0e)] - Add jekyllized content to the README (Sondre Nilsen)
-* [[`6e5792c54b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/6e5792c54b)] - Remove mockery, it wasn't needed after all (Sondre Nilsen)
-* [[`b53066e692`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/b53066e692)] - Start integrating generator-statisk (Sondre Nilsen)
-* [[`48064def25`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/48064def25)] - Update description to match github (Sondre Nilsen)
-* [[`a3be50a4cf`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a3be50a4cf)] - Update test to use jsonFileContent (Sondre Nilsen)
-* [[`fb03487bc4`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/fb03487bc4)] - Removed unneeded dependency (Sondre Nilsen)
-* [[`b4f9906623`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/b4f9906623)] - Update changelog \[ci skip\] (Sondre Nilsen)
+* [[`a374327244`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a374327244)] - Update the README some more
+* [[`ca041273ed`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/ca041273ed)] - Update readme \[ci skip\]
+* [[`f7602c10cc`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/f7602c10cc)] - Fix a super tiny spacing error
+* [[`e9f4f3738b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/e9f4f3738b)] - Add skip install message
+* [[`7f6ea43b9e`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/7f6ea43b9e)] - Add command to update your generator
+* [[`df8f278373`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/df8f278373)] - Use generator-statisk's gulp generator
+* [[`dd4a89ef0e`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/dd4a89ef0e)] - Add jekyllized content to the README
+* [[`6e5792c54b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/6e5792c54b)] - Remove mockery, it wasn't needed after all
+* [[`b53066e692`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/b53066e692)] - Start integrating generator-statisk
+* [[`48064def25`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/48064def25)] - Update description to match github
+* [[`a3be50a4cf`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a3be50a4cf)] - Update test to use jsonFileContent
+* [[`fb03487bc4`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/fb03487bc4)] - Removed unneeded dependency
+* [[`b4f9906623`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/b4f9906623)] - Update changelog \[ci skip\]
 
 <a name="1.0.0-rc.1"></a>
 ## 1.0.0-rc.1
