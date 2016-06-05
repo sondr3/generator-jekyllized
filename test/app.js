@@ -6,9 +6,11 @@ var helpers = require('yeoman-test');
 
 test.before(() => {
   var deps = [
-    [helpers.createDummyGenerator(), 'jekyllized:boilerplate'],
-    [helpers.createDummyGenerator(), 'jekyllized:jekyll'],
-    [helpers.createDummyGenerator(), 'jekyllized:gulp']
+    [helpers.createDummyGenerator(), 'statisk:git'],
+    [helpers.createDummyGenerator(), 'statisk:editorconfig'],
+    [helpers.createDummyGenerator(), 'statisk:gulp'],
+    [helpers.createDummyGenerator(), 'statisk:readme'],
+    [helpers.createDummyGenerator(), 'jekyllized:jekyll']
   ];
 
   return helpers.run(path.join(__dirname, '../generators/app'))
