@@ -1,9 +1,16 @@
 'use strict';
 var generators = require('yeoman-generator');
+var chalk = require('chalk');
 
 module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
+
+    this.option('skip-install-message', {
+      desc: 'Skip the post-install message',
+      type: Boolean,
+      default: true
+    });
 
     this.option('skip-install', {
       desc: 'Skip installing dependencies',
@@ -45,8 +52,20 @@ module.exports = generators.Base.extend({
   install: function () {
     this.installDependencies({
       bower: false,
+      skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
     });
     this.spawnCommand('bundle', ['install', '--quiet']);
-  }
+  },
+
+  end: function () {
+    var skipInstallMessage =
+      '\nPlease run ' + chalk.blue('npm install') + ' and ' +
+      chalk.blue('bundle install') + ' to install dependencies\n';
+
+    if (this.options['skip-install']) {
+      this.log(skipInstallMessage);
+      return;
+    }
+   }
 });
