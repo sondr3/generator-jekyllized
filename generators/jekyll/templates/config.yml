@@ -5,7 +5,7 @@ description: <%= projectDescription %>
 url: <%= projectURL %>
 
 # Used so Jekyll outputs the site correctly so Gulp can do what it wants
-source: .tmp/jekyll
+source: .tmp/src
 destination: .tmp/dist
 exclude: ['assets']
 

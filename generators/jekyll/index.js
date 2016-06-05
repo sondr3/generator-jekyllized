@@ -73,6 +73,11 @@ module.exports = generators.Base.extend({
       this.destinationPath('Gemfile')
     );
 
+    this.fs.copy(
+      this.templatePath('build.js'),
+      this.destinationPath('gulp/tasks/build.js')
+    );
+
     this.fs.copyTpl(
       this.templatePath('config.yml'),
       this.destinationPath('_config.yml'),

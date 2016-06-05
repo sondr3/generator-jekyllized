@@ -81,6 +81,11 @@ module.exports = generators.Base.extend({
       choices: ['Amazon S3', 'Rsync', 'Github Pages', 'None'],
       store: true
     }, {
+      name: 'babel',
+      type: 'confirm',
+      message: 'Compile your JS with Babel',
+      when: this.options.babel === undefined
+    }, {
       name: 'jekyllPermalinks',
       type: 'list',
       message: 'Permalink style' + (chalk.yellow(
@@ -153,10 +158,11 @@ on Github](https://github.com/sondr3/generator-jekyllized).
 
     this.composeWith('jekyllized:gulp', {
       options: {
-        uploading: this.props.uploading
+        uploading: this.props.uploading,
+        babel: this.props.babel
       }
     }, {
-      local: require.resolve('../gulp')
+      local: require.resolve('generator-statisk/generators/gulp')
     });
 
     this.composeWith('jekyllized:jekyll', {
@@ -177,6 +183,7 @@ on Github](https://github.com/sondr3/generator-jekyllized).
 
   installing: function () {
     this.installDependencies({
+      bower: false,
       skipInstall: this.options['skip-install']
     });
     if (this.options['skip-install']) {

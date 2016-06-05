@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "chalk": "^1.1.0",
-    "generator-statisk": "^0.1.0",
+    "generator-statisk": "^0.2.0",
     "lodash": "^4.11.1",
     "shelljs": "^0.7.0",
     "yargs": "^4.6.0",
