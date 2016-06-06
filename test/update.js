@@ -10,11 +10,15 @@ test.before(() => {
     [helpers.createDummyGenerator(), 'statisk:gulp']
   ];
 
-  return helpers.run(path.join(__dirname, '../generators/app'))
+  return helpers.run(path.join(__dirname, '../generators/update'))
     .withOptions({
-      name: pkg.name,
-      version: pkg.version,
-      uploading: 'None'
+      'name': pkg.name,
+      'version': pkg.version,
+      'skip-install': true
+    })
+    .withPrompts({
+      uploading: 'None',
+      babel: false
     })
     .withGenerators(deps)
     .toPromise();
@@ -34,10 +38,9 @@ test('creates comment about creation', () => {
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
 });
 
-test('creates gulp task files', () => {
+test('creates gulp task files, but not build.js', () => {
   assert.file([
     'gulp/tasks/browsersync.js',
-    'gulp/tasks/build.js',
     'gulp/tasks/clean.js',
     'gulp/tasks/copy.js',
     'gulp/tasks/fonts.js',
@@ -48,4 +51,16 @@ test('creates gulp task files', () => {
     'gulp/tasks/style.js',
     'gulp/tasks/uploading.js'
   ]);
+});
+
+test('does not create uploading credentials', () => {
+  assert.noFile([
+    'rsync-credentials.json',
+    'aws-credentials.json'
+  ]);
+});
+
+test('gulp/tasks/scripts.js does not contain babel', () => {
+  assert.noFileContent('gulp/tasks/scripts.js', 'const babel');
+  assert.noFileContent('gulp/tasks/scripts.js', '.pipe(babel');
 });

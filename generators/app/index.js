@@ -79,8 +79,7 @@ module.exports = generators.Base.extend({
     }, {
       name: 'babel',
       type: 'confirm',
-      message: 'Compile your JS with Babel',
-      when: this.options.babel === undefined
+      message: 'Compile your JS with Babel'
     }, {
       name: 'jekyllPermalinks',
       type: 'list',
