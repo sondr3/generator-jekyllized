@@ -25,7 +25,7 @@ gulp.task('site', done => {
 });
 
 // 'gulp doctor' -- literally just runs jekyll doctor
-gulp.task('site:doctor', done => {
+gulp.task('site:check', done => {
   shell.exec('jekyll doctor');
   done();
 });
