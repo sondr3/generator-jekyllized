@@ -5,6 +5,7 @@ var chalk = require('chalk');
 var generators = require('yeoman-generator');
 var shelljs = require('shelljs');
 var yosay = require('yosay');
+var pkg = require('../../package.json');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -34,7 +35,6 @@ module.exports = generators.Base.extend({
   },
 
   initializing: function () {
-    this.props = {};
     this.pkg = this.fs.readJSON(this.destinationPath('package.json'), {});
   },
 
@@ -156,8 +156,10 @@ on Github](https://github.com/sondr3/generator-jekyllized).
       local: require.resolve('generator-statisk/generators/readme')
     });
 
-    this.composeWith('jekyllized:gulp', {
+    this.composeWith('statisk:gulp', {
       options: {
+        name: pkg.name,
+        version: pkg.version,
         uploading: this.props.uploading,
         babel: this.props.babel
       }
