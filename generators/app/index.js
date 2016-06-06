@@ -22,7 +22,7 @@ module.exports = generators.Base.extend({
     });
 
     if (!this.options['skip-install']) {
-      var dependencies = ['ruby', 'bundle', 'yo', 'gulp', 'node'].every(function (depend) {
+      var dependencies = ['ruby', 'bundle', 'yo', 'node'].every(function (depend) {
         return shelljs.which(depend);
       });
 
