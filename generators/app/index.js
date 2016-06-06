@@ -4,7 +4,6 @@ var _ = require('lodash');
 var chalk = require('chalk');
 var generators = require('yeoman-generator');
 var shelljs = require('shelljs');
-var yosay = require('yosay');
 var pkg = require('../../package.json');
 
 module.exports = generators.Base.extend({
@@ -16,9 +15,10 @@ module.exports = generators.Base.extend({
       type: Boolean
     });
 
-    this.option('skip-welcome-message', {
-      desc: 'Skips the welcome message',
-      type: Boolean
+    this.option('skip-install-message', {
+      desc: 'Skips the installation message',
+      type: Boolean,
+      defaults: true
     });
 
     if (!this.options['skip-install']) {
@@ -39,10 +39,6 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function () {
-    if (!this.options['skip-welcome-message']) {
-      this.log(yosay(`'Allo 'allo`));
-    }
-
     var questions = [{
       name: 'projectName',
       message: 'What is the name of your project?',
@@ -186,19 +182,20 @@ on Github](https://github.com/sondr3/generator-jekyllized).
   installing: function () {
     this.installDependencies({
       bower: false,
+      skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
     });
-    if (this.options['skip-install']) {
-      this.log('Please run bundle install to ');
-    } else {
-      this.spawnCommand('bundle', ['install', '--quiet']);
+    if (!this.options['skip-install']) {
+      this.log('\nCreating files and running ' + chalk.blue('npm install') +
+               ' and ' + chalk.blue('bundle install') + '.\n');
+      this.spawnCommandSync('bundle', ['install']);
     }
   },
 
   end: function () {
     var skipInstallMessage =
       '\nPlease run ' + chalk.blue('npm install') + ' and ' +
-      chalk.blue('bundle install') + ' to install dependencies';
+      chalk.blue('bundle install') + ' to install dependencies.\n';
 
     if (this.options['skip-install']) {
       this.log(skipInstallMessage);

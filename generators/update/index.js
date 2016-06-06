@@ -7,15 +7,15 @@ module.exports = generators.Base.extend({
   constructor: function () {
     generators.Base.apply(this, arguments);
 
-    this.option('skip-install-message', {
-      desc: 'Skip the post-install message',
-      type: Boolean,
-      default: true
-    });
-
     this.option('skip-install', {
       desc: 'Skip installing dependencies',
       type: Boolean
+    });
+
+    this.option('skip-install-message', {
+      desc: 'Skips the installation message',
+      type: Boolean,
+      defaults: true
     });
   },
 
@@ -58,7 +58,10 @@ module.exports = generators.Base.extend({
       skipMessage: this.options['skip-install-message'],
       skipInstall: this.options['skip-install']
     });
-    this.spawnCommand('bundle', ['install', '--quiet']);
+    if (!this.options['skip-install']) {
+      this.log('\nRunning ' + chalk.blue('npm install') + ' and ' + chalk.blue('bundle install') + '.\n');
+      this.spawnCommandSync('bundle', ['install']);
+    }
   },
 
   end: function () {
