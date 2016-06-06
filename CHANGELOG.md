@@ -1,3 +1,19 @@
+<a name="1.0.0-rc.3"></a>
+## 1.0.0-rc.3
+> 2016-06-06
+
+Mostly a bugfix release, fixed the generation comment when both running normally
+and updating your project and updated packages and which packages NPM uses to
+publish with.
+
+#### Changelog:
+* [[`a39b8a8fb7`](https://github.com/sondr3/generator-jekyllized/commit/a39b8a8fb7)] - Add tests for jekyllized:update command
+* [[`0d94b47d6d`](https://github.com/sondr3/generator-jekyllized/commit/0d94b47d6d)] - Update packages
+* [[`29692d21fa`](https://github.com/sondr3/generator-jekyllized/commit/29692d21fa)] - Fix a few messages
+* [[`ebd2c2c43d`](https://github.com/sondr3/generator-jekyllized/commit/ebd2c2c43d)] - Fix jekyllized:update comment in gulpfile
+* [[`c64bb37de2`](https://github.com/sondr3/generator-jekyllized/commit/c64bb37de2)] - Update package files etc
+* [[`5eef5dfcc4`](https://github.com/sondr3/generator-jekyllized/commit/5eef5dfcc4)] - Fix name and version of generator being applied
+
 <a name="1.0.0-rc.2"></a>
 ## 1.0.0-rc.2
 > 2016-06-05
@@ -9,19 +25,19 @@ other than that it's all just moving logic out of this generator and into
 `generator-statisk`.
 
 #### Changelog:
-* [[`a374327244`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a374327244)] - Update the README some more
-* [[`ca041273ed`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/ca041273ed)] - Update readme \[ci skip\]
-* [[`f7602c10cc`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/f7602c10cc)] - Fix a super tiny spacing error
-* [[`e9f4f3738b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/e9f4f3738b)] - Add skip install message
-* [[`7f6ea43b9e`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/7f6ea43b9e)] - Add command to update your generator
-* [[`df8f278373`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/df8f278373)] - Use generator-statisk's gulp generator
-* [[`dd4a89ef0e`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/dd4a89ef0e)] - Add jekyllized content to the README
-* [[`6e5792c54b`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/6e5792c54b)] - Remove mockery, it wasn't needed after all
-* [[`b53066e692`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/b53066e692)] - Start integrating generator-statisk
-* [[`48064def25`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/48064def25)] - Update description to match github
-* [[`a3be50a4cf`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/a3be50a4cf)] - Update test to use jsonFileContent
-* [[`fb03487bc4`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/fb03487bc4)] - Removed unneeded dependency
-* [[`b4f9906623`](https://github.com/Sondre Nilsen/generator-jekyllized/commit/b4f9906623)] - Update changelog \[ci skip\]
+* [[`a374327244`](https://github.com/sondr3/generator-jekyllized/commit/a374327244)] - Update the README some more
+* [[`ca041273ed`](https://github.com/sondr3/generator-jekyllized/commit/ca041273ed)] - Update readme \[ci skip\]
+* [[`f7602c10cc`](https://github.com/sondr3/generator-jekyllized/commit/f7602c10cc)] - Fix a super tiny spacing error
+* [[`e9f4f3738b`](https://github.com/sondr3/generator-jekyllized/commit/e9f4f3738b)] - Add skip install message
+* [[`7f6ea43b9e`](https://github.com/sondr3/generator-jekyllized/commit/7f6ea43b9e)] - Add command to update your generator
+* [[`df8f278373`](https://github.com/sondr3/generator-jekyllized/commit/df8f278373)] - Use generator-statisk's gulp generator
+* [[`dd4a89ef0e`](https://github.com/sondr3/generator-jekyllized/commit/dd4a89ef0e)] - Add jekyllized content to the README
+* [[`6e5792c54b`](https://github.com/sondr3/generator-jekyllized/commit/6e5792c54b)] - Remove mockery, it wasn't needed after all
+* [[`b53066e692`](https://github.com/sondr3/generator-jekyllized/commit/b53066e692)] - Start integrating generator-statisk
+* [[`48064def25`](https://github.com/sondr3/generator-jekyllized/commit/48064def25)] - Update description to match github
+* [[`a3be50a4cf`](https://github.com/sondr3/generator-jekyllized/commit/a3be50a4cf)] - Update test to use jsonFileContent
+* [[`fb03487bc4`](https://github.com/sondr3/generator-jekyllized/commit/fb03487bc4)] - Removed unneeded dependency
+* [[`b4f9906623`](https://github.com/sondr3/generator-jekyllized/commit/b4f9906623)] - Update changelog \[ci skip\]
 
 <a name="1.0.0-rc.1"></a>
 ## 1.0.0-rc.1
