@@ -1,6 +1,7 @@
 'use strict';
 var generators = require('yeoman-generator');
 var chalk = require('chalk');
+var pkg = require('../../package.json');
 
 module.exports = generators.Base.extend({
   constructor: function () {
@@ -41,6 +42,8 @@ module.exports = generators.Base.extend({
   default: function () {
     this.composeWith('jekyllized:gulp', {
       options: {
+        name: pkg.name,
+        version: pkg.version,
         uploading: this.props.uploading,
         babel: this.props.babel
       }
