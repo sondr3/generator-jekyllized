@@ -1,3 +1,4 @@
+'use strict';
 const gulp = require('gulp');
 const shell = require('shelljs');
 const size = require('gulp-size');
