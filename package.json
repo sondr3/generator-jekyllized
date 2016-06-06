@@ -16,8 +16,10 @@
     "test": "xo && nyc ava"
   },
   "files": [
-    "index.js",
-    "generators"
+    "generators",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
   ],
   "dependencies": {
     "chalk": "^1.1.0",
@@ -40,7 +42,6 @@
     "space": true,
     "ignores": [
       "generators/app/templates/**",
-      "generators/gulp/templates/**",
       "generators/jekyll/templates/**"
     ]
   }
