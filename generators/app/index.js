@@ -187,7 +187,7 @@ on Github](https://github.com/sondr3/generator-jekyllized).
     if (!this.options['skip-install']) {
       this.log('\nCreating files and running ' + chalk.blue('npm install') +
                ' and ' + chalk.blue('bundle install') + '.\n');
-      this.spawnCommandSync('bundle', ['install']);
+      this.spawnCommand('bundle', ['install']);
     }
   },
 
