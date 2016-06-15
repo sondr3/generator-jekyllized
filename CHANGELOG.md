@@ -1,3 +1,18 @@
+<a name="1.0.0-rc.4"></a>
+## 1.0.0-rc.4
+> 2016-06-16
+
+Another minor bugfix release, we don't need to check whether or not `gulp` is
+installed globally so we removed that, added `use strict` to the `build` gulp
+task file and fixed `bundle installe` being run before the `Gemfile` exists in
+the directory.
+
+#### Changelog:
+* [[`a6bffd3ce9`](https://github.com/sondr3/generator-jekyllized/commit/a6bffd3ce9)] - Fix bundle installed starting before Gemfile exist
+* [[`f73679c442`](https://github.com/sondr3/generator-jekyllized/commit/f73679c442)] - Fix site:doctor to work with generator-statisk
+* [[`4f8d2fd25b`](https://github.com/sondr3/generator-jekyllized/commit/4f8d2fd25b)] - Add 'use strict'; to build task
+* [[`9703af10f1`](https://github.com/sondr3/generator-jekyllized/commit/9703af10f1)] - Don't actually need to check for gulp
+
 <a name="1.0.0-rc.3"></a>
 ## 1.0.0-rc.3
 > 2016-06-06
