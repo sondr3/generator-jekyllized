@@ -42,15 +42,13 @@ test('creates comment about creation', () => {
 
 test('creates gulp task files, but not build.js', () => {
   assert.file([
-    'gulp/tasks/browsersync.js',
+    'gulp/tasks/assets.js',
     'gulp/tasks/clean.js',
     'gulp/tasks/copy.js',
     'gulp/tasks/fonts.js',
     'gulp/tasks/html.js',
     'gulp/tasks/images.js',
     'gulp/tasks/inject.js',
-    'gulp/tasks/scripts.js',
-    'gulp/tasks/style.js',
     'gulp/tasks/uploading.js'
   ]);
 });
@@ -60,12 +58,12 @@ test('creates credentials file', () => {
   assert.noFile('aws-credentials.json');
 });
 
-test('gulp/tasks/scripts.js does not contain babel', () => {
+test('gulp/tasks/assets.js does not contain babel', () => {
   [
     'const babel',
     '.pipe(babel'
   ].forEach(field => {
-    assert.noFileContent('gulp/tasks/scripts.js', field);
+    assert.noFileContent('gulp/tasks/assets.js', field);
   });
 });
 
