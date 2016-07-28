@@ -6,6 +6,7 @@ var helpers = require('yeoman-test');
 
 test.before(() => {
   var pkg = require('../../package.json');
+
   var deps = [
     [helpers.createDummyGenerator(), 'statisk:gulp']
   ];
@@ -34,7 +35,8 @@ test('creates package.json', () => {
 
 test('creates comment about creation', () => {
   const pkg = require('../../package.json');
-  const date = (new Date).toISOString().split('T')[0]; // eslint-disable-line
+
+  const date = (new Date()).toISOString().split('T')[0];
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
 });
 
