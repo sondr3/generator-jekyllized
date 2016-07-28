@@ -1,10 +1,28 @@
+<a name="1.0.0-rc.5"></a>
+## 1.0.0-rc.5
+> 2016-07-28
+
+Yet another minor bug and feature release, for the most part the changes
+happened in [generator-statisk](https://github.com/sondr3/generator-statisk),
+these were that injecting CSS changes are now back! Instead of refreshing your
+browser it's now injected instead. Furthermore are dotfiles (eg. `.htaccess`)
+copied and uploaded when deploying your site.
+
+Also fixed a bunch of tests and updated the packages for the generator.
+
+* [[`7ba4b49ebd`](https://github.com/sondr3/generator-jekyllized/commit/7ba4b49ebd)] - Update tests
+* [[`239fd32a8a`](https://github.com/sondr3/generator-jekyllized/commit/239fd32a8a)] - Fix linting errors
+* [[`215b079fde`](https://github.com/sondr3/generator-jekyllized/commit/215b079fde)] - Update packages
+* [[`5b43248bc5`](https://github.com/sondr3/generator-jekyllized/commit/5b43248bc5)] - Include dotfiles when copying the site
+* [[`f97dec6793`](https://github.com/sondr3/generator-jekyllized/commit/f97dec6793)] - Remove leftover Jekyll Archives layout files
+
 <a name="1.0.0-rc.4"></a>
 ## 1.0.0-rc.4
 > 2016-06-16
 
 Another minor bugfix release, we don't need to check whether or not `gulp` is
 installed globally so we removed that, added `use strict` to the `build` gulp
-task file and fixed `bundle installe` being run before the `Gemfile` exists in
+task file and fixed `bundle install` being run before the `Gemfile` exists in
 the directory.
 
 #### Changelog:
