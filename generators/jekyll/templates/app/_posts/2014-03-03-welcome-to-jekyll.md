@@ -2,6 +2,7 @@
 layout: post
 date: 2015-02-03
 title:  Welcome to Jekyll!
+description: A post welcoming you to Jekyll
 categories: jekyll
 ---
 
