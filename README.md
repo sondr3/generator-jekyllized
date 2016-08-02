@@ -55,12 +55,12 @@ new/updated site is uploaded to your platform of choice.
 * **Start:** Run `gulp` and watch the magic unfold
 
 #### Update
-It's recommended that you keep your gulp tasks and packages up to date, luckily
-this is very easy with `genertor-jekyllized`! All you need to do is run `yo
-jekyllized:update` and you'll be up to date. If you want to skip the
-installation and only update you can run it with `--skip-install`. **NOTE:**
-Running `yo jekyllized:update` will overwrite any changes made to `package.json`
-and your gulp files, so back them up!
+To update the generator, run `npm update -g generator-jekyllized` and then run
+`yo jekyllized:update` and it will update your packages and gulp tasks. You can
+skip installing dependencies by running it with `--skip-install`. **NOTE:**
+Updating will overwrite any changes you've done to your gulp tasks and
+package.json, so back them up before running it! It will ask before overwriting
+though, so you can see the diff before applying it.
 
 ## Usage
 
@@ -186,8 +186,8 @@ copy of the `scripts` gulp task and rename it to `scripts:vendor` and change the
   ])
 ```
 
-and then change `.pipe($.concat('index.js'))` into
-`.pipe($.concat('vendor.js'))`. Then you go to the bottom of the gulpfile and
+and then change `.pipe(concat('index.js'))` into
+`.pipe(concat('vendor.js'))`. Then you go to the bottom of the gulpfile and
 change the `assets` task:
 
 ```js
@@ -217,7 +217,7 @@ site you'll have to change it to this:
 ```js
 gulp.task('deploy', () => {
   return gulp.src('dist/**/*')
-    .pipe($.ghPages({
+    .pipe(ghPages({
       branch: "master"
     }));
 });
