@@ -50,6 +50,12 @@ module.exports = generators.Base.extend({
     }, {
       local: require.resolve('generator-statisk/generators/gulp')
     });
+
+    this.composeWith('jekyllized:gulp', {
+      options: {}
+    }, {
+      local: require.resolve('../gulp')
+    });
   },
 
   install: function () {

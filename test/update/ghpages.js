@@ -90,7 +90,7 @@ test('does not contain wrong uploading packages', () => {
 test('contains deploy function', () => {
   [
     'const gulp',
-    'const ghpages',
+    'const ghPages',
     'gulp.task(\'upload'
   ].forEach(field => {
     assert.fileContent('gulp/tasks/uploading.js', field);

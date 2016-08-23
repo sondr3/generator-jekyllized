@@ -39,7 +39,6 @@ test('creates comment about creation', () => {
 test('creates gulp task files', () => {
   assert.file([
     'gulp/tasks/assets.js',
-    'gulp/tasks/build.js',
     'gulp/tasks/clean.js',
     'gulp/tasks/copy.js',
     'gulp/tasks/fonts.js',
