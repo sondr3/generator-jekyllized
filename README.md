@@ -212,14 +212,15 @@ how to create individual inject tags and inject specific files into them.
 By default if you select Github Pages as your deployment option your site will
 be pushed to a `gh-pages` branch, this works fine for any project pages but
 won't work for your personal repo. If you want to use a `username.github.io`
-site you'll have to change it to this:
+site all you have to do is to uncomment the `branch` line.
 
 ```js
-gulp.task('deploy', () => {
-  return gulp.src('dist/**/*')
-    .pipe(ghPages({
-      branch: "master"
-    }));
+gulp.task('upload', (done) => {
+  ghPages.publish(path.join(__dirname + '/../../', 'dist'), {
+    dotfiles: true,
+    // branch: "master"
+	},
+	done);
 });
 ```
 
