@@ -72,7 +72,7 @@ test('does not create credentials files', () => {
 test('contain correct uploading packages', () => {
   assert.jsonFileContent('package.json', {
     devDependencies: {
-      'gulp-gh-pages': '^0.5.2'
+      'gh-pages': '^0.11.0'
     }
   });
 });
