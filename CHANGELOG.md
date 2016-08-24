@@ -1,3 +1,15 @@
+<a name="1.0.0-rc.7"></a>
+## 1.0.0-rc.7
+> 2016-08-24
+
+Forgot to compose with the new subgenerator for the gulp task for building
+Jekyll so the generator wouldn't create the most important task: the one for
+actually building Jekyll. Ouch.
+
+#### Changelog:
+* [[`7e82705371`](https://github.com/sondr3/generator-jekyllized/commit/7e82705371)] - Fix the build task not being copied
+* [[`adbf9629e1`](https://github.com/sondr3/generator-jekyllized/commit/adbf9629e1)] - Fix test after using new package
+
 <a name="1.0.0-rc.6"></a>
 ## 1.0.0-rc.6
 > 2016-08-24
