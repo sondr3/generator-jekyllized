@@ -49,6 +49,10 @@ new/updated site is uploaded to your platform of choice.
   `gulp-cli`: `npm install gulp-cli -g`
 * **Jekyllized:** Then install Jekyllized: `npm install generator-jekyllized -g`
 
+Jekyllized does not work with the default version of Ruby that comes with OSX El Capitan.
+To install a working version of Ruby please follow the Ruby related steps in 
+https://gorails.com/setup/osx/10.11-el-capitan to install Ruby version 2.3.0
+
 #### Install
 * **Scaffold:** Run `yo jekyllized` in the directory you want scaffold your site
     in
