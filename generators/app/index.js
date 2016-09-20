@@ -155,13 +155,15 @@ on Github](https://github.com/sondr3/generator-jekyllized).
       options: {
         name: pkg.name,
         version: pkg.version,
+        uploading: this.props.uploading,
+        babel: this.props.babel,
         buildContent: `
 // 'gulp jekyll:tmp' -- copies your Jekyll site to a temporary directory
 // to be processed
 gulp.task('site:tmp', () =>
   gulp.src(['src/**/*', '!src/assets/**/*', '!src/assets'], {dot: true})
     .pipe(gulp.dest('.tmp/src'))
-    .pipe(size({title: 'Jekyll'}))
+    .pipe($.size({title: 'Jekyll'}))
 );
 
 // 'gulp jekyll' -- builds your site with development settings
@@ -181,9 +183,7 @@ gulp.task('site:check', done => {
   shell.exec('jekyll doctor');
   done();
 });
-`,
-        uploading: this.props.uploading,
-        babel: this.props.babel
+`
       }
     }, {
       local: require.resolve('generator-statisk/generators/gulp')
