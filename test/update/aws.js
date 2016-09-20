@@ -29,7 +29,7 @@ test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test('creates package.json', () => {
+test('creates package.json file', () => {
   assert.file('package.json');
 });
 
@@ -40,25 +40,11 @@ test('creates comment about creation', () => {
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
 });
 
-test('creates gulp task files, but not build.js', () => {
-  assert.file([
-    'gulp/tasks/assets.js',
-    'gulp/tasks/clean.js',
-    'gulp/tasks/copy.js',
-    'gulp/tasks/fonts.js',
-    'gulp/tasks/html.js',
-    'gulp/tasks/images.js',
-    'gulp/tasks/inject.js',
-    'gulp/tasks/uploading.js'
-  ]);
-});
-
 test('gulp/tasks/assets.js does not contain babel', () => {
   [
-    'const babel',
-    '.pipe(babel'
+    '.pipe($.babel'
   ].forEach(field => {
-    assert.noFileContent('gulp/tasks/assets.js', field);
+    assert.noFileContent('gulpfile.js', field);
   });
 });
 
@@ -88,20 +74,19 @@ test('does not contain wrong uploading packages', () => {
 test('contains upload task', () => {
   [
     'const fs',
-    'const gulp',
     'const parallelize',
-    'const awspublish',
+    'reads from your AWS credentials file',
     'gulp.task(\'upload'
   ].forEach(field => {
-    assert.fileContent('gulp/tasks/uploading.js', field);
+    assert.fileContent('gulpfile.js', field);
   });
 });
 
 test('does not contain wrong uploading tasks', () => {
   [
-    'const rsync',
-    'const ghpages'
+    'const ghPages',
+    'reads from your Rsync credentials file'
   ].forEach(field => {
-    assert.noFileContent('gulp/tasks/uploading.js', field);
+    assert.noFileContent('gulpfile.js', field);
   });
 });

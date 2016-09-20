@@ -29,37 +29,8 @@ test('creates gulpfile', () => {
   assert.file('gulpfile.js');
 });
 
-test('creates package.json', () => {
+test('creates package.json file', () => {
   assert.file('package.json');
-});
-
-test('creates comment about creation', () => {
-  const pkg = require('../../package.json');
-
-  const date = (new Date()).toISOString().split('T')[0];
-  assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
-});
-
-test('creates gulp task files, but not build.js', () => {
-  assert.file([
-    'gulp/tasks/assets.js',
-    'gulp/tasks/clean.js',
-    'gulp/tasks/copy.js',
-    'gulp/tasks/fonts.js',
-    'gulp/tasks/html.js',
-    'gulp/tasks/images.js',
-    'gulp/tasks/inject.js',
-    'gulp/tasks/uploading.js'
-  ]);
-});
-
-test('gulp/tasks/assets.js does not contain babel', () => {
-  [
-    'const babel',
-    '.pipe(babel'
-  ].forEach(field => {
-    assert.noFileContent('gulp/tasks/assets.js', field);
-  });
 });
 
 test('does not create credentials files', () => {
@@ -81,6 +52,6 @@ test('does not contain uploading packages', () => {
 });
 
 test('does not contain deploy task', () => {
-  assert.fileContent('gulp/tasks/uploading.js', '// File empty but generated because of how Yeoman scaffolds files');
-  assert.noFileContent('gulp/tasks/uploading.js', 'gulp.task(\'upload\'');
+  assert.noFileContent('gulpfile.js', 'gulp.task(\'upload\'');
+  assert.noFileContent('gulpfile.js', 'gulp.task(\'deploy\'');
 });

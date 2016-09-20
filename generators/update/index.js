@@ -45,16 +45,37 @@ module.exports = generators.Base.extend({
         name: pkg.name,
         version: pkg.version,
         uploading: this.props.uploading,
-        babel: this.props.babel
+        babel: this.props.babel,
+        buildContent: `
+// 'gulp jekyll:tmp' -- copies your Jekyll site to a temporary directory
+// to be processed
+gulp.task('site:tmp', () =>
+  gulp.src(['src/**/*', '!src/assets/**/*', '!src/assets'], {dot: true})
+    .pipe(gulp.dest('.tmp/src'))
+    .pipe($.size({title: 'Jekyll'}))
+);
+
+// 'gulp jekyll' -- builds your site with development settings
+// 'gulp jekyll --prod' -- builds your site with production settings
+gulp.task('site', done => {
+  if (!argv.prod) {
+    shell.exec('jekyll build');
+    done();
+  } else if (argv.prod) {
+    shell.exec('jekyll build --config _config.yml,_config.build.yml');
+    done();
+  }
+});
+
+// 'gulp doctor' -- literally just runs jekyll doctor
+gulp.task('site:check', done => {
+  shell.exec('jekyll doctor');
+  done();
+});
+`
       }
     }, {
       local: require.resolve('generator-statisk/generators/gulp')
-    });
-
-    this.composeWith('jekyllized:gulp', {
-      options: {}
-    }, {
-      local: require.resolve('../gulp')
     });
   },
 

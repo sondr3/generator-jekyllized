@@ -42,14 +42,7 @@ test('creates comment about creation', () => {
 
 test('creates gulp task files, but not build.js', () => {
   assert.file([
-    'gulp/tasks/assets.js',
-    'gulp/tasks/clean.js',
-    'gulp/tasks/copy.js',
-    'gulp/tasks/fonts.js',
-    'gulp/tasks/html.js',
-    'gulp/tasks/images.js',
-    'gulp/tasks/inject.js',
-    'gulp/tasks/uploading.js'
+    'gulpfile.js'
   ]);
 });
 
@@ -61,6 +54,5 @@ test('does not create uploading credentials', () => {
 });
 
 test('gulp/tasks/scripts.js does not contain babel', () => {
-  assert.noFileContent('gulp/tasks/assets.js', 'const babel');
-  assert.noFileContent('gulp/tasks/assets.js', '.pipe(babel');
+  assert.noFileContent('gulpfile.js', '.pipe($.babel');
 });

@@ -40,25 +40,11 @@ test('creates comment about creation', () => {
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
 });
 
-test('creates gulp task files, but not build.js', () => {
-  assert.file([
-    'gulp/tasks/assets.js',
-    'gulp/tasks/clean.js',
-    'gulp/tasks/copy.js',
-    'gulp/tasks/fonts.js',
-    'gulp/tasks/html.js',
-    'gulp/tasks/images.js',
-    'gulp/tasks/inject.js',
-    'gulp/tasks/uploading.js'
-  ]);
-});
-
-test('gulp/tasks/assets.js does not contain babel', () => {
+test('gulpfile.js does not contain babel', () => {
   [
-    'const babel',
-    '.pipe(babel'
+    '.pipe($.babel'
   ].forEach(field => {
-    assert.fileContent('gulp/tasks/assets.js', field);
+    assert.fileContent('gulpfile.js', field);
   });
 });
 
@@ -81,6 +67,10 @@ test('does not contain uploading packages', () => {
 });
 
 test('does not contain deploy task', () => {
-  assert.fileContent('gulp/tasks/uploading.js', '// File empty but generated because of how Yeoman scaffolds files');
-  assert.noFileContent('gulp/tasks/uploading.js', 'gulp.task(\'upload\'');
+  [
+    'upload',
+    'deploy'
+  ].forEach(task => {
+    assert.noFileContent('gulpfile.js', 'gulp.task(\'' + task);
+  });
 });
