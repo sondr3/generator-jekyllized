@@ -1,10 +1,9 @@
 'use strict';
 var path = require('path');
-var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-test.before(() => {
+beforeAll(() => {
   var deps = [
     [helpers.createDummyGenerator(), 'statisk:git']
   ];

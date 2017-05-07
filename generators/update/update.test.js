@@ -1,17 +1,16 @@
 'use strict';
 var path = require('path');
-var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-test.before(() => {
-  var pkg = require('../package.json');
+beforeAll(() => {
+  var pkg = require('../../package.json');
 
   var deps = [
     [helpers.createDummyGenerator(), 'statisk:gulp']
   ];
 
-  return helpers.run(path.join(__dirname, '../generators/update'))
+  return helpers.run(path.join(__dirname, '.'))
     .withOptions({
       'name': pkg.name,
       'version': pkg.version,
@@ -21,8 +20,7 @@ test.before(() => {
       uploading: 'None',
       babel: false
     })
-    .withGenerators(deps)
-    .toPromise();
+    .withGenerators(deps);
 });
 
 test('creates gulpfile', () => {
@@ -34,7 +32,7 @@ test('creates package.json', () => {
 });
 
 test('creates comment about creation', () => {
-  const pkg = require('../package.json');
+  const pkg = require('../../package.json');
 
   const date = (new Date()).toISOString().split('T')[0];
   assert.fileContent('gulpfile.js', '// generated on ' + date + ' using ' + pkg.name + ' ' + pkg.version);
@@ -43,13 +41,6 @@ test('creates comment about creation', () => {
 test('creates gulp task files, but not build.js', () => {
   assert.file([
     'gulpfile.js'
-  ]);
-});
-
-test('does not create uploading credentials', () => {
-  assert.noFile([
-    'rsync-credentials.json',
-    'aws-credentials.json'
   ]);
 });
 

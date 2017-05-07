@@ -1,18 +1,16 @@
 'use strict';
 var path = require('path');
-var test = require('ava');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 
-test.before(() => {
+beforeAll(() => {
   var deps = [
     [helpers.createDummyGenerator(), 'statisk:editorconfig']
   ];
 
-  return helpers.run(path.join(__dirname, '../generators/app'))
+  return helpers.run(path.join(__dirname, '.'))
     .withOptions({'skip-install': true})
-    .withGenerators(deps)
-    .toPromise();
+    .withGenerators(deps);
 });
 
 test('generates expected files', () => {
