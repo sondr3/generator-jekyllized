@@ -36,6 +36,7 @@
   "devDependencies": {
     "ava": "^0.16.0",
     "coveralls": "^2.11.12",
+    "jest": "^20.0.0",
     "nyc": "^8.3.0",
     "xo": "^0.16.0",
     "yeoman-assert": "^2.2.1",
