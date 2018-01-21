@@ -1,5 +1,12 @@
 # generator-jekyllized [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 
+# Looking for a (co)-maintainer
+I've since stopped using Jekyll and consequently have neither the time nor need 
+to maintain this package, I would however love it if someone who either found this
+generator useful or wants to help to take over the responsibility in maintaining
+it. Hit me up on Twitter (@sondr3), Keybase (@sondre) or the mail in my GitHub
+profile.
+
 ***NOTE: Currently using gulp 4.0 which is in beta!***
 
 ## Introduction
