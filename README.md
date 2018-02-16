@@ -1,6 +1,4 @@
-# generator-jekyllized [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
-
-***NOTE: Currently using gulp 4.0 which is in beta!***
+# generator-jekyllized [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![codecov][codecov-image]][codecov-url]
 
 ## Introduction
 
@@ -260,7 +258,7 @@ MIT © Sondre Nilsen (https://github.com/sondr3)
 [yeoman]: http://yeoman.io
 [npm-image]: https://badge.fury.io/js/generator-jekyllized.svg
 [npm-url]: https://npmjs.org/package/generator-jekyllized
-[travis-image]: https://travis-ci.org/sondr3/generator-jekyllized.svg?branch=master
+[travis-image]: https://travis-ci.org/sondr3/generator-jekyllized.svg?branch=overhaul
 [travis-url]: https://travis-ci.org/sondr3/generator-jekyllized
-[coveralls-image]: https://coveralls.io/repos/sondr3/generator-jekyllized/badge.svg
-[coveralls-url]: https://coveralls.io/r/sondr3/generator-jekyllized
+[codecov-image]: https://codecov.io/gh/sondr3/generator-jekyllized/branch/overhaul/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/sondr3/generator-jekyllized
