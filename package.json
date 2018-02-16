@@ -19,24 +19,31 @@
     "static-site",
     "website",
     "web",
-    "scaffold"
+    "scaffold",
+    "yeoman-generator"
   ],
-  "dependencies": {
-    "chalk": "^2.2.0",
-    "yeoman-generator": "^2.0.1",
-    "yosay": "^2.0.1"
-  },
   "devDependencies": {
+    "codecov": "3.0.0",
     "coveralls": "^3.0.0",
-    "jest": "^21.2.1",
-    "prettier": "^1.7.4",
+    "jest": "^22.0.6",
+    "prettier": "1.10.2",
     "yeoman-assert": "^3.1.0",
-    "yeoman-test": "^1.6.0"
+    "yeoman-test": "^1.7.0"
+  },
+  "dependencies": {
+    "yeoman-generator": "^2.0.1",
+    "chalk": "^2.1.0",
+    "yosay": "^2.0.1"
   },
   "repository": "git@github.com:sondr3/generator-jekyllized.git",
   "scripts": {
-    "lint": "prettier --single-quote --write '{generators,tests}/**/*.js'",
-    "test": "jest --coverage"
+    "lint": "prettier --single-quote --write '{generators,__tests__}/**/*.js'",
+    "test": "jest"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage",
+    "collectCoverage": true
+  }
 }

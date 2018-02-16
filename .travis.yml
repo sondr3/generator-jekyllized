@@ -1,12 +1,11 @@
 sudo: false
 language: node_js
 node_js:
-  - 'node'
-  - '7'
-  - '6'
-  - '5'
-  - '4'
-after_success: 'cat ./coverage/lcov.info | coveralls'
+  - v9
+  - v8
+  - v6
+after_success: codecov
+after_script: codecov
 notifications:
   email: false
   webhooks:
