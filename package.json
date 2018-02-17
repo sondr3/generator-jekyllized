@@ -25,6 +25,12 @@
   "devDependencies": {
     "codecov": "3.0.0",
     "coveralls": "^3.0.0",
+    "eslint": "^4.18.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-promise": "^3.6.0",
     "jest": "^22.0.6",
     "prettier": "1.10.2",
     "yeoman-assert": "^3.1.0",
@@ -37,7 +43,8 @@
   },
   "repository": "git@github.com:sondr3/generator-jekyllized.git",
   "scripts": {
-    "lint": "prettier --single-quote --write '{generators,__tests__}/**/*.js'",
+    "lint": "prettier --write '{generators,__tests__}/**/*.js'",
+    "pretest": "eslint .",
     "test": "jest"
   },
   "license": "MIT",
@@ -45,5 +52,14 @@
     "testEnvironment": "node",
     "coverageDirectory": "./coverage",
     "collectCoverage": true
-  }
+  },
+  "eslintConfig": {
+    "extends": "plugin:prettier/recommended",
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    }
+  },
+  "eslintIgnore": ["coverage/"]
 }
