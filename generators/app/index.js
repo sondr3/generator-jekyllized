@@ -6,13 +6,7 @@ const yosay = require("yosay");
 module.exports = class extends Generator {
   prompting() {
     // Have Yeoman greet the user.
-    this.log(
-      yosay(
-        "Welcome to the shining " +
-          chalk.red("generator-jekyllized") +
-          " generator!"
-      )
-    );
+    this.log(yosay(chalk.red("generator-jekyllized")));
 
     const prompts = [
       {
@@ -29,13 +23,19 @@ module.exports = class extends Generator {
     });
   }
 
+  writing() {
+    this.fs.copy(
+      this.templatePath("README.md"),
+      this.destinationPath("README.md")
+    );
+  }
+
   default() {
     this.composeWith(require.resolve("generator-node/generators/editorconfig"));
     this.composeWith(require.resolve("generator-node/generators/git"));
-    this.composeWith(require.resolve("generator-node/generators/readme"));
   }
 
   install() {
-    this.installDependencies();
+    this.npmInstall();
   }
 };
