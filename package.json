@@ -46,7 +46,7 @@
   "scripts": {
     "nsp": "nsp check",
     "lint": "prettier --write '{generators,__tests__}/**/*.js'",
-    "pretest": "eslint . && prettier -l",
+    "pretest": "eslint .",
     "test": "jest"
   },
   "license": "MIT",
