@@ -4,6 +4,9 @@ node_js:
   - v9
   - v8
   - v6
+script:
+  - npm run nsp
+  - npm test
 after_success: codecov
 after_script: codecov
 notifications:

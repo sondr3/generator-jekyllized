@@ -32,6 +32,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-promise": "^3.6.0",
     "jest": "^22.0.6",
+    "nsp": "^3.2.1",
     "prettier": "1.10.2",
     "yeoman-assert": "^3.1.0",
     "yeoman-test": "^1.7.0"
@@ -43,6 +44,7 @@
   },
   "repository": "git@github.com:sondr3/generator-jekyllized.git",
   "scripts": {
+    "nsp": "nsp check",
     "lint": "prettier --write '{generators,__tests__}/**/*.js'",
     "pretest": "eslint .",
     "test": "jest"
@@ -61,5 +63,7 @@
       "jest": true
     }
   },
-  "eslintIgnore": ["coverage/"]
+  "eslintIgnore": [
+    "coverage/"
+  ]
 }
