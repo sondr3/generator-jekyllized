@@ -10,7 +10,7 @@ describe("generator-jekyllized:app", () => {
       .withPrompts({ someAnswer: true });
   });
 
-  it("creates files", () => {
-    assert.file(["dummyfile.txt"]);
+  it("creates essential files", () => {
+    assert.file([".editorconfig", ".gitattributes", ".gitignore", "README.md"]);
   });
 });

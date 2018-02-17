@@ -29,11 +29,10 @@ module.exports = class extends Generator {
     });
   }
 
-  writing() {
-    this.fs.copy(
-      this.templatePath("dummyfile.txt"),
-      this.destinationPath("dummyfile.txt")
-    );
+  default() {
+    this.composeWith(require.resolve("generator-node/generators/editorconfig"));
+    this.composeWith(require.resolve("generator-node/generators/git"));
+    this.composeWith(require.resolve("generator-node/generators/readme"));
   }
 
   install() {
