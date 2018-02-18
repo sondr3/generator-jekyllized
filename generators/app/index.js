@@ -1,7 +1,5 @@
 "use strict";
 const Generator = require("yeoman-generator");
-const chalk = require("chalk");
-const yosay = require("yosay");
 
 module.exports = class extends Generator {
   writing() {
@@ -12,8 +10,16 @@ module.exports = class extends Generator {
   }
 
   default() {
-    this.composeWith(require.resolve("generator-node/generators/editorconfig"));
-    this.composeWith(require.resolve("generator-node/generators/git"));
+    this.composeWith(
+      require.resolve("generator-statisk/generators/editorconfig")
+    );
+    this.composeWith(require.resolve("generator-statisk/generators/git"), {
+      gitignore: `# jekyllized
+_site/
+dist/
+.sass-cache/
+Gemfile.lock`
+    });
 
     this.composeWith(require.resolve("../jekyll"));
   }

@@ -6,9 +6,16 @@ describe("generator-jekyllized:app", () => {
   beforeAll(() => {
     return helpers
       .run(require.resolve("../generators/app"))
+      .withOptions({
+        gitignore: `# jekyllized
+_site/                                                                                                              
+dist/                                                                                                               
+.sass-cache/                                                                                                        
+Gemfile.lock`
+      })
       .withGenerators([
-        [helpers.createDummyGenerator(), "node:editorconfig"],
-        [helpers.createDummyGenerator(), "node:git"],
+        [helpers.createDummyGenerator(), "statisk:editorconfig"],
+        [helpers.createDummyGenerator(), "statisk:git"],
         [helpers.createDummyGenerator(), "jekyllized:jekyll"]
       ]);
   });
@@ -25,5 +32,11 @@ describe("generator-jekyllized:app", () => {
       "_config.yml",
       "src"
     ]);
+  });
+
+  it(".gitignore contains correct ignores", () => {
+    ["# jekyllized", "_site/", "dist/", ".sass-cache/", "Gemfile.lock"].forEach(
+      field => assert.fileContent(".gitignore", field)
+    );
   });
 });
