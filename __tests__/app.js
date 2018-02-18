@@ -7,10 +7,24 @@ describe("generator-jekyllized:app", () => {
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, "../generators/app"))
-      .withPrompts({ someAnswer: true });
+      .withGenerators([
+        [helpers.createDummyGenerator(), "node:editorconfig"],
+        [helpers.createDummyGenerator(), "node:git"],
+        [helpers.createDummyGenerator(), "jekyllized:jekyll"]
+      ]);
   });
 
   it("creates essential files", () => {
-    assert.file([".editorconfig", ".gitattributes", ".gitignore", "README.md"]);
+    assert.file([
+      // Core files
+      ".editorconfig",
+      ".gitattributes",
+      ".gitignore",
+      "README.md",
+      // Testing for Jekyll sub-generator
+      "Gemfile",
+      "_config.yml",
+      "src"
+    ]);
   });
 });
