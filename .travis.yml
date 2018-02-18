@@ -8,7 +8,6 @@ script:
   - npm run nsp
   - npm test
 after_success: codecov
-after_script: codecov
 notifications:
   email: false
   webhooks:
