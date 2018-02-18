@@ -22,6 +22,8 @@
     "scaffold",
     "yeoman-generator"
   ],
+  "repository": "git@github.com:sondr3/generator-jekyllized.git",
+  "license": "MIT",
   "devDependencies": {
     "codecov": "3.0.0",
     "coveralls": "^3.0.0",
@@ -43,14 +45,12 @@
     "yeoman-generator": "^2.0.1",
     "yosay": "^2.0.1"
   },
-  "repository": "git@github.com:sondr3/generator-jekyllized.git",
   "scripts": {
     "nsp": "nsp check",
     "lint": "prettier --write '{generators,__tests__}/**/*.js'",
     "pretest": "eslint .",
     "test": "jest"
   },
-  "license": "MIT",
   "jest": {
     "testEnvironment": "node",
     "coverageDirectory": "./coverage",
