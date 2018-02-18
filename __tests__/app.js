@@ -14,8 +14,8 @@ dist/
 Gemfile.lock`
       })
       .withGenerators([
-        [helpers.createDummyGenerator(), "statisk:editorconfig"],
-        [helpers.createDummyGenerator(), "statisk:git"],
+        [helpers.createDummyGenerator(), "jekyllized:editorconfig"],
+        [helpers.createDummyGenerator(), "jekyllized:git"],
         [helpers.createDummyGenerator(), "jekyllized:jekyll"]
       ]);
   });

@@ -10,10 +10,8 @@ module.exports = class extends Generator {
   }
 
   default() {
-    this.composeWith(
-      require.resolve("generator-statisk/generators/editorconfig")
-    );
-    this.composeWith(require.resolve("generator-statisk/generators/git"), {
+    this.composeWith(require.resolve("../editorconfig"));
+    this.composeWith(require.resolve("../git"), {
       gitignore: `# jekyllized
 _site/
 dist/
