@@ -1,12 +1,11 @@
 "use strict";
-const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
 
 describe("generator-jekyllized:app", () => {
   beforeAll(() => {
     return helpers
-      .run(path.join(__dirname, "../generators/app"))
+      .run(require.resolve("../generators/app"))
       .withGenerators([
         [helpers.createDummyGenerator(), "node:editorconfig"],
         [helpers.createDummyGenerator(), "node:git"],

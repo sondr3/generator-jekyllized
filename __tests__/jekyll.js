@@ -1,11 +1,10 @@
 "use strict";
-const path = require("path");
 const assert = require("yeoman-assert");
 const helpers = require("yeoman-test");
 
 describe("generator-jekyllized:jekyll", () => {
   beforeAll(() => {
-    return helpers.run(path.join(__dirname, "../generators/jekyll"));
+    return helpers.run(require.resolve("../generators/jekyll"));
   });
 
   it("creates Gemfile", () => {
