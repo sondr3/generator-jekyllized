@@ -23,12 +23,27 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
+rss: rss
+#dribbble_username: jekyll
+#facebook_username: jekyll
+#flickr_username: jekyll
+#instagram_username: jekyll
+#linkedin_username: jekyll
+#pinterest_username: jekyll
+#youtube_username: jekyll
+#googleplus_username: +jekyll
+
+show_excerpts: false # set to true to show excerpts on the homepage
+
+# If you want to link only specific pages in your header, uncomment
+# this and add the path to the pages in order as they should show up
+#header_pages:
+# - about.html
 
 # Build settings
 source: src
 destination: dist
 markdown: CommonMark
-theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
