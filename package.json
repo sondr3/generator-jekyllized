@@ -49,8 +49,9 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "collectCoverage": true,
     "coverageDirectory": "./coverage",
-    "collectCoverage": true
+    "coverageReporters": ["json", "lcov", "text-summary"]
   },
   "eslintConfig": {
     "extends": "plugin:prettier/recommended",

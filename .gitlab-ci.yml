@@ -1,0 +1,35 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - node_modules/
+
+build:install:
+  stage: build
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules/
+
+test:vulnerabilites:
+  stage: test
+  script: npm run nsp
+
+test:latest:
+  stage: test
+  script: npm test
+
+test:node8:
+  image: node:8
+  stage: test
+  script: npm test
+
+test:node6:
+  image: node:6
+  stage: test
+  script: npm test
